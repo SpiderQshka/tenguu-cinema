@@ -1,0 +1,39 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  C:\ProgramData\Oracle\Java\javapath;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\nodejs\;C:\maven\bin;c:\apache-tomcat-9.0.20\bin;C:\Program Files\Java\jdk-11.0.2\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin\;C:\Users\leopr\AppData\Local\Microsoft\WindowsApps;;C:\Users\leopr\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\leopr\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.21.1
+
+Node version: 
+  6.11.4
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: C:\Users\leopr\Documents\GitHub\tenguu-cinema\packages\server\package.json: Unexpected token } in JSON at position 111
+      at Object.parse (native)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
+      at next (native)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:310:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+      "name": "tenguu-cinema",
+      "version": "1.0.0",
+      "license": "MIT",
+      "private": true,
+      "workspaces": [
+        "packages/*"
+      ]
+    }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

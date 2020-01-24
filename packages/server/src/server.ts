@@ -16,7 +16,7 @@ main();
 const app = e();
 const PORT = 4000;
 app.get("/", (req: e.Request, res: e.Response) => {
-  res.send("!");
+  res.send("Hello, world");
 });
 
 app.listen(PORT, () => {

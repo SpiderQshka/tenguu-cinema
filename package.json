@@ -22,7 +22,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged line-staged"
+      "pre-commit": "pretty-quick line-staged"
     }
   }
 }

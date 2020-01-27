@@ -1,32 +1,31 @@
-import e from "express";
-import cors from "cors";
-// import mongoose from "mongoose";
+import express from "express";
+import mongoose from "mongoose";
+import { router } from "./route";
 
-// const start = async (): Promise<void> => {
-//   try {
-//     await mongoose.connect(
-//       "mongodb+srv://SpiderQshka:Prusov.2002@cluster0-phrn3.mongodb.net/test",
-//       {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true
-//       }
-//     );
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
-
-// start();
-
-const app = e();
+const app = express();
 const PORT = 4000;
 
-app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(router);
 
-app.use("/", (req, res) => {
-  res.json({ greeting: "Hello, World!" });
-});
+async function start() {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://SpiderQshka:Prusov.2002@cluster0-w1bmm.mongodb.net/users",
+      {
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true
+      }
+    );
 
-app.listen(PORT, () => {
-  console.log(`server is running and using port: ${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`server is running and using port: ${PORT}`);
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+start();

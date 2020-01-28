@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-const router = Router();
+const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
   res.send("Returns all genres");

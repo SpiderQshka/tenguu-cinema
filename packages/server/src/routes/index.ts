@@ -6,6 +6,7 @@ import users from "./users";
 import tickets from "./tickets";
 import halls from "./halls";
 import sessions from "./sessions";
+import auth from "./auth";
 export default {
   films,
   notFound,
@@ -14,5 +15,6 @@ export default {
   users,
   tickets,
   halls,
-  sessions
+  sessions,
+  auth
 };

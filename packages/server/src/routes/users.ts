@@ -1,7 +1,13 @@
 import { Router, Request, Response } from "express";
-const router = Router();
+import models from "../models/index";
+const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
+  models.User.find({}, (err, docs) => {
+    docs.forEach(user =>
+      user.checkPassword("1234", (err, result) => console.log(err, result))
+    );
+  });
   res.send("Returns all users");
 });
 

@@ -1,13 +1,15 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
+import { verifyToken } from "../middleware/verifyToken";
+import { IUser } from "../models/user.model";
+
 const router: Router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
-  models.User.find({}, (err, docs) => {
-    docs.forEach(user =>
-      user.checkPassword("1234", (err, result) => console.log(err, result))
-    );
+router.get("/", verifyToken, async (req: Request, res: Response) => {
+  models.User.findById(req.body.user._id, (err: Error, user: IUser) => {
+    console.log(user);
   });
+
   res.send("Returns all users");
 });
 

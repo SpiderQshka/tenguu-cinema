@@ -1,18 +1,14 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model } from "mongoose";
+import { IComment } from "../interfaces";
 
-export interface IComment extends Document {
-  content: string;
-  user: Schema.Types.ObjectId;
-}
-
-const commentScheme: Schema = new Schema({
+const commentScheme: Schema<IComment> = new Schema({
   content: {
     type: String,
     required: true
   },
-  user: {
+  filmId: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "Film"
   }
 });
 

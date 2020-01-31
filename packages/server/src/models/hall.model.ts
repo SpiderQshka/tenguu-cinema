@@ -9,6 +9,10 @@ const hallScheme: Schema<IHall> = new Schema({
   seatsOnRow: {
     type: Number,
     required: true
+  },
+  name: {
+    type: String,
+    required: true
   }
 });
 

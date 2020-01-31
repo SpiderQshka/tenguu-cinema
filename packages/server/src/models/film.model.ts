@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import { IFilm } from "../interfaces";
 
 const filmScheme: Schema<IFilm> = new Schema({
-  username: {
+  name: {
     type: String,
     required: true
   },

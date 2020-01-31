@@ -1,24 +1,67 @@
 import { Router, Request, Response } from "express";
+import models from "../models/index";
+import { hallValidation } from "./validation/validation";
+import { _IDREGEXP } from "../keys";
+import { IHall } from "../interfaces";
+
 const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
-  res.send("Returns all halls");
+  const halls = await models.Hall.find();
+
+  res.json(halls);
 });
 
 router.post("/", async (req: Request, res: Response) => {
-  res.send(`Adds new hall`);
+  const { error = null } = hallValidation(req.body);
+  if (error) res.status(400).send(error.details[0].message);
+
+  const nameExists = await models.Film.findOne({ name: req.body.name });
+  if (nameExists) res.status(400).send("Hall name already exists");
+
+  const hall = new models.Hall({
+    name: req.body.name,
+    numberOfSeats: req.body.numberOfSeats,
+    seatsOnRow: req.body.seatsOnRow
+  });
+  await hall.save();
+
+  res.send(`Hall "${req.body.name}" added successfully`);
 });
 
 router.get("/:hallId", async (req: Request, res: Response) => {
-  res.send(`Returns hall with id ${req.params.hallId}`);
+  if (!req.params.hallId.match(_IDREGEXP)) res.send("Wrong query format");
+  else {
+    const hall = await models.Hall.findById(req.params.hallId);
+
+    if (!hall) res.status(404).send("Not found");
+    else res.json(hall);
+  }
 });
 
-router.patch("/:hallId", async (req: Request, res: Response) => {
-  res.send(`Patches hall with id ${req.params.hallId}`);
+router.put("/:hallId", async (req: Request, res: Response) => {
+  const hall: IHall = req.body;
+
+  if (!req.params.hallId.match(/^[0-9a-fA-F]{24}$/))
+    res.send("Wrong query format");
+  else {
+    const updatedHall = await models.Hall.findByIdAndUpdate(
+      req.params.hallId,
+      hall
+    );
+    if (!updatedHall) res.status(404).send("Not found");
+    else res.send("Updated successfully");
+  }
 });
 
 router.delete("/:hallId", async (req: Request, res: Response) => {
-  res.send(`Deletes hall with id ${req.params.hallId}`);
+  if (!req.params.hallId.match(/^[0-9a-fA-F]{24}$/))
+    res.send("Wrong query format");
+  else {
+    const deletedHall = await models.Hall.findByIdAndRemove(req.params.hallId);
+    if (!deletedHall) res.status(404).send("Not found");
+    else res.send("Removed successfully");
+  }
 });
 
 export default router;

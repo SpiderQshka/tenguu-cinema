@@ -1,4 +1,4 @@
-import { UserStatuses } from "./types";
+import { UserStatuses, FilmGenres } from "./types";
 import { Schema, Document } from "mongoose";
 
 interface ISeat extends Document {
@@ -15,7 +15,7 @@ interface ITicket extends Document {
 }
 
 interface IGenre extends Document {
-  name: string;
+  name: FilmGenres;
 }
 
 interface ISession extends Document {
@@ -34,6 +34,7 @@ interface IFilm extends Document {
 }
 
 interface IHall extends Document {
+  name: string;
   numberOfSeats: number;
   seatsOnRow: number;
 }

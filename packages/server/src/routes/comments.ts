@@ -31,8 +31,9 @@ router.get("/:commentId", async (req: Request, res: Response) => {
     const comment = await models.Comment.findById(req.params.commentId);
 
     if (!comment) res.status(404).send("Not found");
-
-    res.json(comment);
+    else {
+      res.json(comment);
+    }
   }
 });
 
@@ -47,8 +48,7 @@ router.patch("/:commentId", async (req: Request, res: Response) => {
       comment
     );
     if (!updatedComment) res.status(404).send("Not found");
-
-    res.send("Updated successfully");
+    else res.send("Updated successfully");
   }
 });
 
@@ -60,9 +60,7 @@ router.delete("/:commentId", async (req: Request, res: Response) => {
       req.params.commentId
     );
     if (!deletedComment) res.status(404).send("Not found");
-    else {
-      res.send("Removed successfully");
-    }
+    else res.send("Removed successfully");
   }
 });
 

@@ -28,7 +28,7 @@ router.post("/", async (req: Request, res: Response) => {
     password: hashPassword,
     email: req.body.email
   });
-  user.save();
+  await user.save();
 
   res.send({ user: user._id });
 });
@@ -39,8 +39,7 @@ router.get("/:userId", async (req: Request, res: Response) => {
     const user = await models.User.findById(req.params.userId);
 
     if (!user) res.status(404).send("Not found");
-
-    res.json(user);
+    else res.json(user);
   }
 });
 
@@ -55,8 +54,7 @@ router.put("/:userId", async (req: Request, res: Response) => {
       user
     );
     if (!updatedUser) res.status(404).send("Not found");
-
-    res.send("Updated successfully");
+    else res.send("Updated successfully");
   }
 });
 
@@ -66,9 +64,7 @@ router.delete("/:userId", async (req: Request, res: Response) => {
   else {
     const deletedUser = await models.User.findByIdAndRemove(req.params.userId);
     if (!deletedUser) res.status(404).send("Not found");
-    else {
-      res.send("Removed successfully");
-    }
+    else res.send("Removed successfully");
   }
 });
 

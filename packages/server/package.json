@@ -5,7 +5,8 @@
     "watch-ts": "tsc -w",
     "build": "tsc -p",
     "start": "concurrently \"yarn watch-ts\" \"nodemon ./dist/server.js\"",
-    "clear": "rm -rf dist"
+    "clear": "rm -rf dist",
+    "test": "jest"
   },
   "license": "ISC",
   "dependencies": {
@@ -30,5 +31,8 @@
     "nodemon": "^2.0.2",
     "ts-jest": "^25.1.0",
     "typescript": "^3.7.5"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

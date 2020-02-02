@@ -2,15 +2,15 @@ import { Router, Request, Response } from "express";
 import models from "../models/index";
 import bcrypt from "bcryptjs";
 import { registerValidation } from "./validation/validation";
-import { IUser } from "../interfaces";
-import { _IDREGEXP } from "../keys";
+import { IUser } from "../interfaces/interfaces";
+import { _IDREGEXP } from "../keys/keys";
 
 const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
   const users = await models.User.find();
 
-  res.json(users);
+  return res.json(users);
 });
 
 router.post("/", async (req: Request, res: Response) => {
@@ -30,16 +30,17 @@ router.post("/", async (req: Request, res: Response) => {
   });
   await user.save();
 
-  res.send({ user: user._id });
+  return res.send({ user: user._id });
 });
 
 router.get("/:userId", async (req: Request, res: Response) => {
-  if (!req.params.userId.match(_IDREGEXP)) res.send("Wrong query format");
+  if (!req.params.userId.match(_IDREGEXP))
+    return res.send("Wrong query format");
   else {
     const user = await models.User.findById(req.params.userId);
 
-    if (!user) res.status(404).send("Not found");
-    else res.json(user);
+    if (!user) return res.status(404).send("Not found");
+    else return res.json(user);
   }
 });
 
@@ -47,24 +48,24 @@ router.put("/:userId", async (req: Request, res: Response) => {
   const user: IUser = req.body;
 
   if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/))
-    res.send("Wrong query format");
+    return res.send("Wrong query format");
   else {
     const updatedUser = await models.User.findByIdAndUpdate(
       req.params.userId,
       user
     );
-    if (!updatedUser) res.status(404).send("Not found");
-    else res.send("Updated successfully");
+    if (!updatedUser) return res.status(404).send("Not found");
+    else return res.send("Updated successfully");
   }
 });
 
 router.delete("/:userId", async (req: Request, res: Response) => {
   if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/))
-    res.send("Wrong query format");
+    return res.send("Wrong query format");
   else {
     const deletedUser = await models.User.findByIdAndRemove(req.params.userId);
-    if (!deletedUser) res.status(404).send("Not found");
-    else res.send("Removed successfully");
+    if (!deletedUser) return res.status(404).send("Not found");
+    else return res.send("Removed successfully");
   }
 });
 

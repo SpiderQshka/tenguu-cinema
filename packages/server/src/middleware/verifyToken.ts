@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from "express";
-import { TOKEN_SECRET } from "../keys";
+import { TOKEN_SECRET } from "../keys/keys";
 import jwt from "jsonwebtoken";
 
 const verifyToken: RequestHandler = (req: Request, res: Response, next) => {

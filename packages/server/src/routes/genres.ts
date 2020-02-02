@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
 import { genreValidation } from "./validation/validation";
-import { _IDREGEXP } from "../keys";
-import { IGenre } from "../interfaces";
+import { _IDREGEXP } from "../keys/keys";
+import { IGenre } from "../interfaces/interfaces";
 
 const router: Router = Router();
 

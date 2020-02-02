@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IHall } from "../interfaces";
+import { IHall } from "../interfaces/interfaces";
 
 const hallScheme: Schema<IHall> = new Schema({
   numberOfSeats: {

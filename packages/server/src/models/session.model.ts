@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { ISession } from "../interfaces";
+import { ISession } from "../interfaces/interfaces";
 
 const sessionScheme: Schema<ISession> = new Schema({
   filmId: {

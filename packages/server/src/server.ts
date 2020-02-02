@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import routes from "./routes/index";
 import { connectDb } from "./models/index";
-import { DBURL } from "./keys";
+import { DBURL } from "./keys/keys";
 
 const app: Express = express();
 const PORT: number = 4000;

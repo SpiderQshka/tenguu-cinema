@@ -8,8 +8,8 @@ import {
   IUser,
   IHall,
   ISeat
-} from "../../interfaces";
-import { _IDREGEXP } from "../../keys";
+} from "../../interfaces/interfaces";
+import { _IDREGEXP } from "../../keys/keys";
 
 const registerValidation = (data: object) => {
   const schema = Joi.object({

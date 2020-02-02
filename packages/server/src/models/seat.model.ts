@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { ISeat } from "../interfaces";
+import { ISeat } from "../interfaces/interfaces";
 
 const seatScheme: Schema<ISeat> = new Schema({
   row: {

@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
 import { commentValidation } from "./validation/validation";
-import { _IDREGEXP } from "../keys";
-import { IComment } from "../interfaces";
+import { _IDREGEXP } from "../keys/keys";
+import { IComment } from "../interfaces/interfaces";
 
 const router: Router = Router();
 

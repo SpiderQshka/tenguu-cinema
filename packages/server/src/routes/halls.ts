@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
 import { hallValidation } from "./validation/validation";
-import { _IDREGEXP } from "../keys";
-import { IHall } from "../interfaces";
+import { _IDREGEXP } from "../keys/keys";
+import { IHall } from "../interfaces/interfaces";
 
 const router: Router = Router();
 

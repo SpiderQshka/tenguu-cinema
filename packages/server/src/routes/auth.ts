@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import models from "../models/index";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { TOKEN_SECRET } from "../keys";
+import { TOKEN_SECRET } from "../keys/keys";
 import { registerValidation, loginValidation } from "./validation/validation";
 
 const router: Router = Router();

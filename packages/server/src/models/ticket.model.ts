@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { ITicket } from "../interfaces";
+import { ITicket } from "../interfaces/interfaces";
 
 const ticketScheme: Schema<ITicket> = new Schema({
   sessionId: {

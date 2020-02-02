@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
 import { seatValidation } from "./validation/validation";
-import { _IDREGEXP } from "../keys";
-import { ISeat } from "../interfaces";
+import { _IDREGEXP } from "../keys/keys";
+import { ISeat } from "../interfaces/interfaces";
 
 const router: Router = Router();
 

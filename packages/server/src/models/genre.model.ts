@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IGenre } from "../interfaces";
+import { IGenre } from "../interfaces/interfaces";
 
 const genreScheme: Schema<IGenre> = new Schema({
   name: {

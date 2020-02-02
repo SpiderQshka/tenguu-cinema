@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
 import { filmValidation } from "./validation/validation";
-import { _IDREGEXP } from "../keys";
-import { IFilm } from "../interfaces";
+import { _IDREGEXP } from "../keys/keys";
+import { IFilm } from "../interfaces/interfaces";
 
 const router: Router = Router();
 

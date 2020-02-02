@@ -1,4 +1,4 @@
-import { UserStatuses, FilmGenres } from "./types";
+import { UserStatuses, FilmGenres } from "../types/types";
 import { Schema, Document } from "mongoose";
 
 interface ISeat extends Document {

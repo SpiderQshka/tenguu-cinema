@@ -13,7 +13,7 @@ import { _IDREGEXP } from "../../keys/keys";
 
 const registerValidation = (data: object) => {
   const schema = Joi.object({
-    name: Joi.string().required(),
+    username: Joi.string().required(),
     password: Joi.string()
       .min(6)
       .required(),

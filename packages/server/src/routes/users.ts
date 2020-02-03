@@ -15,22 +15,22 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.post("/", async (req: Request, res: Response) => {
   const { error = null } = registerValidation(req.body);
-  if (error) res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message);
 
   const emailExists = await models.User.findOne({ email: req.body.email });
-  if (emailExists) res.status(400).send("Email already exists");
+  if (emailExists) return res.status(400).send("Email already exists");
 
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(req.body.password, salt);
 
   const user = new models.User({
-    username: req.body.name,
+    username: req.body.username,
     password: hashPassword,
     email: req.body.email
   });
   await user.save();
 
-  return res.send({ user: user._id });
+  return res.send(user._id);
 });
 
 router.get("/:userId", async (req: Request, res: Response) => {

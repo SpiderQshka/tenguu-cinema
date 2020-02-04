@@ -1,5 +1,5 @@
 import Joi, { ValidationResult } from "@hapi/joi";
-import { ISession, IFilm } from "../../interfaces/interfaces";
+import { ISession } from "../../interfaces/interfaces";
 import models from "../../models/index";
 import { _IDREGEXP } from "../../keys/keys";
 import { Response, Request } from "express";

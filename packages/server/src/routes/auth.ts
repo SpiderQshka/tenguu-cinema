@@ -3,7 +3,10 @@ import models from "../models/index";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { TOKEN_SECRET } from "../keys/keys";
-import { registerValidation, loginValidation } from "./validation/validation";
+import {
+  registerValidation,
+  loginValidation
+} from "./validation/authValidation";
 
 const router: Router = Router();
 

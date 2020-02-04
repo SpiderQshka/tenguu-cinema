@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import { IHall } from "../interfaces/interfaces";
 
 const hallScheme: Schema<IHall> = new Schema({
-  numberOfSeats: {
+  numberOfRows: {
     type: Number,
     required: true
   },

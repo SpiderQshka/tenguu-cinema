@@ -1,8 +1,12 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
-import { ticketValidation } from "./validation/validation";
+import {
+  ticketSchemaValidation,
+  ticketDataValidation
+} from "./validation/ticketsValidation";
 import { _IDREGEXP } from "../keys/keys";
 import { ITicket } from "../interfaces/interfaces";
+import { TicketStatuses } from "../types/types";
 
 const router: Router = Router();
 
@@ -13,55 +17,62 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-  const { error = null } = ticketValidation(req.body);
-  if (error) res.status(400).send(error.details[0].message);
+  const { error } = ticketSchemaValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const response = await ticketDataValidation(req, res);
+  if (response.statusCode !== 200) return response;
 
   const ticket = new models.Ticket({
     sessionId: req.body.sessionId,
     userId: req.body.userId,
-    seatId: req.body.seatId,
-    status: req.body.status
+    seat: req.body.seat,
+    status: req.body.status as TicketStatuses
   });
   await ticket.save();
 
-  res.send(`Ticket added successfully`);
+  return res.send(`Ticket added successfully`);
 });
 
 router.get("/:ticketId", async (req: Request, res: Response) => {
-  if (!req.params.ticketId.match(_IDREGEXP)) res.send("Wrong query format");
+  if (!req.params.ticketId.match(_IDREGEXP))
+    return res.send("Wrong query format");
   else {
     const ticket = await models.Ticket.findById(req.params.ticketId);
 
-    if (!ticket) res.status(404).send("Not found");
-    else res.json(ticket);
+    if (!ticket) return res.status(404).send("Not found");
+    else return res.json(ticket);
   }
 });
 
 router.put("/:ticketId", async (req: Request, res: Response) => {
   const ticket: ITicket = req.body;
 
-  if (!req.params.ticketId.match(/^[0-9a-fA-F]{24}$/))
-    res.send("Wrong query format");
-  else {
-    const updatedTicket = await models.Ticket.findByIdAndUpdate(
-      req.params.ticketId,
-      ticket
-    );
-    if (!updatedTicket) res.status(404).send("Not found");
-    else res.send("Updated successfully");
-  }
+  if (!req.params.ticketId.match(_IDREGEXP))
+    return res.send("Wrong query format");
+
+  const response = await ticketDataValidation(req, res);
+  if (response.statusCode !== 200) return response;
+
+  const updatedTicket = await models.Ticket.findByIdAndUpdate(
+    req.params.ticketId,
+    ticket
+  );
+
+  if (!updatedTicket) return res.status(404).send("Not found");
+  else return res.send("Updated successfully");
 });
 
 router.delete("/:ticketId", async (req: Request, res: Response) => {
-  if (!req.params.ticketId.match(/^[0-9a-fA-F]{24}$/))
-    res.send("Wrong query format");
-  else {
-    const deletedTicket = await models.Ticket.findByIdAndRemove(
-      req.params.ticketId
-    );
-    if (!deletedTicket) res.status(404).send("Not found");
-    else res.send("Removed successfully");
-  }
+  if (!req.params.ticketId.match(_IDREGEXP))
+    return res.send("Wrong query format");
+
+  const deletedTicket = await models.Ticket.findByIdAndRemove(
+    req.params.ticketId
+  );
+
+  if (!deletedTicket) return res.status(404).send("Not found");
+  else return res.send("Removed successfully");
 });
 
 export default router;

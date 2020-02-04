@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
-import { filmValidation } from "./validation/validation";
+import { filmValidation } from "./validation/filmsValidation";
 import { _IDREGEXP } from "../keys/keys";
 import { IFilm } from "../interfaces/interfaces";
 
@@ -20,11 +20,7 @@ router.post("/", async (req: Request, res: Response) => {
   if (nameExists) res.status(400).send("Film name already exists");
 
   const film = new models.Film({
-    name: req.body.name,
-    genreId: req.body.genreId,
-    duration: req.body.duration,
-    trailerLink: req.body.trailerLink,
-    rating: req.body.rating
+    ...req.body
   });
   await film.save();
 

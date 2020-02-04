@@ -1,16 +1,13 @@
 import { UserStatuses, FilmGenres } from "../types/types";
 import { Schema, Document } from "mongoose";
 
-interface ISeat extends Document {
-  row: number;
-  seatNumber: number;
-  hallId: Schema.Types.ObjectId;
-}
-
 interface ITicket extends Document {
   sessionId: Schema.Types.ObjectId;
   userId: Schema.Types.ObjectId;
-  seatId: Schema.Types.ObjectId;
+  seat: {
+    row: number;
+    seatNumber: number;
+  };
   status: UserStatuses;
 }
 
@@ -35,7 +32,7 @@ interface IFilm extends Document {
 
 interface IHall extends Document {
   name: string;
-  numberOfSeats: number;
+  numberOfRows: number;
   seatsOnRow: number;
 }
 
@@ -51,4 +48,4 @@ interface IComment extends Document {
   filmId: Schema.Types.ObjectId;
 }
 
-export { ISeat, ITicket, IGenre, ISession, IFilm, IHall, IUser, IComment };
+export { ITicket, IGenre, ISession, IFilm, IHall, IUser, IComment };

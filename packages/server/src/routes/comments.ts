@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
-import { commentValidation } from "./validation/validation";
+import { commentValidation } from "./validation/commentsValidation";
 import { _IDREGEXP } from "../keys/keys";
 import { IComment } from "../interfaces/interfaces";
 
@@ -17,8 +17,7 @@ router.post("/", async (req: Request, res: Response) => {
   if (error) res.status(400).send(error.details[0].message);
 
   const comment = new models.Comment({
-    content: req.body.content,
-    filmId: req.body.filmId
+    ...req.body
   });
   await comment.save();
 
@@ -37,7 +36,7 @@ router.get("/:commentId", async (req: Request, res: Response) => {
   }
 });
 
-router.patch("/:commentId", async (req: Request, res: Response) => {
+router.put("/:commentId", async (req: Request, res: Response) => {
   const comment: IComment = req.body;
 
   if (!req.params.commentId.match(/^[0-9a-fA-F]{24}$/))

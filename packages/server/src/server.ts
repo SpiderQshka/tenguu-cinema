@@ -17,7 +17,6 @@ app.use("/api/users", routes.users);
 app.use("/api/tickets", routes.tickets);
 app.use("/api/halls", routes.halls);
 app.use("/api/sessions", routes.sessions);
-app.use("/api/seats", routes.seats);
 app.use("/api", routes.notFound);
 
 app.listen(PORT, () => {

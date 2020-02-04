@@ -12,15 +12,20 @@ const ticketScheme: Schema<ITicket> = new Schema({
     ref: "User",
     required: true
   },
-  seatId: {
-    type: Schema.Types.ObjectId,
-    ref: "Seat",
-    required: true
+  seat: {
+    row: {
+      type: Number,
+      required: true
+    },
+    seatNumber: {
+      type: Number,
+      required: true
+    }
   },
   status: {
     type: String,
     required: true,
-    default: "pending"
+    default: "active"
   }
 });
 

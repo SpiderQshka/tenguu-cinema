@@ -1,7 +1,5 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
-import bcrypt from "bcryptjs";
-import { registerValidation } from "./validation/validation";
 import { IUser } from "../interfaces/interfaces";
 import { _IDREGEXP } from "../keys/keys";
 
@@ -11,26 +9,6 @@ router.get("/", async (req: Request, res: Response) => {
   const users = await models.User.find();
 
   return res.json(users);
-});
-
-router.post("/", async (req: Request, res: Response) => {
-  const { error = null } = registerValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  const emailExists = await models.User.findOne({ email: req.body.email });
-  if (emailExists) return res.status(400).send("Email already exists");
-
-  const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash(req.body.password, salt);
-
-  const user = new models.User({
-    username: req.body.username,
-    password: hashPassword,
-    email: req.body.email
-  });
-  await user.save();
-
-  return res.send(user._id);
 });
 
 router.get("/:userId", async (req: Request, res: Response) => {

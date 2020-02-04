@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
-import { hallValidation } from "./validation/validation";
+import { hallValidation } from "./validation/hallsValidation";
 import { _IDREGEXP } from "../keys/keys";
 import { IHall } from "../interfaces/interfaces";
 
@@ -14,19 +14,17 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.post("/", async (req: Request, res: Response) => {
   const { error = null } = hallValidation(req.body);
-  if (error) res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message);
 
-  const nameExists = await models.Film.findOne({ name: req.body.name });
-  if (nameExists) res.status(400).send("Hall name already exists");
+  const nameExists = await models.Hall.findOne({ name: req.body.name });
+  if (nameExists) return res.status(400).send("Hall name already exists");
 
   const hall = new models.Hall({
-    name: req.body.name,
-    numberOfSeats: req.body.numberOfSeats,
-    seatsOnRow: req.body.seatsOnRow
+    ...req.body
   });
   await hall.save();
 
-  res.send(`Hall "${req.body.name}" added successfully`);
+  return res.send(`Hall "${req.body.name}" added successfully`);
 });
 
 router.get("/:hallId", async (req: Request, res: Response) => {

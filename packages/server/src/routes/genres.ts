@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
-import { genreValidation } from "./validation/validation";
+import { genreValidation } from "./validation/genresValidation";
 import { _IDREGEXP } from "../keys/keys";
 import { IGenre } from "../interfaces/interfaces";
 
@@ -19,7 +19,7 @@ router.post("/", async (req: Request, res: Response) => {
   const nameExists = await models.Genre.findOne({ name: req.body.name });
   if (nameExists) return res.status(400).send("Genre already exists");
   const genre = new models.Genre({
-    name: req.body.name
+    ...req.body
   });
   await genre.save();
 

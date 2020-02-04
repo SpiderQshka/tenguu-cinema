@@ -1,6 +1,8 @@
 import { app } from "../server";
 import request, { Response } from "supertest";
 
+// __________________________users_______________________________
+
 describe("testing user routes", () => {
   it("get all users", async () => {
     const res: Response = await request(app).get("/api/users");

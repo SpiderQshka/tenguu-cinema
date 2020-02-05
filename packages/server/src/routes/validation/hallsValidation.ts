@@ -1,7 +1,8 @@
 import Joi from "@hapi/joi";
 import { IHall } from "../../interfaces/interfaces";
+import models from "../../models/index";
 
-export const hallValidation = (data: IHall) => {
+export const hallValidation = async (data: IHall): Promise<string | null> => {
   const schema = Joi.object({
     numberOfRows: Joi.number()
       .min(1)
@@ -13,5 +14,12 @@ export const hallValidation = (data: IHall) => {
       .min(1)
       .required()
   });
-  return schema.validate(data);
+
+  const { error = null } = schema.validate(data);
+  if (error) return error.details[0].message;
+
+  const doesHallNameExists = await models.Hall.findOne({ name: data.name });
+  if (doesHallNameExists) return "Hall name already exists";
+
+  return null;
 };

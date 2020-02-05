@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
 import { filmValidation } from "./validation/filmsValidation";
-import { _IDREGEXP } from "../keys/keys";
+import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IFilm } from "../interfaces/interfaces";
 
 const router: Router = Router();
@@ -13,53 +13,67 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-  const { error = null } = filmValidation(req.body);
-  if (error) res.status(400).send(error.details[0].message);
-
-  const nameExists = await models.Film.findOne({ name: req.body.name });
-  if (nameExists) res.status(400).send("Film name already exists");
+  const error = await filmValidation(req.body);
+  if (error) return res.status(400).send(error);
 
   const film = new models.Film({
     ...req.body
   });
-  await film.save();
+  const newFilm = await film.save();
 
-  res.send(`Film "${req.body.name}" added successfully`);
+  return res.json(newFilm);
 });
 
 router.get("/:filmId", async (req: Request, res: Response) => {
-  if (!req.params.filmId.match(_IDREGEXP)) res.send("Wrong query format");
-  else {
-    const film = await models.Film.findById(req.params.filmId);
+  if (!doesIdMatchesFormat(req.params.filmId))
+    return res.send("Wrong query format");
 
-    if (!film) res.status(404).send("Not found");
-    else res.json(film);
-  }
+  const film = await models.Film.findById(req.params.filmId);
+
+  if (!film) return res.status(404).send("Not found");
+  return res.json(film);
 });
 
 router.put("/:filmId", async (req: Request, res: Response) => {
   const film: IFilm = req.body;
 
-  if (!req.params.filmId.match(/^[0-9a-fA-F]{24}$/))
-    res.send("Wrong query format");
-  else {
-    const updatedFilm = await models.Film.findByIdAndUpdate(
-      req.params.filmId,
-      film
-    );
-    if (!updatedFilm) res.status(404).send("Not found");
-    else res.send("Updated successfully");
-  }
+  if (!doesIdMatchesFormat(req.params.filmId))
+    return res.send("Wrong query format");
+
+  const error = await filmValidation(req.body);
+  if (error) return res.status(400).send(error);
+
+  const updatedFilm = await models.Film.findByIdAndUpdate(
+    req.params.filmId,
+    film
+  );
+
+  if (!updatedFilm) return res.status(404).send("Not found");
+  return res.json(updatedFilm);
 });
 
 router.delete("/:filmId", async (req: Request, res: Response) => {
-  if (!req.params.filmId.match(/^[0-9a-fA-F]{24}$/))
-    res.send("Wrong query format");
-  else {
-    const deletedFilm = await models.Film.findByIdAndRemove(req.params.filmId);
-    if (!deletedFilm) res.status(404).send("Not found");
-    else res.send("Removed successfully");
-  }
+  if (!doesIdMatchesFormat(req.params.filmId))
+    return res.send("Wrong query format");
+
+  const deletedFilm = await models.Film.findById(req.params.filmId);
+  if (!deletedFilm) return res.status(404).send("Not found");
+
+  const connectedSession = await models.Session.findOne({
+    filmId: req.params.filmId
+  });
+  if (connectedSession)
+    return res
+      .status(400)
+      .send(
+        "There are some sessions on this film. If you want to delete the film, delete sessions before"
+      );
+
+  await models.Comment.deleteMany({ filmId: req.params.filmId });
+
+  await models.Film.findByIdAndDelete(req.params.filmId);
+
+  return res.json(deletedFilm);
 });
 
 export default router;

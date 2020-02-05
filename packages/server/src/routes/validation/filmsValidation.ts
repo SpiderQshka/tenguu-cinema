@@ -1,9 +1,9 @@
 import Joi from "@hapi/joi";
 import { IFilm } from "../../interfaces/interfaces";
-
 import { _IDREGEXP } from "../../keys/keys";
+import models from "../../models/index";
 
-export const filmValidation = (data: IFilm) => {
+export const filmValidation = async (data: IFilm): Promise<string | null> => {
   const schema = Joi.object({
     name: Joi.string().required(),
     genreId: Joi.string()
@@ -18,5 +18,15 @@ export const filmValidation = (data: IFilm) => {
       .max(10)
       .required()
   });
-  return schema.validate(data);
+
+  const { error = null } = schema.validate(data);
+  if (error) return error.details[0].message;
+
+  const doesFilmExists = await models.Film.findOne({ name: data.name });
+  if (doesFilmExists) return "Film name already exists";
+
+  const filmGenre = await models.Genre.findById(data.genreId);
+  if (!filmGenre) return "Genre not found";
+
+  return null;
 };

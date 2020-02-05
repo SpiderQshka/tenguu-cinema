@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
 import { genreValidation } from "./validation/genresValidation";
-import { _IDREGEXP } from "../keys/keys";
+import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IGenre } from "../interfaces/interfaces";
 
 const router: Router = Router();
@@ -13,55 +13,53 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-  const { error = null } = genreValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  const error = await genreValidation(req.body);
+  if (error) return res.status(400).send(error);
 
-  const nameExists = await models.Genre.findOne({ name: req.body.name });
-  if (nameExists) return res.status(400).send("Genre already exists");
   const genre = new models.Genre({
     ...req.body
   });
-  await genre.save();
+  const newGenre = await genre.save();
 
-  return res.send(`Genre "${req.body.name}" added successfully`);
+  return res.json(newGenre);
 });
 
 router.get("/:genreId", async (req: Request, res: Response) => {
-  if (!req.params.genreId.match(_IDREGEXP))
+  if (!doesIdMatchesFormat(req.params.genreId))
     return res.send("Wrong query format");
-  else {
-    const genre = await models.Genre.findById(req.params.genreId);
 
-    if (!genre) return res.status(404).send("Not found");
-    else return res.json(genre);
-  }
+  const genre = await models.Genre.findById(req.params.genreId);
+
+  if (!genre) return res.status(404).send("Not found");
+  return res.json(genre);
 });
 
 router.put("/:genreId", async (req: Request, res: Response) => {
   const genre: IGenre = req.body;
 
-  if (!req.params.genreId.match(/^[0-9a-fA-F]{24}$/))
+  if (!doesIdMatchesFormat(req.params.genreId))
     return res.send("Wrong query format");
-  else {
-    const updatedGenre = await models.Genre.findByIdAndUpdate(
-      req.params.genreId,
-      genre
-    );
-    if (!updatedGenre) return res.status(404).send("Not found");
-    else return res.send("Updated successfully");
-  }
+
+  const error = await genreValidation(req.body);
+  if (error) return res.status(400).send(error);
+
+  const updatedGenre = await models.Genre.findByIdAndUpdate(
+    req.params.genreId,
+    genre
+  );
+
+  if (!updatedGenre) return res.status(404).send("Not found");
+  return res.json(updatedGenre);
 });
 
 router.delete("/:genreId", async (req: Request, res: Response) => {
-  if (!req.params.genreId.match(/^[0-9a-fA-F]{24}$/))
+  if (!doesIdMatchesFormat(req.params.genreId))
     return res.send("Wrong query format");
-  else {
-    const deletedGenre = await models.Genre.findByIdAndRemove(
-      req.params.genreId
-    );
-    if (!deletedGenre) return res.status(404).send("Not found");
-    else return res.send("Removed successfully");
-  }
+
+  const deletedGenre = await models.Genre.findByIdAndRemove(req.params.genreId);
+  if (!deletedGenre) return res.status(404).send("Not found");
+
+  return res.json(deletedGenre);
 });
 
 export default router;

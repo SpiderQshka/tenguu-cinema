@@ -11,11 +11,8 @@ import {
 const router: Router = Router();
 
 router.post("/register", async (req: Request, res: Response) => {
-  const { error = null } = registerValidation(req.body);
-  if (error) res.status(400).send(error.details[0].message);
-
-  const emailExists = await models.User.findOne({ email: req.body.email });
-  if (emailExists) res.status(400).send("Email already exists");
+  const error = await registerValidation(req.body);
+  if (error) return res.status(400).send(error);
 
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(req.body.password, salt);
@@ -25,28 +22,20 @@ router.post("/register", async (req: Request, res: Response) => {
     password: hashPassword,
     email: req.body.email
   });
-  user.save();
+  const newUser = await user.save();
 
-  res.send({ user: user._id });
+  return res.json(newUser);
 });
 
 router.post("/login", async (req: Request, res: Response) => {
-  const { error = null } = loginValidation(req.body);
-  if (error) res.status(400).send(error.details[0].message);
+  const error = await loginValidation(req.body);
+  if (error) return res.status(400).send(error);
 
-  const user = await models.User.findOne({ email: req.body.email });
-  if (!user) res.status(400).send("Email doesn't exist");
-  else {
-    const validPassword = await bcrypt.compare(
-      req.body.password,
-      user.password
-    );
-    if (!validPassword) res.status(400).send("Invalid password");
+  const user: any = await models.User.findOne({ email: req.body.email });
 
-    const token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
+  const token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
 
-    res.header("auth-token", token).send(token);
-  }
+  return res.header("auth-token", token).json(user);
 });
 
 export default router;

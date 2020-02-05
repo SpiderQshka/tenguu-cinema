@@ -1,7 +1,8 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
+import { userValidation } from "./validation/usersValidation";
 import { IUser } from "../interfaces/interfaces";
-import { _IDREGEXP } from "../keys/keys";
+import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 
 const router: Router = Router();
 
@@ -12,39 +13,47 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.get("/:userId", async (req: Request, res: Response) => {
-  if (!req.params.userId.match(_IDREGEXP))
+  if (!doesIdMatchesFormat(req.params.userId))
     return res.send("Wrong query format");
-  else {
-    const user = await models.User.findById(req.params.userId);
 
-    if (!user) return res.status(404).send("Not found");
-    else return res.json(user);
-  }
+  const user = await models.User.findById(req.params.userId);
+
+  if (!user) return res.status(404).send("Not found");
+  return res.json(user);
 });
 
 router.put("/:userId", async (req: Request, res: Response) => {
   const user: IUser = req.body;
 
-  if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/))
+  if (!doesIdMatchesFormat(req.params.userId))
     return res.send("Wrong query format");
-  else {
-    const updatedUser = await models.User.findByIdAndUpdate(
-      req.params.userId,
-      user
-    );
-    if (!updatedUser) return res.status(404).send("Not found");
-    else return res.send("Updated successfully");
-  }
+
+  const error = await userValidation(user);
+  if (error) return res.status(400).send(error);
+
+  const updatedUser = await models.User.findByIdAndUpdate(
+    req.params.userId,
+    user
+  );
+
+  if (!updatedUser) return res.status(404).send("Not found");
+  return res.json(updatedUser);
 });
 
 router.delete("/:userId", async (req: Request, res: Response) => {
-  if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/))
+  if (!doesIdMatchesFormat(req.params.userId))
     return res.send("Wrong query format");
-  else {
-    const deletedUser = await models.User.findByIdAndRemove(req.params.userId);
-    if (!deletedUser) return res.status(404).send("Not found");
-    else return res.send("Removed successfully");
-  }
+
+  const deletedUser = await models.User.findById(req.params.userId);
+  if (!deletedUser) return res.status(404).send("Not found");
+
+  await models.Ticket.deleteMany({
+    userId: req.params.userId
+  });
+
+  await models.User.findByIdAndRemove(req.params.userId);
+
+  return res.json(deletedUser);
 });
 
 export default router;

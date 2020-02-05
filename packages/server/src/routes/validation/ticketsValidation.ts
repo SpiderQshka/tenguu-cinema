@@ -1,10 +1,11 @@
-import Joi, { ValidationResult } from "@hapi/joi";
+import Joi from "@hapi/joi";
 import { ITicket } from "../../interfaces/interfaces";
 import models from "../../models/index";
 import { _IDREGEXP } from "../../keys/keys";
-import { Response, Request } from "express";
 
-export const ticketSchemaValidation = (data: ITicket): ValidationResult => {
+export const ticketValidation = async (
+  data: ITicket
+): Promise<string | null> => {
   const schema = Joi.object({
     sessionId: Joi.string()
       .pattern(_IDREGEXP)
@@ -22,34 +23,33 @@ export const ticketSchemaValidation = (data: ITicket): ValidationResult => {
     }).required(),
     status: Joi.string().default("active")
   });
-  return schema.validate(data);
-};
 
-export const ticketDataValidation = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
+  const { error = null } = schema.validate(data);
+  if (error) return error.details[0].message;
+
+  // __________data validation___________
+
   const takenTickets = await models.Ticket.find({
-    sessionId: req.body.sessionId,
+    sessionId: data.sessionId,
     status: "active"
   });
 
-  const isNotSeatAvaliable = takenTickets.some(ticket => {
+  const isNotSeatAvailable = takenTickets.some(ticket => {
     return (
-      ticket.seat.row === req.body.row &&
-      ticket.seat.seatNumber === req.body.seat.seatNumber
+      ticket.seat.row === data.seat.row &&
+      ticket.seat.seatNumber === data.seat.seatNumber
     );
   });
 
-  if (isNotSeatAvaliable) return res.status(400).send("Seat is already taken");
+  if (isNotSeatAvailable) return "Seat is already taken";
 
-  const isUserExists = await models.User.findById(req.body.userId);
+  const isUserExists = await models.User.findById(data.userId);
 
-  if (!isUserExists) return res.status(400).send("User not found");
+  if (!isUserExists) return "User not found";
 
-  const isSessionExists = await models.Session.findById(req.body.sessionId);
+  const isSessionExists = await models.Session.findById(data.sessionId);
 
-  if (!isSessionExists) return res.status(400).send("Session not found");
+  if (!isSessionExists) return "Session not found";
 
-  return res.status(200).send("Validated successfully");
+  return null;
 };

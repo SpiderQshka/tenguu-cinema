@@ -1,7 +1,5 @@
 import express, { Express } from "express";
 import routes from "./routes/index";
-import { connectDb } from "./models/index";
-import { DBURL, PORT } from "./keys/keys";
 
 const app: Express = express();
 
@@ -18,10 +16,5 @@ app.use("/api/tickets", routes.tickets);
 app.use("/api/halls", routes.halls);
 app.use("/api/sessions", routes.sessions);
 app.use("/api", routes.notFound);
-
-app.listen(PORT, () => {
-  console.log(`server is running and using port: ${PORT}`);
-  connectDb(DBURL).then(() => console.log("DB connected"));
-});
 
 export { app };

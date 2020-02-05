@@ -1,10 +1,7 @@
 import { Router, Request, Response } from "express";
 import models from "../models/index";
-import {
-  ticketSchemaValidation,
-  ticketDataValidation
-} from "./validation/ticketsValidation";
-import { _IDREGEXP } from "../keys/keys";
+import { ticketValidation } from "./validation/ticketsValidation";
+import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { ITicket } from "../interfaces/interfaces";
 import { TicketStatuses } from "../types/types";
 
@@ -17,11 +14,8 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-  const { error } = ticketSchemaValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
-  const response = await ticketDataValidation(req, res);
-  if (response.statusCode !== 200) return response;
+  const error = await ticketValidation(req.body);
+  if (error) return res.status(400).send(error);
 
   const ticket = new models.Ticket({
     sessionId: req.body.sessionId,
@@ -29,30 +23,29 @@ router.post("/", async (req: Request, res: Response) => {
     seat: req.body.seat,
     status: req.body.status as TicketStatuses
   });
-  await ticket.save();
 
-  return res.send(`Ticket added successfully`);
+  const addedTicket = await ticket.save();
+  return res.json(addedTicket);
 });
 
 router.get("/:ticketId", async (req: Request, res: Response) => {
-  if (!req.params.ticketId.match(_IDREGEXP))
+  if (!doesIdMatchesFormat(req.params.ticketId))
     return res.send("Wrong query format");
-  else {
-    const ticket = await models.Ticket.findById(req.params.ticketId);
 
-    if (!ticket) return res.status(404).send("Not found");
-    else return res.json(ticket);
-  }
+  const ticket = await models.Ticket.findById(req.params.ticketId);
+
+  if (!ticket) return res.status(404).send("Not found");
+  return res.json(ticket);
 });
 
 router.put("/:ticketId", async (req: Request, res: Response) => {
   const ticket: ITicket = req.body;
 
-  if (!req.params.ticketId.match(_IDREGEXP))
+  if (!doesIdMatchesFormat(req.params.ticketId))
     return res.send("Wrong query format");
 
-  const response = await ticketDataValidation(req, res);
-  if (response.statusCode !== 200) return response;
+  const error = await ticketValidation(ticket);
+  if (error) return res.status(400).send(error);
 
   const updatedTicket = await models.Ticket.findByIdAndUpdate(
     req.params.ticketId,
@@ -60,19 +53,19 @@ router.put("/:ticketId", async (req: Request, res: Response) => {
   );
 
   if (!updatedTicket) return res.status(404).send("Not found");
-  else return res.send("Updated successfully");
+  return res.json(updatedTicket);
 });
 
 router.delete("/:ticketId", async (req: Request, res: Response) => {
-  if (!req.params.ticketId.match(_IDREGEXP))
+  if (!doesIdMatchesFormat(req.params.ticketId))
     return res.send("Wrong query format");
 
   const deletedTicket = await models.Ticket.findByIdAndRemove(
     req.params.ticketId
   );
-
   if (!deletedTicket) return res.status(404).send("Not found");
-  else return res.send("Removed successfully");
+
+  return res.json(deletedTicket);
 });
 
 export default router;

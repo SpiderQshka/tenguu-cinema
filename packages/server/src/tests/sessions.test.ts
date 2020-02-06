@@ -1,50 +1,211 @@
 import { app } from "../server";
-import { connectDb } from "../models/index";
 import { DBURL } from "../keys/keys";
+import { connectDb, clearDb } from "../db/dbServices";
+import faker from "faker";
 import request, { Response } from "supertest";
 
-beforeAll(() => {
-  connectDb(DBURL).then(() => console.log("DB connected"));
+beforeAll(async () => {
+  await connectDb(DBURL).then(() => console.log("Connected to DB"));
+});
+afterAll(async () => {
+  await clearDb();
+});
+beforeEach(async () => {
+  await clearDb();
 });
 
-describe("testing genres routes", () => {
-  it("get all genres", async () => {
-    const res: Response = await request(app).get("/api/genres");
-    expect(res.status).toBe(200);
+describe("testing sessions routes", () => {
+  it("get all sessions", async () => {
+    const getSessionsRes: Response = await request(app).get("/api/sessions");
+    expect(getSessionsRes.status).toBe(200);
+    expect(getSessionsRes.body.length).toBe(0);
   });
+  it("create new session", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
 
-  //   it("try to post genre with existing name", async () => {
-  //     const res: Response = await request(app)
-  //       .post("/api/genres")
-  //       .send({
-  //         name: "fantasy"
-  //       });
-  //     expect(res.text).toBe("Genre already exists");
-  //     expect(res.status).toBe(400);
-  //   });
+    const setFilmRes: Response = await request(app)
+      .post("/api/films")
+      .send({
+        name: faker.random.word(),
+        genreId: setGenreRes.body._id,
+        duration: faker.random.number(),
+        trailerLink: faker.internet.domainName(),
+        rating: 5.8
+      });
 
-  //   it("try to get genre with unexisting id", async () => {
-  //     const res: Response = await request(app).get(
-  //       "/api/genres/5e31b89e1daec03224617a60"
-  //     );
-  //     expect(res.status).toBe(404);
-  //   });
+    const setHallRes: Response = await request(app)
+      .post("/api/halls")
+      .send({
+        numberOfRows: faker.random.number(),
+        seatsOnRow: faker.random.number(),
+        name: faker.hacker.noun()
+      });
 
-  //   it("update genre with existing id", async () => {
-  //     const res: Response = await request(app)
-  //       .put("/api/genres/5e343140efa90b16149cb1e8")
-  //       .send({
-  //         username: "Mystery"
-  //       });
-  //     expect(res.status).toBe(200);
-  //     expect(res.text).toBe("Updated successfully");
-  //   });
+    const setSessionRes: Response = await request(app)
+      .post("/api/sessions")
+      .send({
+        filmId: setFilmRes.body._id,
+        dateTime: faker.random.number(),
+        price: faker.random.number(),
+        hallId: setHallRes.body._id
+      });
 
-  //   it("try to remove genre with unexisting id", async () => {
-  //     const res: Response = await request(app).delete(
-  //       "/api/genres/5e31b89e1daec03224617a61"
-  //     );
-  //     expect(res.status).toBe(404);
-  //     expect(res.text).toBe("Not found");
-  //   });
+    expect(setSessionRes.error.text).toBe(undefined);
+    expect(setSessionRes.status).toBe(200);
+
+    const getSessionsRes: Response = await request(app).get("/api/sessions");
+    expect(getSessionsRes.status).toBe(200);
+    expect(getSessionsRes.body.length).toBe(1);
+  });
+  it("get session by id", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
+
+    const setFilmRes: Response = await request(app)
+      .post("/api/films")
+      .send({
+        name: faker.random.word(),
+        genreId: setGenreRes.body._id,
+        duration: faker.random.number(),
+        trailerLink: faker.internet.domainName(),
+        rating: 5.8
+      });
+
+    const setHallRes: Response = await request(app)
+      .post("/api/halls")
+      .send({
+        numberOfRows: faker.random.number(),
+        seatsOnRow: faker.random.number(),
+        name: faker.hacker.noun()
+      });
+
+    const setSessionRes: Response = await request(app)
+      .post("/api/sessions")
+      .send({
+        filmId: setFilmRes.body._id,
+        dateTime: faker.random.number(),
+        price: faker.random.number(),
+        hallId: setHallRes.body._id
+      });
+
+    expect(setSessionRes.error.text).toBe(undefined);
+    expect(setSessionRes.status).toBe(200);
+
+    const getSessionRes: Response = await request(app).get(
+      `/api/sessions/${setSessionRes.body._id}`
+    );
+
+    expect(getSessionRes.error.text).toBe(undefined);
+    expect(getSessionRes.status).toBe(200);
+
+    const getSessionsRes: Response = await request(app).get("/api/sessions");
+    expect(getSessionsRes.status).toBe(200);
+    expect(getSessionsRes.body.length).toBe(1);
+  });
+  it("change session", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
+
+    const setFilmRes: Response = await request(app)
+      .post("/api/films")
+      .send({
+        name: faker.random.word(),
+        genreId: setGenreRes.body._id,
+        duration: 60,
+        trailerLink: faker.internet.domainName(),
+        rating: 5.8
+      });
+
+    const setHallRes: Response = await request(app)
+      .post("/api/halls")
+      .send({
+        numberOfRows: faker.random.number(),
+        seatsOnRow: faker.random.number(),
+        name: faker.hacker.noun()
+      });
+
+    const setSessionRes: Response = await request(app)
+      .post("/api/sessions")
+      .send({
+        filmId: setFilmRes.body._id,
+        dateTime: faker.random.number() * 1000,
+        price: faker.random.number(),
+        hallId: setHallRes.body._id
+      });
+
+    expect(setSessionRes.error.text).toBe(undefined);
+    expect(setSessionRes.status).toBe(200);
+
+    const changeSessionRes: Response = await request(app)
+      .put(`/api/sessions/${setSessionRes.body._id}`)
+      .send({
+        filmId: setFilmRes.body._id,
+        dateTime: faker.random.number(),
+        price: faker.random.number(),
+        hallId: setHallRes.body._id
+      });
+
+    expect(changeSessionRes.error.text).toBe(undefined);
+    expect(changeSessionRes.status).toBe(200);
+  });
+  it("delete session", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
+
+    const setFilmRes: Response = await request(app)
+      .post("/api/films")
+      .send({
+        name: faker.random.word(),
+        genreId: setGenreRes.body._id,
+        duration: faker.random.number(),
+        trailerLink: faker.internet.domainName(),
+        rating: 5.8
+      });
+
+    const setHallRes: Response = await request(app)
+      .post("/api/halls")
+      .send({
+        numberOfRows: faker.random.number(),
+        seatsOnRow: faker.random.number(),
+        name: faker.hacker.noun()
+      });
+
+    const setSessionRes: Response = await request(app)
+      .post("/api/sessions")
+      .send({
+        filmId: setFilmRes.body._id,
+        dateTime: faker.random.number(),
+        price: faker.random.number(),
+        hallId: setHallRes.body._id
+      });
+
+    expect(setSessionRes.error.text).toBe(undefined);
+    expect(setSessionRes.status).toBe(200);
+
+    const deleteSessionRes: Response = await request(app).delete(
+      `/api/sessions/${setSessionRes.body._id}`
+    );
+
+    expect(deleteSessionRes.error.text).toBe(undefined);
+    expect(deleteSessionRes.status).toBe(200);
+
+    const getSessionsResAfterDelete: Response = await request(app).get(
+      "/api/sessions"
+    );
+    expect(getSessionsResAfterDelete.status).toBe(200);
+    expect(getSessionsResAfterDelete.body.length).toBe(0);
+  });
 });

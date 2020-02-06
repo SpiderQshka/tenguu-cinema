@@ -1,7 +1,7 @@
 import Joi from "@hapi/joi";
 import { IFilm } from "../../interfaces/interfaces";
 import { _IDREGEXP } from "../../keys/keys";
-import models from "../../models/index";
+import { models } from "../../models/index";
 
 export const filmValidation = async (data: IFilm): Promise<string | null> => {
   const schema = Joi.object({

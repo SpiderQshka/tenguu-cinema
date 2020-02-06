@@ -1,8 +1,8 @@
-import { connectDb } from "./models/index";
+import { connectDb } from "./db/dbServices";
 import { DBURL, PORT } from "./keys/keys";
 import { app } from "./server";
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`server is running and using port: ${PORT}`);
-  connectDb(DBURL).then(() => console.log("DB connected"));
+  await connectDb(DBURL).then(() => console.log("DB connected"));
 });

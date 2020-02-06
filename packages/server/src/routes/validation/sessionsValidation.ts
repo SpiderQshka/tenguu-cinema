@@ -1,6 +1,6 @@
 import Joi from "@hapi/joi";
 import { ISession } from "../../interfaces/interfaces";
-import models from "../../models/index";
+import { models } from "../../models/index";
 import { _IDREGEXP } from "../../keys/keys";
 
 export const sessionValidation = async (

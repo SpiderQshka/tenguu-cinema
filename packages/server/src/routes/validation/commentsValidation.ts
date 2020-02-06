@@ -1,7 +1,7 @@
 import Joi from "@hapi/joi";
 import { IComment } from "../../interfaces/interfaces";
 import { _IDREGEXP } from "../../keys/keys";
-import models from "../../models/index";
+import { models } from "../../models/index";
 
 export const commentValidation = async (
   data: IComment

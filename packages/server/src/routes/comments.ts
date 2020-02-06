@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import models from "../models/index";
+import { models } from "../models/index";
 import { commentValidation } from "./validation/commentsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IComment } from "../interfaces/interfaces";

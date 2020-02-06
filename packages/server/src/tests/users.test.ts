@@ -1,52 +1,87 @@
 import { app } from "../server";
-import { connectDb } from "../models/index";
 import { DBURL } from "../keys/keys";
+import { connectDb, clearCollection } from "../db/dbServices";
+import faker from "faker";
 import request, { Response } from "supertest";
 
-beforeAll(() => {
-  connectDb(DBURL).then(() => console.log("DB connected"));
+beforeAll(async () => {
+  await connectDb(DBURL).then(() => console.log("Connected to DB"));
+});
+afterAll(async () => {
+  await clearCollection("users");
+});
+beforeEach(async () => {
+  await clearCollection("users");
 });
 
 describe("testing user routes", () => {
   it("get all users", async () => {
-    const res: Response = await request(app).get("/api/users");
-    expect(res.status).toBe(200);
+    const getUsersRes: Response = await request(app).get("/api/users");
+    expect(getUsersRes.status).toBe(200);
+    expect(getUsersRes.body.length).toBe(0);
   });
+  it("create new user", async () => {
+    const setUserRes: Response = await request(app)
+      .post("/api/auth/register")
+      .send({
+        username: faker.name.findName(),
+        password: faker.internet.password(),
+        email: faker.internet.email()
+      });
 
-  //   it("try to post user with existing email", async () => {
-  //     const res: Response = await request(app)
-  //       .post("/api/users")
-  //       .send({
-  //         username: "Rems",
-  //         password: "7654321",
-  //         email: "333@gmail.com"
-  //       });
-  //     expect(res.text).toBe("Email already exists");
-  //     expect(res.status).toBe(400);
-  //   });
+    expect(setUserRes.error.text).toBe(undefined);
+    expect(setUserRes.status).toBe(200);
 
-  //   it("try to get user with unexisting id", async () => {
-  //     const res: Response = await request(app).get(
-  //       "/api/users/5e31b89e1daec03224617a60"
-  //     );
-  //     expect(res.status).toBe(404);
-  //   });
+    const getUsersRes: Response = await request(app).get("/api/users");
+    expect(getUsersRes.status).toBe(200);
+    expect(getUsersRes.body.length).toBe(1);
+  });
+  it("change user", async () => {
+    const setUserRes: Response = await request(app)
+      .post("/api/auth/register")
+      .send({
+        username: faker.name.findName(),
+        password: faker.internet.password(),
+        email: faker.internet.email()
+      });
 
-  //   it("update user with existing id", async () => {
-  //     const res: Response = await request(app)
-  //       .put("/api/users/5e32d23dc62a6723b84aa740")
-  //       .send({
-  //         username: "Panic"
-  //       });
-  //     expect(res.status).toBe(200);
-  //     expect(res.text).toBe("Updated successfully");
-  //   });
+    expect(setUserRes.error.text).toBe(undefined);
+    expect(setUserRes.status).toBe(200);
 
-  //   it("remove user with unexisting id", async () => {
-  //     const res: Response = await request(app).delete(
-  //       "/api/users/5e31b89e1daec03224617a61"
-  //     );
-  //     expect(res.status).toBe(404);
-  //     expect(res.text).toBe("Not found");
-  //   });
+    const changeUserRes: Response = await request(app)
+      .put(`/api/users/${setUserRes.body._id}`)
+      .send({
+        username: faker.name.findName(),
+        password: faker.internet.password(),
+        email: faker.internet.email()
+      });
+
+    expect(changeUserRes.error.text).toBe(undefined);
+    expect(changeUserRes.status).toBe(200);
+  });
+  it("delete user", async () => {
+    const setUserRes: Response = await request(app)
+      .post("/api/auth/register")
+      .send({
+        username: faker.name.findName(),
+        password: faker.internet.password(),
+        email: faker.internet.email()
+      });
+
+    expect(setUserRes.error.text).toBe(undefined);
+    expect(setUserRes.status).toBe(200);
+
+    const deleteUserRes: Response = await request(app).delete(
+      `/api/users/${setUserRes.body._id}`
+    );
+
+    expect(deleteUserRes.error.text).toBe(undefined);
+    expect(deleteUserRes.status).toBe(200);
+
+    const getUsersResAfterDelete: Response = await request(app).get(
+      "/api/users"
+    );
+    expect(getUsersResAfterDelete.status).toBe(200);
+    expect(getUsersResAfterDelete.body.length).toBe(0);
+  });
 });

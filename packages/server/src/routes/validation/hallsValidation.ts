@@ -1,6 +1,6 @@
 import Joi from "@hapi/joi";
 import { IHall } from "../../interfaces/interfaces";
-import models from "../../models/index";
+import { models } from "../../models/index";
 
 export const hallValidation = async (data: IHall): Promise<string | null> => {
   const schema = Joi.object({

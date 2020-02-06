@@ -1,50 +1,100 @@
 import { app } from "../server";
-import { connectDb } from "../models/index";
 import { DBURL } from "../keys/keys";
+import { connectDb, clearCollection } from "../db/dbServices";
+import faker from "faker";
 import request, { Response } from "supertest";
 
-beforeAll(() => {
-  connectDb(DBURL).then(() => console.log("DB connected"));
+beforeAll(async () => {
+  await connectDb(DBURL).then(() => console.log("Connected to DB"));
+});
+afterAll(async () => {
+  await clearCollection("genres");
+});
+beforeEach(async () => {
+  await clearCollection("genres");
 });
 
 describe("testing genres routes", () => {
   it("get all genres", async () => {
-    const res: Response = await request(app).get("/api/genres");
-    expect(res.status).toBe(200);
+    const getGenresRes: Response = await request(app).get("/api/genres");
+    expect(getGenresRes.status).toBe(200);
+    expect(getGenresRes.body.length).toBe(0);
   });
+  it("create new genre", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
 
-  //   it("try to post genre with existing name", async () => {
-  //     const res: Response = await request(app)
-  //       .post("/api/genres")
-  //       .send({
-  //         name: "fantasy"
-  //       });
-  //     expect(res.text).toBe("Genre already exists");
-  //     expect(res.status).toBe(400);
-  //   });
+    expect(setGenreRes.error.text).toBe(undefined);
+    expect(setGenreRes.status).toBe(200);
 
-  //   it("try to get genre with unexisting id", async () => {
-  //     const res: Response = await request(app).get(
-  //       "/api/genres/5e31b89e1daec03224617a60"
-  //     );
-  //     expect(res.status).toBe(404);
-  //   });
+    const getGenresRes: Response = await request(app).get("/api/genres");
+    expect(getGenresRes.status).toBe(200);
+    expect(getGenresRes.body.length).toBe(1);
+  });
+  it("get genre by id", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
 
-  //   it("update genre with existing id", async () => {
-  //     const res: Response = await request(app)
-  //       .put("/api/genres/5e343140efa90b16149cb1e8")
-  //       .send({
-  //         username: "Mystery"
-  //       });
-  //     expect(res.status).toBe(200);
-  //     expect(res.text).toBe("Updated successfully");
-  //   });
+    expect(setGenreRes.error.text).toBe(undefined);
+    expect(setGenreRes.status).toBe(200);
 
-  //   it("try to remove genre with unexisting id", async () => {
-  //     const res: Response = await request(app).delete(
-  //       "/api/genres/5e31b89e1daec03224617a61"
-  //     );
-  //     expect(res.status).toBe(404);
-  //     expect(res.text).toBe("Not found");
-  //   });
+    const getGenreRes: Response = await request(app).get(
+      `/api/genres/${setGenreRes.body._id}`
+    );
+
+    expect(getGenreRes.error.text).toBe(undefined);
+    expect(getGenreRes.status).toBe(200);
+
+    const getGenresRes: Response = await request(app).get("/api/genres");
+    expect(getGenresRes.status).toBe(200);
+    expect(getGenresRes.body.length).toBe(1);
+  });
+  it("change genre", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
+
+    expect(setGenreRes.error.text).toBe(undefined);
+    expect(setGenreRes.status).toBe(200);
+
+    const changeGenreRes: Response = await request(app)
+      .put(`/api/genres/${setGenreRes.body._id}`)
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
+
+    expect(changeGenreRes.error.text).toBe(undefined);
+    expect(changeGenreRes.status).toBe(200);
+  });
+  it("delete genre", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
+
+    expect(setGenreRes.error.text).toBe(undefined);
+    expect(setGenreRes.status).toBe(200);
+
+    const deleteGenreRes: Response = await request(app).delete(
+      `/api/genres/${setGenreRes.body._id}`
+    );
+
+    expect(deleteGenreRes.error.text).toBe(undefined);
+    expect(deleteGenreRes.status).toBe(200);
+
+    const getGenresResAfterDelete: Response = await request(app).get(
+      "/api/genres"
+    );
+    expect(getGenresResAfterDelete.status).toBe(200);
+    expect(getGenresResAfterDelete.body.length).toBe(0);
+  });
 });

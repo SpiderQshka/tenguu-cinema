@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import models from "../models/index";
+import { models } from "../models/index";
 import { userValidation } from "./validation/usersValidation";
 import { IUser } from "../interfaces/interfaces";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";

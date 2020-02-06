@@ -1,50 +1,108 @@
 import { app } from "../server";
-import { connectDb } from "../models/index";
 import { DBURL } from "../keys/keys";
+import { connectDb, clearCollection } from "../db/dbServices";
+import faker from "faker";
 import request, { Response } from "supertest";
 
-beforeAll(() => {
-  connectDb(DBURL).then(() => console.log("DB connected"));
+beforeAll(async () => {
+  await connectDb(DBURL).then(() => console.log("Connected to DB"));
+});
+afterAll(async () => {
+  await clearCollection("halls");
+});
+beforeEach(async () => {
+  await clearCollection("halls");
 });
 
-describe("testing genres routes", () => {
-  it("get all genres", async () => {
-    const res: Response = await request(app).get("/api/genres");
-    expect(res.status).toBe(200);
+describe("testing halls routes", () => {
+  it("get all halls", async () => {
+    const getHallsRes: Response = await request(app).get("/api/halls");
+    expect(getHallsRes.status).toBe(200);
+    expect(getHallsRes.body.length).toBe(0);
   });
+  it("create new hall", async () => {
+    const setHallRes: Response = await request(app)
+      .post("/api/halls")
+      .send({
+        numberOfRows: faker.random.number(),
+        seatsOnRow: faker.random.number(),
+        name: faker.random.word() + faker.random.word()
+      });
 
-  //   it("try to post genre with existing name", async () => {
-  //     const res: Response = await request(app)
-  //       .post("/api/genres")
-  //       .send({
-  //         name: "fantasy"
-  //       });
-  //     expect(res.text).toBe("Genre already exists");
-  //     expect(res.status).toBe(400);
-  //   });
+    expect(setHallRes.error.text).toBe(undefined);
+    expect(setHallRes.status).toBe(200);
 
-  //   it("try to get genre with unexisting id", async () => {
-  //     const res: Response = await request(app).get(
-  //       "/api/genres/5e31b89e1daec03224617a60"
-  //     );
-  //     expect(res.status).toBe(404);
-  //   });
+    const getHallsRes: Response = await request(app).get("/api/halls");
+    expect(getHallsRes.status).toBe(200);
+    expect(getHallsRes.body.length).toBe(1);
+  });
+  it("get hall by id", async () => {
+    const setHallRes: Response = await request(app)
+      .post("/api/halls")
+      .send({
+        numberOfRows: faker.random.number(),
+        seatsOnRow: faker.random.number(),
+        name: faker.random.word() + faker.random.word()
+      });
 
-  //   it("update genre with existing id", async () => {
-  //     const res: Response = await request(app)
-  //       .put("/api/genres/5e343140efa90b16149cb1e8")
-  //       .send({
-  //         username: "Mystery"
-  //       });
-  //     expect(res.status).toBe(200);
-  //     expect(res.text).toBe("Updated successfully");
-  //   });
+    expect(setHallRes.error.text).toBe(undefined);
+    expect(setHallRes.status).toBe(200);
 
-  //   it("try to remove genre with unexisting id", async () => {
-  //     const res: Response = await request(app).delete(
-  //       "/api/genres/5e31b89e1daec03224617a61"
-  //     );
-  //     expect(res.status).toBe(404);
-  //     expect(res.text).toBe("Not found");
-  //   });
+    const getHallRes: Response = await request(app).get(
+      `/api/halls/${setHallRes.body._id}`
+    );
+
+    expect(getHallRes.error.text).toBe(undefined);
+    expect(getHallRes.status).toBe(200);
+
+    const getHallsRes: Response = await request(app).get("/api/halls");
+    expect(getHallsRes.status).toBe(200);
+    expect(getHallsRes.body.length).toBe(1);
+  });
+});
+it("change hall", async () => {
+  const setHallRes: Response = await request(app)
+    .post("/api/halls")
+    .send({
+      numberOfRows: faker.random.number(),
+      seatsOnRow: faker.random.number(),
+      name: faker.random.word() + faker.random.word()
+    });
+
+  expect(setHallRes.error.text).toBe(undefined);
+  expect(setHallRes.status).toBe(200);
+
+  const changeHallRes: Response = await request(app)
+    .put(`/api/halls/${setHallRes.body._id}`)
+    .send({
+      numberOfRows: faker.random.number(),
+      seatsOnRow: faker.random.number(),
+      name: faker.random.word() + faker.random.word()
+    });
+
+  expect(changeHallRes.error.text).toBe(undefined);
+  expect(changeHallRes.status).toBe(200);
+});
+it("delete hall", async () => {
+  const setHallRes: Response = await request(app)
+    .post("/api/halls")
+    .send({
+      numberOfRows: faker.random.number(),
+      seatsOnRow: faker.random.number(),
+      name: faker.random.word() + faker.random.word()
+    });
+
+  expect(setHallRes.error.text).toBe(undefined);
+  expect(setHallRes.status).toBe(200);
+
+  const deleteHallRes: Response = await request(app).delete(
+    `/api/halls/${setHallRes.body._id}`
+  );
+
+  expect(deleteHallRes.error.text).toBe(undefined);
+  expect(deleteHallRes.status).toBe(200);
+
+  const getHallsResAfterDelete: Response = await request(app).get("/api/halls");
+  expect(getHallsResAfterDelete.status).toBe(200);
+  expect(getHallsResAfterDelete.body.length).toBe(0);
 });

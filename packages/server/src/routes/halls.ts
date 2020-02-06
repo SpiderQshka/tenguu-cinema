@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import models from "../models/index";
+import { models } from "../models/index";
 import { hallValidation } from "./validation/hallsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IHall } from "../interfaces/interfaces";

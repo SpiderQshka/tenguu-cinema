@@ -1,50 +1,160 @@
 import { app } from "../server";
-import { connectDb } from "../models/index";
 import { DBURL } from "../keys/keys";
+import { connectDb, clearDb } from "../db/dbServices";
+import faker from "faker";
 import request, { Response } from "supertest";
 
-beforeAll(() => {
-  connectDb(DBURL).then(() => console.log("DB connected"));
+beforeAll(async () => {
+  await connectDb(DBURL).then(() => console.log("Connected to DB"));
+});
+afterAll(async () => {
+  await clearDb();
+});
+beforeEach(async () => {
+  await clearDb();
 });
 
-describe("testing genres routes", () => {
-  it("get all genres", async () => {
-    const res: Response = await request(app).get("/api/genres");
-    expect(res.status).toBe(200);
+describe("testing comments routes", () => {
+  it("get all comments", async () => {
+    const getCommentsRes: Response = await request(app).get("/api/comments");
+    expect(getCommentsRes.status).toBe(200);
+    expect(getCommentsRes.body.length).toBe(0);
   });
+  it("create new comment", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
 
-  //   it("try to post genre with existing name", async () => {
-  //     const res: Response = await request(app)
-  //       .post("/api/genres")
-  //       .send({
-  //         name: "fantasy"
-  //       });
-  //     expect(res.text).toBe("Genre already exists");
-  //     expect(res.status).toBe(400);
-  //   });
+    const setFilmRes: Response = await request(app)
+      .post("/api/films")
+      .send({
+        name: faker.random.word(),
+        genreId: setGenreRes.body._id,
+        duration: faker.random.number(),
+        trailerLink: faker.internet.domainName(),
+        rating: 5.8
+      });
 
-  //   it("try to get genre with unexisting id", async () => {
-  //     const res: Response = await request(app).get(
-  //       "/api/genres/5e31b89e1daec03224617a60"
-  //     );
-  //     expect(res.status).toBe(404);
-  //   });
+    const setCommentRes: Response = await request(app)
+      .post("/api/comments")
+      .send({
+        content: faker.lorem.sentence(),
+        filmId: setFilmRes.body._id
+      });
 
-  //   it("update genre with existing id", async () => {
-  //     const res: Response = await request(app)
-  //       .put("/api/genres/5e343140efa90b16149cb1e8")
-  //       .send({
-  //         username: "Mystery"
-  //       });
-  //     expect(res.status).toBe(200);
-  //     expect(res.text).toBe("Updated successfully");
-  //   });
+    expect(setCommentRes.error.text).toBe(undefined);
+    expect(setCommentRes.status).toBe(200);
 
-  //   it("try to remove genre with unexisting id", async () => {
-  //     const res: Response = await request(app).delete(
-  //       "/api/genres/5e31b89e1daec03224617a61"
-  //     );
-  //     expect(res.status).toBe(404);
-  //     expect(res.text).toBe("Not found");
-  //   });
+    const getCommentsRes: Response = await request(app).get("/api/comments");
+    expect(getCommentsRes.status).toBe(200);
+    expect(getCommentsRes.body.length).toBe(1);
+  });
+  it("get comment by id", async () => {
+    const setGenreRes: Response = await request(app)
+      .post("/api/genres")
+      .send({
+        name: faker.hacker.noun() + faker.hacker.noun()
+      });
+
+    const setFilmRes: Response = await request(app)
+      .post("/api/films")
+      .send({
+        name: faker.random.word(),
+        genreId: setGenreRes.body._id,
+        duration: faker.random.number(),
+        trailerLink: faker.internet.domainName(),
+        rating: 5.8
+      });
+
+    const setCommentRes: Response = await request(app)
+      .post("/api/comments")
+      .send({
+        content: faker.lorem.sentence(),
+        filmId: setFilmRes.body._id
+      });
+
+    const getCommentRes: Response = await request(app).get(
+      `/api/comments/${setCommentRes.body._id}`
+    );
+
+    expect(getCommentRes.error.text).toBe(undefined);
+    expect(getCommentRes.status).toBe(200);
+
+    const getCommentsRes: Response = await request(app).get("/api/comments");
+    expect(getCommentsRes.status).toBe(200);
+    expect(getCommentsRes.body.length).toBe(1);
+  });
+});
+it("change comment", async () => {
+  const setGenreRes: Response = await request(app)
+    .post("/api/genres")
+    .send({
+      name: faker.hacker.noun() + faker.hacker.noun()
+    });
+
+  const setFilmRes: Response = await request(app)
+    .post("/api/films")
+    .send({
+      name: faker.random.word(),
+      genreId: setGenreRes.body._id,
+      duration: faker.random.number(),
+      trailerLink: faker.internet.domainName(),
+      rating: 5.8
+    });
+
+  const setCommentRes: Response = await request(app)
+    .post("/api/comments")
+    .send({
+      content: faker.lorem.sentence(),
+      filmId: setFilmRes.body._id
+    });
+
+  const changeCommentRes: Response = await request(app)
+    .put(`/api/comments/${setCommentRes.body._id}`)
+    .send({
+      content: faker.lorem.sentence(),
+      filmId: setFilmRes.body._id
+    });
+
+  expect(changeCommentRes.error.text).toBe(undefined);
+  expect(changeCommentRes.status).toBe(200);
+});
+it("delete comment", async () => {
+  const setGenreRes: Response = await request(app)
+    .post("/api/genres")
+    .send({
+      name: faker.hacker.noun() + faker.hacker.noun()
+    });
+
+  const setFilmRes: Response = await request(app)
+    .post("/api/films")
+    .send({
+      name: faker.random.word(),
+      genreId: setGenreRes.body._id,
+      duration: faker.random.number(),
+      trailerLink: faker.internet.domainName(),
+      rating: 5.8
+    });
+
+  const setCommentRes: Response = await request(app)
+    .post("/api/comments")
+    .send({
+      content: faker.lorem.sentence(),
+      filmId: setFilmRes.body._id
+    });
+
+  const deleteCommentRes: Response = await request(app).delete(
+    `/api/comments/${setCommentRes.body._id}`
+  );
+
+  expect(deleteCommentRes.error.text).toBe(undefined);
+  expect(deleteCommentRes.status).toBe(200);
+
+  const getCommentsResAfterDelete: Response = await request(app).get(
+    "/api/comments"
+  );
+  expect(getCommentsResAfterDelete.status).toBe(200);
+  expect(getCommentsResAfterDelete.body.length).toBe(0);
 });

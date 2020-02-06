@@ -1,6 +1,6 @@
 import Joi from "@hapi/joi";
 import { ITicket } from "../../interfaces/interfaces";
-import models from "../../models/index";
+import { models } from "../../models/index";
 import { _IDREGEXP } from "../../keys/keys";
 
 export const ticketValidation = async (

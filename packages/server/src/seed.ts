@@ -1,14 +1,19 @@
-import models from "./models/index";
+import { models } from "./models/index";
 
-export default () => {
-  const admin = new models.User({
-    username: "admin",
-    password: "password",
-    email: "admin@gmail.com",
-    status: "admin"
-  });
+export default async (): Promise<void> => {
+  const doesAdminExists = await models.User.findOne({ status: "admin" });
 
-  admin.save();
+  if (!doesAdminExists) {
+    const admin = new models.User({
+      username: "admin",
+      password: await models.User.hashPassword("password"),
+      email: "admin@gmail.com",
+      status: "admin"
+    });
 
-  console.log("admin created");
+    admin.save();
+    console.log("admin created");
+  } else {
+    console.log("admin already exists");
+  }
 };

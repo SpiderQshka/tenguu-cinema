@@ -1,8 +1,6 @@
 import { Router, Request, Response } from "express";
 import { models } from "../models/index";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { TOKEN_SECRET } from "../keys/keys";
+import { authenticate } from "../helpers/authenticate";
 import {
   registerValidation,
   loginValidation
@@ -14,28 +12,27 @@ router.post("/register", async (req: Request, res: Response) => {
   const { error, code } = await registerValidation(req.body);
   if (error) return res.status(code).send(error);
 
-  const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash(req.body.password, salt);
-
   const user = new models.User({
     username: req.body.username,
-    password: hashPassword,
+    password: await models.User.hashPassword(req.body.password),
     email: req.body.email
   });
   const newUser = await user.save();
 
-  return res.json(newUser);
+  const token = await models.User.generateJWT(newUser);
+
+  return res.header("auth-token", token).json(newUser);
 });
 
-router.post("/login", async (req: Request, res: Response) => {
+router.post("/login", authenticate, async (req: Request, res: Response) => {
   const error = await loginValidation(req.body);
   if (error) return res.status(400).send(error);
 
-  const user: any = await models.User.findOne({ email: req.body.email });
+  const user = await models.User.findOne({ email: req.body.email });
 
-  const token = jwt.sign({ _id: user._id }, TOKEN_SECRET);
+  const token = await models.User.generateJWT(user);
 
-  return res.header("auth-token", token).json(user);
+  return res.header("auth-token", token).send(user);
 });
 
 export default router;

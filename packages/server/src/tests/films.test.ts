@@ -27,6 +27,9 @@ describe("testing films routes", () => {
         name: faker.hacker.noun() + faker.hacker.noun()
       });
 
+    expect(setGenreRes.error.text).toBe(undefined);
+    expect(setGenreRes.status).toBe(200);
+
     const setFilmRes: Response = await request(app)
       .post("/api/films")
       .send({
@@ -50,6 +53,9 @@ describe("testing films routes", () => {
       .send({
         name: faker.hacker.noun() + faker.hacker.noun()
       });
+
+    expect(setGenreRes.error.text).toBe(undefined);
+    expect(setGenreRes.status).toBe(200);
 
     const setFilmRes: Response = await request(app)
       .post("/api/films")
@@ -81,6 +87,9 @@ describe("testing films routes", () => {
       .send({
         name: faker.hacker.noun() + faker.hacker.noun()
       });
+
+    expect(setGenreRes.error.text).toBe(undefined);
+    expect(setGenreRes.status).toBe(200);
 
     const setFilmRes: Response = await request(app)
       .post("/api/films")
@@ -115,6 +124,9 @@ describe("testing films routes", () => {
         name: faker.hacker.noun() + faker.hacker.noun()
       });
 
+    expect(setGenreRes.error.text).toBe(undefined);
+    expect(setGenreRes.status).toBe(200);
+
     const setFilmRes: Response = await request(app)
       .post("/api/films")
       .send({
@@ -147,6 +159,9 @@ describe("testing films routes", () => {
       .send({
         name: faker.hacker.noun() + faker.hacker.noun()
       });
+
+    expect(setGenreRes.error.text).toBe(undefined);
+    expect(setGenreRes.status).toBe(200);
 
     const setFilmRes: Response = await request(app)
       .post("/api/films")

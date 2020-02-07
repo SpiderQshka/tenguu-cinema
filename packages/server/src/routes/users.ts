@@ -3,14 +3,21 @@ import { models } from "../models/index";
 import { userValidation } from "./validation/usersValidation";
 import { IUser } from "../interfaces/interfaces";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
+import { authenticate } from "../helpers/authenticate";
+import { requireAdmin } from "../helpers/requireAdmin";
 
 const router: Router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
-  const users = await models.User.find();
+router.get(
+  "/",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    const users = await models.User.find();
 
-  return res.json(users);
-});
+    return res.json(users);
+  }
+);
 
 router.get("/:userId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.userId))

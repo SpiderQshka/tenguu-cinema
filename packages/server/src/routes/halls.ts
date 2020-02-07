@@ -3,6 +3,9 @@ import { models } from "../models/index";
 import { hallValidation } from "./validation/hallsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IHall } from "../interfaces/interfaces";
+import { authenticate } from "../helpers/authenticate";
+import { requireAdmin } from "../helpers/requireAdmin";
+import { deleteHall } from "../db/dbServices";
 
 const router: Router = Router();
 
@@ -12,17 +15,22 @@ router.get("/", async (req: Request, res: Response) => {
   res.json(halls);
 });
 
-router.post("/", async (req: Request, res: Response) => {
-  const error = await hallValidation(req.body);
-  if (error) return res.status(400).send(error);
+router.post(
+  "/",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    const error = await hallValidation(req.body);
+    if (error) return res.status(400).send(error);
 
-  const hall = new models.Hall({
-    ...req.body
-  });
-  const newHall = await hall.save();
+    const hall = new models.Hall({
+      ...req.body
+    });
+    const newHall = await hall.save();
 
-  return res.json(newHall);
-});
+    return res.json(newHall);
+  }
+);
 
 router.get("/:hallId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.hallId))
@@ -34,44 +42,41 @@ router.get("/:hallId", async (req: Request, res: Response) => {
   return res.json(hall);
 });
 
-router.put("/:hallId", async (req: Request, res: Response) => {
-  const hall: IHall = req.body;
+router.put(
+  "/:hallId",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    const hall: IHall = req.body;
 
-  if (!doesIdMatchesFormat(req.params.hallId))
-    return res.send("Wrong query format");
+    if (!doesIdMatchesFormat(req.params.hallId))
+      return res.send("Wrong query format");
 
-  const error = await hallValidation(hall);
-  if (error) return res.status(400).send(error);
+    const error = await hallValidation(hall);
+    if (error) return res.status(400).send(error);
 
-  const updatedHall = await models.Hall.findByIdAndUpdate(
-    req.params.hallId,
-    hall
-  );
-  if (!updatedHall) return res.status(404).send("Not found");
+    const updatedHall = await models.Hall.findByIdAndUpdate(
+      req.params.hallId,
+      hall
+    );
+    if (!updatedHall) return res.status(404).send("Not found");
 
-  return res.json(updatedHall);
-});
+    return res.json(updatedHall);
+  }
+);
 
-router.delete("/:hallId", async (req: Request, res: Response) => {
-  if (!doesIdMatchesFormat(req.params.hallId))
-    return res.send("Wrong query format");
+router.delete(
+  "/:hallId",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    if (!doesIdMatchesFormat(req.params.hallId))
+      return res.send("Wrong query format");
 
-  const deletedHall = await models.Hall.findById(req.params.hallId);
-  if (!deletedHall) return res.status(404).send("Not found");
+    const deletedHall = await deleteHall({ _id: req.params.hallId });
 
-  const sessionInTheHall = await models.Session.findOne({
-    hallId: req.params.hallId
-  });
-  if (sessionInTheHall)
-    res
-      .status(400)
-      .send(
-        "There are some sessions in this hall. If you want to delete the hall, delete sessions before"
-      );
-
-  await models.Hall.findByIdAndRemove(req.params.hallId);
-
-  return res.json(deletedHall);
-});
+    return res.json(deletedHall);
+  }
+);
 
 export default router;

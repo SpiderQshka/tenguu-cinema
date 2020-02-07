@@ -3,6 +3,9 @@ import { models } from "../models/index";
 import { sessionValidation } from "./validation/sessionsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { ISession } from "../interfaces/interfaces";
+import { authenticate } from "../helpers/authenticate";
+import { requireAdmin } from "../helpers/requireAdmin";
+import { deleteSession } from "../db/dbServices";
 
 const router: Router = Router();
 
@@ -12,17 +15,22 @@ router.get("/", async (req: Request, res: Response) => {
   res.json(sessions);
 });
 
-router.post("/", async (req: Request, res: Response) => {
-  const error = await sessionValidation(req.body);
-  if (error) return res.status(400).send(error);
+router.post(
+  "/",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    const error = await sessionValidation(req.body);
+    if (error) return res.status(400).send(error);
 
-  const session = new models.Session({
-    ...req.body
-  });
+    const session = new models.Session({
+      ...req.body
+    });
 
-  const addedSession = await session.save();
-  return res.json(addedSession);
-});
+    const addedSession = await session.save();
+    return res.json(addedSession);
+  }
+);
 
 router.get("/:sessionId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.sessionId))
@@ -52,18 +60,18 @@ router.put("/:sessionId", async (req: Request, res: Response) => {
   return res.json(updatedSession);
 });
 
-router.delete("/:sessionId", async (req: Request, res: Response) => {
-  if (!doesIdMatchesFormat(req.params.sessionId))
-    return res.send("Wrong query format");
+router.delete(
+  "/:sessionId",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    if (!doesIdMatchesFormat(req.params.sessionId))
+      return res.send("Wrong query format");
 
-  const deletedSession = await models.Session.findById(req.params.sessionId);
-  if (!deletedSession) return res.status(404).send("Not found");
+    const deletedSession = await deleteSession({ _id: req.params.sessionId });
 
-  await models.Ticket.deleteMany({ sessionId: req.params.sessionId });
-
-  await models.Session.findByIdAndRemove(req.params.sessionId);
-
-  return res.json(deletedSession);
-});
+    return res.json(deletedSession);
+  }
+);
 
 export default router;

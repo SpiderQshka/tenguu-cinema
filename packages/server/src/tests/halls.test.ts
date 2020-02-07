@@ -1,7 +1,7 @@
 import { app } from "../server";
 import { DBURL } from "../keys/keys";
-import { connectDb, clearCollection } from "../db/dbServices";
-import faker from "faker";
+import { connectDb, clearCollection, deleteHall } from "../db/dbServices";
+import { setNewHall } from "../helpers/setRandomTestTables";
 import request, { Response } from "supertest";
 
 beforeAll(async () => {
@@ -21,13 +21,7 @@ describe("testing halls routes", () => {
     expect(getHallsRes.body.length).toBe(0);
   });
   it("create new hall", async () => {
-    const setHallRes: Response = await request(app)
-      .post("/api/halls")
-      .send({
-        numberOfRows: faker.random.number(),
-        seatsOnRow: faker.random.number(),
-        name: faker.random.word() + faker.random.word()
-      });
+    const setHallRes = await setNewHall(app);
 
     expect(setHallRes.error.text).toBe(undefined);
     expect(setHallRes.status).toBe(200);
@@ -37,13 +31,7 @@ describe("testing halls routes", () => {
     expect(getHallsRes.body.length).toBe(1);
   });
   it("get hall by id", async () => {
-    const setHallRes: Response = await request(app)
-      .post("/api/halls")
-      .send({
-        numberOfRows: faker.random.number(),
-        seatsOnRow: faker.random.number(),
-        name: faker.random.word() + faker.random.word()
-      });
+    const setHallRes = await setNewHall(app);
 
     expect(setHallRes.error.text).toBe(undefined);
     expect(setHallRes.status).toBe(200);
@@ -60,47 +48,13 @@ describe("testing halls routes", () => {
     expect(getHallsRes.body.length).toBe(1);
   });
 });
-it("change hall", async () => {
-  const setHallRes: Response = await request(app)
-    .post("/api/halls")
-    .send({
-      numberOfRows: faker.random.number(),
-      seatsOnRow: faker.random.number(),
-      name: faker.random.word() + faker.random.word()
-    });
-
-  expect(setHallRes.error.text).toBe(undefined);
-  expect(setHallRes.status).toBe(200);
-
-  const changeHallRes: Response = await request(app)
-    .put(`/api/halls/${setHallRes.body._id}`)
-    .send({
-      numberOfRows: faker.random.number(),
-      seatsOnRow: faker.random.number(),
-      name: faker.random.word() + faker.random.word()
-    });
-
-  expect(changeHallRes.error.text).toBe(undefined);
-  expect(changeHallRes.status).toBe(200);
-});
 it("delete hall", async () => {
-  const setHallRes: Response = await request(app)
-    .post("/api/halls")
-    .send({
-      numberOfRows: faker.random.number(),
-      seatsOnRow: faker.random.number(),
-      name: faker.random.word() + faker.random.word()
-    });
+  const setHallRes = await setNewHall(app);
 
   expect(setHallRes.error.text).toBe(undefined);
   expect(setHallRes.status).toBe(200);
 
-  const deleteHallRes: Response = await request(app).delete(
-    `/api/halls/${setHallRes.body._id}`
-  );
-
-  expect(deleteHallRes.error.text).toBe(undefined);
-  expect(deleteHallRes.status).toBe(200);
+  await deleteHall({ _id: setHallRes.body._id });
 
   const getHallsResAfterDelete: Response = await request(app).get("/api/halls");
   expect(getHallsResAfterDelete.status).toBe(200);

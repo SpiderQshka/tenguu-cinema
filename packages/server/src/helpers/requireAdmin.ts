@@ -6,6 +6,7 @@ export const requireAdmin = async (
   next: Function
 ): Promise<Response | void> => {
   if (!req.user) throw Error("Something went wrong..");
-  if (req.user.status !== "admin") return res.status(403).send("Access denied");
+  const user: any = req.user;
+  if (user.status !== "admin") return res.status(403).send("Access denied");
   next();
 };

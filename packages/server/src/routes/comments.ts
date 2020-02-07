@@ -3,6 +3,9 @@ import { models } from "../models/index";
 import { commentValidation } from "./validation/commentsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IComment } from "../interfaces/interfaces";
+import { authenticate } from "../helpers/authenticate";
+import { requireAdmin } from "../helpers/requireAdmin";
+import { deleteComment } from "../db/dbServices";
 
 const router: Router = Router();
 
@@ -12,17 +15,22 @@ router.get("/", async (req: Request, res: Response) => {
   res.json(comments);
 });
 
-router.post("/", async (req: Request, res: Response) => {
-  const error = await commentValidation(req.body);
-  if (error) return res.status(400).send(error);
+router.post(
+  "/",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    const error = await commentValidation(req.body);
+    if (error) return res.status(400).send(error);
 
-  const comment = new models.Comment({
-    ...req.body
-  });
-  await comment.save();
+    const comment = new models.Comment({
+      ...req.body
+    });
+    await comment.save();
 
-  return res.json(comment);
-});
+    return res.json(comment);
+  }
+);
 
 router.get("/:commentId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.commentId))
@@ -34,34 +42,41 @@ router.get("/:commentId", async (req: Request, res: Response) => {
   return res.json(comment);
 });
 
-router.put("/:commentId", async (req: Request, res: Response) => {
-  const comment: IComment = req.body;
+router.put(
+  "/:commentId",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    const comment: IComment = req.body;
 
-  if (!doesIdMatchesFormat(req.params.commentId))
-    return res.send("Wrong query format");
+    if (!doesIdMatchesFormat(req.params.commentId))
+      return res.send("Wrong query format");
 
-  const error = await commentValidation(req.body);
-  if (error) return res.status(400).send(error);
+    const error = await commentValidation(req.body);
+    if (error) return res.status(400).send(error);
 
-  const updatedComment = await models.Comment.findByIdAndUpdate(
-    req.params.commentId,
-    comment
-  );
-  if (!updatedComment) return res.status(404).send("Not found");
+    const updatedComment = await models.Comment.findByIdAndUpdate(
+      req.params.commentId,
+      comment
+    );
+    if (!updatedComment) return res.status(404).send("Not found");
 
-  return res.json(updatedComment);
-});
+    return res.json(updatedComment);
+  }
+);
 
-router.delete("/:commentId", async (req: Request, res: Response) => {
-  if (!doesIdMatchesFormat(req.params.commentId))
-    return res.send("Wrong query format");
+router.delete(
+  "/:commentId",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    if (!doesIdMatchesFormat(req.params.commentId))
+      return res.send("Wrong query format");
 
-  const deletedComment = await models.Comment.findByIdAndRemove(
-    req.params.commentId
-  );
-  if (!deletedComment) return res.status(404).send("Not found");
+    const deletedComment = await deleteComment({ _id: req.params.commentId });
 
-  return res.json(deletedComment);
-});
+    return res.json(deletedComment);
+  }
+);
 
 export default router;

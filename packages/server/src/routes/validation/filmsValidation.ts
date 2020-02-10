@@ -3,7 +3,9 @@ import { IFilm } from "../../interfaces/interfaces";
 import { _IDREGEXP } from "../../keys/keys";
 import { models } from "../../models/index";
 
-export const filmValidation = async (data: IFilm): Promise<string | null> => {
+export const filmValidation = async (
+  data: IFilm
+): Promise<{ error: string | null; code: number }> => {
   const schema = Joi.object({
     name: Joi.string().required(),
     genreId: Joi.string()
@@ -20,13 +22,13 @@ export const filmValidation = async (data: IFilm): Promise<string | null> => {
   });
 
   const { error = null } = schema.validate(data);
-  if (error) return error.details[0].message;
+  if (error) return { error: error.details[0].message, code: 400 };
 
   const doesFilmExists = await models.Film.findOne({ name: data.name });
-  if (doesFilmExists) return "Film name already exists";
+  if (doesFilmExists) return { error: "Film name already exists", code: 400 };
 
   const filmGenre = await models.Genre.findById(data.genreId);
-  if (!filmGenre) return "Genre not found";
+  if (!filmGenre) return { error: "Genre not found", code: 404 };
 
-  return null;
+  return { error: null, code: 200 };
 };

@@ -4,7 +4,7 @@ import { hallValidation } from "./validation/hallsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IHall } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
-import { requireAdmin } from "../helpers/requireAdmin";
+import { requireManager } from "../helpers/requireManager";
 import { deleteHall } from "../db/dbServices";
 
 const router: Router = Router();
@@ -18,10 +18,10 @@ router.get("/", async (req: Request, res: Response) => {
 router.post(
   "/",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
-    const error = await hallValidation(req.body);
-    if (error) return res.status(400).send(error);
+    const { error, code } = await hallValidation(req.body);
+    if (error) return res.status(code).send(error);
 
     const hall = new models.Hall({
       ...req.body
@@ -45,15 +45,15 @@ router.get("/:hallId", async (req: Request, res: Response) => {
 router.put(
   "/:hallId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     const hall: IHall = req.body;
 
     if (!doesIdMatchesFormat(req.params.hallId))
       return res.send("Wrong query format");
 
-    const error = await hallValidation(hall);
-    if (error) return res.status(400).send(error);
+    const { error, code } = await hallValidation(req.body);
+    if (error) return res.status(code).send(error);
 
     const updatedHall = await models.Hall.findByIdAndUpdate(
       req.params.hallId,
@@ -68,7 +68,7 @@ router.put(
 router.delete(
   "/:hallId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.hallId))
       return res.send("Wrong query format");

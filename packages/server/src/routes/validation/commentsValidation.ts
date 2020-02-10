@@ -5,7 +5,7 @@ import { models } from "../../models/index";
 
 export const commentValidation = async (
   data: IComment
-): Promise<string | null> => {
+): Promise<{ error: string | null; code: number }> => {
   const schema = Joi.object({
     content: Joi.string()
       .min(20)
@@ -16,10 +16,10 @@ export const commentValidation = async (
   });
 
   const { error = null } = schema.validate(data);
-  if (error) return error.details[0].message;
+  if (error) return { error: error.details[0].message, code: 400 };
 
   const film = await models.Film.findById(data.filmId);
-  if (!film) return "Film not found";
+  if (!film) return { error: "Film not found", code: 404 };
 
-  return null;
+  return { error: null, code: 200 };
 };

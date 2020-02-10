@@ -4,7 +4,7 @@ import { genreValidation } from "./validation/genresValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IGenre } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
-import { requireAdmin } from "../helpers/requireAdmin";
+import { requireManager } from "../helpers/requireManager";
 import { deleteGenre } from "../db/dbServices";
 
 const router: Router = Router();
@@ -18,10 +18,10 @@ router.get("/", async (req: Request, res: Response) => {
 router.post(
   "/",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
-    const error = await genreValidation(req.body);
-    if (error) return res.status(400).send(error);
+    const { error, code } = await genreValidation(req.body);
+    if (error) return res.status(code).send(error);
 
     const genre = new models.Genre({
       ...req.body
@@ -45,15 +45,15 @@ router.get("/:genreId", async (req: Request, res: Response) => {
 router.put(
   "/:genreId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     const genre: IGenre = req.body;
 
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.send("Wrong query format");
 
-    const error = await genreValidation(req.body);
-    if (error) return res.status(400).send(error);
+    const { error, code } = await genreValidation(req.body);
+    if (error) return res.status(code).send(error);
 
     const updatedGenre = await models.Genre.findByIdAndUpdate(
       req.params.genreId,
@@ -68,7 +68,7 @@ router.put(
 router.delete(
   "/:genreId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.send("Wrong query format");

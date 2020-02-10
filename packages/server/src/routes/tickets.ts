@@ -5,8 +5,8 @@ import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { ITicket } from "../interfaces/interfaces";
 import { TicketStatuses } from "../types/types";
 import { authenticate } from "../helpers/authenticate";
-import { requireAdmin } from "../helpers/requireAdmin";
 import { deleteTicket } from "../db/dbServices";
+import { requireManager } from "../helpers/requireManager";
 
 const router: Router = Router();
 
@@ -16,25 +16,29 @@ router.get("/", authenticate, async (req: Request, res: Response) => {
   res.json(tickets);
 });
 
-router.post(
-  "/",
-  authenticate,
-  requireAdmin,
-  async (req: Request, res: Response) => {
-    const error = await ticketValidation(req.body);
-    if (error) return res.status(400).send(error);
+router.post("/", authenticate, async (req: Request, res: Response) => {
+  const { error, code } = await ticketValidation(req.body);
+  if (error) return res.status(code).send(error);
 
-    const ticket = new models.Ticket({
-      sessionId: req.body.sessionId,
-      userId: req.body.userId,
-      seat: req.body.seat,
-      status: req.body.status as TicketStatuses
-    });
+  const currentUserId = req.user ? req.user["_id"].toString() : null;
 
-    const addedTicket = await ticket.save();
-    return res.json(addedTicket);
-  }
-);
+  if (currentUserId !== req.body.userId)
+    return res
+      .status(400)
+      .send(
+        "User id in ticket data doesn't match with id of currently logged user"
+      );
+
+  const ticket = new models.Ticket({
+    sessionId: req.body.sessionId,
+    userId: req.body.userId,
+    seat: req.body.seat,
+    status: req.body.status as TicketStatuses
+  });
+
+  const addedTicket = await ticket.save();
+  return res.json(addedTicket);
+});
 
 router.get("/:ticketId", authenticate, async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.ticketId))
@@ -49,15 +53,15 @@ router.get("/:ticketId", authenticate, async (req: Request, res: Response) => {
 router.put(
   "/:ticketId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     const ticket: ITicket = req.body;
 
     if (!doesIdMatchesFormat(req.params.ticketId))
       return res.send("Wrong query format");
 
-    const error = await ticketValidation(ticket);
-    if (error) return res.status(400).send(error);
+    const { error, code } = await ticketValidation(req.body);
+    if (error) return res.status(code).send(error);
 
     const updatedTicket = await models.Ticket.findByIdAndUpdate(
       req.params.ticketId,
@@ -72,13 +76,26 @@ router.put(
 router.delete(
   "/:ticketId",
   authenticate,
-  requireAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.ticketId))
       return res.send("Wrong query format");
 
+    const ticketForDelete = await models.Ticket.findById(req.params.ticketId);
+    if (!ticketForDelete) return res.status(404).send("Not found");
+
+    const currentUserId = req.user ? req.user["_id"].toString() : null;
+    const ticketOwner = await models.User.findById(ticketForDelete?.userId);
+
+    const ticketOwnerId = ticketOwner ? ticketOwner["_id"].toString() : null;
+
+    if (currentUserId !== ticketOwnerId)
+      return res
+        .status(400)
+        .send(
+          "User id in ticket data doesn't match with id of currently logged user"
+        );
+
     const deletedTicket = await deleteTicket({ _id: req.params.ticketId });
-    if (!deletedTicket) return res.status(404).send("Not found");
 
     return res.json(deletedTicket);
   }

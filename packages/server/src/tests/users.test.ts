@@ -1,11 +1,11 @@
 import request, { Response } from "supertest";
 import { app } from "../server";
-import { DBURL } from "../keys/keys";
+import { DBTESTURL } from "../keys/keys";
 import { connectDb, clearCollection, deleteUser } from "../db/dbServices";
-import { setNewUser } from "../helpers/setRandomTestTables";
+import { setNewUser } from "../db/setRandomTestTables";
 
 beforeAll(async () => {
-  await connectDb(DBURL).then(() => console.log("Connected to DB"));
+  await connectDb(DBTESTURL).then(() => console.log("Connected to DB"));
 });
 afterAll(async () => {
   await clearCollection("users");

@@ -26,7 +26,9 @@ const registerValidation = async (
   return { error: null, code: 200 };
 };
 
-const loginValidation = async (data: IUser): Promise<string | null> => {
+const loginValidation = async (
+  data: IUser
+): Promise<{ error: string | null; code: number }> => {
   const schema = Joi.object({
     email: Joi.string()
       .email()
@@ -37,17 +39,17 @@ const loginValidation = async (data: IUser): Promise<string | null> => {
   });
 
   const { error = null } = schema.validate(data);
-  if (error) return error.details[0].message;
+  if (error) return { error: error.details[0].message, code: 400 };
 
   const dbUser = await models.User.findOne({ email: data.email });
 
-  if (!dbUser) return "Email doesn't exists";
+  if (!dbUser) return { error: "Email doesn't exist", code: 400 };
 
   const validPassword = await bcrypt.compare(data.password, dbUser.password);
 
-  if (!validPassword) return "Invalid password";
+  if (!validPassword) return { error: "Invalid password", code: 400 };
 
-  return null;
+  return { error: null, code: 200 };
 };
 
 export { registerValidation, loginValidation };

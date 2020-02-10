@@ -5,7 +5,7 @@ import { _IDREGEXP } from "../../keys/keys";
 
 export const sessionValidation = async (
   data: ISession
-): Promise<string | null> => {
+): Promise<{ error: string | null; code: number }> => {
   const schema = Joi.object({
     filmId: Joi.string()
       .pattern(_IDREGEXP)
@@ -20,7 +20,7 @@ export const sessionValidation = async (
   });
 
   const { error = null } = schema.validate(data);
-  if (error) return error.details[0].message;
+  if (error) return { error: error.details[0].message, code: 400 };
 
   // __________data validation___________
 
@@ -28,11 +28,11 @@ export const sessionValidation = async (
 
   const currentSessionFilm = await models.Film.findById(currentSession.filmId);
 
-  if (!currentSessionFilm) return "Film not found";
+  if (!currentSessionFilm) return { error: "Film not found", code: 404 };
 
   const CurrentSessionHall = await models.Hall.findById(currentSession.hallId);
 
-  if (!CurrentSessionHall) return "Hall not found";
+  if (!CurrentSessionHall) return { error: "Hall not found", code: 404 };
 
   const sessionsWithTheSameHall = await models.Session.find({
     hallId: currentSession.hallId
@@ -60,7 +60,11 @@ export const sessionValidation = async (
 
   // console.log("Time for session:", result);
 
-  if (!result) return "Hall is already booked on this time by another session";
+  if (!result)
+    return {
+      error: "Hall is already booked on this time by another session",
+      code: 400
+    };
 
-  return null;
+  return { error: null, code: 200 };
 };

@@ -1,11 +1,11 @@
 import { app } from "../server";
-import { DBURL } from "../keys/keys";
+import { DBTESTURL } from "../keys/keys";
 import { connectDb, clearCollection, deleteHall } from "../db/dbServices";
-import { setNewHall } from "../helpers/setRandomTestTables";
+import { setNewHall } from "../db/setRandomTestTables";
 import request, { Response } from "supertest";
 
 beforeAll(async () => {
-  await connectDb(DBURL).then(() => console.log("Connected to DB"));
+  await connectDb(DBTESTURL).then(() => console.log("Connected to DB"));
 });
 afterAll(async () => {
   await clearCollection("halls");

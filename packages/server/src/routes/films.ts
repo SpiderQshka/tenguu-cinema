@@ -4,7 +4,7 @@ import { filmValidation } from "./validation/filmsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IFilm } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
-import { requireAdmin } from "../helpers/requireAdmin";
+import { requireManager } from "../helpers/requireManager";
 import { deleteFilm } from "../db/dbServices";
 
 const router: Router = Router();
@@ -18,10 +18,10 @@ router.get("/", async (req: Request, res: Response) => {
 router.post(
   "/",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
-    const error = await filmValidation(req.body);
-    if (error) return res.status(400).send(error);
+    const { error, code } = await filmValidation(req.body);
+    if (error) return res.status(code).send(error);
 
     const film = new models.Film({
       ...req.body
@@ -45,15 +45,15 @@ router.get("/:filmId", async (req: Request, res: Response) => {
 router.put(
   "/:filmId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     const film: IFilm = req.body;
 
     if (!doesIdMatchesFormat(req.params.filmId))
       return res.send("Wrong query format");
 
-    const error = await filmValidation(req.body);
-    if (error) return res.status(400).send(error);
+    const { error, code } = await filmValidation(req.body);
+    if (error) return res.status(code).send(error);
 
     const updatedFilm = await models.Film.findByIdAndUpdate(
       req.params.filmId,
@@ -68,7 +68,7 @@ router.put(
 router.delete(
   "/:filmId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.filmId))
       return res.send("Wrong query format");

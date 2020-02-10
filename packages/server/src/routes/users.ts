@@ -4,6 +4,7 @@ import { userValidation } from "./validation/usersValidation";
 import { IUser } from "../interfaces/interfaces";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
+import { requireManager } from "../helpers/requireManager";
 import { requireAdmin } from "../helpers/requireAdmin";
 import { deleteUser } from "../db/dbServices";
 
@@ -12,7 +13,7 @@ const router: Router = Router();
 router.get(
   "/",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     const users = await models.User.find();
 
@@ -23,7 +24,7 @@ router.get(
 router.get(
   "/:userId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.userId))
       return res.send("Wrong query format");
@@ -35,18 +36,38 @@ router.get(
   }
 );
 
+router.post(
+  "/",
+  authenticate,
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    const { error, code } = await userValidation(req.body);
+    if (error) return res.status(code).send(error);
+
+    const user = new models.User({
+      username: req.body.username,
+      password: await models.User.hashPassword(req.body.password),
+      email: req.body.email,
+      status: req.body.status
+    });
+    const newUser = await user.save();
+
+    return res.json(newUser);
+  }
+);
+
 router.put(
   "/:userId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     const user: IUser = req.body;
 
     if (!doesIdMatchesFormat(req.params.userId))
       return res.send("Wrong query format");
 
-    const error = await userValidation(user);
-    if (error) return res.status(400).send(error);
+    const { error, code } = await userValidation(req.body);
+    if (error) return res.status(code).send(error);
 
     const updatedUser = await models.User.findByIdAndUpdate(
       req.params.userId,
@@ -61,7 +82,7 @@ router.put(
 router.delete(
   "/:userId",
   authenticate,
-  requireAdmin,
+  requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.userId))
       return res.send("Wrong query format");

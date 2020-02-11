@@ -1,7 +1,7 @@
 import React from "react";
-import { HeaderLogo } from "./HeaderLogo";
-import { HeaderMenu } from "./HeaderMenu";
-import { HeaderProfile } from "./HeaderProfile";
+import { Logo } from "./Logo";
+import { Menu } from "./Menu";
+import { Profile } from "./Profile";
 import "./header.sass";
 
 export interface IHeaderProps {}
@@ -9,10 +9,10 @@ export interface IHeaderProps {}
 export function Header(props: IHeaderProps) {
   return (
     <header className="header">
-      <HeaderLogo />
+      <Logo />
       <div className="content-block">
-        <HeaderProfile username="Test" />
-        <HeaderMenu />
+        <Profile username="Test" />
+        <Menu />
       </div>
     </header>
   );

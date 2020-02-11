@@ -1,11 +1,12 @@
 import React from "react";
+import "./header.sass";
 
 export interface IHeaderProfileProps {
   username: string;
   newTicketsNumber?: number;
 }
 
-export function HeaderProfile(props: IHeaderProfileProps) {
+export function Profile(props: IHeaderProfileProps) {
   return (
     <div className="profile-block">
       <div className="user-block">

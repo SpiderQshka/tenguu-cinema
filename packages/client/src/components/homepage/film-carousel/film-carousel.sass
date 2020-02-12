@@ -2,26 +2,50 @@
 
 $progressbar-size: 100px
 $progressbar-width: 3.5
+$controls-width: 200px
+$controls-icons-size: 50px
+$film-name-font-size: 3rem
+$content-bottom-gap: 70px
 
-.carousel
-    width: 100%
-    min-height: 400px
-    height: 100vh
-    border: 1px solid #000
-    .arrow-next, .arrow-prev
-        color: $accent-color
-        font-size: 50px
+.film-carousel
+    position: relative
+    .arrow-block
+        top: 0
+        z-index: 1
+        position: absolute
+        height: 100%
+        width: $controls-width
+        border: none
+        .icon
+            font-size: $controls-icons-size
+            color: $accent-color
+    .arrow-next
+        text-align: left
+        right: 0
+    .arrow-prev
+        text-align: right
+        left: 0
+
+.slide-wrapper
+    background: no-repeat center/cover $secondary-color
     .slide
+        max-width: calc(100% - 450px)
+        margin: 0 auto
         height: 100vh
-        padding-bottom: 120px
-        background-color: $secondary-color
+        min-height: 400px
+        padding-bottom: $content-bottom-gap
         display: flex
         align-items: flex-end
-        justify-content: center
+        justify-content: space-between
         .slide-content
-            width: 100%
-            max-width: 1000px
+            box-shadow: inset 200px -200px 215px -147px rgba(0,0,0,0.79)
+            border-left: 2px solid $primary-color
+            border-bottom: 2px solid $primary-color
+            padding: $extra-large-padding $extra-large-padding $large-padding
+            border-radius: 10px
+            border-bottom-left-radius: 30px
             .genres
+                font-size: $default-font-size
                 margin-bottom: $extra-large-margin
                 .genre
                     display: inline-block
@@ -32,30 +56,34 @@ $progressbar-width: 3.5
                         padding-left: 0
                         border-left: none
             .film-name
+                font-size: $film-name-font-size
                 color: $primary-color
                 text-transform: uppercase
                 margin-bottom: $extra-large-margin
             .buttons
-                button
+                .slide-btn
+                    font-size: $default-font-size
                     color: $primary-color
                     text-transform: uppercase
                     padding: $default-margin $large-margin $default-margin 0
-                    opacity: .5
-                    transition: color 0.7
                     margin-right: $default-margin
-                    .button-text
-                        margin-left: $large-margin
                     .button-icon
+                        margin-right: $large-margin
                         color: $accent-color
-                    &:hover
-                        opacity: 1
-                    &:focus
-                        outline: none !important
-                        box-shadow: none
         .slide-ratings
+            box-shadow: inset -200px 200px 215px -147px rgba(0,0,0,0.79)
+            border-right: 2px solid $primary-color
+            border-top: 2px solid $primary-color
+            padding: $extra-large-padding $extra-large-padding $large-padding
+            border-radius: 10px
+            border-top-right-radius: 30px
             .rating-element
                 display: inline-block
                 margin: 0 $default-margin
+                .rater-name
+                    font-size: $extra-large-font-size
+                    color: $primary-color
+                    font-weight: lighter
                 .progressbar-container
                     width: $progressbar-size
                     margin: 0 auto
@@ -68,4 +96,7 @@ $progressbar-width: 3.5
 
                     .CircularProgressbar-text 
                         fill: $accent-color
+
+                    .CircularProgressbar-background
+                        fill: $secondary-color
 

@@ -8,12 +8,14 @@ export interface IHeaderProps {}
 
 export function Header(props: IHeaderProps) {
   return (
-    <header className="header">
-      <Logo />
-      <div className="content-block">
-        <Profile username="Test" />
-        <Menu />
-      </div>
-    </header>
+    <div className="header-container">
+      <header className="header">
+        <Logo />
+        <div className="content-block">
+          <Profile username="Test" />
+          <Menu />
+        </div>
+      </header>
+    </div>
   );
 }

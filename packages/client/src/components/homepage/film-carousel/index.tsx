@@ -1,30 +1,40 @@
 import React from "react";
 import "./film-carousel.sass";
-import { Carousel } from "react-bootstrap";
+import Carousel from "react-slick";
 import { Slide } from "./Slide";
 import { ArrowNext, ArrowPrev } from "./Controls";
 
-export interface ISliderProps {}
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-export function FilmCarousel(props: ISliderProps) {
+export interface IFilmCarouselProps {
+  films: {
+    genres: string[];
+    filmName: string;
+    ratings: {
+      value: number;
+      raterName: string;
+    }[];
+    filmImage: string;
+  }[];
+}
+
+export function FilmCarousel(props: IFilmCarouselProps) {
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <ArrowNext onClick={e => {}} />,
+    prevArrow: <ArrowPrev onClick={e => {}} />,
+    fade: true,
+    adaptiveHeight: true
+  };
   return (
-    <Carousel
-      className="carousel"
-      interval={null}
-      fade={true}
-      nextIcon={<ArrowNext />}
-      prevIcon={<ArrowPrev />}
-    >
-      <Carousel.Item>
-        <Slide
-          genres={["Fantasy", "Non-fiction"]}
-          filmName="Test film"
-          ratings={[
-            { value: 8.7, raterName: "The experts" },
-            { value: 8.7, raterName: "The experts" }
-          ]}
-        />
-      </Carousel.Item>
+    <Carousel className="film-carousel" {...settings}>
+      {props.films.map(film => {
+        return <Slide {...film} />;
+      })}
     </Carousel>
   );
 }

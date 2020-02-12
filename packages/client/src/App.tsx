@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { Header } from "./components/header/index";
 import { Homepage } from "./components/homepage/index";
-
-import "bootstrap/dist/css/bootstrap.min.css";
+// Segoe UI
+import "materialize-css/dist/css/materialize.min.css";
 
 import "./app.sass";
 

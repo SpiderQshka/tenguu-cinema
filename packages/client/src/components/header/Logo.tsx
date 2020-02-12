@@ -6,8 +6,8 @@ export interface ILogoProps {}
 export function Logo(props: ILogoProps) {
   return (
     <div className="logo-block">
-      <img src="#" alt="Logo" className="image" />
-      <h2 className="info">
+      <i className="fas fa-film image"></i>
+      <h2 className="name">
         Tenguu <br /> cinema
       </h2>
     </div>

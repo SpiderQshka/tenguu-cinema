@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "react-bootstrap";
-
+import "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
 import "./header.sass";
 
 export interface IMenuProps {}
@@ -8,12 +8,12 @@ export interface IMenuProps {}
 export function Menu(props: IMenuProps) {
   return (
     <div className="menu-block">
-      <Button variant="light" className="search-btn">
+      <IconButton className="menu-btn">
         <i className="fas fa-search"></i>
-      </Button>
-      <Button variant="light" className="menu-btn">
+      </IconButton>
+      <IconButton className="menu-btn">
         <i className="fas fa-bars"></i>
-      </Button>
+      </IconButton>
     </div>
   );
 }

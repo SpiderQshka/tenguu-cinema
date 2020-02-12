@@ -1,6 +1,6 @@
 import React from "react";
-import { Carousel } from "./NowPlayingCarousel";
-import { Header } from "./NowPlayingHeader";
+import { Carousel } from "./Carousel";
+import { Header } from "./Header";
 import "./nowPlaying.sass";
 
 export interface INowPlayingProps {}

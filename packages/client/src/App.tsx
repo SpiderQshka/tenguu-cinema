@@ -1,17 +1,40 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useEffect, useCallback } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
 
 import { Header } from "./components/header/index";
 import { Homepage } from "./components/homepage/index";
-// Segoe UI
+
 import "materialize-css/dist/css/materialize.min.css";
 
 import "./app.sass";
 
-const App: React.FC = () => {
+import {
+  fetchFilmsError,
+  fetchFilmsPending,
+  fetchFilmsSuccess
+} from "./actions/films";
+
+const fetchFilms = async (dispatch: Function) => {
+  dispatch(fetchFilmsPending());
+  return fetch("/api/films")
+    .then(res => res.json())
+    .then(data => dispatch(fetchFilmsSuccess(data)))
+    .catch(error => dispatch(fetchFilmsError(error)));
+};
+
+const App: React.FC = (props: any) => {
+  console.log(props);
+  const fetchThings = useCallback(async () => {
+    await fetchFilms(props.dispatch);
+  }, [props.dispatch]);
+  useEffect(() => {
+    fetchThings();
+  }, [fetchThings]);
   return (
     <Router>
       <Header />
+
       {/* <ul>
         <li>
           <Link to="/">Home</Link>
@@ -25,11 +48,16 @@ const App: React.FC = () => {
           <h1>about</h1>
         </Route>
         <Route path="/">
-          <Homepage />
+          {" "}
+          <Homepage />{" "}
         </Route>
       </Switch>
     </Router>
   );
 };
 
-export default App;
+export default connect((state: any) => {
+  // console.log(state);
+
+  return state;
+})(App);

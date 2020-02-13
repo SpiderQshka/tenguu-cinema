@@ -29,6 +29,15 @@ export function Homepage(props: IHomepageProps) {
               { value: 1.2, raterName: "The experts" }
             ],
             filmImage: "./page2.jpg"
+          },
+          {
+            genres: ["Fantasy", "Non-fiction"],
+            filmName: "Test film",
+            ratings: [
+              { value: 8.7, raterName: "The experts" },
+              { value: 8.7, raterName: "The experts" }
+            ],
+            filmImage: "./page.jpg"
           }
         ]}
       />

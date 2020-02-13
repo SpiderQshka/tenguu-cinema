@@ -1,6 +1,5 @@
 import React from "react";
 import Slider from "react-slick";
-// import Slider from "../../slider/index";
 
 import { ArrowNext, ArrowPrev } from "./CarouselControls";
 import { FilmCard } from "../../film-card/index";

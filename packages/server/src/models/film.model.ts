@@ -6,11 +6,13 @@ const filmScheme: Schema<IFilm> = new Schema({
     type: String,
     required: true
   },
-  genreId: {
-    type: Schema.Types.ObjectId,
-    ref: "Genre",
-    required: true
-  },
+  genreIds: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Genre",
+      required: true
+    }
+  ],
   duration: {
     type: Number,
     required: true
@@ -19,8 +21,21 @@ const filmScheme: Schema<IFilm> = new Schema({
     type: String,
     required: true
   },
-  rating: {
-    type: Number
+  ratings: [
+    {
+      ratingValue: {
+        type: Number,
+        required: true
+      },
+      raterName: {
+        type: String,
+        required: true
+      }
+    }
+  ],
+  filmImage: {
+    type: String,
+    required: true
   }
 });
 

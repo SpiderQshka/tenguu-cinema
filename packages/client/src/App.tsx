@@ -1,39 +1,17 @@
-import React, { useEffect, useCallback } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
 
 import { Header } from "./components/header/index";
-import { Homepage } from "./components/homepage/index";
+import { Homepage } from "./pages/homepage";
+import { AuthPage } from "./pages/authPage";
 
 import "materialize-css/dist/css/materialize.min.css";
-
 import "./app.sass";
 
-import {
-  fetchFilmsError,
-  fetchFilmsPending,
-  fetchFilmsSuccess
-} from "./actions/films";
-
-const fetchFilms = async (dispatch: Function) => {
-  dispatch(fetchFilmsPending());
-  return fetch("/api/films")
-    .then(res => res.json())
-    .then(data => dispatch(fetchFilmsSuccess(data)))
-    .catch(error => dispatch(fetchFilmsError(error)));
-};
-
 const App: React.FC = (props: any) => {
-  console.log(props);
-  const fetchThings = useCallback(async () => {
-    await fetchFilms(props.dispatch);
-  }, [props.dispatch]);
-  useEffect(() => {
-    fetchThings();
-  }, [fetchThings]);
   return (
     <Router>
-      <Header />
+      {/* <Header /> */}
 
       {/* <ul>
         <li>
@@ -44,20 +22,16 @@ const App: React.FC = (props: any) => {
         </li>
       </ul> */}
       <Switch>
-        <Route path="/about">
-          <h1>about</h1>
+        <Route path="/auth">
+          <AuthPage />
         </Route>
         <Route path="/">
-          {" "}
-          <Homepage />{" "}
+          <Header />
+          <Homepage />
         </Route>
       </Switch>
     </Router>
   );
 };
 
-export default connect((state: any) => {
-  // console.log(state);
-
-  return state;
-})(App);
+export default App;

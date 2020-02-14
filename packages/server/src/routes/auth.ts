@@ -8,6 +8,8 @@ import {
 const router: Router = Router();
 
 router.post("/register", async (req: Request, res: Response) => {
+  console.log(req.body);
+
   const { error, code } = await registerValidation(req.body);
   if (error) return res.status(code).send(error);
 

@@ -1,3 +1,5 @@
+import { IFilm } from "../interfaces/IFilm";
+
 import {
   FETCH_FILMS_ERROR,
   FETCH_FILMS_PENDING,
@@ -6,14 +8,11 @@ import {
 
 const initialState = {
   pending: false,
-  films: [],
+  films: [] as IFilm[],
   error: null
 };
 
-export const filmsReducer = (
-  state = initialState,
-  action: { type: string; films?: any; error?: Error }
-) => {
+export const filmsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case FETCH_FILMS_PENDING:
       console.log("Pending");
@@ -38,6 +37,11 @@ export const filmsReducer = (
   }
 };
 
-export const getFilms = (state: any) => state.films;
+export const getFilms = (films: IFilm[], filter?: any) => {
+  switch (filter) {
+    default:
+      return films;
+  }
+};
 export const getFilmsPending = (state: any) => state.films;
 export const getFilmsError = (state: any) => state.films;

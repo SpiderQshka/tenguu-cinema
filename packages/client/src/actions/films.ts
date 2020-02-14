@@ -1,3 +1,4 @@
+import { IFilm } from "../interfaces/IFilm";
 // Actions
 
 export const FETCH_FILMS_PENDING = "FETCH_FILMS_PENDING";
@@ -12,7 +13,7 @@ export const fetchFilmsPending = () => {
   };
 };
 
-export const fetchFilmsSuccess = (films: any) => {
+export const fetchFilmsSuccess = (films: IFilm[]) => {
   return {
     type: FETCH_FILMS_SUCCESS,
     films
@@ -24,4 +25,16 @@ export const fetchFilmsError = (error: Error) => {
     type: FETCH_FILMS_ERROR,
     error
   };
+};
+
+// export type FetchFilmsTypes =
+
+// Fetches
+
+export const fetchFilms = async (dispatch: Function) => {
+  dispatch(fetchFilmsPending());
+  return fetch("/api/films")
+    .then(res => res.json())
+    .then(data => dispatch(fetchFilmsSuccess(data)))
+    .catch(error => dispatch(fetchFilmsError(error)));
 };

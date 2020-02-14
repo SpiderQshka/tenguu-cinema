@@ -2,23 +2,29 @@ import Joi from "@hapi/joi";
 import { IFilm } from "../../interfaces/interfaces";
 import { _IDREGEXP } from "../../keys/keys";
 import { models } from "../../models/index";
+import { Schema } from "mongoose";
 
 export const filmValidation = async (
   data: IFilm
 ): Promise<{ error: string | null; code: number }> => {
   const schema = Joi.object({
     name: Joi.string().required(),
-    genreId: Joi.string()
-      .pattern(_IDREGEXP)
-      .required(),
+    genreIds: Joi.array().items(
+      Joi.string()
+        .pattern(_IDREGEXP)
+        .required()
+    ),
     duration: Joi.number()
       .min(60)
       .required(),
     trailerLink: Joi.string().required(),
-    rating: Joi.number()
-      .min(0)
-      .max(10)
-      .required()
+    ratings: Joi.array().items(
+      Joi.number()
+        .min(0)
+        .max(10)
+        .required()
+    ),
+    filmImage: Joi.string().required()
   });
 
   const { error = null } = schema.validate(data);
@@ -27,8 +33,18 @@ export const filmValidation = async (
   const doesFilmExists = await models.Film.findOne({ name: data.name });
   if (doesFilmExists) return { error: "Film name already exists", code: 400 };
 
-  const filmGenre = await models.Genre.findById(data.genreId);
-  if (!filmGenre) return { error: "Genre not found", code: 404 };
+  const doesFilmGenresExists = async (
+    genreIdsArray: Schema.Types.ObjectId[]
+  ) => {
+    const promises = genreIdsArray.map(
+      async genreId => await models.Genre.findById(genreId.toString())
+    );
+    return await Promise.all(promises);
+  };
 
+  doesFilmGenresExists(data.genreIds).then(genres => {
+    if (!genres.every(genre => !!genre))
+      return { error: "Genre not found", code: 404 };
+  });
   return { error: null, code: 200 };
 };

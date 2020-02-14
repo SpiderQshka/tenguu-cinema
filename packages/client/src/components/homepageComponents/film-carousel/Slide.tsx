@@ -1,35 +1,31 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import { config } from "../../../config";
 
 import { CircularProgressbar } from "react-circular-progressbar";
 
+import { IFilmWithGenres } from "../../../interfaces/IFilm";
+
 import "react-circular-progressbar/dist/styles.css";
-import "../../../config.sass";
 
-export interface ISlideProps {
-  genres: string[];
-  filmName: string;
-  ratings: {
-    value: number;
-    raterName: string;
-  }[];
-  filmImage: string;
-}
-
-export function Slide(props: ISlideProps) {
+export function Slide(props: IFilmWithGenres) {
   return (
     <div
       className="slide-wrapper"
-      style={{ backgroundImage: `url(${props.filmImage || null})` }}
+      style={{
+        backgroundImage: `url(${config.baseUrl + props.filmImage})`
+      }}
     >
       <div className="slide">
         <div className="slide-content">
           <ul className="genres">
             {props.genres.map(genre => (
-              <li className="genre">{genre}</li>
+              <li className="genre" key={genre._id}>
+                {genre.name}
+              </li>
             ))}
           </ul>
-          <h2 className="film-name">{props.filmName}</h2>
+          <h2 className="film-name">{props.name}</h2>
           <div className="buttons">
             <Button className="slide-btn">
               <i className="fas fa-play button-icon"></i>
@@ -44,11 +40,11 @@ export function Slide(props: ISlideProps) {
         <ul className="slide-ratings">
           {props.ratings.map(rating => {
             return (
-              <li className="rating-element">
+              <li className="rating-element" key={rating.raterName}>
                 <div className="progressbar-container">
                   <CircularProgressbar
-                    value={rating.value * 10}
-                    text={rating.value + ""}
+                    value={rating.ratingValue * 10}
+                    text={rating.ratingValue + ""}
                     background={true}
                   />
                 </div>

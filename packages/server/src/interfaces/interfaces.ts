@@ -24,10 +24,14 @@ interface ISession extends Document {
 
 interface IFilm extends Document {
   name: string;
-  genreId: Schema.Types.ObjectId;
+  genreIds: Schema.Types.ObjectId[];
   duration: number;
   trailerLink: string;
-  rating: number;
+  ratings: {
+    ratingValue: number;
+    raterName: string;
+  }[];
+  filmImage: string;
 }
 
 interface IHall extends Document {

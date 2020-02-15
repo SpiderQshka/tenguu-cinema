@@ -6,7 +6,10 @@ import { Homepage } from "./pages/homepage";
 import { AuthPage } from "./pages/authPage";
 
 import "materialize-css/dist/css/materialize.min.css";
+import M from "materialize-css";
 import "./app.sass";
+
+M.AutoInit();
 
 const App: React.FC = (props: any) => {
   return (

@@ -1,3 +1,5 @@
+import { getUserInfo } from "../APIServices/UsersServices";
+
 // Actions
 
 export const FETCH_USERS_PENDING = "FETCH_USERS_PENDING";
@@ -24,4 +26,11 @@ export const fetchUsersError = (error: Error) => {
     type: FETCH_USERS_ERROR,
     error
   };
+};
+
+export const fetchUserInfo = async (dispatch: Function) => {
+  dispatch(fetchUsersPending());
+  return getUserInfo()
+    .then(data => dispatch(fetchUsersSuccess(data)))
+    .catch(error => dispatch(fetchUsersError(error)));
 };

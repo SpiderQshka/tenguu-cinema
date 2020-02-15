@@ -3,16 +3,18 @@ import {
   FETCH_USERS_SUCCESS,
   FETCH_USERS_ERROR
 } from "../actions/users";
+import { IUser } from "../interfaces/IUser";
 
 const initialState = {
   pending: false,
   users: [],
+  currentUser: {} as IUser,
   error: null
 };
 
 export const usersReducer = (
   state = initialState,
-  action: { type: string; users?: any; error?: Error }
+  action: { type: string; users?: any; currentUser: IUser; error?: Error }
 ) => {
   switch (action.type) {
     case FETCH_USERS_PENDING:
@@ -21,11 +23,12 @@ export const usersReducer = (
         ...state,
         pending: true
       };
+
     case FETCH_USERS_SUCCESS:
       console.log("Success");
       return {
         ...state,
-        users: action.users
+        currentUser: action.users
       };
     case FETCH_USERS_ERROR:
       console.log("Error");
@@ -38,6 +41,4 @@ export const usersReducer = (
   }
 };
 
-export const getUsers = (state: any) => state.users;
-export const getUsersPending = (state: any) => state.users;
-export const getUsersError = (state: any) => state.users;
+export const getCurrentUser = (state: any): IUser => state;

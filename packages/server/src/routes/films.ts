@@ -39,6 +39,12 @@ router.get("/:filmId", async (req: Request, res: Response) => {
   const film = await models.Film.findById(req.params.filmId);
 
   if (!film) return res.status(404).send("Not found");
+
+  const genres = await models.Genre.find();
+
+  // film.genreIds.map(genreId => {
+  //   genres.
+  // })
   return res.json(film);
 });
 

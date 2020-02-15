@@ -1,35 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect, ConnectedProps } from "react-redux";
+import { getCurrentUser } from "../../reducers/usersReducer";
 import "./header.sass";
 
-export interface IHeaderProfileProps {
-  username: string;
-  image?: string;
-  newTicketsNumber?: number;
-}
+import { fetchUserInfo } from "../../actions/users";
 
-export function Profile(props: IHeaderProfileProps) {
+const mapStateToProps = (state: any) => {
+  return {
+    currentUser: getCurrentUser(state)
+  };
+};
+
+const connector = connect(mapStateToProps);
+
+function Profile(props: ConnectedProps<typeof connector>) {
+  console.log(props);
+
+  useEffect(() => {
+    fetchUserInfo(props.dispatch);
+  }, [props.dispatch]);
+
   return (
     <div className="profile-block">
       <div className="user-block">
-        <span className="username">{props.username}</span>
-        <div className="photo-block">
-          {props.image ? (
-            <img className="photo" src={props.image} alt="User" />
+        <span className="username">{props.currentUser.name}</span>
+        {/* <div className="photo-block">
+          {user.image ? (
+            <img className="photo" src={user.image} alt="User" />
           ) : (
             <i className="far fa-user photo-placeholder"></i>
           )}
-        </div>
+        </div> */}
       </div>
       <div className="vertical-line"></div>
-      <div className="tickets-block">
+      {/* <div className="tickets-block">
         <span className="text">My Tickets</span>
         <div className="info-block">
           <span className="info-text">
-            {props.newTicketsNumber ? props.newTicketsNumber : 0}
+            {user.newTicketsNumber ? user.newTicketsNumber : 0}
           </span>
         </div>
-      </div>
+      </div> */}
       <div className="vertical-line"></div>
     </div>
   );
 }
+
+export default connector(Profile);

@@ -22,7 +22,7 @@ router.get(
 );
 
 router.get(
-  "/:userId",
+  "/manager/:userId",
   authenticate,
   requireManager,
   async (req: Request, res: Response) => {
@@ -35,6 +35,21 @@ router.get(
     return res.json(user);
   }
 );
+
+router.get("/:userId", authenticate, async (req: Request, res: Response) => {
+  if (!doesIdMatchesFormat(req.params.userId))
+    return res.send("Wrong query format");
+
+  const currentUserId = req.user ? req.user["_id"].toString() : null;
+
+  if (currentUserId !== req.params.userId)
+    return res.status(403).send("Access denied");
+
+  const user = await models.User.findById(req.params.userId);
+
+  if (!user) return res.status(404).send("Not found");
+  return res.json(user);
+});
 
 router.post(
   "/",

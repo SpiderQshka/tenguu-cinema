@@ -19,10 +19,13 @@ export const filmValidation = async (
       .required(),
     trailerLink: Joi.string().required(),
     ratings: Joi.array().items(
-      Joi.number()
-        .min(0)
-        .max(10)
-        .required()
+      Joi.object({
+        ratingValue: Joi.number()
+          .min(0)
+          .max(10)
+          .required(),
+        raterName: Joi.string().required()
+      }).required()
     ),
     filmImage: Joi.string().required()
   });

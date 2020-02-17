@@ -8,8 +8,7 @@ const filmScheme: Schema<IFilm> = new Schema({
   },
   genreIds: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Genre",
+      type: String,
       required: true
     }
   ],

@@ -7,11 +7,12 @@ import { TicketStatuses } from "../types/types";
 import { authenticate } from "../helpers/authenticate";
 import { deleteTicket } from "../db/dbServices";
 import { requireManager } from "../helpers/requireManager";
+import { getTicketsForClient } from "../db/getDataForClient";
 
 const router: Router = Router();
 
 router.get("/", authenticate, async (req: Request, res: Response) => {
-  const tickets = await models.Ticket.find();
+  const tickets = await getTicketsForClient();
 
   res.json(tickets);
 });

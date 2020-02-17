@@ -6,11 +6,12 @@ import { ISession } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { deleteSession } from "../db/dbServices";
+import { getSessionsForClient } from "../db/getDataForClient";
 
 const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
-  const sessions = await models.Session.find();
+  const sessions = await getSessionsForClient();
 
   res.json(sessions);
 });
@@ -36,10 +37,10 @@ router.get("/:sessionId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.sessionId))
     return res.send("Wrong query format");
 
-  const session = await models.Session.findById(req.params.sessionId);
+  const session = await getSessionsForClient();
 
-  if (!session) return res.status(404).send("Not found");
-  else return res.json(session);
+  if (!session[0]) return res.status(404).send("Not found");
+  else return res.json(session[0]);
 });
 
 router.put(

@@ -1,7 +1,7 @@
 node_modules
 .vscode
 packages/server/dist
-packages/client/public
+packages/client/build
 
 .DS_Store
 .env.local

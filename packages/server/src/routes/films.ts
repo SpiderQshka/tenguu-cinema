@@ -6,13 +6,14 @@ import { IFilm } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { deleteFilm } from "../db/dbServices";
+import { getFilmsForClient } from "../db/getDataForClient";
 
 const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
-  const films = await models.Film.find();
+  const films = await getFilmsForClient();
 
-  res.json(films);
+  return res.json(films);
 });
 
 router.post(
@@ -36,16 +37,11 @@ router.get("/:filmId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.filmId))
     return res.send("Wrong query format");
 
-  const film = await models.Film.findById(req.params.filmId);
+  const film = await getFilmsForClient({ _id: req.params.filmId });
 
-  if (!film) return res.status(404).send("Not found");
+  if (!film[0]) return res.status(404).send("Not found");
 
-  const genres = await models.Genre.find();
-
-  // film.genreIds.map(genreId => {
-  //   genres.
-  // })
-  return res.json(film);
+  return res.json(film[0]);
 });
 
 router.put(
@@ -61,12 +57,11 @@ router.put(
     const { error, code } = await filmValidation(req.body);
     if (error) return res.status(code).send(error);
 
-    const updatedFilm = await models.Film.findByIdAndUpdate(
-      req.params.filmId,
-      film
-    );
+    const updatedFilm = await models.Film.findByIdAndUpdate(req.params.filmId, {
+      ...film
+    });
 
-    if (!updatedFilm) return res.status(404).send("Not found");
+    if (!updatedFilm) return res.status(404).send("Film not found");
     return res.json(updatedFilm);
   }
 );

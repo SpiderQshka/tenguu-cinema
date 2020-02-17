@@ -1,4 +1,4 @@
-import { IFilm } from "../interfaces/IFilm";
+import { IFilm } from "interfaces/IFilm";
 // Actions
 
 export const FETCH_FILMS_PENDING = "FETCH_FILMS_PENDING";

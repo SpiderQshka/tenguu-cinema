@@ -1,4 +1,4 @@
-import { getUserInfo } from "../APIServices/UsersServices";
+import { getUserInfo } from "APIServices/UsersServices";
 
 // Actions
 

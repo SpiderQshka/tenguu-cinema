@@ -1,10 +1,10 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import { config } from "../../../config";
+import { config } from "config";
 
 import { CircularProgressbar } from "react-circular-progressbar";
 
-import { IFilmWithGenres } from "../../../interfaces/IFilm";
+import { IFilmWithGenres } from "interfaces/IFilm";
 
 import "react-circular-progressbar/dist/styles.css";
 

@@ -2,8 +2,8 @@ import {
   FETCH_USERS_PENDING,
   FETCH_USERS_SUCCESS,
   FETCH_USERS_ERROR
-} from "../actions/users";
-import { IUser } from "../interfaces/IUser";
+} from "actions/users";
+import { IUser } from "interfaces/IUser";
 
 const initialState = {
   pending: false,

@@ -1,5 +1,5 @@
 import { getData, postData, IPostData, IGetData } from "./CRUDServices";
-import { IUser } from "../interfaces/IUser";
+import { IUser } from "interfaces/IUser";
 
 export interface IPostUser extends IPostData {
   body?: IUser;

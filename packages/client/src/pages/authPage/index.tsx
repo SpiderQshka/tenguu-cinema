@@ -1,5 +1,5 @@
 import React from "react";
-import { Forms } from "../../components/forms/";
+import { Forms } from "components/forms/";
 
 interface IAuthPageProps {}
 

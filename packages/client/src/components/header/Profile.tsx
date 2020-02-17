@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { getCurrentUser } from "../../reducers/usersReducer";
+import { getCurrentUser } from "reducers/usersReducer";
 import "./header.sass";
 
 import { fetchUserInfo } from "../../actions/users";

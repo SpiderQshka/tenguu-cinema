@@ -1,6 +1,6 @@
 import React, { FormEvent } from "react";
-import { loginUser } from "../../../APIServices/UsersServices";
-import { IUser } from "../../../interfaces/IUser";
+import { loginUser } from "APIServices/UsersServices";
+import { IUser } from "interfaces/IUser";
 import "../forms.sass";
 
 export function LoginForm() {

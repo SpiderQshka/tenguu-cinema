@@ -4,10 +4,10 @@ import Carousel, { LazyLoadTypes } from "react-slick";
 import { Slide } from "./Slide";
 import { ArrowNext, ArrowPrev } from "./Controls";
 
-import { getGenres } from "../../../reducers/genresReducer";
-import { getFilms } from "../../../reducers/filmsReducer";
-import { fetchFilms } from "../../../actions/films";
-import { fetchGenres } from "../../../actions/genres";
+import { getGenres } from "reducers/genresReducer";
+import { getFilms } from "reducers/filmsReducer";
+import { fetchFilms } from "actions/films";
+import { fetchGenres } from "actions/genres";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

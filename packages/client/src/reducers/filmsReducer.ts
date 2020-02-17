@@ -1,4 +1,4 @@
-import { IFilm } from "../interfaces/IFilm";
+import { IFilm } from "interfaces/IFilm";
 
 import {
   FETCH_FILMS_ERROR,

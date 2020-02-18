@@ -1,44 +1,44 @@
 import {
-  FETCH_USERS_PENDING,
-  FETCH_USERS_SUCCESS,
-  FETCH_USERS_ERROR
+  FETCH_USER_PENDING,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_ERROR
 } from "actions/users";
-import { IUser } from "interfaces/IUser";
 
 const initialState = {
   pending: false,
-  users: [],
-  currentUser: {} as IUser,
-  error: null
+  currentUser: {} as any,
+  error: null,
+  isAuthorized: false
 };
 
 export const usersReducer = (
   state = initialState,
-  action: { type: string; users?: any; currentUser: IUser; error?: Error }
+  action: { type: string; currentUser: any; error: Error }
 ) => {
   switch (action.type) {
-    case FETCH_USERS_PENDING:
+    case FETCH_USER_PENDING:
       console.log("Pending");
       return {
         ...state,
         pending: true
       };
 
-    case FETCH_USERS_SUCCESS:
+    case FETCH_USER_SUCCESS:
       console.log("Success");
       return {
         ...state,
-        currentUser: action.users
+        currentUser: action.currentUser,
+        isAuthorized: true,
+        pending: false
       };
-    case FETCH_USERS_ERROR:
+    case FETCH_USER_ERROR:
       console.log("Error");
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        pending: false
       };
     default:
       return state;
   }
 };
-
-export const getCurrentUser = (state: any): IUser => state;

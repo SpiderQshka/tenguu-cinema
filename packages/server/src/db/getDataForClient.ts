@@ -3,7 +3,14 @@ import { models } from "../models/index";
 export const getFilmsForClient = async (params: object = {}) => {
   const films = await models.Film.find(params);
 
-  console.log(films, params);
+  models.Film.aggregate()
+    .lookup({
+      from: "genres",
+      localField: "name",
+      foreignField: "name",
+      as: "genres"
+    })
+    .then(res => console.log(res[0]));
 
   const filmsPromises = films.map(async film => {
     const genresPromises = film.genreIds.map(

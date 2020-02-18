@@ -1,36 +1,34 @@
-import { getUserInfo } from "APIServices/UsersServices";
-
 // Actions
 
-export const FETCH_USERS_PENDING = "FETCH_USERS_PENDING";
-export const FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
-export const FETCH_USERS_ERROR = "FETCH_USERS_ERROR";
+export const FETCH_USER_PENDING = "FETCH_USER_PENDING";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const FETCH_USER_ERROR = "FETCH_USER_ERROR";
+export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 
 // Action creators
 
-export const fetchUsersPending = () => {
+export const fetchCurrentUserPending = () => {
   return {
-    type: FETCH_USERS_PENDING
+    type: FETCH_USER_PENDING
   };
 };
 
-export const fetchUsersSuccess = (users: any) => {
+export const fetchCurrentUserSuccess = (currentUser: any) => {
   return {
-    type: FETCH_USERS_SUCCESS,
-    users
+    type: FETCH_USER_SUCCESS,
+    currentUser
   };
 };
 
-export const fetchUsersError = (error: Error) => {
+export const fetchCurrentUserError = (error: Error) => {
   return {
-    type: FETCH_USERS_ERROR,
+    type: FETCH_USER_ERROR,
     error
   };
 };
 
-export const fetchUserInfo = async (dispatch: Function) => {
-  dispatch(fetchUsersPending());
-  return getUserInfo()
-    .then(data => dispatch(fetchUsersSuccess(data)))
-    .catch(error => dispatch(fetchUsersError(error)));
+export const fetchCurrentUserRequest = () => {
+  return {
+    type: FETCH_USER_REQUEST
+  };
 };

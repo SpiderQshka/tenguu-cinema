@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@material-ui/core";
 
 import "./film-card.sass";
 
@@ -9,14 +8,14 @@ export function FilmCard(props: IFilmCardProps) {
   return (
     <div className="film-card">
       <div className="buttons">
-        <Button className="slide-btn">
+        <button className="slide-btn">
           <i className="fas fa-play button-icon"></i>
           Watch trailer
-        </Button>
-        <Button className="slide-btn">
+        </button>
+        <button className="slide-btn">
           <i className="fas fa-shopping-cart button-icon"></i>
           Buy ticket
-        </Button>
+        </button>
       </div>
       <div className="info-block">
         <div className="rating"></div>

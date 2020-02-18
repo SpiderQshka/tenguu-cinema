@@ -1,49 +1,44 @@
-import React, { useEffect } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { getCurrentUser } from "reducers/usersReducer";
-import "./header.sass";
+import React from "react";
+import styles from "./header.module.sass";
 
-import { fetchUserInfo } from "../../actions/users";
-
-const mapStateToProps = (state: any) => {
-  return {
-    currentUser: getCurrentUser(state)
-  };
-};
-
-const connector = connect(mapStateToProps);
-
-function Profile(props: ConnectedProps<typeof connector>) {
+export function Profile(props: any) {
   console.log(props);
 
-  useEffect(() => {
-    fetchUserInfo(props.dispatch);
-  }, [props.dispatch]);
-
+  const { user: userData, isAuthorized, pending } = props;
   return (
-    <div className="profile-block">
-      <div className="user-block">
-        <span className="username">{props.currentUser.name}</span>
-        {/* <div className="photo-block">
-          {user.image ? (
-            <img className="photo" src={user.image} alt="User" />
-          ) : (
-            <i className="far fa-user photo-placeholder"></i>
-          )}
-        </div> */}
-      </div>
-      <div className="vertical-line"></div>
-      {/* <div className="tickets-block">
-        <span className="text">My Tickets</span>
-        <div className="info-block">
-          <span className="info-text">
-            {user.newTicketsNumber ? user.newTicketsNumber : 0}
-          </span>
-        </div>
-      </div> */}
-      <div className="vertical-line"></div>
+    <div className={styles["profile-block"]}>
+      {isAuthorized ? (
+        <>
+          <div className={styles["user-block"]}>
+            <span className={styles["user_name"]}>
+              {pending
+                ? "Loading"
+                : isAuthorized
+                ? userData.username
+                : "Unregistered"}
+            </span>
+            <div className={styles["user_photo-block"]}>
+              {null ? (
+                <img className={styles.photo} src="#" alt="User" />
+              ) : (
+                <i className={`far fa-user ${styles["photo-placeholder"]}`}></i>
+              )}
+            </div>
+          </div>
+          <div className={styles["vertical-line"]}></div>
+          <div className={styles["tickets-block"]}>
+            <span className={styles["text"]}>My Tickets</span>
+            <div className={styles["info-block"]}>
+              <span className={styles["info-text"]}>{null ? null : 0}</span>
+            </div>
+          </div>
+          <div className={styles["vertical-line"]}></div>
+        </>
+      ) : (
+        <span className={styles.unauth}>
+          {pending ? "Loading" : <span>Please sign up or sign in</span>}
+        </span>
+      )}
     </div>
   );
 }
-
-export default connector(Profile);

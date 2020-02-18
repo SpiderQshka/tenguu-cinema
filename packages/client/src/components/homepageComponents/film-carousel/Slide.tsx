@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import { config } from "config";
 
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -27,14 +26,14 @@ export function Slide(props: IFilmWithGenres) {
           </ul>
           <h2 className="film-name">{props.name}</h2>
           <div className="buttons">
-            <Button className="slide-btn">
+            <button className="slide-btn">
               <i className="fas fa-play button-icon"></i>
               Watch trailer
-            </Button>
-            <Button className="slide-btn">
+            </button>
+            <button className="slide-btn">
               <i className="fas fa-shopping-cart button-icon"></i>
               Buy ticket
-            </Button>
+            </button>
           </div>
         </div>
         <ul className="slide-ratings">

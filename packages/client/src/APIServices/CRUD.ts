@@ -12,7 +12,7 @@ export interface IPostData {
 
 export const getData = async (
   url: string,
-  token: string | null
+  token?: string | null
 ): Promise<IGetData> => {
   const response: Response = await fetch(url, {
     headers: { "auth-token": token ? token : "" }

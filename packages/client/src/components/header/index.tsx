@@ -1,19 +1,16 @@
 import React from "react";
 import { Logo } from "./Logo";
 import { Menu } from "./Menu";
-import Profile from "./Profile";
-import "./header.sass";
+import Profile from "containers/HeaderProfileWrapper";
+import styles from "./header.module.sass";
 
-export interface IHeaderProps {}
-
-export function Header(props: IHeaderProps) {
-  const isAuth = () => window.localStorage.getItem("auth-token");
+export function Header() {
   return (
-    <div className="header-container">
-      <header className="header">
+    <div className={styles["header-container"]}>
+      <header className={styles["header"]}>
         <Logo />
-        <div className="content-block">
-          {isAuth() && <Profile />}
+        <div className={styles["content-block"]}>
+          <Profile />
           <Menu />
         </div>
       </header>

@@ -1,0 +1,111 @@
+@import '../../config'
+
+$logo-icon-font-size: 40px
+$photo-size: 40px
+
+.header-container
+    width: 100%
+    z-index: 9999
+    position: absolute
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%)
+.header
+    max-width: $content-width
+    left: 0
+    right: 0
+    margin: 0 auto
+    display: flex
+    justify-content: space-between
+.logo-block
+    display: flex
+    align-items: flex-end
+    padding: $extra-large-padding $large-padding
+    color: $primary-color
+    background: $accent-color
+    background: $accent-gradient
+.logo-name
+    line-height: 1rem
+    font-size: $default-font-size
+    text-align: center
+    margin: 0
+    letter-spacing: 3px
+    &::first-line
+        letter-spacing: 0
+        font-weight: bold
+        text-transform: uppercase
+        font-size: $large-font-size
+.logo-image
+    font-size: $logo-icon-font-size
+    transform: rotate(90deg)
+
+.content-block
+    display: flex
+    align-items: center
+.vertical-line
+    display: inline-block
+    height: $default-font-size
+    width: 1px
+    margin: 0 $extra-large-margin
+    background-color: $accent-color
+    vertical-align: middle
+    &:last-child
+        margin-right: $default-margin
+.profile-block
+.unauth
+    display: inline-block
+    color: $primary-color
+    margin: 0 $small-margin
+    letter-spacing: 1px
+.user-block, .tickets-block
+    display: inline-block
+.user-block
+    padding-left: 0
+.user_name
+    display: inline-block
+    color: $primary-color
+    margin: 0 $small-margin
+    letter-spacing: 1px
+.user_photo-block
+    border-radius: 50%
+    width: $photo-size
+    height: $photo-size
+    overflow: hidden
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    background-color: $accent-color
+    .photo-placeholder
+        font-size: $large-font-size
+        color: $primary-color
+        
+.tickets-block
+    position: relative
+    padding: $default-padding 0 
+    .text
+        color: $primary-color
+    .info-block
+        position: absolute
+        display: flex
+        align-items: center
+        justify-content: center
+        top: 0
+        right: calc(-#{$large-margin})
+        width: calc(#{$small-font-size} * 1.7)
+        height: calc(#{$small-font-size} * 1.7)
+        background-color: $accent-color
+        border-radius: 50%
+        .info-text
+            color: $primary-color
+
+.menu-block
+
+.menu-btn
+    color: $primary-color !important
+    opacity: .5
+    font-size: $default-font-size
+    &:first-child
+        margin-right: $extra-small-margin
+    &:hover
+        opacity: 1
+    i
+        font-size: $large-font-size !important
+                        

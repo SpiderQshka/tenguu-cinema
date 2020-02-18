@@ -1,5 +1,5 @@
 import React, { FormEvent } from "react";
-import { registerUser } from "APIServices/UsersServices";
+import { registerUser } from "APIServices/users";
 import "../forms.sass";
 
 export function RegisterForm() {

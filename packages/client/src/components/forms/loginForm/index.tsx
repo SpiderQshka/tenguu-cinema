@@ -1,5 +1,5 @@
 import React, { FormEvent } from "react";
-import { loginUser } from "APIServices/UsersServices";
+import { loginUser } from "APIServices/users";
 import { IUser } from "interfaces/IUser";
 import "../forms.sass";
 

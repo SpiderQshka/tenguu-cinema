@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   pending: false,
-  films: [] as IFilm[],
+  films: [] as any[],
   error: null
 };
 

@@ -1,4 +1,4 @@
-@import "../../../config"
+@import "../../../../config"
 
 $progressbar-size: 100px
 $progressbar-width: 3.5
@@ -6,6 +6,7 @@ $controls-width: 200px
 $controls-icons-size: 50px
 $film-name-font-size: 3rem
 $content-bottom-gap: 70px
+$slide-buttons-border-radius: 10px
 
 .film-carousel
     .arrow-block
@@ -14,7 +15,9 @@ $content-bottom-gap: 70px
         position: absolute
         height: 100%
         width: $controls-width
-        border: none
+        display: flex
+        justify-content: center
+        align-items: center
         .icon
             font-size: $controls-icons-size
             color: $accent-color
@@ -62,10 +65,12 @@ $content-bottom-gap: 70px
                 margin-bottom: $extra-large-margin
             .buttons
                 .slide-btn
+                    width: auto
+                    height: auto
                     font-size: $default-font-size
                     color: $primary-color
                     text-transform: uppercase
-                    padding: $default-margin $large-margin $default-margin 0
+                    padding: $default-margin $large-margin
                     margin-right: $default-margin
                     .button-icon
                         margin-right: $large-margin
@@ -74,16 +79,18 @@ $content-bottom-gap: 70px
             box-shadow: inset -200px 200px 215px -147px rgba(0,0,0,0.79)
             border-right: 2px solid $primary-color
             border-top: 2px solid $primary-color
-            padding: $extra-large-padding $extra-large-padding $large-padding
+            padding: 0 $extra-large-padding $large-padding
             border-radius: 10px
             border-top-right-radius: 30px
             .rating-element
                 display: inline-block
                 margin: 0 $default-margin
                 .rater-name
+                    text-align: center
                     font-size: $extra-large-font-size
                     color: $primary-color
                     font-weight: lighter
+                    margin-bottom: $extra-large-margin
                 .progressbar-container
                     width: $progressbar-size
                     margin: 0 auto

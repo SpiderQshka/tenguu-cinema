@@ -1,0 +1,28 @@
+@import "../../config"
+    
+.film-card
+    min-height: 400px
+    display: grid
+    background-color: $secondary-color
+    padding: $large-padding
+    position: relative
+    border: 1px solid red
+        
+.buttons
+    position: absolute
+    align-self: center
+    justify-self: center
+    display: none
+    flex-direction: column
+
+.film-card:hover
+    .buttons
+        display: flex
+
+.slide-btn
+    font-size: $default-font-size
+.button-icon
+    margin-right: $large-margin
+    color: $accent-color
+.button-text
+    color: $primary-color

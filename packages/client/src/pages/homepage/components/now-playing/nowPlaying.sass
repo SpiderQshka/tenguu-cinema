@@ -1,0 +1,43 @@
+@import "../../../../config"
+    
+.now-playing
+    padding: 70px 0
+    .header
+        width: 100%
+        .text
+            text-transform: uppercase
+            text-align: center
+            font-size: $extra-large-font-size
+            margin-bottom: 40px
+            font-weight: 400
+        .line
+            width: 100px
+            height: 3px
+            background-color: red
+            margin: 0 auto
+
+    .arrow-block
+        z-index: 1
+        height: 100%
+        position: absolute
+        top: 0
+        width: 150px
+        display: flex
+        justify-content: center
+        align-items: center
+        i
+            color: $accent-color
+            font-size: $extra-large-font-size
+    .arrow-next
+        text-align: left
+        right: 0
+    .arrow-prev
+        text-align: right
+        left: 0
+
+    .slick-slider
+        display: flex
+        justify-content: center
+        .slick-list
+            display: block
+            width: calc(100% - 300px)

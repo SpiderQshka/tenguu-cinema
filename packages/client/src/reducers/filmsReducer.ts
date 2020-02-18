@@ -1,10 +1,8 @@
-import { IFilm } from "interfaces/IFilm";
-
 import {
   FETCH_FILMS_ERROR,
   FETCH_FILMS_PENDING,
   FETCH_FILMS_SUCCESS
-} from "../actions/films";
+} from "actions/films";
 
 const initialState = {
   pending: false,
@@ -24,24 +22,17 @@ export const filmsReducer = (state = initialState, action: any) => {
       console.log("Success");
       return {
         ...state,
-        films: action.films
+        films: action.films,
+        pending: false
       };
     case FETCH_FILMS_ERROR:
       console.log("Error");
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        pending: false
       };
     default:
       return state;
   }
 };
-
-export const getFilms = (films: IFilm[], filter?: any) => {
-  switch (filter) {
-    default:
-      return films;
-  }
-};
-export const getFilmsPending = (state: any) => state.films;
-export const getFilmsError = (state: any) => state.films;

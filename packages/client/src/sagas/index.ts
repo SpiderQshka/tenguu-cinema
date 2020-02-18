@@ -1,11 +1,8 @@
-import { put, takeEvery, all } from "redux-saga/effects";
+import { all } from "redux-saga/effects";
 
 import { fetchUserInfo } from "./users";
-
-function* helloSaga() {
-  console.log("Saga");
-}
+import { fetchFilmInfo } from "./films";
 
 export function* rootSaga() {
-  yield all([helloSaga(), fetchUserInfo()]);
+  yield all([fetchUserInfo(), fetchFilmInfo()]);
 }

@@ -5,7 +5,7 @@ import { fetchCurrentUserRequest } from "actions/users";
 
 import { Profile } from "components/header/Profile";
 
-const mapStateToProps = (state: any) => state;
+const mapStateToProps = (state: any) => state.userData;
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getUser: () => fetchCurrentUserRequest()

@@ -1,7 +1,7 @@
 import React from "react";
 
-// import FilmCarousel from "components/homepageComponents/film-carousel";
-import { NowPlaying } from "components/homepageComponents/now-playing";
+import FilmCarousel from "containers/FilmCarouselContainer";
+import { NowPlaying } from "pages/homepage/components/now-playing";
 
 import "./homepage.sass";
 
@@ -10,7 +10,7 @@ interface IHomepageProps {}
 export function Homepage(props: IHomepageProps) {
   return (
     <>
-      {/* <FilmCarousel /> */}
+      <FilmCarousel />
       <NowPlaying />
     </>
   );

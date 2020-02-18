@@ -11,7 +11,6 @@ export interface IFilm {
 
 export interface IFilmWithGenres extends IFilm {
   genres: {
-    _id: string;
     name: string;
   }[];
 }

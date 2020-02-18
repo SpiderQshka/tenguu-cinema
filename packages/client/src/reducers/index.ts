@@ -1,14 +1,12 @@
 import { usersReducer } from "./usersReducer";
-// import { filmsReducer } from "./filmsReducer";
+import { filmsReducer } from "./filmsReducer";
 // import { genresReducer } from "./genresReducer";
 // import { hallsReducer } from "./hallsReducer";
-// import { combineReducers } from "redux";
+import { combineReducers } from "redux";
 
-export default usersReducer;
-
-// export const allReducers = combineReducers({
-//   users: usersReducer,
-//   films: filmsReducer,
-//   genres: genresReducer,
-//   halls: hallsReducer
-// });
+export const allReducers = combineReducers({
+  userData: usersReducer,
+  filmsData: filmsReducer
+  //   genres: genresReducer,
+  //   halls: hallsReducer
+});

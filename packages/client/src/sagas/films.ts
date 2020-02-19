@@ -16,7 +16,6 @@ export function* fetchFilmInfo() {
   try {
     yield put(fetchFilmsPending());
     const data = yield call(() => getData("api/films"));
-    console.log(data);
     yield put(fetchFilmsSuccess(data));
   } catch (e) {
     yield put(fetchFilmsError(e));

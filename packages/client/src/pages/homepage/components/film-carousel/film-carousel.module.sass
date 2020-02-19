@@ -1,7 +1,5 @@
-@import "../../../../config"
+@import "config"
 
-$progressbar-size: 100px
-$progressbar-width: 3.5
 $controls-width: 200px
 $controls-icons-size: 50px
 $film-name-font-size: 3rem
@@ -18,7 +16,7 @@ $slide-buttons-border-radius: 10px
         display: flex
         justify-content: center
         align-items: center
-        .icon
+        i
             font-size: $controls-icons-size
             color: $accent-color
     .arrow-next
@@ -78,10 +76,10 @@ $slide-buttons-border-radius: 10px
         .slide-ratings
             box-shadow: inset -200px 200px 215px -147px rgba(0,0,0,0.79)
             border-right: 2px solid $primary-color
-            border-top: 2px solid $primary-color
+            border-bottom: 2px solid $primary-color
             padding: 0 $extra-large-padding $large-padding
             border-radius: 10px
-            border-top-right-radius: 30px
+            border-bottom-right-radius: 30px
             .rating-element
                 display: inline-block
                 margin: 0 $default-margin
@@ -91,19 +89,3 @@ $slide-buttons-border-radius: 10px
                     color: $primary-color
                     font-weight: lighter
                     margin-bottom: $extra-large-margin
-                .progressbar-container
-                    width: $progressbar-size
-                    margin: 0 auto
-                    .CircularProgressbar-path
-                        stroke: $accent-color
-                        stroke-width: $progressbar-width
-
-                    .CircularProgressbar-trail 
-                        stroke: inherit
-
-                    .CircularProgressbar-text 
-                        fill: $accent-color
-
-                    .CircularProgressbar-background
-                        fill: $secondary-color
-

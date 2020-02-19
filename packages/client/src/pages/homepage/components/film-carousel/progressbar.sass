@@ -1,0 +1,21 @@
+@import "config"
+
+$progressbar-size: 100px
+$progressbar-width: 3.5
+
+.progressbar-container
+    width: $progressbar-size
+    margin: 0 auto
+    .CircularProgressbar-path
+        stroke: $accent-color
+        stroke-width: $progressbar-width
+
+    .CircularProgressbar-trail 
+        stroke: inherit
+
+    .CircularProgressbar-text 
+        fill: $accent-color
+
+    .CircularProgressbar-background
+        fill: $secondary-color
+

@@ -4,16 +4,15 @@ import {
   FETCH_HALLS_SUCCESS
 } from "../actions/halls";
 
+import { IHall } from "interfaces/IHall";
+
 const initialState = {
   pending: false,
-  halls: [],
+  halls: [] as IHall[],
   error: null
 };
 
-export const hallsReducer = (
-  state = initialState,
-  action: { type: string; halls?: any; error?: Error }
-) => {
+export const hallsReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case FETCH_HALLS_PENDING:
       console.log("Pending");
@@ -37,7 +36,3 @@ export const hallsReducer = (
       return state;
   }
 };
-
-export const getHalls = (state: any) => state.halls;
-export const getHallsPending = (state: any) => state.halls;
-export const getHallsError = (state: any) => state.halls;

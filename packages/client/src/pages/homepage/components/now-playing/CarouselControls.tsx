@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-materialize";
 
 import "./nowPlaying.sass";
 
@@ -9,24 +8,22 @@ export interface IArrowProps {
 
 export function ArrowNext(props: IArrowProps) {
   return (
-    <Button
+    <button
       onClick={props.onClick}
-      flat
-      icon={<i className="fas fa-chevron-right"></i>}
-      waves="orange"
-      className="arrow-block arrow-next"
-    ></Button>
+      className="waves-effect waves-orange btn-flat arrow-block arrow-next"
+    >
+      <i className="fas fa-chevron-right icon"></i>
+    </button>
   );
 }
 
 export function ArrowPrev(props: IArrowProps) {
   return (
-    <Button
+    <button
       onClick={props.onClick}
-      flat
-      icon={<i className="fas fa-chevron-left"></i>}
-      waves="orange"
-      className="arrow-block arrow-prev"
-    ></Button>
+      className="waves-effect waves-orange btn-flat arrow-block arrow-prev"
+    >
+      <i className="fas fa-chevron-left icon"></i>
+    </button>
   );
 }

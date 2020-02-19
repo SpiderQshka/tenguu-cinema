@@ -4,13 +4,16 @@ import {
   FETCH_FILMS_SUCCESS
 } from "actions/films";
 
-const initialState = {
+import { IFilmAction, IFilm } from "interfaces/IFilm";
+
+const initialState: IFilmAction = {
+  type: FETCH_FILMS_PENDING,
   pending: false,
-  films: [] as any[],
+  films: [] as IFilm[],
   error: null
 };
 
-export const filmsReducer = (state = initialState, action: any) => {
+export const filmsReducer = (state = initialState, action: IFilmAction) => {
   switch (action.type) {
     case FETCH_FILMS_PENDING:
       console.log("Pending");

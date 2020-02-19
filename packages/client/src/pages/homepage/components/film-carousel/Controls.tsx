@@ -1,7 +1,6 @@
 import React from "react";
-import { Button } from "react-materialize";
 
-import "./film-carousel.sass";
+import styles from "./film-carousel.module.sass";
 
 export interface IArrowProps {
   onClick(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
@@ -9,24 +8,22 @@ export interface IArrowProps {
 
 export function ArrowNext(props: IArrowProps) {
   return (
-    <Button
+    <button
       onClick={props.onClick}
-      flat
-      icon={<i className="fas fa-chevron-right icon"></i>}
-      waves="light"
-      className="arrow-block arrow-next"
-    ></Button>
+      className={`waves-effect waves-light btn-flat ${styles["arrow-block"]} ${styles["arrow-next"]}`}
+    >
+      <i className="fas fa-chevron-right icon"></i>
+    </button>
   );
 }
 
 export function ArrowPrev(props: IArrowProps) {
   return (
-    <Button
+    <button
       onClick={props.onClick}
-      flat
-      icon={<i className="fas fa-chevron-left icon"></i>}
-      waves="light"
-      className="arrow-block arrow-prev"
-    ></Button>
+      className={`waves-effect waves-light btn-flat ${styles["arrow-block"]} ${styles["arrow-prev"]}`}
+    >
+      <i className="fas fa-chevron-left icon"></i>
+    </button>
   );
 }

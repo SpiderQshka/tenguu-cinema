@@ -1,7 +1,7 @@
 import React from "react";
 import { Logo } from "./Logo";
 import { Menu } from "./Menu";
-import Profile from "containers/HeaderProfileWrapper";
+import Profile from "containers/HeaderProfileContainer";
 import styles from "./header.module.sass";
 
 export function Header() {

@@ -1,45 +1,89 @@
 import React from "react";
-import { Button } from "react-materialize";
+import { IFilm } from "interfaces/IFilm";
+import { config } from "config";
+import StarRatings from "react-star-ratings";
+import { Loader } from "components/loader";
 
 import styles from "./film-card.module.sass";
 
-export interface IFilmCardProps {}
+export interface IFilmCard {
+  item: IFilm;
+  pending: boolean;
+}
 
-export function FilmCard(props: IFilmCardProps) {
+export function FilmCard(props: IFilmCard) {
+  const { item: film, pending } = props;
+  if (pending) return <Loader />;
   return (
-    <div className={styles["film-card"]}>
-      <div className={styles["buttons"]}>
-        <Button
-          flat
-          large
-          waves="light"
-          icon={
-            <>
-              <i className={`fas fa-play ${styles["button-icon"]}`}></i>
-              <span className={styles["button-text"]}>Watch trailer</span>
-            </>
-          }
-          className={styles["slide-btn"]}
-        ></Button>
-        <Button
-          flat
-          large
-          waves="light"
-          icon={
-            <>
-              <i
-                className={`fas fa-shopping-cart ${styles["button-icon"]}`}
-              ></i>
-              <span className={styles["button-text"]}>Buy ticket</span>
-            </>
-          }
-          className={styles["slide-btn"]}
-        ></Button>
+    <div
+      className={`valign-wrapper ${styles["film-card"]}`}
+      style={{
+        backgroundImage: `url(${config.baseUrl + film.filmImage})`
+      }}
+    >
+      <div className={`row ${styles["buttons"]}`}>
+        <button
+          className={`col s12 waves-effect waves-light btn-flat btn-large ${styles["slide-btn"]}`}
+        >
+          <i className={`fas fa-play ${styles["button-icon"]}`}></i>
+          <span className={styles["button-text"]}>Watch trailer</span>
+        </button>
+        <button
+          className={`col s12 waves-effect waves-light btn-flat btn-large ${styles["slide-btn"]}`}
+        >
+          <i className={`fas fa-shopping-cart ${styles["button-icon"]}`}></i>
+          <span className={styles["button-text"]}>Buy ticket</span>
+        </button>
       </div>
-      <div className={styles["info-block"]}>
-        <div className={styles["rating"]}></div>
-        <div className={styles["film-name"]}></div>
-        <div className={styles["sessions"]}>11:00</div>
+      <div className={`${styles["info-block"]}`}>
+        <div className={styles["rating"]}>
+          <StarRatings
+            rating={
+              film.ratings
+                .map(rating => rating.ratingValue)
+                .reduce((prev, curr) => prev + curr, 0) /
+              film.ratings.length /
+              2
+            }
+            starRatedColor={"orange"}
+            starEmptyColor={"white"}
+            starDimension={"30px"}
+            starSpacing={"4px"}
+          />
+        </div>
+        <div className={styles["film-name"]}>{film.name}</div>
+      </div>
+    </div>
+  );
+}
+
+export function FilmCardPreOrder(props: IFilmCard) {
+  const { item: film, pending } = props;
+  if (pending) return <Loader />;
+  return (
+    <div
+      className={`valign-wrapper ${styles["film-card"]}`}
+      style={{
+        backgroundImage: `url(${config.baseUrl + film.filmImage})`
+      }}
+    >
+      <div className={`${styles["info-block"]}`}>
+        <div className={styles["rating"]}>
+          <StarRatings
+            rating={
+              film.ratings
+                .map(rating => rating.ratingValue)
+                .reduce((prev, curr) => prev + curr, 0) /
+              film.ratings.length /
+              2
+            }
+            starRatedColor={"orange"}
+            starEmptyColor={"white"}
+            starDimension={"30px"}
+            starSpacing={"4px"}
+          />
+        </div>
+        <div className={styles["film-name"]}>{film.name}</div>
       </div>
     </div>
   );

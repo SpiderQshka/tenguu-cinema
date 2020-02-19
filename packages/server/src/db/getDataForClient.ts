@@ -7,7 +7,7 @@ export const getFilmsForClient = async (params: object = {}) => {
     .lookup({
       from: "genres",
       localField: "name",
-      foreignField: "name",
+      foreignField: "genreIds",
       as: "genres"
     })
     .then(res => console.log(res[0]));

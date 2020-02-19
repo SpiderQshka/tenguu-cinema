@@ -3,7 +3,7 @@ import { connect, ConnectedProps } from "react-redux";
 
 import { fetchFilmsRequest } from "actions/films";
 
-import Carousel from "pages/homepage/components/film-carousel";
+import { Carousel } from "pages/homepage/components/now-playing/Carousel";
 
 const mapStateToProps = (state: any) => state.filmsData;
 const mapDispatchToProps = (dispatch: any) => {

@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./header.module.sass";
 
 export function Profile(props: any) {
-  console.log(props);
-
   const { user: userData, isAuthorized, pending } = props;
   return (
     <div className={styles["profile-block"]}>

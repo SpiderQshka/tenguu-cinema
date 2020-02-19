@@ -1,7 +1,8 @@
 export interface IFilm {
-  genreIds: string[];
+  genres: string[];
   name: string;
   ratings: {
+    _id: string;
     ratingValue: number;
     raterName: string;
   }[];
@@ -9,8 +10,14 @@ export interface IFilm {
   _id: string;
 }
 
-export interface IFilmWithGenres extends IFilm {
-  genres: {
-    name: string;
-  }[];
+export type IFilmActionTypes =
+  | "FETCH_FILMS_PENDING"
+  | "FETCH_FILMS_SUCCESS"
+  | "FETCH_FILMS_ERROR"
+  | "FETCH_FILMS_REQUEST";
+export interface IFilmAction {
+  type: IFilmActionTypes;
+  films: IFilm[];
+  error: Error | null;
+  pending: boolean;
 }

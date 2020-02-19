@@ -3,10 +3,11 @@ import {
   FETCH_GENRES_PENDING,
   FETCH_GENRES_SUCCESS
 } from "../actions/genres";
+import { IGenre } from "interfaces/IGenre";
 
 const initialState = {
   pending: false,
-  genres: [],
+  genres: [] as IGenre[],
   error: null
 };
 
@@ -34,12 +35,3 @@ export const genresReducer = (state = initialState, action: any) => {
       return state;
   }
 };
-
-export const getGenres = (genres: any[], filter?: any) => {
-  switch (filter) {
-    default:
-      return genres;
-  }
-};
-// export const getFilmsPending = (state: any) => state.films;
-// export const getFilmsError = (state: any) => state.films;

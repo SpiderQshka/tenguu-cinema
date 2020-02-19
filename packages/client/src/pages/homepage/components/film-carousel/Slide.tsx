@@ -1,73 +1,72 @@
 import React from "react";
 import { config } from "config";
+import { Loader } from "components/loader";
+import { Progressbar } from "./Progressbar";
 
-import { CircularProgressbar } from "react-circular-progressbar";
-import { Button } from "react-materialize";
+import { IFilm } from "interfaces/IFilm";
+import styles from "./film-carousel.module.sass";
 
-import { IFilmWithGenres } from "interfaces/IFilm";
+export interface ISlide {
+  film: IFilm;
+  pending: boolean;
+}
 
-import "react-circular-progressbar/dist/styles.css";
-
-export function Slide(props: IFilmWithGenres) {
+export function Slide(props: ISlide) {
+  const { film, pending } = props;
   return (
     <div
-      className="slide-wrapper"
+      className={styles["slide-wrapper"]}
       style={{
-        backgroundImage: `url(${config.baseUrl + props.filmImage})`
+        backgroundImage: `url(${config.baseUrl + film.filmImage})`
       }}
     >
-      <div className="slide">
-        <div className="slide-content">
-          <ul className="genres">
-            {props.genres.map(genre => (
-              <li className="genre" key={genre.name}>
-                {genre.name}
-              </li>
-            ))}
-          </ul>
-          <h2 className="film-name">{props.name}</h2>
-          <div className="buttons">
-            <Button
-              flat
-              waves="light"
-              icon={
-                <>
-                  <i className="fas fa-play button-icon"></i>
-                  Watch trailer
-                </>
-              }
-              className="slide-btn"
-            ></Button>
-            <Button
-              flat
-              waves="light"
-              icon={
-                <>
-                  <i className="fas fa-play button-icon"></i>
-                  Buy ticket
-                </>
-              }
-              className="slide-btn"
-            ></Button>
+      {pending ? (
+        <Loader />
+      ) : (
+        <div className={styles["slide"]}>
+          <div className={styles["slide-content"]}>
+            <ul className={styles["genres"]}>
+              {film.genres.map(genre => (
+                <li className={styles["genre"]} key={genre}>
+                  {genre}
+                </li>
+              ))}
+            </ul>
+            <h2 className={styles["film-name"]}>{film.name}</h2>
+            <div className={styles["buttons"]}>
+              <button
+                className={`col s12 waves-effect waves-light btn-flat btn-large ${styles["slide-btn"]}`}
+              >
+                <i className={`fas fa-play ${styles["button-icon"]}`}></i>
+                <span className={styles["button-text"]}>Watch trailer</span>
+              </button>
+              <button
+                className={`col s12 waves-effect waves-light btn-flat btn-large ${styles["slide-btn"]}`}
+              >
+                <i
+                  className={`fas fa-shopping-cart ${styles["button-icon"]}`}
+                ></i>
+                <span className={styles["button-text"]}>Buy ticket</span>
+              </button>
+            </div>
           </div>
+          <ul className={styles["slide-ratings"]}>
+            {film.ratings.map(rating => {
+              return (
+                <li className={styles["rating-element"]} key={rating._id}>
+                  <h3 className={styles["rater-name"]}>{rating.raterName}</h3>
+                  <div className="progressbar-container">
+                    <Progressbar
+                      value={rating.ratingValue * 10}
+                      text={rating.ratingValue + ""}
+                    />
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <ul className="slide-ratings">
-          {props.ratings.map(rating => {
-            return (
-              <li className="rating-element" key={rating.raterName}>
-                <h3 className="rater-name">{rating.raterName}</h3>
-                <div className="progressbar-container">
-                  <CircularProgressbar
-                    value={rating.ratingValue * 10}
-                    text={rating.ratingValue + ""}
-                    background={true}
-                  />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      )}
     </div>
   );
 }

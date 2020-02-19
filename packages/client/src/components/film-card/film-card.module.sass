@@ -1,28 +1,27 @@
 @import "../../config"
-    
+
 .film-card
     min-height: 400px
-    display: grid
-    background-color: $secondary-color
     padding: $large-padding
+    background: no-repeat center/cover $secondary-color
     position: relative
-    border: 1px solid red
-        
-.buttons
-    position: absolute
-    align-self: center
-    justify-self: center
-    display: none
-    flex-direction: column
-
-.film-card:hover
     .buttons
-        display: flex
-
-.slide-btn
-    font-size: $default-font-size
-.button-icon
-    margin-right: $large-margin
-    color: $accent-color
-.button-text
-    color: $primary-color
+        display: block
+        .slide-btn
+            font-size: $default-font-size
+            .button-icon
+                margin-right: $large-margin
+                color: $accent-color
+            .button-text
+                color: $primary-color
+    .info-block
+        width: 100%
+        position: absolute
+        bottom: $large-padding
+        text-align: left
+        color: $primary-color
+        .film-name
+            margin: $default-margin 0
+            text-transform: capitalize
+            font-size: $extra-large-font-size
+            font-weight: 400

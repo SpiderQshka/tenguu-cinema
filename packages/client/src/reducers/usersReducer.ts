@@ -3,18 +3,17 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_ERROR
 } from "actions/users";
+import { IUserAction, IUser } from "interfaces/IUser";
 
-const initialState = {
+const initialState: IUserAction = {
+  type: FETCH_USER_PENDING,
   pending: false,
-  currentUser: {} as any,
+  currentUser: {} as IUser,
   error: null,
   isAuthorized: false
 };
 
-export const usersReducer = (
-  state = initialState,
-  action: { type: string; currentUser: any; error: Error }
-) => {
+export const usersReducer = (state = initialState, action: IUserAction) => {
   switch (action.type) {
     case FETCH_USER_PENDING:
       console.log("Pending");

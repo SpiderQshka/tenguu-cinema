@@ -8,6 +8,7 @@ export interface IFilm {
   }[];
   filmImage: string;
   _id: string;
+  releaseDate: number;
 }
 
 export type IFilmActionTypes =
@@ -15,9 +16,13 @@ export type IFilmActionTypes =
   | "FETCH_FILMS_SUCCESS"
   | "FETCH_FILMS_ERROR"
   | "FETCH_FILMS_REQUEST";
-export interface IFilmAction {
-  type: IFilmActionTypes;
-  films: IFilm[];
+
+export interface IFilmPayload {
+  data: IFilm[];
   error: Error | null;
   pending: boolean;
+}
+export interface IFilmAction {
+  type: IFilmActionTypes;
+  payload: IFilmPayload;
 }

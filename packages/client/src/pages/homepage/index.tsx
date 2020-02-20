@@ -7,6 +7,8 @@ import { ComingSoon } from "./components/coming-soon";
 interface IHomepageProps {}
 
 export function Homepage(props: IHomepageProps) {
+  console.log(props);
+
   return (
     <>
       <FilmCarousel />

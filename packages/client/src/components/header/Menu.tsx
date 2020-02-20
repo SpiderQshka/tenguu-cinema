@@ -7,12 +7,12 @@ export function Menu(props: IMenuProps) {
   return (
     <div className={styles["menu-block"]}>
       <button
-        className={`waves-effect waves-light btn-flat btn-floating ${styles["menu-btn"]}`}
+        className={`waves-effect waves-light btn-flat btn-floating inherit-bgc ${styles["menu-btn"]}`}
       >
         <i className="fas fa-search"></i>
       </button>
       <button
-        className={`waves-effect waves-light btn-flat btn-floating ${styles["menu-btn"]}`}
+        className={`waves-effect waves-light btn-flat btn-floating inherit-bgc ${styles["menu-btn"]}`}
       >
         <i className="fas fa-bars"></i>
       </button>

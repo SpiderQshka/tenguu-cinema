@@ -1,4 +1,4 @@
-import { ISession } from "interfaces/ISession";
+import { ISession, ISessionsPayload } from "interfaces/ISession";
 // Actions
 
 export const FETCH_SESSIONS_PENDING = "FETCH_SESSIONS_PENDING";
@@ -14,17 +14,21 @@ export const fetchSessionsPending = () => {
   };
 };
 
-export const fetchSessionsSuccess = (sessions: ISession[]) => {
+export const fetchSessionsSuccess = (data: ISession[]) => {
   return {
     type: FETCH_SESSIONS_SUCCESS,
-    sessions
+    payload: {
+      data
+    } as ISessionsPayload
   };
 };
 
 export const fetchSessionsError = (error: Error) => {
   return {
     type: FETCH_SESSIONS_ERROR,
-    error
+    payload: {
+      error
+    } as ISessionsPayload
   };
 };
 

@@ -1,3 +1,5 @@
+import { IGenre } from "interfaces/IGenre";
+
 // Actions
 
 export const FETCH_GENRES_PENDING = "FETCH_GENRES_PENDING";
@@ -12,17 +14,21 @@ export const fetchGenresPending = () => {
   };
 };
 
-export const fetchGenresSuccess = (genres: any[]) => {
+export const fetchGenresSuccess = (genres: IGenre[]) => {
   return {
     type: FETCH_GENRES_SUCCESS,
-    genres
+    payload: {
+      genres
+    }
   };
 };
 
 export const fetchGenresError = (error: Error) => {
   return {
     type: FETCH_GENRES_ERROR,
-    error
+    payload: {
+      error
+    }
   };
 };
 

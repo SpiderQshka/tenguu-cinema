@@ -4,20 +4,19 @@ import { connect, ConnectedProps } from "react-redux";
 import { FilmBlock } from "pages/homepage/components/coming-soon/FilmBlock";
 
 import { fetchSessionsRequest } from "actions/sessions";
+import { IState } from "interfaces/IState";
 
-const mapStateToProps = (state: any) => state.sessionsData;
+const mapStateToProps = (state: IState) => state.sessions;
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getSessions: () => fetchSessionsRequest()
+    getSessions: fetchSessionsRequest
   };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-function FilmCarouselWrapper(props: ConnectedProps<typeof connector>) {
-  const { getSessions, sessions, pending } = props;
-  console.log(props);
-
+function SessionsContainer(props: ConnectedProps<typeof connector>) {
+  const { getSessions, data: sessions, pending } = props;
   useEffect(() => {
     getSessions();
   }, [getSessions]);
@@ -25,4 +24,4 @@ function FilmCarouselWrapper(props: ConnectedProps<typeof connector>) {
   return <FilmBlock sessions={sessions} pending={pending} />;
 }
 
-export default connector(FilmCarouselWrapper);
+export default connector(SessionsContainer);

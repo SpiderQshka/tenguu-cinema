@@ -3,12 +3,15 @@ import {
   FETCH_SESSIONS_PENDING,
   FETCH_SESSIONS_SUCCESS
 } from "actions/sessions";
-import { ISessionAction, ISession } from "interfaces/ISession";
+import {
+  ISessionsPayload,
+  ISession,
+  ISessionAction
+} from "interfaces/ISession";
 
-const initialState: ISessionAction = {
-  type: FETCH_SESSIONS_PENDING,
+const initialState: ISessionsPayload = {
   pending: false,
-  sessions: [] as ISession[],
+  data: [] as ISession[],
   error: null
 };
 
@@ -27,14 +30,14 @@ export const sessionsReducer = (
       console.log("Success");
       return {
         ...state,
-        sessions: action.sessions,
+        data: action.payload.data,
         pending: false
       };
     case FETCH_SESSIONS_ERROR:
       console.log("Error");
       return {
         ...state,
-        error: action.error,
+        error: action.payload.error,
         pending: false
       };
     default:

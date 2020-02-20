@@ -7,16 +7,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./film-carousel.module.sass";
 
-export default function FilmCarousel(props: any) {
-  const { films, pending } = props;
+import { IFilmPayload } from "interfaces/IFilm";
+
+export default function FilmCarousel(props: IFilmPayload) {
+  const { data: films, pending } = props;
   const settings = {
     dots: false,
     lazyLoad: "progressive" as LazyLoadTypes,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    nextArrow: <ArrowNext onClick={e => {}} />,
-    prevArrow: <ArrowPrev onClick={e => {}} />,
+    nextArrow: <ArrowNext onClick={() => {}} />,
+    prevArrow: <ArrowPrev onClick={() => {}} />,
     fade: true,
     adaptiveHeight: true
   };

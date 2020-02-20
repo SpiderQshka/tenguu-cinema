@@ -1,9 +1,9 @@
-import { IUserAction } from "./IUser";
-import { ISessionAction } from "./ISession";
-import { IFilmAction } from "./IFilm";
+import { IUserPayload } from "./IUser";
+import { ISessionsPayload } from "./ISession";
+import { IFilmPayload } from "./IFilm";
 
 export interface IState {
-  userData: IUserAction;
-  sessionsData: ISessionAction;
-  filmsData: IFilmAction;
+  user: IUserPayload;
+  sessions: ISessionsPayload;
+  films: IFilmPayload;
 }

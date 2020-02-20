@@ -32,6 +32,7 @@ interface IFilm extends Document {
     raterName: string;
   }[];
   filmImage: string;
+  releaseDate: number;
 }
 
 interface IHall extends Document {

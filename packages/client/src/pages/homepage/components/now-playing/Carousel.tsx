@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./nowPlaying.sass";
 
 export function Carousel(props: any) {
-  const { films, pending } = props;
+  const { data: films, pending } = props;
   return (
     <div className="slider-block">
       <CarouselComponent

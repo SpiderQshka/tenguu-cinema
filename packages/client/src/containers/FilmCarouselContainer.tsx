@@ -1,27 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 
 import { fetchFilmsRequest } from "actions/films";
 
 import Carousel from "pages/homepage/components/film-carousel";
+import { IState } from "interfaces/IState";
 
-const mapStateToProps = (state: any) => state.filmsData;
+const mapStateToProps = (state: IState) => state.films;
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getFilms: () => fetchFilmsRequest()
+    getFilms: fetchFilmsRequest
   };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-function FilmCarouselWrapper(props: ConnectedProps<typeof connector>) {
-  const { getFilms, films, pending } = props;
-
-  useEffect(() => {
-    getFilms();
-  }, [getFilms]);
-
-  return <Carousel films={films} pending={pending} />;
+function FilmCarouselContainer(props: ConnectedProps<typeof connector>) {
+  return <Carousel {...props} />;
 }
 
-export default connector(FilmCarouselWrapper);
+export default connector(FilmCarouselContainer);

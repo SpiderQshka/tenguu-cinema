@@ -14,9 +14,13 @@ export type ISessionActionTypes =
   | "FETCH_SESSIONS_SUCCESS"
   | "FETCH_SESSIONS_ERROR"
   | "FETCH_SESSIONS_REQUEST";
-export interface ISessionAction {
-  type: ISessionActionTypes;
-  sessions: ISession[];
+
+export interface ISessionsPayload {
+  data: ISession[];
   error: Error | null;
   pending: boolean;
+}
+export interface ISessionAction {
+  type: ISessionActionTypes;
+  payload: ISessionsPayload;
 }

@@ -23,7 +23,7 @@ export const genresReducer = (state = initialState, action: any) => {
       console.log("Success");
       return {
         ...state,
-        genres: action.genres
+        data: action.genres
       };
     case FETCH_GENRES_ERROR:
       console.log("Error");

@@ -4,12 +4,11 @@ import {
   FETCH_FILMS_SUCCESS
 } from "actions/films";
 
-import { IFilmAction, IFilm } from "interfaces/IFilm";
+import { IFilmAction, IFilm, IFilmPayload } from "interfaces/IFilm";
 
-const initialState: IFilmAction = {
-  type: FETCH_FILMS_PENDING,
+const initialState: IFilmPayload = {
   pending: false,
-  films: [] as IFilm[],
+  data: [] as IFilm[],
   error: null
 };
 
@@ -25,14 +24,14 @@ export const filmsReducer = (state = initialState, action: IFilmAction) => {
       console.log("Success");
       return {
         ...state,
-        films: action.films,
+        data: action.payload.data,
         pending: false
       };
     case FETCH_FILMS_ERROR:
       console.log("Error");
       return {
         ...state,
-        error: action.error,
+        error: action.payload.error,
         pending: false
       };
     default:

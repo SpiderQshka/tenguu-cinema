@@ -35,13 +35,13 @@ export function Slide(props: ISlide) {
             <h2 className={styles["film-name"]}>{film.name}</h2>
             <div className={styles["buttons"]}>
               <button
-                className={`col s12 waves-effect waves-light btn-flat btn-large ${styles["slide-btn"]}`}
+                className={`col s12 waves-effect waves-light btn-flat btn-large inherit-bgc ${styles["slide-btn"]}`}
               >
                 <i className={`fas fa-play ${styles["button-icon"]}`}></i>
                 <span className={styles["button-text"]}>Watch trailer</span>
               </button>
               <button
-                className={`col s12 waves-effect waves-light btn-flat btn-large ${styles["slide-btn"]}`}
+                className={`col s12 waves-effect waves-light btn-flat btn-large inherit-bgc ${styles["slide-btn"]}`}
               >
                 <i
                   className={`fas fa-shopping-cart ${styles["button-icon"]}`}

@@ -10,13 +10,23 @@ export interface IPostData {
   headers: Headers;
 }
 
-export const getData = async (
+const tokenFetch = async (
   url: string,
-  token?: string | null
-): Promise<IGetData> => {
-  const response: Response = await fetch(url, {
-    headers: { "auth-token": token ? token : "" }
+  options: any = {}
+): Promise<Response> => {
+  const token = window.localStorage.getItem("auth-token") || "";
+  return await fetch(url, {
+    ...options,
+    headers: options.headers
+      ? options.headers.append("auth-token", token)
+      : { "auth-token": token }
   });
+};
+
+export const getData = async (url: string): Promise<IGetData> => {
+  const response: Response = await tokenFetch(url);
+  console.log(response);
+
   return response.json();
 };
 
@@ -25,7 +35,7 @@ export const postData = async (
   formData: any,
   headers?: Headers
 ): Promise<IPostData> => {
-  const response: Response = await fetch(url, {
+  const response: Response = await tokenFetch(url, {
     method: "POST",
     body: new URLSearchParams([...formData]),
     headers

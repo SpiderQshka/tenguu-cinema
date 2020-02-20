@@ -3,12 +3,11 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_ERROR
 } from "actions/users";
-import { IUserAction, IUser } from "interfaces/IUser";
+import { IUserAction, IUser, IUserPayload } from "interfaces/IUser";
 
-const initialState: IUserAction = {
-  type: FETCH_USER_PENDING,
+const initialState: IUserPayload = {
   pending: false,
-  currentUser: {} as IUser,
+  data: {} as IUser,
   error: null,
   isAuthorized: false
 };
@@ -26,15 +25,16 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
       console.log("Success");
       return {
         ...state,
-        currentUser: action.currentUser,
+        data: action.payload.data,
         isAuthorized: true,
         pending: false
       };
     case FETCH_USER_ERROR:
       console.log("Error");
+
       return {
         ...state,
-        error: action.error,
+        error: action.payload.error,
         pending: false
       };
     default:

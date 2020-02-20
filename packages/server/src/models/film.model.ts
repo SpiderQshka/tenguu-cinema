@@ -35,6 +35,10 @@ const filmScheme: Schema<IFilm> = new Schema({
   filmImage: {
     type: String,
     required: true
+  },
+  releaseDate: {
+    type: String,
+    required: true
   }
 });
 

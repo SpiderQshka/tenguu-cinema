@@ -24,7 +24,6 @@ export const loginUser = async (formData: FormData): Promise<IPostUser> => {
 
 export const getUserInfo = async (): Promise<IGetData> => {
   const userId = window.localStorage.getItem("userId") || "";
-  const authToken = window.localStorage.getItem("auth-token");
-  const data = await getData(`api/users/${userId}`, authToken);
+  const data = await getData(`api/users/${userId}`);
   return data;
 };

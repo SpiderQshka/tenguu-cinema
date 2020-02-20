@@ -15,6 +15,8 @@ $photo-size: 40px
         margin: 0 auto
         display: flex
         justify-content: space-between
+        button, a
+            color: $primary-color
         .logo-block
             display: flex
             align-items: flex-end
@@ -55,6 +57,10 @@ $photo-size: 40px
                     color: $primary-color
                     margin: 0 $small-margin
                     letter-spacing: 1px
+                    font-size: $default-font-size
+                    & > a
+                        &:last-child
+                            margin-left: $extra-small-margin
                 .user-block, .tickets-block
                     display: inline-block
                 .user-block

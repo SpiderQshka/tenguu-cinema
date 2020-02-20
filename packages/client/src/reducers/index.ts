@@ -4,7 +4,7 @@ import { sessionsReducer } from "./sessionsReducer";
 import { combineReducers } from "redux";
 
 export const allReducers = combineReducers({
-  userData: usersReducer,
-  filmsData: filmsReducer,
-  sessionsData: sessionsReducer
+  user: usersReducer,
+  films: filmsReducer,
+  sessions: sessionsReducer
 });

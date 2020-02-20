@@ -1,5 +1,4 @@
-import { IUser } from "interfaces/IUser";
-import { IUserAction } from "interfaces/IUser";
+import { IUser, IUserPayload } from "interfaces/IUser";
 
 // Actions
 
@@ -13,25 +12,29 @@ export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 export const fetchCurrentUserPending = () => {
   return {
     type: FETCH_USER_PENDING
-  } as IUserAction;
+  };
 };
 
 export const fetchCurrentUserSuccess = (currentUser: IUser) => {
   return {
     type: FETCH_USER_SUCCESS,
-    currentUser
-  } as IUserAction;
+    payload: {
+      data: currentUser
+    } as IUserPayload
+  };
 };
 
 export const fetchCurrentUserError = (error: Error) => {
   return {
     type: FETCH_USER_ERROR,
-    error
-  } as IUserAction;
+    payload: {
+      error
+    } as IUserPayload
+  };
 };
 
 export const fetchCurrentUserRequest = () => {
   return {
     type: FETCH_USER_REQUEST
-  } as IUserAction;
+  };
 };

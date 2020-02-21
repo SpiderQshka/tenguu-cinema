@@ -5,6 +5,8 @@ import React from "react";
 
 import styles from "./coming-soon.module.sass";
 import { ISession } from "interfaces/ISession";
+import { Loader } from "components/loader";
+import { CarouselComponent } from "components/carousel";
 
 export interface IFilmBlock {
   sessions: ISession[];
@@ -12,11 +14,18 @@ export interface IFilmBlock {
 }
 
 export const FilmBlock = (props: IFilmBlock) => {
-  // const { sessions, pending } = props;
-  //   const films
+  const { sessions, pending } = props;
   return (
     <div className={styles["film-block"]}>
-      {/* <CarouselComponent BasicElement={FilmCardPreOrder} items={} /> */}
+      {pending ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="filmInfo"></div>
+          {/* <CarouselComponent BasicElement={FilmCardPreOrder} items={sessions} /> */}
+        </>
+      )}
+      {/*  */}
     </div>
   );
 };

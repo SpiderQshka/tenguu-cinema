@@ -10,22 +10,23 @@ export interface IPostData {
   headers: Headers;
 }
 
-const tokenFetch = async (
+export const tokenFetch = async (
   url: string,
   options: any = {}
 ): Promise<Response> => {
   const token = window.localStorage.getItem("auth-token") || "";
+  let headers = options.headers;
+  if (headers) headers.append("auth-token", token);
+  else headers = { "auth-token": token };
   return await fetch(url, {
     ...options,
-    headers: options.headers
-      ? options.headers.append("auth-token", token)
-      : { "auth-token": token }
+    headers
   });
 };
 
 export const getData = async (url: string): Promise<IGetData> => {
   const response: Response = await tokenFetch(url);
-  return response.status === 200
+  return response.status < 400
     ? response.json()
     : {
         error: {
@@ -39,22 +40,20 @@ export const getData = async (url: string): Promise<IGetData> => {
 export const postData = async (
   url: string,
   formData: any,
-  headers?: Headers
+  headers = new Headers()
 ): Promise<IPostData> => {
   const response: Response = await tokenFetch(url, {
     method: "POST",
     body: new URLSearchParams([...formData]),
     headers
   });
-  if (response.status !== 200) {
-    const message = await response.text();
-    return {
-      error: { code: response.status, message },
-      headers: response.headers
-    };
-  }
-
-  const body = await response.json();
-
-  return { body, headers: response.headers };
+  return response.status < 400
+    ? response.json()
+    : {
+        error: {
+          code: response.status,
+          message: response.statusText
+        },
+        headers: response.headers
+      };
 };

@@ -1,4 +1,4 @@
-import { getData, postData, IPostData, IGetData } from "./CRUD";
+import { getData, IPostData, IGetData, tokenFetch } from "./CRUD";
 import { IUser } from "interfaces/IUser";
 
 export interface IPostUser extends IPostData {
@@ -6,8 +6,37 @@ export interface IPostUser extends IPostData {
   authToken: string | null;
 }
 
+export interface IGetUser extends IPostData {
+  body?: IUser;
+  authToken: string | null;
+}
+
+export const postUserData = async (
+  url: string,
+  formData: any,
+  headers = new Headers()
+): Promise<IPostData> => {
+  const response: Response = await tokenFetch(url, {
+    method: "POST",
+    body: new URLSearchParams([...formData]),
+    headers
+  });
+  return response.status < 400
+    ? {
+        body: await response.json(),
+        headers: response.headers
+      }
+    : {
+        error: {
+          code: response.status,
+          message: response.statusText
+        },
+        headers: response.headers
+      };
+};
+
 export const registerUser = async (formData: FormData): Promise<IPostUser> => {
-  const data = await postData("api/auth/register", formData);
+  const data = await postUserData("api/auth/register", formData);
   return {
     ...data,
     authToken: data.headers.get("auth-token")
@@ -15,16 +44,18 @@ export const registerUser = async (formData: FormData): Promise<IPostUser> => {
 };
 
 export const loginUser = async (formData: FormData): Promise<IPostUser> => {
-  const data = await postData("api/auth/login", formData);
+  const data = await postUserData("api/auth/login", formData);
   return {
     ...data,
     authToken: data.headers.get("auth-token")
   };
 };
 
-export const getUserInfo = async (): Promise<IGetData> => {
+export const getUserInfo = async (): Promise<IGetUser> => {
   const userId = window.localStorage.getItem("userId") || "";
   const data = await getData(`api/users/${userId}`);
-  if (data.error) throw Error(data.error.message);
-  return data;
+  return {
+    ...data,
+    authToken: window.localStorage.getItem("auth-token")
+  };
 };

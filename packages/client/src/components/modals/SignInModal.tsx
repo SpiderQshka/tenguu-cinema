@@ -5,31 +5,34 @@ import { loginUser } from "APIServices/users";
 import styles from "./modals.module.sass";
 
 import M from "materialize-css";
+import { IUser } from "interfaces/IUser";
 
 document.addEventListener("DOMContentLoaded", function() {
   var elems = document.querySelectorAll(".modal");
   var instances = M.Modal.init(elems);
 });
 
-export const SignInModal = () => {
+export const SignInModal = (props: any) => {
+  console.log("Sign in", props);
+
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
     const data = await loginUser(formData);
 
-    alert(`error: ${data.error?.message}`);
-
     if (data.body && data.body._id)
       window.localStorage.setItem("userId", data.body._id);
 
     if (data.authToken)
       window.localStorage.setItem("auth-token", data.authToken);
+
+    props.setUserToken(data.authToken);
   };
   return (
     <div id="signInModal" className="modal">
       <div className={`modal-content ${styles.modalContent}`}>
-        <h4>Sign Up</h4>
+        <h4>Sign In</h4>
         <form
           className={`form register-form ${styles.form}`}
           onSubmit={e => submitHandler(e)}

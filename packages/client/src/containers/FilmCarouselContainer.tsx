@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch: any) => {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 function FilmCarouselContainer(props: ConnectedProps<typeof connector>) {
-  console.log(props);
+  console.log("Films: ", props);
 
   return <Carousel {...props} />;
 }

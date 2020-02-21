@@ -3,17 +3,20 @@ export interface IUser {
   email: string;
   password: string;
   _id: string;
+  error?: { code: number; message: string };
+  authToken?: string | null;
 }
 
 export type IUserActionTypes =
   | "FETCH_USER_PENDING"
   | "FETCH_USER_SUCCESS"
   | "FETCH_USER_ERROR"
-  | "FETCH_USER_REQUEST";
+  | "FETCH_USER_REQUEST"
+  | "ADD_USER_TOKEN";
 
 export interface IUserPayload {
   data: IUser;
-  error: Error | null;
+  error: { code: number; message: string } | null;
   pending: boolean;
   isAuthorized: boolean;
 }

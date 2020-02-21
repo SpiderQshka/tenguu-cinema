@@ -1,28 +1,25 @@
 import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { IState } from "interfaces/IState";
-import { fetchFilmsRequest } from "actions/films";
-import { fetchCurrentUserRequest } from "actions/users";
-import { fetchSessionsRequest } from "actions/sessions";
+import { fetchPageRequest } from "actions/page";
 
 import { Homepage } from "pages/homepage";
+import { IState } from "interfaces/IState";
 
+const mapStateToProps = (state: IState) => state;
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getUser: fetchCurrentUserRequest,
-    getFilms: fetchFilmsRequest,
-    getSessions: fetchSessionsRequest
+    getPage: fetchPageRequest
   };
 };
 
-const connector = connect(mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const HomepageComponent = (props: ConnectedProps<typeof connector>) => {
+  console.log(props);
+
   useEffect(() => {
-    props.getUser();
-    props.getFilms();
-    props.getSessions();
-  }, [props]);
+    props.getPage();
+  }, [props.user]);
 
   return <Homepage />;
 };

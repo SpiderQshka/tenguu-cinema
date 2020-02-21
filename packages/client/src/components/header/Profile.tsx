@@ -3,7 +3,7 @@ import styles from "./header.module.sass";
 import { IUserPayload } from "interfaces/IUser";
 
 import { SignUpModal } from "components/modals/SignUpModal";
-import { SignInModal } from "components/modals/SignInModal";
+import SignInModal from "containers/ModalContainer";
 
 export function Profile(props: IUserPayload) {
   const { data: userData, isAuthorized, pending } = props;
@@ -24,11 +24,7 @@ export function Profile(props: IUserPayload) {
             <div className={styles["vertical-line"]}></div>
             <div className={styles["user-block"]}>
               <span className={styles["user_name"]}>
-                {pending
-                  ? "Loading"
-                  : isAuthorized
-                  ? userData.username
-                  : "Unregistered"}
+                {pending ? "Loading" : userData.username}
               </span>
               <div className={styles["user_photo-block"]}>
                 {null ? (

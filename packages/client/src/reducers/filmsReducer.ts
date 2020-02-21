@@ -28,7 +28,7 @@ export const filmsReducer = (state = initialState, action: IFilmAction) => {
         pending: false
       };
     case FETCH_FILMS_ERROR:
-      console.log("Error");
+      console.log(`Error: ${action.payload.error}`);
       return {
         ...state,
         error: action.payload.error,

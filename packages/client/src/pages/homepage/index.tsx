@@ -4,11 +4,7 @@ import FilmCarousel from "containers/FilmCarouselContainer";
 import { NowPlaying } from "pages/homepage/components/now-playing";
 import { ComingSoon } from "./components/coming-soon";
 
-interface IHomepageProps {}
-
-export function Homepage(props: IHomepageProps) {
-  console.log(props);
-
+export function Homepage() {
   return (
     <>
       <FilmCarousel />

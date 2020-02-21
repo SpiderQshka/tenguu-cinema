@@ -25,5 +25,6 @@ export const loginUser = async (formData: FormData): Promise<IPostUser> => {
 export const getUserInfo = async (): Promise<IGetData> => {
   const userId = window.localStorage.getItem("userId") || "";
   const data = await getData(`api/users/${userId}`);
+  if (data.error) throw Error(data.error.message);
   return data;
 };

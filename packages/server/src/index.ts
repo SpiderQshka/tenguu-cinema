@@ -5,8 +5,10 @@ import addAdmin from "./seed";
 
 app.listen(PORT, async () => {
   console.log(`server is running and using port: ${PORT}`);
-  await connectDb(DBURL).then(() => {
-    console.log("Db connected");
-    addAdmin();
-  });
+  await connectDb(DBURL)
+    .then(() => {
+      console.log("Db connected");
+      addAdmin();
+    })
+    .catch(() => console.error("DB connection failed"));
 });

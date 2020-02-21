@@ -1,5 +1,5 @@
 export interface IGetData {
-  error?: { code: number; message: null | string };
+  error?: { code: number; message: string };
   body?: any;
   headers: Headers;
 }
@@ -25,9 +25,15 @@ const tokenFetch = async (
 
 export const getData = async (url: string): Promise<IGetData> => {
   const response: Response = await tokenFetch(url);
-  console.log(response);
-
-  return response.json();
+  return response.status === 200
+    ? response.json()
+    : {
+        error: {
+          code: response.status,
+          message: response.statusText
+        },
+        headers: response.headers
+      };
 };
 
 export const postData = async (

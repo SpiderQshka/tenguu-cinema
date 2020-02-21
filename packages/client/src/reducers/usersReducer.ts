@@ -30,8 +30,7 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
         pending: false
       };
     case FETCH_USER_ERROR:
-      console.log("Error");
-
+      console.log(action.payload.error);
       return {
         ...state,
         error: action.payload.error,

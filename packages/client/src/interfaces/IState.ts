@@ -7,4 +7,8 @@ export interface IState {
   user: IUserPayload;
   sessions: ISessionsPayload;
   films: IFilmPayload;
+  mainPage: {
+    pending: boolean;
+    error: { code: number; message: string } | null;
+  };
 }

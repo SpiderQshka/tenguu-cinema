@@ -3,11 +3,6 @@ import {
   FETCH_PAGE_SUCCESS,
   FETCH_PAGE_PENDING
 } from "actions/page";
-// import {
-//   ISessionsPayload,
-//   ISession,
-//   ISessionAction
-// } from "interfaces/ISession";
 
 const initialState = {
   pending: false,

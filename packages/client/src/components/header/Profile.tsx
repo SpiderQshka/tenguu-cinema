@@ -1,13 +1,16 @@
 import React from "react";
 import styles from "./header.module.sass";
-import { IUserPayload } from "interfaces/IUser";
 
-import { SignUpModal } from "components/modals/SignUpModal";
-import SignInModal from "containers/ModalContainer";
+import SignUpModal from "containers/SignUpModalContainer";
+import SignInModal from "containers/SignInModalContainer";
 
-export function Profile(props: IUserPayload) {
+export function Profile(props: any) {
   const { data: userData, isAuthorized, pending } = props;
 
+  const logOut = () => {
+    window.localStorage.clear();
+    props.logOut();
+  };
   return (
     <>
       <SignUpModal />
@@ -16,8 +19,8 @@ export function Profile(props: IUserPayload) {
         {isAuthorized ? (
           <>
             <button
-              className="waves-effect waves-light btn-flat btn orange"
-              onClick={() => window.localStorage.clear()}
+              className="waves-effect waves-light btn-large btn-flat btn orange"
+              onClick={() => logOut()}
             >
               Log out
             </button>

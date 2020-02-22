@@ -12,7 +12,8 @@ export type IUserActionTypes =
   | "FETCH_USER_SUCCESS"
   | "FETCH_USER_ERROR"
   | "FETCH_USER_REQUEST"
-  | "ADD_USER_TOKEN";
+  | "USER_LOGIN"
+  | "USER_LOGOUT";
 
 export interface IUserPayload {
   data: IUser;

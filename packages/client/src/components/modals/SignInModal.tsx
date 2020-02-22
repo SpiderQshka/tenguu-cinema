@@ -1,19 +1,13 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useRef } from "react";
 
 import { loginUser } from "APIServices/users";
 
 import styles from "./modals.module.sass";
 
 import M from "materialize-css";
-import { IUser } from "interfaces/IUser";
-
-document.addEventListener("DOMContentLoaded", function() {
-  var elems = document.querySelectorAll(".modal");
-  var instances = M.Modal.init(elems);
-});
 
 export const SignInModal = (props: any) => {
-  console.log("Sign in", props);
+  const signInModalRef = useRef(null);
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -24,13 +18,19 @@ export const SignInModal = (props: any) => {
     if (data.body && data.body._id)
       window.localStorage.setItem("userId", data.body._id);
 
-    if (data.authToken)
+    if (data.authToken) {
       window.localStorage.setItem("auth-token", data.authToken);
+      props.setUserToken(data.authToken);
+    }
 
-    props.setUserToken(data.authToken);
+    const btnInstance = M.Modal.getInstance(
+      signInModalRef.current || new HTMLButtonElement()
+    );
+
+    btnInstance.close();
   };
   return (
-    <div id="signInModal" className="modal">
+    <div id="signInModal" className="modal" ref={signInModalRef}>
       <div className={`modal-content ${styles.modalContent}`}>
         <h4>Sign In</h4>
         <form

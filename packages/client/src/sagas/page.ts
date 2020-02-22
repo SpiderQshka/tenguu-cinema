@@ -1,25 +1,20 @@
-import { put, all, takeEvery, call } from "redux-saga/effects";
+import { put, all, call } from "redux-saga/effects";
 import {
-  FETCH_PAGE_REQUEST,
-  fetchPageRequest,
   fetchPageError,
   fetchPageSuccess,
   fetchPagePending
 } from "actions/page";
-import { getData, IGetData } from "APIServices/CRUD";
-import { getUserInfo } from "APIServices/users";
-
-export function* watchFetchPageInfo() {
-  yield takeEvery(FETCH_PAGE_REQUEST, fetchPageRequest);
-}
+import { fetchCurrentUserRequest } from "actions/users";
+import { fetchFilmsRequest } from "actions/films";
+import { fetchSessionsRequest } from "actions/sessions";
 
 export function* fetchPageInfo() {
   try {
     yield put(fetchPagePending());
     yield all([
-      call(() => getData("api/sessions")),
-      call(() => getUserInfo()),
-      call(() => getData("api/films"))
+      call(fetchCurrentUserRequest),
+      call(fetchFilmsRequest),
+      call(fetchSessionsRequest)
     ]);
     yield put(fetchPageSuccess());
   } catch (e) {

@@ -2,7 +2,8 @@ import {
   FETCH_USER_PENDING,
   FETCH_USER_SUCCESS,
   FETCH_USER_ERROR,
-  ADD_USER_TOKEN
+  USER_LOGIN,
+  USER_LOGOUT
 } from "actions/users";
 import { IUserAction, IUser, IUserPayload } from "interfaces/IUser";
 
@@ -40,7 +41,7 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
         error: action.payload.error,
         pending: false
       };
-    case ADD_USER_TOKEN:
+    case USER_LOGIN:
       console.log("Add user token");
       return {
         ...state,
@@ -48,6 +49,16 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
         data: {
           ...state.data,
           authToken: action.payload
+        }
+      };
+    case USER_LOGOUT:
+      console.log("User logout");
+      return {
+        ...state,
+        isAuthorized: false,
+        data: {
+          ...state.data,
+          authToken: null
         }
       };
     default:

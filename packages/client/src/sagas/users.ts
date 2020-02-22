@@ -15,7 +15,7 @@ export function* watchFetchUserInfo() {
 export function* fetchUserInfo() {
   try {
     yield put(fetchCurrentUserPending());
-    const data = yield call(() => getUserInfo());
+    const data = yield call(getUserInfo);
     yield put(fetchCurrentUserSuccess(data));
   } catch (e) {
     yield put(fetchCurrentUserError(e));

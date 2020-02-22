@@ -7,9 +7,9 @@ import { fetchPageInfo } from "./page";
 
 export function* rootSaga() {
   yield all([
+    fetchPageInfo(),
     fetchUserInfo(),
     fetchFilmInfo(),
-    fetchSessionInfo(),
-    fetchPageInfo()
+    fetchSessionInfo()
   ]);
 }

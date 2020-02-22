@@ -16,7 +16,9 @@ export const tokenFetch = async (
 ): Promise<Response> => {
   const token = window.localStorage.getItem("auth-token") || "";
   let headers = options.headers;
-  if (headers) headers.append("auth-token", token);
+  if (headers) console.log(!headers.has("auth-token"));
+  if (headers && !headers.has("auth-token"))
+    headers.append("auth-token", token);
   else headers = { "auth-token": token };
   return await fetch(url, {
     ...options,

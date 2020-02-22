@@ -5,22 +5,18 @@ import { Header } from "./components/header/index";
 import HomepageContainer from "./containers/HomepageContainer";
 
 import "materialize-css/dist/css/materialize.min.css";
-// import M from "materialize-css";
+import M from "materialize-css";
 import "./app.sass";
+
+M.AutoInit();
+document.addEventListener("DOMContentLoaded", function() {
+  var modals = document.querySelectorAll(".modal");
+  M.Modal.init(modals);
+});
 
 const App: React.FC = (props: any) => {
   return (
     <Router>
-      {/* <Header /> */}
-
-      {/* <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-      </ul> */}
       <Switch>
         <Route path="/">
           <Header />

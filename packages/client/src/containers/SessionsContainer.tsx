@@ -1,26 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 
 import { FilmBlock } from "pages/homepage/components/coming-soon/FilmBlock";
 
-import { fetchSessionsRequest } from "actions/sessions";
 import { IState } from "interfaces/IState";
 
 const mapStateToProps = (state: IState) => state.sessions;
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    getSessions: fetchSessionsRequest
-  };
-};
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 function SessionsContainer(props: ConnectedProps<typeof connector>) {
-  const { getSessions, data: sessions, pending } = props;
-  useEffect(() => {
-    getSessions();
-  }, [getSessions]);
-
+  const { data: sessions, pending } = props;
   return <FilmBlock sessions={sessions} pending={pending} />;
 }
 

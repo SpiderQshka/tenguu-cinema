@@ -4,7 +4,7 @@ import FilmCarousel from "containers/FilmCarouselContainer";
 import { NowPlaying } from "pages/homepage/components/now-playing";
 import { ComingSoon } from "./components/coming-soon";
 
-export function Homepage() {
+export function Homepage(props: any) {
   return (
     <>
       <FilmCarousel />

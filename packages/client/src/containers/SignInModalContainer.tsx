@@ -1,7 +1,7 @@
 import React from "react";
-import { connect, ConnectedProps } from "react-redux";
+import { connect } from "react-redux";
 
-import { addUserToken } from "actions/users";
+import { userLoginRequest } from "actions/users";
 
 import { SignInModal } from "components/modals/SignInModal";
 import { IState } from "interfaces/IState";
@@ -9,16 +9,12 @@ import { IState } from "interfaces/IState";
 const mapStateToProps = (state: IState) => state.user;
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    setUserToken: (token: string) => {
-      dispatch(addUserToken(token));
+    loginUser: (token: string) => {
+      dispatch(userLoginRequest(token));
     }
   };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-function ModalContainer(props: ConnectedProps<typeof connector>) {
-  return <SignInModal {...props} />;
-}
-
-export default connector(ModalContainer);
+export default connector(SignInModal);

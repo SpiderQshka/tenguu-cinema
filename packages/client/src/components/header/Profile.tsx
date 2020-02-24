@@ -6,11 +6,8 @@ import SignInModal from "containers/SignInModalContainer";
 
 export function Profile(props: any) {
   const { data: userData, isAuthorized, pending } = props;
+  console.log(props);
 
-  const logOut = () => {
-    window.localStorage.clear(); // To saga!
-    props.logOut();
-  };
   return (
     <>
       <SignUpModal />
@@ -20,7 +17,7 @@ export function Profile(props: any) {
           <>
             <button
               className="waves-effect waves-light btn-large btn-flat btn orange"
-              onClick={logOut}
+              onClick={props.logout}
             >
               Log out
             </button>

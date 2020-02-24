@@ -14,41 +14,44 @@ export interface IGetUser extends IPostData {
 export const postUserData = async (
   url: string,
   formData: any,
-  headers = new Headers()
+  headers = new Headers(),
+  ignoreCodes: number[] = []
 ): Promise<IPostData> => {
   const response: Response = await tokenFetch(url, {
     method: "POST",
     body: new URLSearchParams([...formData]),
     headers
   });
-  return response.status < 400
-    ? {
-        body: await response.json(),
-        headers: response.headers
-      }
-    : {
-        error: {
-          code: response.status,
-          message: response.statusText
-        },
-        headers: response.headers
-      };
+  if (!(response.status < 400 || ignoreCodes.includes(response.status)))
+    throw new Error(response.statusText);
+  return {
+    body: await response.json(),
+    headers: response.headers
+  };
 };
 
 export const registerUser = async (formData: FormData): Promise<IPostUser> => {
-  const data = await postUserData("api/auth/register", formData);
-  return {
-    ...data,
-    authToken: data.headers.get("auth-token")
-  };
+  try {
+    const data = await postUserData("api/auth/register", formData);
+    return {
+      ...data,
+      authToken: data.headers.get("auth-token")
+    };
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 export const loginUser = async (formData: FormData): Promise<IPostUser> => {
-  const data = await postUserData("api/auth/login", formData);
-  return {
-    ...data,
-    authToken: data.headers.get("auth-token")
-  };
+  try {
+    const data = await postUserData("api/auth/login", formData);
+    return {
+      ...data,
+      authToken: data.headers.get("auth-token")
+    };
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 export const getUserInfo = async (): Promise<IGetUser> => {

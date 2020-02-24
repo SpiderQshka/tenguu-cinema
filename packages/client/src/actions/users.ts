@@ -6,7 +6,9 @@ export const FETCH_USER_PENDING = "FETCH_USER_PENDING";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const FETCH_USER_ERROR = "FETCH_USER_ERROR";
 export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
+export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST";
 export const USER_LOGIN = "USER_LOGIN";
+export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST";
 export const USER_LOGOUT = "USER_LOGOUT";
 
 // Action creators
@@ -41,10 +43,23 @@ export const fetchCurrentUserRequest = () => {
   };
 };
 
-export const addUserToken = (authToken: string) => {
+export const userLoginRequest = (authToken: string) => {
+  return {
+    type: USER_LOGIN_REQUEST,
+    payload: authToken
+  };
+};
+
+export const userLogin = (authToken: string) => {
   return {
     type: USER_LOGIN,
     payload: authToken
+  };
+};
+
+export const userLogoutRequest = () => {
+  return {
+    type: USER_LOGOUT_REQUEST
   };
 };
 

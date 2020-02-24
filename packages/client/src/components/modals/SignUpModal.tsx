@@ -22,7 +22,7 @@ export const SignUpModal = (props: any) => {
 
     if (data.authToken) {
       window.localStorage.setItem("auth-token", data.authToken);
-      props.setUserToken(data.authToken);
+      props.login(data.authToken);
     }
 
     const btnInstance = M.Modal.getInstance(
@@ -37,7 +37,7 @@ export const SignUpModal = (props: any) => {
         <h4>Sign Up</h4>
         <form
           className={`form register-form ${styles.form}`}
-          onSubmit={e => submitHandler(e)}
+          onSubmit={submitHandler}
         >
           <input
             className="form-input input-field validate"

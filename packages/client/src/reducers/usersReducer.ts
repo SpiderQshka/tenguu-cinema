@@ -42,7 +42,7 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
         pending: false
       };
     case USER_LOGIN:
-      console.log("Add user token");
+      console.log("User login");
       return {
         ...state,
         isAuthorized: true,

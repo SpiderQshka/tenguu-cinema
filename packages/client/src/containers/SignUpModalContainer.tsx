@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { addUserToken } from "actions/users";
+import { userLoginRequest } from "actions/users";
 
 import { SignUpModal } from "components/modals/SignUpModal";
 import { IState } from "interfaces/IState";
@@ -9,8 +9,8 @@ import { IState } from "interfaces/IState";
 const mapStateToProps = (state: IState) => state.user;
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    setUserToken: (token: string) => {
-      dispatch(addUserToken(token));
+    loginUser: (token: string) => {
+      dispatch(userLoginRequest(token));
     }
   };
 };

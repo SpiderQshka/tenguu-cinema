@@ -27,3 +27,11 @@ export const PageLoader = () => {
     </div>
   );
 };
+
+export const CenterLoader = () => {
+  return (
+    <div className={styles.centerLoader}>
+      <Loader />
+    </div>
+  );
+};

@@ -5,7 +5,7 @@ import {
 } from "actions/page";
 
 const initialState = {
-  pending: false,
+  pending: true,
   error: null
 };
 

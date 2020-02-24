@@ -8,7 +8,7 @@ export function Profile(props: any) {
   const { data: userData, isAuthorized, pending } = props;
 
   const logOut = () => {
-    window.localStorage.clear();
+    window.localStorage.clear(); // To saga!
     props.logOut();
   };
   return (
@@ -20,7 +20,7 @@ export function Profile(props: any) {
           <>
             <button
               className="waves-effect waves-light btn-large btn-flat btn orange"
-              onClick={() => logOut()}
+              onClick={logOut}
             >
               Log out
             </button>

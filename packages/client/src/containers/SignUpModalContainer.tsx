@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, ConnectedProps } from "react-redux";
+import { connect } from "react-redux";
 
 import { addUserToken } from "actions/users";
 
@@ -17,8 +17,4 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-function ModalContainer(props: ConnectedProps<typeof connector>) {
-  return <SignUpModal {...props} />;
-}
-
-export default connector(ModalContainer);
+export default connector(SignUpModal);

@@ -26,36 +26,28 @@ export const tokenFetch = async (
   });
 };
 
-export const getData = async (url: string): Promise<IGetData> => {
+export const getData = async (
+  url: string,
+  ignoreCodes: number[] = []
+): Promise<IGetData> => {
   const response: Response = await tokenFetch(url);
-  return response.status < 400
-    ? response.json()
-    : {
-        error: {
-          code: response.status,
-          message: response.statusText
-        },
-        headers: response.headers
-      };
+  if (!(response.status < 400 || ignoreCodes.includes(response.status)))
+    throw new Error(response.statusText);
+  return response.json();
 };
 
 export const postData = async (
   url: string,
   formData: any,
-  headers = new Headers()
+  headers = new Headers(),
+  ignoreCodes: number[] = []
 ): Promise<IPostData> => {
   const response: Response = await tokenFetch(url, {
     method: "POST",
     body: new URLSearchParams([...formData]),
     headers
   });
-  return response.status < 400
-    ? response.json()
-    : {
-        error: {
-          code: response.status,
-          message: response.statusText
-        },
-        headers: response.headers
-      };
+  if (!(response.status < 400 || ignoreCodes.includes(response.status)))
+    throw new Error(response.statusText);
+  return response.json();
 };

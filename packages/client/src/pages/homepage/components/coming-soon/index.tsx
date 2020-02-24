@@ -13,6 +13,7 @@ export function ComingSoon(props: IComingSoonProps) {
     <section className={styles["coming-soon"]}>
       <SectionTitle isDark={false} message="Coming soon" />
       <FilmBlock />
+      {/* carousel */}
     </section>
   );
 }

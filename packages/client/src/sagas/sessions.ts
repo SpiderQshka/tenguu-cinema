@@ -16,7 +16,8 @@ export function* fetchSessionInfo() {
   try {
     yield put(fetchSessionsPending());
     const data = yield call(() => getData("api/sessions"));
-    yield put(fetchSessionsSuccess(data));
+    if (data.error) yield put(fetchSessionsError(data.error));
+    else yield put(fetchSessionsSuccess(data));
   } catch (e) {
     yield put(fetchSessionsError(e));
   }

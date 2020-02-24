@@ -3,5 +3,67 @@
 .coming-soon
     padding: 70px 0
     background-color: $secondary-color
-    .film-block
-        margin-top: 70px
+    .filmBlock
+        max-width: $content-width
+        margin: 70px auto 0
+        color: $primary-color
+        .filmTrailer
+            width: 100%
+            border: 1px solid red
+        .basicInfoBlock
+            margin: 40px 0
+            .genres
+                font-size: $default-font-size
+                .genre
+                    display: inline-block
+                    padding: 0 $default-margin
+                    color: $primary-shade-color
+                    border-left: 1px solid $primary-shade-color
+                    &:first-child
+                        padding-left: 0
+                        border-left: none
+            .filmName
+                color: $accent-color
+                text-transform: uppercase
+                font-size: $extra-large-font-size
+                font-weight: 400
+                margin: $large-margin 0
+            .date
+                color: $primary-shade-color
+        .descriptionAndRatingsBlock
+            display: flex
+            padding: 50px 0
+            border-top: 1px solid $primary-shade-color
+            border-bottom: 1px solid $primary-shade-color
+            .filmPhotoBlock
+                align-self: stretch
+            .descriptionBlock
+                display: flex
+                flex-direction: column
+                justify-content: space-between
+                margin: 0 45px
+                .descriptionText
+                    line-height: 1.7
+                    margin-bottom: $extra-large-margin
+                .descriptionButtons
+                    .filmButton
+                        color: $primary-color
+                        &:first-child
+                            margin-right: $default-margin
+                        .buttonIcon
+                            margin-right: $large-margin
+                            color: $accent-color
+            .ratingsBlock
+                display: flex
+                flex-direction: column
+                justify-content: center
+                .ratingElement
+                    color: $primary-shade-color
+                    .ratingText
+                        white-space: nowrap
+                        margin: $small-margin 0
+                    .ratingValue
+                        width: 66%
+                        height: 0px
+                        border: 2px solid $accent-color
+                        border-radius: 1px

@@ -8,8 +8,10 @@ export const FETCH_USER_ERROR = "FETCH_USER_ERROR";
 export const FETCH_USER_REQUEST = "FETCH_USER_REQUEST";
 export const USER_REG_REQUEST = "USER_REG_REQUEST";
 export const USER_REG = "USER_REG";
+export const USER_REG_ERROR = "USER_REG_ERROR";
 export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST";
 export const USER_LOGIN = "USER_LOGIN";
+export const USER_LOGIN_ERROR = "USER_LOGIN_ERROR";
 export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST";
 export const USER_LOGOUT = "USER_LOGOUT";
 
@@ -55,13 +57,10 @@ export const userLoginRequest = (authToken: string, _id: string) => {
   };
 };
 
-export const userRegisterRequest = (authToken: string, _id: string) => {
+export const userRegisterRequest = (formData: FormData) => {
   return {
     type: USER_REG_REQUEST,
-    payload: {
-      authToken,
-      _id
-    }
+    payload: formData
   };
 };
 
@@ -77,6 +76,15 @@ export const userRegister = (authToken: string, _id: string) => {
   };
 };
 
+export const userRegisterError = (error: any) => {
+  return {
+    type: USER_REG_ERROR,
+    payload: {
+      error
+    } as IUserPayload
+  };
+};
+
 export const userLogin = (authToken: string, _id: string) => {
   return {
     type: USER_LOGIN,
@@ -86,6 +94,15 @@ export const userLogin = (authToken: string, _id: string) => {
         _id
       }
     }
+  };
+};
+
+export const userLoginError = (error: any) => {
+  return {
+    type: USER_LOGIN_ERROR,
+    payload: {
+      error
+    } as IUserPayload
   };
 };
 

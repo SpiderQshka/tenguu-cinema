@@ -1,6 +1,6 @@
 import { put, call, takeEvery } from "redux-saga/effects";
 
-import { getUserInfo } from "APIServices/users";
+import { getUserInfo, registerUser } from "APIServices/users";
 import {
   fetchCurrentUserError,
   fetchCurrentUserPending,
@@ -9,11 +9,11 @@ import {
   userLogout,
   USER_LOGOUT_REQUEST,
   USER_LOGIN_REQUEST,
-  USER_LOGIN,
   userLogin,
   fetchCurrentUserRequest,
   USER_REG_REQUEST,
-  userRegister
+  userRegister,
+  userRegisterError
 } from "actions/users";
 
 export function* watchFetchUserInfo() {
@@ -54,9 +54,17 @@ export function* userLoginSaga(data: any) {
   yield put(fetchCurrentUserRequest());
 }
 
-export function* userRegisterSaga(data: any) {
-  window.localStorage.setItem("userId", data.payload._id);
-  window.localStorage.setItem("auth-token", data.payload.authToken);
-  yield put(userRegister(data.payload.authToken, data.payload._id));
-  yield put(fetchCurrentUserRequest());
+export function* userRegisterSaga({ payload }: any) {
+  try {
+    const userData = yield call(() => registerUser(payload));
+
+    window.localStorage.setItem("userId", userData.body._id);
+    window.localStorage.setItem("auth-token", userData.body.authToken);
+    console.log(userData);
+
+    yield put(userRegister(userData.authToken, userData.body._id));
+    yield put(fetchCurrentUserRequest());
+  } catch (e) {
+    yield put(userRegisterError(e));
+  }
 }

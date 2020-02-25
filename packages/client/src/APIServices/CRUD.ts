@@ -31,9 +31,10 @@ export const getData = async (
   ignoreCodes: number[] = []
 ): Promise<IGetData> => {
   const response: Response = await tokenFetch(url);
+
   if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw new Error(response.statusText);
-  return response.json();
+    throw await response.json();
+  return await response.json();
 };
 
 export const postData = async (
@@ -47,7 +48,8 @@ export const postData = async (
     body: new URLSearchParams([...formData]),
     headers
   });
+
   if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw new Error(response.statusText);
-  return response.json();
+    throw await response.json();
+  return await response.json();
 };

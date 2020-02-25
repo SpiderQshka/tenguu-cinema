@@ -1,4 +1,5 @@
 import React, { FormEvent, useRef } from "react";
+import { call } from "redux-saga/effects";
 
 import { registerUser } from "APIServices/users";
 
@@ -13,20 +14,26 @@ export const SignUpModal = (props: any) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const data = await registerUser(formData);
 
-    props.register(data.authToken, data?.body?._id);
+    await props.registerUser(formData);
 
-    const btnInstance = M.Modal.getInstance(
-      signUpModalRef.current || new HTMLButtonElement()
-    );
+    // if (!props.error) {
+    //   const btnInstance = M.Modal.getInstance(
+    //     signUpModalRef.current || new HTMLButtonElement()
+    //   );
 
-    btnInstance.close();
+    //   btnInstance.close();
+    // }
+
+    console.log("Modal Error:", props.error);
   };
   return (
     <div id="signUpModal" className="modal" ref={signUpModalRef}>
       <div className={`modal-content ${styles.modalContent}`}>
         <h4>Sign Up</h4>
+        {props.error ? (
+          <h5 className={styles.errorMsg}>{props.error}</h5>
+        ) : null}
         <form
           className={`form register-form ${styles.form}`}
           onSubmit={submitHandler}

@@ -32,7 +32,7 @@ export const FilmBlock = (props: IFilmBlock) => {
           </div>
           <div className={styles.descriptionAndRatingsBlock}>
             <div className={styles.filmPhotoBlock}>
-              <img src="#" alt="film" className={styles.filmPhoto} />
+              <img src="page.jpg" alt="film" className={styles.filmPhoto} />
             </div>
             <div className={styles.descriptionBlock}>
               <p className={styles.descriptionText}>

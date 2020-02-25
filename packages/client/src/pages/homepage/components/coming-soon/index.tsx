@@ -1,6 +1,6 @@
 import React from "react";
 import { SectionTitle } from "components/section-title";
-import FilmBlock from "containers/SessionsContainer";
+import FilmBlock from "containers/ComingSoonContainer";
 // import { CarouselComponent } from "components/carousel";
 // import { FilmCard } from "components/film-card";
 

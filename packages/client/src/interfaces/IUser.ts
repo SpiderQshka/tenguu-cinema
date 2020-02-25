@@ -14,11 +14,12 @@ export type IUserActionTypes =
   | "FETCH_USER_REQUEST"
   | "USER_LOGIN"
   | "USER_LOGOUT"
-  | "USER_REG";
+  | "USER_REG"
+  | "USER_REG_ERROR";
 
 export interface IUserPayload {
   data: IUser;
-  error: { code: number; message: string } | null;
+  error: string | null;
   pending: boolean;
   isAuthorized: boolean;
 }

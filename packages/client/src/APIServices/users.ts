@@ -23,7 +23,7 @@ export const postUserData = async (
     headers
   });
   if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw new Error(response.statusText);
+    throw await response.json();
   return {
     body: await response.json(),
     headers: response.headers
@@ -38,7 +38,7 @@ export const registerUser = async (formData: FormData): Promise<IPostUser> => {
       authToken: data.headers.get("auth-token")
     };
   } catch (e) {
-    throw new Error(e);
+    throw e;
   }
 };
 
@@ -50,7 +50,7 @@ export const loginUser = async (formData: FormData): Promise<IPostUser> => {
       authToken: data.headers.get("auth-token")
     };
   } catch (e) {
-    throw new Error(e);
+    throw e;
   }
 };
 
@@ -63,6 +63,6 @@ export const getUserInfo = async (): Promise<IGetUser> => {
       authToken: window.localStorage.getItem("auth-token")
     };
   } catch (e) {
-    throw new Error(e);
+    throw "error";
   }
 };

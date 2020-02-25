@@ -48,7 +48,8 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
         isAuthorized: true,
         data: {
           ...state.data,
-          authToken: action.payload
+          authToken: action.payload.data.authToken,
+          _id: action.payload.data._id
         }
       };
     case USER_LOGOUT:

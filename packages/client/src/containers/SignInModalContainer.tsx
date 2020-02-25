@@ -9,8 +9,8 @@ import { IState } from "interfaces/IState";
 const mapStateToProps = (state: IState) => state.user;
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    loginUser: (token: string) => {
-      dispatch(userLoginRequest(token));
+    loginUser: (authToken: string, userId: string) => {
+      dispatch(userLoginRequest({ authToken, _id: userId }));
     }
   };
 };

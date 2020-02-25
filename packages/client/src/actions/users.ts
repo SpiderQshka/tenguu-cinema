@@ -43,17 +43,21 @@ export const fetchCurrentUserRequest = () => {
   };
 };
 
-export const userLoginRequest = (authToken: string) => {
+export const userLoginRequest = (data: { authToken: string; _id: string }) => {
   return {
     type: USER_LOGIN_REQUEST,
-    payload: authToken
+    payload: {
+      data
+    }
   };
 };
 
-export const userLogin = (authToken: string) => {
+export const userLogin = (data: { authToken: string; _id: string }) => {
   return {
     type: USER_LOGIN,
-    payload: authToken
+    payload: {
+      data
+    }
   };
 };
 

@@ -39,6 +39,10 @@ export function* userLogoutSaga() {
   yield put(userLogout());
 }
 
-export function* userLoginSaga(data: any) {
+export function* userLoginSaga(data: {
+  payload: { authToken: string; _id: string };
+}) {
+  window.localStorage.setItem("userId", data.payload._id);
+  window.localStorage.setItem("auth-token", data.payload.authToken);
   yield put(userLogin(data.payload));
 }

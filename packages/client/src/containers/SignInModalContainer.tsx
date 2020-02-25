@@ -10,7 +10,7 @@ const mapStateToProps = (state: IState) => state.user;
 const mapDispatchToProps = (dispatch: any) => {
   return {
     loginUser: (authToken: string, userId: string) => {
-      dispatch(userLoginRequest({ authToken, _id: userId }));
+      dispatch(userLoginRequest(authToken, userId));
     }
   };
 };

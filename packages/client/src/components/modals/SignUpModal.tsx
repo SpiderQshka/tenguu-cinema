@@ -15,15 +15,7 @@ export const SignUpModal = (props: any) => {
     const formData = new FormData(e.target as HTMLFormElement);
     const data = await registerUser(formData);
 
-    if (data.error) console.error(data.error);
-
-    if (data.body && data.body._id)
-      window.localStorage.setItem("userId", data.body._id);
-
-    if (data.authToken) {
-      window.localStorage.setItem("auth-token", data.authToken);
-      props.login(data.authToken);
-    }
+    props.register(data.authToken, data?.body?._id);
 
     const btnInstance = M.Modal.getInstance(
       signUpModalRef.current || new HTMLButtonElement()

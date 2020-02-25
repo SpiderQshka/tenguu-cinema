@@ -3,7 +3,8 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_ERROR,
   USER_LOGIN,
-  USER_LOGOUT
+  USER_LOGOUT,
+  USER_REG
 } from "actions/users";
 import { IUserAction, IUser, IUserPayload } from "interfaces/IUser";
 
@@ -40,6 +41,17 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
         ...state,
         error: action.payload.error,
         pending: false
+      };
+    case USER_REG:
+      console.log("User register");
+      return {
+        ...state,
+        isAuthorized: true,
+        data: {
+          ...state.data,
+          authToken: action.payload.data.authToken,
+          _id: action.payload.data._id
+        }
       };
     case USER_LOGIN:
       console.log("User login");

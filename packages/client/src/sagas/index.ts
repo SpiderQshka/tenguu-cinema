@@ -4,7 +4,8 @@ import {
   fetchUserInfo,
   watchFetchUserInfo,
   watchLogoutUser,
-  watchLoginUser
+  watchLoginUser,
+  watchRegisterUser
 } from "./users";
 import { fetchFilmInfo, watchFetchFilmInfo } from "./films";
 import { fetchSessionInfo, watchFetchSessionInfo } from "./sessions";
@@ -16,9 +17,10 @@ export function* rootSaga() {
     watchFetchFilmInfo(),
     watchFetchSessionInfo(),
     watchFetchPageInfo(),
+    watchFetchUserInfo(),
     watchLogoutUser(),
     watchLoginUser(),
-    watchFetchUserInfo(),
+    watchRegisterUser(),
     fetchAppInfo()
   ]);
 }

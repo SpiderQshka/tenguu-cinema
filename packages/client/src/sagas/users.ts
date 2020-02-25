@@ -1,4 +1,4 @@
-import { put, call, take, takeEvery } from "redux-saga/effects";
+import { put, call, takeEvery } from "redux-saga/effects";
 
 import { getUserInfo } from "APIServices/users";
 import {
@@ -9,7 +9,11 @@ import {
   userLogout,
   USER_LOGOUT_REQUEST,
   USER_LOGIN_REQUEST,
-  userLogin
+  USER_LOGIN,
+  userLogin,
+  fetchCurrentUserRequest,
+  USER_REG_REQUEST,
+  userRegister
 } from "actions/users";
 
 export function* watchFetchUserInfo() {
@@ -22,6 +26,10 @@ export function* watchLogoutUser() {
 
 export function* watchLoginUser() {
   yield takeEvery(USER_LOGIN_REQUEST, userLoginSaga);
+}
+
+export function* watchRegisterUser() {
+  yield takeEvery(USER_REG_REQUEST, userRegisterSaga);
 }
 
 export function* fetchUserInfo() {
@@ -39,10 +47,16 @@ export function* userLogoutSaga() {
   yield put(userLogout());
 }
 
-export function* userLoginSaga(data: {
-  payload: { authToken: string; _id: string };
-}) {
+export function* userLoginSaga(data: any) {
   window.localStorage.setItem("userId", data.payload._id);
   window.localStorage.setItem("auth-token", data.payload.authToken);
-  yield put(userLogin(data.payload));
+  yield put(userLogin(data.payload.authToken, data.payload._id));
+  yield put(fetchCurrentUserRequest());
+}
+
+export function* userRegisterSaga(data: any) {
+  window.localStorage.setItem("userId", data.payload._id);
+  window.localStorage.setItem("auth-token", data.payload.authToken);
+  yield put(userRegister(data.payload.authToken, data.payload._id));
+  yield put(fetchCurrentUserRequest());
 }

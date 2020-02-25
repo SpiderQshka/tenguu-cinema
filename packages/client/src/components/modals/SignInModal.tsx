@@ -15,14 +15,7 @@ export const SignInModal = (props: any) => {
     const formData = new FormData(e.target as HTMLFormElement);
     const data = await loginUser(formData);
 
-    console.log(data);
-
-    if (data.body && data.body._id)
-      window.localStorage.setItem("userId", data.body._id);
-
-    if (data.authToken) {
-      props.loginUser(data.authToken, data?.body?._id);
-    }
+    props.loginUser(data.authToken, data?.body?._id);
 
     const btnInstance = M.Modal.getInstance(
       signInModalRef.current || new HTMLButtonElement()

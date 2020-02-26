@@ -22,10 +22,11 @@ export const postUserData = async (
     body: new URLSearchParams([...formData]),
     headers
   });
+
   if (!(response.status < 400 || ignoreCodes.includes(response.status)))
     throw await response.json();
   return {
-    body: await response.json(),
+    body: response.status < 400 ? await response.json() : {},
     headers: response.headers
   };
 };
@@ -58,11 +59,12 @@ export const getUserInfo = async (): Promise<IGetUser> => {
   const userId = window.localStorage.getItem("userId") || "";
   try {
     const data = await getData(`api/users/${userId}`, [401]);
+
     return {
       ...data,
       authToken: window.localStorage.getItem("auth-token")
     };
   } catch (e) {
-    throw "error";
+    throw e;
   }
 };

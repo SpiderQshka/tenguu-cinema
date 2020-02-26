@@ -16,7 +16,6 @@ export const tokenFetch = async (
 ): Promise<Response> => {
   const token = window.localStorage.getItem("auth-token") || "";
   let headers = options.headers;
-  if (headers) console.log(!headers.has("auth-token"));
   if (headers && !headers.has("auth-token"))
     headers.append("auth-token", token);
   else headers = { "auth-token": token };
@@ -33,8 +32,8 @@ export const getData = async (
   const response: Response = await tokenFetch(url);
 
   if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw await response.json();
-  return await response.json();
+    throw response;
+  return response.status < 400 ? await response.json() : {};
 };
 
 export const postData = async (
@@ -50,6 +49,6 @@ export const postData = async (
   });
 
   if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw await response.json();
-  return await response.json();
+    throw response;
+  return response.status < 400 ? await response.json() : {};
 };

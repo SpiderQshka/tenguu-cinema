@@ -8,12 +8,9 @@ import {
 const router: Router = Router();
 
 router.post("/register", async (req: Request, res: Response) => {
-  console.log(req.body);
-
   const { error, code } = await registerValidation(req.body);
-  console.log(error);
 
-  if (error) return res.status(code).send(JSON.stringify(error));
+  if (error) return res.status(code).json(error);
 
   const user = new models.User({
     username: req.body.username,
@@ -29,13 +26,13 @@ router.post("/register", async (req: Request, res: Response) => {
 
 router.post("/login", async (req: Request, res: Response) => {
   const { error, code } = await loginValidation(req.body);
-  if (error) return res.status(code).send(error);
+  if (error) return res.status(code).json(error);
 
   const user = await models.User.findOne({ email: req.body.email });
 
   const token = await models.User.generateJWT(user);
 
-  return res.header("auth-token", token).send(user);
+  return res.header("auth-token", token).json(user);
 });
 
 export default router;

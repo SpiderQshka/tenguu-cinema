@@ -5,15 +5,15 @@ import {
   USER_LOGIN,
   USER_LOGOUT,
   USER_REG,
-  USER_REG_ERROR
+  USER_REG_ERROR,
+  USER_LOGIN_ERROR
 } from "actions/users";
 import { IUserAction, IUser, IUserPayload } from "interfaces/IUser";
 
 const initialState: IUserPayload | string = {
   pending: false,
   data: {} as IUser,
-  error: null,
-  isAuthorized: false
+  error: null
 };
 
 export const usersReducer = (state = initialState, action: IUserAction) => {
@@ -26,15 +26,11 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
       };
     case FETCH_USER_SUCCESS:
       console.log("Success");
-      const isAuthorized =
-        !action.payload.data.error || action.payload.data.error.code !== 401
-          ? true
-          : false;
       return {
         ...state,
         data: action.payload.data,
-        isAuthorized,
-        pending: false
+        pending: false,
+        error: null
       };
     case FETCH_USER_ERROR:
       console.log("Error", action.payload.error);
@@ -57,25 +53,28 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
       console.log("User register error", action.payload.error);
       return {
         ...state,
-        isAuthorized: false,
         error: action.payload.error
       };
     case USER_LOGIN:
       console.log("User login");
       return {
         ...state,
-        isAuthorized: true,
         data: {
           ...state.data,
           authToken: action.payload.data.authToken,
           _id: action.payload.data._id
         }
       };
+    case USER_LOGIN_ERROR:
+      console.log("User login error", action.payload.error);
+      return {
+        ...state,
+        error: action.payload.error
+      };
     case USER_LOGOUT:
       console.log("User logout");
       return {
         ...state,
-        isAuthorized: false,
         data: {
           ...state.data,
           authToken: null

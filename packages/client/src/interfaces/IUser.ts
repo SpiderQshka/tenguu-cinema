@@ -15,13 +15,13 @@ export type IUserActionTypes =
   | "USER_LOGIN"
   | "USER_LOGOUT"
   | "USER_REG"
-  | "USER_REG_ERROR";
+  | "USER_REG_ERROR"
+  | "USER_LOGIN_ERROR";
 
 export interface IUserPayload {
   data: IUser;
   error: string | null;
   pending: boolean;
-  isAuthorized: boolean;
 }
 export interface IUserAction {
   type: IUserActionTypes;

@@ -13,20 +13,25 @@ export const SignInModal = (props: any) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const data = await loginUser(formData);
 
-    props.loginUser(data.authToken, data?.body?._id);
+    props.loginUser(formData);
 
-    const btnInstance = M.Modal.getInstance(
-      signInModalRef.current || new HTMLButtonElement()
-    );
+    // const btnInstance = M.Modal.getInstance(
+    //   signInModalRef.current || new HTMLButtonElement()
+    // );
 
-    btnInstance.close();
+    // btnInstance.close();
   };
   return (
     <div id="signInModal" className="modal" ref={signInModalRef}>
       <div className={`modal-content ${styles.modalContent}`}>
         <h4>Sign In</h4>
+        {props.error ? (
+          <h5 className={styles.errorMsg}>
+            <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+            {props.error}
+          </h5>
+        ) : null}
         <form
           className={`form register-form ${styles.form}`}
           onSubmit={submitHandler}

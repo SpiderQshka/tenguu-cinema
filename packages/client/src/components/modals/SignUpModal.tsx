@@ -25,14 +25,17 @@ export const SignUpModal = (props: any) => {
     //   btnInstance.close();
     // }
 
-    console.log("Modal Error:", props.error);
+    // console.log("Modal Error:", props.error);
   };
   return (
     <div id="signUpModal" className="modal" ref={signUpModalRef}>
       <div className={`modal-content ${styles.modalContent}`}>
         <h4>Sign Up</h4>
         {props.error ? (
-          <h5 className={styles.errorMsg}>{props.error}</h5>
+          <h5 className={styles.errorMsg}>
+            <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+            {props.error}
+          </h5>
         ) : null}
         <form
           className={`form register-form ${styles.form}`}

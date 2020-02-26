@@ -13,7 +13,7 @@ export function Profile(props: any) {
       <SignUpModal />
       <SignInModal />
       <div className={styles["profile-block"]}>
-        {isAuthorized ? (
+        {userData.authToken ? (
           <>
             <button
               className="waves-effect waves-light btn-large btn-flat btn orange"

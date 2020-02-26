@@ -37,6 +37,7 @@
             border-bottom: 1px solid $primary-shade-color
             .filmPhotoBlock
                 align-self: stretch
+                max-width: 400px
             .descriptionBlock
                 display: flex
                 flex-direction: column
@@ -47,7 +48,11 @@
                     margin-bottom: $extra-large-margin
                 .descriptionButtons
                     .filmButton
+                        height: auto
                         color: $primary-color
+                        &:first-of-type
+                            .buttonIcon
+                                color: $primary-color
                         &:first-child
                             margin-right: $default-margin
                         .buttonIcon
@@ -62,8 +67,26 @@
                     .ratingText
                         white-space: nowrap
                         margin: $small-margin 0
-                    .ratingValue
-                        width: 66%
-                        height: 0px
-                        border: 2px solid $accent-color
-                        border-radius: 1px
+                    .ratingValueContainer
+                        width: 100%
+                        background-color: $primary-shade-color
+                        .ratingValue
+                            width: 0px
+                            height: 0px
+                            border: 2px solid $accent-color
+                            border-radius: 1px
+    .carousel
+        .arrow-block
+            display: flex
+            position: absolute
+            top: calc(50% - 27px)
+            align-items: center
+            justify-content: center
+            border: 1px solid $accent-color
+            .carouselArrowIcon
+                color: $accent-color
+        .arrow-next
+            right: 75px
+        .arrow-prev
+            left: 75px
+

@@ -1,17 +1,11 @@
-import React from "react";
-import { connect, ConnectedProps } from "react-redux";
+import { connect } from "react-redux";
 
-import { ComingSoon } from "pages/homepage/components/coming-soon/";
+import { ComingSoon } from "pages/homepage/components/coming-soon";
 
 import { IState } from "interfaces/IState";
 
-const mapStateToProps = (state: IState) => state.sessions;
+const mapStateToProps = (state: IState) => state.films;
 
 const connector = connect(mapStateToProps);
 
-function SessionsContainer(props: ConnectedProps<typeof connector>) {
-  const { data: sessions, pending } = props;
-  return null; //<ComingSoon sessions={sessions} pending={pending} />;
-}
-
-export default connector(SessionsContainer);
+export default connector(ComingSoon);

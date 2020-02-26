@@ -5,9 +5,15 @@ import StarRatings from "react-star-ratings";
 import { Loader } from "components/loader";
 
 import styles from "./film-card.module.sass";
+import { ISession } from "interfaces/ISession";
 
 export interface IFilmCard {
   item: IFilm;
+  pending: boolean;
+}
+
+export interface ISessionCard {
+  item: ISession;
   pending: boolean;
 }
 
@@ -16,20 +22,20 @@ export function FilmCard(props: IFilmCard) {
   if (pending) return <Loader />;
   return (
     <div
-      className={`valign-wrapper ${styles["film-card"]}`}
+      className={styles["card"]}
       style={{
         backgroundImage: `url(${config.baseUrl + film.filmImage})`
       }}
     >
-      <div className={`row ${styles["buttons"]}`}>
+      <div className={`scale-transition ${styles["buttons"]}`}>
         <button
-          className={`col s12 waves-effect waves-light btn-flat btn-large inherit-bgc ${styles["slide-btn"]}`}
+          className={`waves-effect waves-light btn btn-large orange ${styles["slide-btn"]}`}
         >
           <i className={`fas fa-play ${styles["button-icon"]}`}></i>
           <span className={styles["button-text"]}>Watch trailer</span>
         </button>
         <button
-          className={`col s12 waves-effect waves-light btn-flat btn-large inherit-bgc ${styles["slide-btn"]}`}
+          className={`waves-effect waves-light btn btn-large black ${styles["slide-btn"]}`}
         >
           <i className={`fas fa-shopping-cart ${styles["button-icon"]}`}></i>
           <span className={styles["button-text"]}>Buy ticket</span>
@@ -57,12 +63,14 @@ export function FilmCard(props: IFilmCard) {
   );
 }
 
-export function FilmCardPreOrder(props: IFilmCard) {
+export function ComingSoonFilmCard(props: IFilmCard) {
   const { item: film, pending } = props;
+  console.log(props);
+
   if (pending) return <Loader />;
   return (
     <div
-      className={`valign-wrapper ${styles["film-card"]}`}
+      className={`${styles.card} ${styles.sessionCard}`}
       style={{
         backgroundImage: `url(${config.baseUrl + film.filmImage})`
       }}
@@ -79,11 +87,12 @@ export function FilmCardPreOrder(props: IFilmCard) {
             }
             starRatedColor={"orange"}
             starEmptyColor={"white"}
-            starDimension={"30px"}
-            starSpacing={"4px"}
+            starDimension={"20px"}
+            starSpacing={"2px"}
           />
         </div>
         <div className={styles["film-name"]}>{film.name}</div>
+        <div className={styles["date"]}>{film.releaseDate}</div>
       </div>
     </div>
   );

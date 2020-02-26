@@ -10,9 +10,9 @@ export function ArrowNext(props: IArrowProps) {
   return (
     <button
       onClick={props.onClick}
-      className={`waves-effect waves-light btn-flat ${styles["arrow-block"]} ${styles["arrow-next"]}`}
+      className={`waves-effect waves-light btn btn-large btn-floating black ${styles["arrow-block"]} ${styles["arrow-next"]}`}
     >
-      <i className="fas fa-chevron-right icon"></i>
+      <i className={`fas fa-chevron-right ${styles.carouselArrowIcon}`}></i>
     </button>
   );
 }
@@ -21,9 +21,9 @@ export function ArrowPrev(props: IArrowProps) {
   return (
     <button
       onClick={props.onClick}
-      className={`waves-effect waves-light btn-flat ${styles["arrow-block"]} ${styles["arrow-prev"]}`}
+      className={`waves-effect waves-light btn btn-large btn-floating black ${styles["arrow-block"]} ${styles["arrow-prev"]}`}
     >
-      <i className="fas fa-chevron-left icon"></i>
+      <i className={`fas fa-chevron-left ${styles.carouselArrowIcon}`}></i>
     </button>
   );
 }

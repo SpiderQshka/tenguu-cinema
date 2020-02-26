@@ -1,27 +1,40 @@
 @import "../../config"
 
-.film-card
+.card
     min-height: 400px
-    padding: $large-padding
     background: no-repeat center/cover $secondary-color
     position: relative
+    display: flex
+    align-items: center
+    justify-content: center
     .buttons
-        display: block
+        display: flex
+        flex-direction: column
+        justify-content: center
         .slide-btn
+            display: block
             font-size: $default-font-size
+            border-radius: 27px
+            &:first-of-type
+                margin-bottom: $default-margin
+                .button-icon
+                    color: $primary-color
             .button-icon
                 margin-right: $large-margin
                 color: $accent-color
             .button-text
                 color: $primary-color
     .info-block
-        width: 100%
+        display: inline-block
         position: absolute
         bottom: $large-padding
+        left: $large-padding
         text-align: left
         color: $primary-color
         .film-name
             margin: $default-margin 0
             text-transform: capitalize
-            font-size: $extra-large-font-size
+            font-size: $large-font-size
             font-weight: 400
+.sessionCard
+    margin: 0 $large-margin

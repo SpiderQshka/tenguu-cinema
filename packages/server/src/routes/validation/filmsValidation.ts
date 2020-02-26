@@ -28,7 +28,7 @@ export const filmValidation = async (
       }).required()
     ),
     filmImage: Joi.string().required(),
-    releaseDate: Joi.string().required()
+    releaseDate: Joi.number().required()
   });
 
   const { error = null } = schema.validate(data);

@@ -1,0 +1,49 @@
+@import "config"
+
+.footerContainer
+    width: 100%
+    background-color: $secondary-color
+    .footer
+        max-width: $content-width
+        margin: 0 auto
+        .footerContent
+            display: flex
+            flex-wrap: wrap
+            justify-content: space-between
+            color: $primary-color
+            .header
+                text-transform: uppercase
+                text-align: left
+                font-size: $large-font-size
+                margin-bottom: $large-margin
+                font-weight: 600
+            .line
+                width: 100px
+                height: 1px
+                margin-bottom: $large-margin
+                background-color: red
+            .menuBlock
+                flex-grow: 0
+                padding: $extra-large-padding
+                .menuList
+                    .menuItem
+                        button
+                            text-align: left
+                            padding-left: 0
+            .addressInfoBlock
+                flex-basis: 400px
+                padding: $extra-large-padding
+                .addressData
+                    line-height: 2
+                    margin-bottom: $extra-large-margin
+            .leaveMsgBlock
+                display: flex
+                flex-direction: column
+                padding: $extra-large-padding
+                .footerForm
+                    max-width: 300px
+                    input, textarea
+                        color: $primary-color
+                .footerBtn
+                    align-self: end
+                    margin-top: $default-margin

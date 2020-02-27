@@ -1,0 +1,25 @@
+@import "config"
+    
+.now-playing
+    padding: 70px 0 0
+    .arrow-block
+        display: flex
+        position: absolute
+        top: calc(50% - 27px)
+        align-items: center
+        justify-content: center
+        .icon
+            font-size: 40px
+            color: $accent-color
+    .arrow-next
+        right: -100px
+    .arrow-prev
+        left: -100px
+
+    .slick-slider
+        display: flex
+        justify-content: center
+        width: calc(100% - 300px)
+        margin: 70px auto
+
+@import "./media"

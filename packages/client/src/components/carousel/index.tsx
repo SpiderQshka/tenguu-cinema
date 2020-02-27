@@ -13,6 +13,7 @@ export interface ICarousel {
   next: any;
   prev: any;
   afterChange?: (currentSlide: number) => void;
+  settings?: any;
 }
 
 export function CarouselComponent(props: ICarousel) {
@@ -22,9 +23,9 @@ export function CarouselComponent(props: ICarousel) {
     infinite: true,
     slidesToShow: items.length > 5 ? 5 : items.length - 1,
     slidesToScroll: 1,
-    nextArrow: props.next,
     prevArrow: props.prev,
-    afterChange
+    afterChange,
+    ...props.settings
   };
   return (
     <div className="carousel-block">

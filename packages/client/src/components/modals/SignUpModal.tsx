@@ -42,7 +42,7 @@ export const SignUpModal = (props: any) => {
           onSubmit={submitHandler}
         >
           <input
-            className="form-input input-field validate"
+            className="validate"
             placeholder="Username"
             name="username"
             type="text"
@@ -51,7 +51,7 @@ export const SignUpModal = (props: any) => {
           />
 
           <input
-            className="form-input validate"
+            className="validate"
             id="password"
             type="password"
             name="password"
@@ -61,7 +61,7 @@ export const SignUpModal = (props: any) => {
           />
 
           <input
-            className="form-input validate"
+            className="validate"
             id="email"
             type="email"
             placeholder="Email"

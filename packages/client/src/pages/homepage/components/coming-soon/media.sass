@@ -1,0 +1,36 @@
+@media all and ( max-width: 1200px )
+    .coming-soon
+        padding-left: $extra-large-padding
+        padding-right: $extra-large-padding
+
+@media all and ( max-width: 1100px )
+    .filmBlock
+        .descriptionAndRatingsBlock
+            flex-direction: column
+            .filmPhotoBlock
+                max-width: 100% !important
+                margin-bottom: $extra-large-margin
+            .descriptionBlock
+                margin: 0 !important
+            .ratingsBlock
+                position: absolute
+                top: 80px
+                right: 40px
+                .ratingElement
+                    color: $primary-color !important
+                .ratingValueContainer
+                    background-color: $primary-color !important
+
+@media all and ( max-width: 600px )
+    .filmBlock
+        .descriptionAndRatingsBlock
+            .descriptionButtons
+                display: flex
+                flex-direction: column
+            .ratingsBlock
+                position: static
+                order: 1 !important
+                .ratingElement
+                    color: $primary-color !important
+                .ratingValueContainer
+                    background-color: $primary-color !important

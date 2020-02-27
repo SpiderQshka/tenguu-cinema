@@ -46,7 +46,7 @@ export function Profile(props: any) {
             <div className={styles["vertical-line"]}></div>
           </>
         ) : (
-          <span className={styles.unauth}>
+          <div className={styles.unauth}>
             {pending ? (
               "Loading"
             ) : (
@@ -65,7 +65,7 @@ export function Profile(props: any) {
                 </a>
               </>
             )}
-          </span>
+          </div>
         )}
       </div>
     </>

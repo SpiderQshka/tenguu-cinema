@@ -9,12 +9,13 @@
         color: $primary-color
         .filmTrailer
             width: 100%
-            border: 1px solid red
+            border: 1px solid $accent-color
         .basicInfoBlock
             margin: 40px 0
             .genres
                 font-size: $default-font-size
                 .genre
+                    text-transform: capitalize  
                     display: inline-block
                     padding: 0 $default-margin
                     color: $primary-shade-color
@@ -31,6 +32,7 @@
             .date
                 color: $primary-shade-color
         .descriptionAndRatingsBlock
+            position: relative
             display: flex
             padding: 50px 0
             border-top: 1px solid $primary-shade-color
@@ -38,11 +40,13 @@
             .filmPhotoBlock
                 align-self: stretch
                 max-width: 400px
+                order: 1
             .descriptionBlock
                 display: flex
                 flex-direction: column
                 justify-content: space-between
                 margin: 0 45px
+                order: 2
                 .descriptionText
                     line-height: 1.7
                     margin-bottom: $extra-large-margin
@@ -59,14 +63,17 @@
                             margin-right: $large-margin
                             color: $accent-color
             .ratingsBlock
+                order: 3
                 display: flex
                 flex-direction: column
                 justify-content: center
                 .ratingElement
                     color: $primary-shade-color
+                    margin-bottom: $default-margin
                     .ratingText
                         white-space: nowrap
                         margin: $small-margin 0
+                        text-transform: capitalize
                     .ratingValueContainer
                         width: 100%
                         background-color: $primary-shade-color
@@ -75,7 +82,10 @@
                             height: 0px
                             border: 2px solid $accent-color
                             border-radius: 1px
-    .carousel
+    .slick-slider
+        max-width: $content-width
+        margin: 0 auto
+        margin-top: 50px
         .arrow-block
             display: flex
             position: absolute
@@ -86,7 +96,8 @@
             .carouselArrowIcon
                 color: $accent-color
         .arrow-next
-            right: 75px
+            right: -100px
         .arrow-prev
-            left: 75px
+            left: -100px
 
+@import "./media"

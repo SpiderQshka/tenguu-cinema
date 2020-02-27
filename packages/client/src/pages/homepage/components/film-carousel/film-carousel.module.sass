@@ -1,58 +1,54 @@
 @import "config"
 
 $controls-width: 200px
-$controls-icons-size: 50px
+$controls-icons-size: 40px
 $film-name-font-size: 3rem
 $content-bottom-gap: 70px
 $slide-buttons-border-radius: 10px
 
 .film-carousel
     .arrow-block
-        top: 0
-        z-index: 1
-        position: absolute
-        height: 100%
-        width: $controls-width
         display: flex
-        justify-content: center
+        position: absolute
+        top: calc(50% - 27px)
         align-items: center
-        i
+        justify-content: center
+        .icon
             font-size: $controls-icons-size
             color: $accent-color
     .arrow-next
-        text-align: left
-        right: 0
+        right: 75px
     .arrow-prev
-        text-align: right
-        left: 0
+        left: 75px
 
 .slide-wrapper
     background: no-repeat center/cover $secondary-color
-    height: 100vh
     .slide
-        max-width: calc(100% - 450px)
+        position: relative
+        // max-width: calc(100% - 100px)
         margin: 0 auto
         height: 100vh
         min-height: 400px
-        padding-bottom: $content-bottom-gap
+        padding: 0 70px $content-bottom-gap
         display: flex
         align-items: flex-end
         justify-content: space-between
         .slide-content
-            box-shadow: inset 200px -200px 215px -147px rgba(0,0,0,0.79)
-            border-left: 2px solid $primary-color
-            border-bottom: 2px solid $primary-color
+            // box-shadow: inset 200px -200px 215px -147px rgba(0,0,0,0.79)
+            // border-left: 2px solid $primary-color
+            // border-bottom: 2px solid $primary-color
             padding: $extra-large-padding $extra-large-padding $large-padding
             border-radius: 10px
             border-bottom-left-radius: 30px
             .genres
-                font-size: $default-font-size
+                font-size: $large-font-size
                 margin-bottom: $extra-large-margin
                 .genre
                     display: inline-block
                     padding: 0 $default-margin
                     color: $primary-color
                     border-left: 1px solid $primary-color
+                    text-transform: capitalize
                     &:first-child
                         padding-left: 0
                         border-left: none
@@ -73,9 +69,9 @@ $slide-buttons-border-radius: 10px
                         margin-right: $large-margin
                         color: $accent-color
         .slide-ratings
-            box-shadow: inset -200px 200px 215px -147px rgba(0,0,0,0.79)
-            border-right: 2px solid $primary-color
-            border-bottom: 2px solid $primary-color
+            // box-shadow: inset -200px 200px 215px -147px rgba(0,0,0,0.79)
+            // border-right: 2px solid $primary-color
+            // border-bottom: 2px solid $primary-color
             padding: 0 $extra-large-padding $large-padding
             border-radius: 10px
             border-bottom-right-radius: 30px
@@ -88,3 +84,4 @@ $slide-buttons-border-radius: 10px
                     color: $primary-color
                     font-weight: lighter
                     margin-bottom: $extra-large-margin
+@import "./media"

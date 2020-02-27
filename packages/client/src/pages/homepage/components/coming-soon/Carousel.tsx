@@ -2,27 +2,55 @@ import React from "react";
 
 import { ArrowNext, ArrowPrev } from "./Controls";
 import { ComingSoonFilmCard } from "components/film-card/index";
-import { CarouselComponent } from "components/carousel";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./coming-soon.module.sass";
+import CarouselSlick, { LazyLoadTypes } from "react-slick";
+import { IFilm } from "interfaces/IFilm";
 
 export function Carousel(props: any) {
   const { data: films, pending, handler } = props;
-  const afterChange = (index: number) => {
-    handler(index);
+  const settings = {
+    dots: false,
+    lazyLoad: "progressive" as LazyLoadTypes,
+    infinite: true,
+    slidesToShow: films.length > 5 ? 5 : films.length - 1,
+    slidesToScroll: 1,
+    nextArrow: <ArrowNext onClick={() => {}} />,
+    prevArrow: <ArrowPrev onClick={() => {}} />,
+    adaptiveHeight: true,
+    centerMode: true,
+    afterChange: handler,
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 2
+        }
+      },
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 1
+        }
+      },
+      {
+        breakpoint: 700,
+        settings: {
+          slidesToShow: 1,
+          arrows: false
+        }
+      }
+    ]
   };
   return (
-    <div className={styles.carousel}>
-      <CarouselComponent
-        items={films}
-        next={<ArrowNext onClick={e => {}} />}
-        prev={<ArrowPrev onClick={e => {}} />}
-        pending={pending}
-        BasicElement={ComingSoonFilmCard}
-        afterChange={afterChange}
-      ></CarouselComponent>
-    </div>
+    <CarouselSlick {...settings} className={styles["slick-slider"]}>
+      {films.map((film: IFilm) => {
+        return (
+          <ComingSoonFilmCard item={film} key={film._id} pending={pending} />
+        );
+      })}
+    </CarouselSlick>
   );
 }

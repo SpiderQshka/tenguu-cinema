@@ -20,7 +20,16 @@ export default function FilmCarousel(props: IFilmPayload) {
     nextArrow: <ArrowNext onClick={() => {}} />,
     prevArrow: <ArrowPrev onClick={() => {}} />,
     fade: true,
-    adaptiveHeight: true
+    adaptiveHeight: true,
+    responsive: [
+      {
+        breakpoint: 1000,
+        settings: {
+          infinite: true,
+          arrows: false
+        }
+      }
+    ]
   };
   return (
     <Carousel className={styles["film-carousel"]} {...settings}>

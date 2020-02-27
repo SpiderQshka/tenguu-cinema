@@ -6,7 +6,7 @@ import styles from "./header.module.sass";
 
 export function Header() {
   return (
-    <div className={styles["header-container"]}>
+    <section className={styles["header-container"]}>
       <header className={styles["header"]}>
         <Logo />
         <div className={styles["content-block"]}>
@@ -14,6 +14,6 @@ export function Header() {
           <Menu />
         </div>
       </header>
-    </div>
+    </section>
   );
 }

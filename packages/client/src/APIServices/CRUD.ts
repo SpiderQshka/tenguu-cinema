@@ -32,7 +32,7 @@ export const getData = async (
   const response: Response = await tokenFetch(url);
 
   if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw response;
+    throw await response.json();
   return response.status < 400 ? await response.json() : {};
 };
 

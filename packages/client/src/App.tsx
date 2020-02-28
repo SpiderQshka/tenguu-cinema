@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { Header } from "./components/header/index";
 import HomepageContainer from "./containers/HomepageContainer";
-import { AdminPage } from "./pages/adminpage";
+import AdminpageContainer from "./containers/AdminpageContainer";
 
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css";
@@ -24,8 +24,11 @@ const App: React.FC = (props: any) => {
           <HomepageContainer />
         </Route>
         <Route path="/admin">
+          <AdminpageContainer />
+        </Route>
+        <Route path="*">
           <Header />
-          <AdminPage />
+          <HomepageContainer />
         </Route>
       </Switch>
     </Router>

@@ -5,8 +5,9 @@ import { fetchPageInfo } from "sagas/page";
 import { Homepage } from "pages/homepage";
 import { IState } from "interfaces/IState";
 import { PageLoader } from "components/loader";
+import { AdminPage } from "pages/adminpage";
 
-const mapStateToProps = (state: IState) => state;
+const mapStateToProps = (state: IState) => state.mainPage;
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getPage: fetchPageInfo
@@ -15,14 +16,14 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-const HomepageComponent = (props: ConnectedProps<typeof connector>) => {
+const AdminpageComponent = (props: ConnectedProps<typeof connector>) => {
   useEffect(() => {
     props.getPage();
   }, []);
 
-  if (!props.mainPage.pending) return <Homepage />;
+  if (!props.pending) return <AdminPage />;
 
   return <PageLoader />;
 };
 
-export default connector(HomepageComponent);
+export default connector(AdminpageComponent);

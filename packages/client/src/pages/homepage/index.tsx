@@ -7,7 +7,7 @@ import { OurSkills } from "pages/homepage/components/our-skills";
 import { MapComponent } from "pages/homepage/components/map";
 import { Footer } from "components/footer";
 
-export function Homepage(props: any) {
+export function Homepage() {
   return (
     <>
       <FilmCarousel />

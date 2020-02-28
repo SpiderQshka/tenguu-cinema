@@ -7,6 +7,7 @@ import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { requireAdmin } from "../helpers/requireAdmin";
 import { deleteUser } from "../db/dbServices";
+import { getTicketsForClient, getUsersForClient } from "../db/getDataForClient";
 
 const router: Router = Router();
 
@@ -15,7 +16,7 @@ router.get(
   authenticate,
   requireManager,
   async (req: Request, res: Response) => {
-    const users = await models.User.find();
+    const users = await getUsersForClient();
 
     return res.json(users);
   }
@@ -45,7 +46,7 @@ router.get("/:userId", authenticate, async (req: Request, res: Response) => {
   if (currentUserId !== req.params.userId)
     return res.status(403).json("Access denied");
 
-  const user = await models.User.findById(req.params.userId);
+  const user = (await getUsersForClient())[0];
 
   if (!user) return res.status(404).json("Not found");
   return res.json(user);

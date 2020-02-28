@@ -6,7 +6,7 @@ import SignInModal from "containers/SignInModalContainer";
 
 export function Profile(props: any) {
   const { data: userData, isAuthorized, pending } = props;
-  console.log(props);
+  console.log("user", props);
 
   return (
     <>
@@ -40,7 +40,9 @@ export function Profile(props: any) {
             <div className={styles["tickets-block"]}>
               <span className={styles["text"]}>My Tickets</span>
               <div className={styles["info-block"]}>
-                <span className={styles["info-text"]}>{null ? null : 0}</span>
+                <span className={styles["info-text"]}>
+                  {userData.tickets[0] ? userData.tickets.length : 0}
+                </span>
               </div>
             </div>
             <div className={styles["vertical-line"]}></div>

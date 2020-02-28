@@ -26,7 +26,9 @@ export const FilmBlock = (props: IFilmBlock) => {
           <div className={styles.basicInfoBlock}>
             <ul className={styles.genres}>
               {film.genres.map(genre => (
-                <li className={styles.genre}>{genre}</li>
+                <li className={styles.genre} key={genre}>
+                  {genre}
+                </li>
               ))}
             </ul>
             <p className={styles.filmName}>{film.name}</p>
@@ -67,7 +69,7 @@ export const FilmBlock = (props: IFilmBlock) => {
             </div>
             <div className={styles.ratingsBlock}>
               {film.ratings.map(rating => (
-                <div className={styles.ratingElement}>
+                <div className={styles.ratingElement} key={rating._id}>
                   <p className={styles.ratingText}>
                     {rating.ratingValue} - {rating.raterName}
                   </p>

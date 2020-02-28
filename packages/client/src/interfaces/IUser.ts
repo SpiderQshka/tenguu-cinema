@@ -1,3 +1,5 @@
+import { ITicket } from "./ITicket";
+
 export interface IUser {
   username: string;
   email: string;
@@ -5,6 +7,7 @@ export interface IUser {
   _id: string;
   error?: { code: number; message: string };
   authToken?: string | null;
+  tickets: ITicket[];
 }
 
 export type IUserActionTypes =

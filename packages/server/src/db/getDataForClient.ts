@@ -52,11 +52,11 @@ export const getTicketsForClient = async (params: object = {}) => {
 
   const ticketsPromises = tickets.map(async ticket => {
     const session = await getSessionsForClient({ _id: ticket.sessionId });
-    const user = await models.User.findById(ticket.userId);
+    // const user = await models.User.findById(ticket.userId);
     return {
       _id: ticket._id,
       __v: ticket.__v,
-      user,
+      // user,
       status: ticket.status,
       seat: ticket.seat,
       session
@@ -64,4 +64,22 @@ export const getTicketsForClient = async (params: object = {}) => {
   });
 
   return Promise.all(ticketsPromises);
+};
+
+export const getUsersForClient = async (params: object = {}) => {
+  const users = await models.User.find(params);
+
+  const usersPromises = users.map(async user => {
+    const tickets = await getTicketsForClient({ userId: user._id });
+    return {
+      _id: user._id,
+      __v: user.__v,
+      status: user.status,
+      email: user.email,
+      username: user.username,
+      tickets
+    };
+  });
+
+  return Promise.all(usersPromises);
 };

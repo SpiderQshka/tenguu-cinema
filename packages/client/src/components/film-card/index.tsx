@@ -65,8 +65,6 @@ export function FilmCard(props: IFilmCard) {
 
 export function ComingSoonFilmCard(props: IFilmCard) {
   const { item: film, pending } = props;
-  console.log(props);
-
   if (pending) return <Loader />;
   return (
     <div

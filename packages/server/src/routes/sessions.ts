@@ -22,7 +22,7 @@ router.post(
   requireManager,
   async (req: Request, res: Response) => {
     const { error, code } = await sessionValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const session = new models.Session({
       ...req.body
@@ -35,11 +35,11 @@ router.post(
 
 router.get("/:sessionId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.sessionId))
-    return res.send("Wrong query format");
+    return res.json("Wrong query format");
 
   const session = await getSessionsForClient();
 
-  if (!session[0]) return res.status(404).send("Not found");
+  if (!session[0]) return res.status(404).json("Not found");
   else return res.json(session[0]);
 });
 
@@ -51,17 +51,17 @@ router.put(
     const session: ISession = req.body;
 
     if (!doesIdMatchesFormat(req.params.sessionId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const { error, code } = await sessionValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const updatedSession = await models.Session.findByIdAndUpdate(
       req.params.sessionId,
       session
     );
 
-    if (!updatedSession) return res.status(404).send("Not found");
+    if (!updatedSession) return res.status(404).json("Not found");
     return res.json(updatedSession);
   }
 );
@@ -72,7 +72,7 @@ router.delete(
   requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.sessionId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const deletedSession = await deleteSession({ _id: req.params.sessionId });
 

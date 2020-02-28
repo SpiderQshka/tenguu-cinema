@@ -19,14 +19,14 @@ router.get("/", authenticate, async (req: Request, res: Response) => {
 
 router.post("/", authenticate, async (req: Request, res: Response) => {
   const { error, code } = await ticketValidation(req.body);
-  if (error) return res.status(code).send(error);
+  if (error) return res.status(code).json(error);
 
   const currentUserId = req.user ? req.user["_id"].toString() : null;
 
   if (currentUserId !== req.body.userId)
     return res
       .status(400)
-      .send(
+      .json(
         "User id in ticket data doesn't match with id of currently logged user"
       );
 
@@ -43,11 +43,11 @@ router.post("/", authenticate, async (req: Request, res: Response) => {
 
 router.get("/:ticketId", authenticate, async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.ticketId))
-    return res.send("Wrong query format");
+    return res.json("Wrong query format");
 
   const ticket = await models.Ticket.findById(req.params.ticketId);
 
-  if (!ticket) return res.status(404).send("Not found");
+  if (!ticket) return res.status(404).json("Not found");
   return res.json(ticket);
 });
 
@@ -59,17 +59,17 @@ router.put(
     const ticket: ITicket = req.body;
 
     if (!doesIdMatchesFormat(req.params.ticketId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const { error, code } = await ticketValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const updatedTicket = await models.Ticket.findByIdAndUpdate(
       req.params.ticketId,
       ticket
     );
 
-    if (!updatedTicket) return res.status(404).send("Not found");
+    if (!updatedTicket) return res.status(404).json("Not found");
     return res.json(updatedTicket);
   }
 );
@@ -79,10 +79,10 @@ router.delete(
   authenticate,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.ticketId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const ticketForDelete = await models.Ticket.findById(req.params.ticketId);
-    if (!ticketForDelete) return res.status(404).send("Not found");
+    if (!ticketForDelete) return res.status(404).json("Not found");
 
     const currentUserId = req.user ? req.user["_id"].toString() : null;
     const ticketOwner = await models.User.findById(ticketForDelete?.userId);
@@ -92,7 +92,7 @@ router.delete(
     if (currentUserId !== ticketOwnerId)
       return res
         .status(400)
-        .send(
+        .json(
           "User id in ticket data doesn't match with id of currently logged user"
         );
 

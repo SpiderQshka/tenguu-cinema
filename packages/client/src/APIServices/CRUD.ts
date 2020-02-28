@@ -31,9 +31,18 @@ export const getData = async (
 ): Promise<IGetData> => {
   const response: Response = await tokenFetch(url);
 
-  if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw await response.json();
-  return response.status < 400 ? await response.json() : {};
+  if (!(response.status < 400 || ignoreCodes.includes(response.status))) {
+    try {
+      throw await response.json();
+    } catch (e) {
+      throw response;
+    }
+  }
+  try {
+    return await response.json();
+  } catch (e) {
+    return response;
+  }
 };
 
 export const postData = async (
@@ -49,6 +58,6 @@ export const postData = async (
   });
 
   if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw response;
-  return response.status < 400 ? await response.json() : {};
+    throw await response.json();
+  return await response.json();
 };

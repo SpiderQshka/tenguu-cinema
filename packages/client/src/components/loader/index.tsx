@@ -5,7 +5,7 @@ import styles from "./loader.module.sass";
 export const Loader = () => {
   return (
     <div className="preloader-wrapper big active">
-      <div className="spinner-layer spinner-orange-only">
+      <div className="spinner-layer spinner-red-only">
         <div className="circle-clipper left">
           <div className="circle"></div>
         </div>

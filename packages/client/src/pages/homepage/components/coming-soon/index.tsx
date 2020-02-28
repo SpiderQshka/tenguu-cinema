@@ -14,7 +14,7 @@ export function ComingSoon(props: IComingSoonProps) {
   const { data: films, pending } = props;
   const [filmIndex, handleFilmIndexChange] = useState(0);
   return (
-    <section className={styles["coming-soon"]}>
+    <section className={styles["coming-soon"]} id="coming-soon">
       <SectionTitle isDark={false} message="Coming soon" />
       <FilmBlock film={films[filmIndex]} pending={pending} />
       <Carousel {...props} handler={handleFilmIndexChange} />

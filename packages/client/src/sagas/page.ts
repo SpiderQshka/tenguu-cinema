@@ -28,9 +28,8 @@ export function* fetchPageInfo() {
     take(FETCH_FILMS_ERROR),
     take(FETCH_SESSIONS_ERROR)
   ]);
-
   const responses = data.filter((element: any) => element !== undefined);
 
   if (responses[0]) yield put(fetchPageSuccess());
-  else yield put(fetchPageError(responses[1]));
+  else yield put(fetchPageError(responses[1] || responses[2]));
 }

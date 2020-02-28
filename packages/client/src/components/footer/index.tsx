@@ -11,29 +11,35 @@ export const Footer = () => {
             <div className={styles.line}></div>
             <ul className={styles.menuList}>
               <li className={styles.menuItem}>
-                <button className="waves-effect waves-light btn black">
+                <a className="waves-effect waves-light btn black" href="#home">
                   Home
-                </button>
+                </a>
               </li>
               <li className={styles.menuItem}>
-                <button className="waves-effect waves-light btn black">
+                <a
+                  className="waves-effect waves-light btn black"
+                  href="#now-playing"
+                >
+                  Now playing
+                </a>
+              </li>
+              <li className={styles.menuItem}>
+                <a
+                  className="waves-effect waves-light btn black"
+                  href="#coming-soon"
+                >
                   Coming soon
-                </button>
+                </a>
               </li>
               <li className={styles.menuItem}>
-                <button className="waves-effect waves-light btn black">
-                  Order
-                </button>
+                <a className="waves-effect waves-light btn black" href="#map">
+                  Where are we?
+                </a>
               </li>
               <li className={styles.menuItem}>
-                <button className="waves-effect waves-light btn black">
+                <a className="waves-effect waves-light btn black" href="#home">
                   Term of Service
-                </button>
-              </li>
-              <li className={styles.menuItem}>
-                <button className="waves-effect waves-light btn black">
-                  Pricing
-                </button>
+                </a>
               </li>
             </ul>
           </div>

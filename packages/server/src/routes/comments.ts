@@ -21,7 +21,7 @@ router.post(
   requireManager,
   async (req: Request, res: Response) => {
     const { error, code } = await commentValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const comment = new models.Comment({
       ...req.body
@@ -34,10 +34,10 @@ router.post(
 
 router.get("/:commentId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.commentId))
-    return res.send("Wrong query format");
+    return res.json("Wrong query format");
 
   const comment = await models.Comment.findById(req.params.commentId);
-  if (!comment) return res.status(404).send("Not found");
+  if (!comment) return res.status(404).json("Not found");
 
   return res.json(comment);
 });
@@ -50,16 +50,16 @@ router.put(
     const comment: IComment = req.body;
 
     if (!doesIdMatchesFormat(req.params.commentId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const { error, code } = await commentValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const updatedComment = await models.Comment.findByIdAndUpdate(
       req.params.commentId,
       comment
     );
-    if (!updatedComment) return res.status(404).send("Not found");
+    if (!updatedComment) return res.status(404).json("Not found");
 
     return res.json(updatedComment);
   }
@@ -71,7 +71,7 @@ router.delete(
   requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.commentId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const deletedComment = await deleteComment({ _id: req.params.commentId });
 

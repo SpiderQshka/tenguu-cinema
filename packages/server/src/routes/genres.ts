@@ -21,7 +21,7 @@ router.post(
   requireManager,
   async (req: Request, res: Response) => {
     const { error, code } = await genreValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const genre = new models.Genre({
       ...req.body
@@ -34,11 +34,11 @@ router.post(
 
 router.get("/:genreId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.genreId))
-    return res.send("Wrong query format");
+    return res.json("Wrong query format");
 
   const genre = await models.Genre.findById(req.params.genreId);
 
-  if (!genre) return res.status(404).send("Not found");
+  if (!genre) return res.status(404).json("Not found");
   return res.json(genre);
 });
 
@@ -50,17 +50,17 @@ router.put(
     const genre: IGenre = req.body;
 
     if (!doesIdMatchesFormat(req.params.genreId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const { error, code } = await genreValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const updatedGenre = await models.Genre.findByIdAndUpdate(
       req.params.genreId,
       genre
     );
 
-    if (!updatedGenre) return res.status(404).send("Not found");
+    if (!updatedGenre) return res.status(404).json("Not found");
     return res.json(updatedGenre);
   }
 );
@@ -71,10 +71,10 @@ router.delete(
   requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.genreId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const deletedGenre = await deleteGenre({ _id: req.params.genreId });
-    if (!deletedGenre) return res.status(404).send("Not found");
+    if (!deletedGenre) return res.status(404).json("Not found");
 
     return res.json(deletedGenre);
   }

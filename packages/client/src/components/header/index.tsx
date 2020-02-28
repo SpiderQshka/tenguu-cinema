@@ -6,7 +6,7 @@ import styles from "./header.module.sass";
 
 export function Header() {
   return (
-    <section className={styles["header-container"]}>
+    <section className={styles["header-container"]} id="home">
       <header className={styles["header"]}>
         <Logo />
         <div className={styles["content-block"]}>

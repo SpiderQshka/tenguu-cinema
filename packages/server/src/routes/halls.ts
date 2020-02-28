@@ -21,7 +21,7 @@ router.post(
   requireManager,
   async (req: Request, res: Response) => {
     const { error, code } = await hallValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const hall = new models.Hall({
       ...req.body
@@ -34,11 +34,11 @@ router.post(
 
 router.get("/:hallId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.hallId))
-    return res.send("Wrong query format");
+    return res.json("Wrong query format");
 
   const hall = await models.Hall.findById(req.params.hallId);
 
-  if (!hall) return res.status(404).send("Not found");
+  if (!hall) return res.status(404).json("Not found");
   return res.json(hall);
 });
 
@@ -50,16 +50,16 @@ router.put(
     const hall: IHall = req.body;
 
     if (!doesIdMatchesFormat(req.params.hallId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const { error, code } = await hallValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const updatedHall = await models.Hall.findByIdAndUpdate(
       req.params.hallId,
       hall
     );
-    if (!updatedHall) return res.status(404).send("Not found");
+    if (!updatedHall) return res.status(404).json("Not found");
 
     return res.json(updatedHall);
   }
@@ -71,7 +71,7 @@ router.delete(
   requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.hallId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const deletedHall = await deleteHall({ _id: req.params.hallId });
 

@@ -7,7 +7,7 @@ export interface INowPlayingProps {}
 
 export function NowPlaying(props: INowPlayingProps) {
   return (
-    <section className={styles["now-playing"]}>
+    <section className={styles["now-playing"]} id="now-playing">
       <SectionTitle isDark={true} message="Now Playing" />
       <Slider />
     </section>

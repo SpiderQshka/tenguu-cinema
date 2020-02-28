@@ -27,27 +27,27 @@ router.get(
   requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.userId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const user = await models.User.findById(req.params.userId);
 
-    if (!user) return res.status(404).send("Not found");
+    if (!user) return res.status(404).json("Not found");
     return res.json(user);
   }
 );
 
 router.get("/:userId", authenticate, async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.userId))
-    return res.send("Wrong query format");
+    return res.json("Wrong query format");
 
   const currentUserId = req.user ? req.user["_id"].toString() : null;
 
   if (currentUserId !== req.params.userId)
-    return res.status(403).send("Access denied");
+    return res.status(403).json("Access denied");
 
   const user = await models.User.findById(req.params.userId);
 
-  if (!user) return res.status(404).send("Not found");
+  if (!user) return res.status(404).json("Not found");
   return res.json(user);
 });
 
@@ -57,7 +57,7 @@ router.post(
   requireAdmin,
   async (req: Request, res: Response) => {
     const { error, code } = await userValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const user = new models.User({
       username: req.body.username,
@@ -79,17 +79,17 @@ router.put(
     const user: IUser = req.body;
 
     if (!doesIdMatchesFormat(req.params.userId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const { error, code } = await userValidation(req.body);
-    if (error) return res.status(code).send(error);
+    if (error) return res.status(code).json(error);
 
     const updatedUser = await models.User.findByIdAndUpdate(
       req.params.userId,
       user
     );
 
-    if (!updatedUser) return res.status(404).send("Not found");
+    if (!updatedUser) return res.status(404).json("Not found");
     return res.json(updatedUser);
   }
 );
@@ -100,7 +100,7 @@ router.delete(
   requireManager,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.userId))
-      return res.send("Wrong query format");
+      return res.json("Wrong query format");
 
     const deletedUser = await deleteUser({ _id: req.params.userId });
 

@@ -3,9 +3,10 @@ import styles from "./header.module.sass";
 
 import SignUpModal from "containers/SignUpModalContainer";
 import SignInModal from "containers/SignInModalContainer";
+import { IUserPayload } from "interfaces/IUser";
 
 export function Profile(props: any) {
-  const { data: userData, isAuthorized, pending, error } = props;
+  const { data: userData, pending, error } = props;
   if (error) return null;
 
   return (
@@ -13,7 +14,7 @@ export function Profile(props: any) {
       <SignUpModal />
       <SignInModal />
       <div className={styles["profile-block"]}>
-        {userData.authToken ? (
+        {userData._id ? (
           <>
             <button
               className="waves-effect waves-light btn-large btn-flat btn orange"
@@ -41,7 +42,9 @@ export function Profile(props: any) {
               <span className={styles["text"]}>My Tickets</span>
               <div className={styles["info-block"]}>
                 <span className={styles["info-text"]}>
-                  {userData.tickets[0] ? userData.tickets.length : 0}
+                  {!pending && userData.tickets[0]
+                    ? userData.tickets.length
+                    : 0}
                 </span>
               </div>
             </div>

@@ -3,19 +3,10 @@ import { IUser } from "interfaces/IUser";
 
 export interface IPostUser extends IPostData {
   body?: IUser;
-  authToken: string | null;
 }
 
 export interface IGetUser extends IPostData {
   body?: IUser;
-  authToken: string | null;
-}
-
-class PostUserDataException {
-  error: Error;
-  constructor(error: Error) {
-    this.error = error;
-  }
 }
 
 export const postUserData = async (
@@ -30,19 +21,48 @@ export const postUserData = async (
     headers
   });
 
-  if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw new PostUserDataException(await response.json());
-  return {
-    body: response.status < 400 ? await response.json() : {},
-    headers: response.headers
-  };
+  if (!(response.status < 400 || ignoreCodes.includes(response.status))) {
+    try {
+      return {
+        body: {},
+        error: {
+          message: await response.json(),
+          code: response.status
+        },
+        headers: response.headers
+      };
+    } catch (e) {
+      return {
+        body: {},
+        error: {
+          message: response.statusText,
+          code: response.status
+        },
+        headers: response.headers
+      };
+    }
+  }
+  try {
+    return {
+      body: await response.json(),
+      headers: response.headers
+    };
+  } catch (e) {
+    return {
+      body: response,
+      headers: response.headers
+    };
+  }
 };
 
 export const registerUser = async (formData: FormData): Promise<IPostUser> => {
   const data = await postUserData("api/auth/register", formData);
   return {
     ...data,
-    authToken: data.headers.get("auth-token")
+    body: {
+      ...data.body,
+      authToken: data.headers.get("auth-token")
+    }
   };
 };
 
@@ -50,7 +70,10 @@ export const loginUser = async (formData: FormData): Promise<IPostUser> => {
   const data = await postUserData("api/auth/login", formData);
   return {
     ...data,
-    authToken: data.headers.get("auth-token")
+    body: {
+      ...data.body,
+      authToken: data.headers.get("auth-token")
+    }
   };
 };
 
@@ -59,6 +82,9 @@ export const getUserInfo = async (): Promise<IGetUser> => {
   const data = await getData(`api/users/${userId}`, [401]);
   return {
     ...data,
-    authToken: window.localStorage.getItem("auth-token")
+    body: {
+      ...data.body,
+      authToken: data.headers.get("auth-token")
+    }
   };
 };

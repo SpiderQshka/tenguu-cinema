@@ -29,8 +29,6 @@ export function* fetchPageInfo() {
     take(FETCH_SESSIONS_ERROR)
   ]);
   const fetchedData = data.filter((element: any) => element)[0];
-
-  if (fetchedData.payload.error)
-    yield put(fetchPageError(fetchedData.payload.error));
-  else yield put(fetchPageSuccess());
+  if (!fetchedData.payload) yield put(fetchPageSuccess());
+  else yield put(fetchPageError(fetchedData.payload.error));
 }

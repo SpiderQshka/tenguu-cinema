@@ -38,7 +38,7 @@ export function* fetchUserInfo() {
   const data = yield call(getUserInfo);
 
   if (data.error) yield put(fetchCurrentUserError(data.error));
-  else yield put(fetchCurrentUserSuccess(data));
+  else yield put(fetchCurrentUserSuccess(data.body));
 }
 
 export function* userLogoutSaga() {
@@ -52,9 +52,9 @@ export function* userLoginSaga({ payload }: any) {
   if (userData.error) yield put(userLoginError(userData.error));
   else {
     window.localStorage.setItem("userId", userData.body._id);
-    window.localStorage.setItem("auth-token", userData.authToken);
+    window.localStorage.setItem("auth-token", userData.body.authToken);
 
-    yield put(userLogin(userData.authToken, userData.body._id));
+    yield put(userLogin(userData.body.authToken, userData.body._id));
     yield put(fetchCurrentUserRequest());
   }
 }

@@ -62,7 +62,8 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
           ...state.data,
           authToken: action.payload.data.authToken,
           _id: action.payload.data._id
-        }
+        },
+        pending: true
       };
     case USER_LOGIN_ERROR:
       console.log("User login error", action.payload.error);
@@ -74,10 +75,7 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
       console.log("User logout");
       return {
         ...state,
-        data: {
-          ...state.data,
-          authToken: null
-        }
+        data: {}
       };
     default:
       return state;

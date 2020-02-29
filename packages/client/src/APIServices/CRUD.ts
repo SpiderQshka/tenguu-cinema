@@ -33,15 +33,35 @@ export const getData = async (
 
   if (!(response.status < 400 || ignoreCodes.includes(response.status))) {
     try {
-      throw await response.json();
+      return {
+        body: {},
+        error: {
+          message: await response.json(),
+          code: response.status
+        },
+        headers: response.headers
+      };
     } catch (e) {
-      throw response;
+      return {
+        body: {},
+        error: {
+          message: response.statusText,
+          code: response.status
+        },
+        headers: response.headers
+      };
     }
   }
   try {
-    return await response.json();
+    return {
+      body: await response.json(),
+      headers: response.headers
+    };
   } catch (e) {
-    return response;
+    return {
+      body: response,
+      headers: response.headers
+    };
   }
 };
 
@@ -57,7 +77,36 @@ export const postData = async (
     headers
   });
 
-  if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw await response.json();
-  return await response.json();
+  if (!(response.status < 400 || ignoreCodes.includes(response.status))) {
+    try {
+      return {
+        body: {},
+        error: {
+          message: await response.json(),
+          code: response.status
+        },
+        headers: response.headers
+      };
+    } catch (e) {
+      return {
+        body: {},
+        error: {
+          message: response.statusText,
+          code: response.status
+        },
+        headers: response.headers
+      };
+    }
+  }
+  try {
+    return {
+      body: await response.json(),
+      headers: response.headers
+    };
+  } catch (e) {
+    return {
+      body: response,
+      headers: response.headers
+    };
+  }
 };

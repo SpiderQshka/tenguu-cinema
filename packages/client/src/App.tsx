@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { Header } from "./components/header/index";
+import HeaderContainer from "./containers/HeaderContainer";
 import HomepageContainer from "./containers/HomepageContainer";
 import AdminpageContainer from "./containers/AdminpageContainer";
 
@@ -20,14 +20,14 @@ const App: React.FC = (props: any) => {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Header />
+          <HeaderContainer />
           <HomepageContainer />
         </Route>
         <Route path="/admin">
           <AdminpageContainer />
         </Route>
         <Route path="*">
-          <Header />
+          <HeaderContainer />
           <HomepageContainer />
         </Route>
       </Switch>

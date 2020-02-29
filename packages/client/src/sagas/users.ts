@@ -34,13 +34,11 @@ export function* watchRegisterUser() {
 }
 
 export function* fetchUserInfo() {
-  try {
-    yield put(fetchCurrentUserPending());
-    const data = yield call(getUserInfo);
-    yield put(fetchCurrentUserSuccess(data));
-  } catch (e) {
-    yield put(fetchCurrentUserError(e));
-  }
+  yield put(fetchCurrentUserPending());
+  const data = yield call(getUserInfo);
+
+  if (data.error) yield put(fetchCurrentUserError(data.error));
+  else yield put(fetchCurrentUserSuccess(data));
 }
 
 export function* userLogoutSaga() {
@@ -49,29 +47,27 @@ export function* userLogoutSaga() {
 }
 
 export function* userLoginSaga({ payload }: any) {
-  try {
-    const userData = yield call(() => loginUser(payload));
+  const userData = yield call(() => loginUser(payload));
 
+  if (userData.error) yield put(userLoginError(userData.error));
+  else {
     window.localStorage.setItem("userId", userData.body._id);
     window.localStorage.setItem("auth-token", userData.authToken);
 
     yield put(userLogin(userData.authToken, userData.body._id));
     yield put(fetchCurrentUserRequest());
-  } catch (e) {
-    yield put(userLoginError(e));
   }
 }
 
 export function* userRegisterSaga({ payload }: any) {
-  try {
-    const userData = yield call(() => registerUser(payload));
+  const userData = yield call(() => registerUser(payload));
 
+  if (userData.error) yield put(userLoginError(userData.error));
+  else {
     window.localStorage.setItem("userId", userData.body._id);
     window.localStorage.setItem("auth-token", userData.authToken);
 
     yield put(userRegister(userData.authToken, userData.body._id));
     yield put(fetchCurrentUserRequest());
-  } catch (e) {
-    yield put(userRegisterError(e));
   }
 }

@@ -11,6 +11,13 @@ export interface IGetUser extends IPostData {
   authToken: string | null;
 }
 
+class PostUserDataException {
+  error: Error;
+  constructor(error: Error) {
+    this.error = error;
+  }
+}
+
 export const postUserData = async (
   url: string,
   formData: any,
@@ -24,7 +31,7 @@ export const postUserData = async (
   });
 
   if (!(response.status < 400 || ignoreCodes.includes(response.status)))
-    throw await response.json();
+    throw new PostUserDataException(await response.json());
   return {
     body: response.status < 400 ? await response.json() : {},
     headers: response.headers
@@ -32,39 +39,26 @@ export const postUserData = async (
 };
 
 export const registerUser = async (formData: FormData): Promise<IPostUser> => {
-  try {
-    const data = await postUserData("api/auth/register", formData);
-    return {
-      ...data,
-      authToken: data.headers.get("auth-token")
-    };
-  } catch (e) {
-    throw e;
-  }
+  const data = await postUserData("api/auth/register", formData);
+  return {
+    ...data,
+    authToken: data.headers.get("auth-token")
+  };
 };
 
 export const loginUser = async (formData: FormData): Promise<IPostUser> => {
-  try {
-    const data = await postUserData("api/auth/login", formData);
-    return {
-      ...data,
-      authToken: data.headers.get("auth-token")
-    };
-  } catch (e) {
-    throw e;
-  }
+  const data = await postUserData("api/auth/login", formData);
+  return {
+    ...data,
+    authToken: data.headers.get("auth-token")
+  };
 };
 
 export const getUserInfo = async (): Promise<IGetUser> => {
-  try {
-    const userId = window.localStorage.getItem("userId") || "";
-    const data = await getData(`api/users/${userId}`, [401]);
-
-    return {
-      ...data,
-      authToken: window.localStorage.getItem("auth-token")
-    };
-  } catch (e) {
-    throw e;
-  }
+  const userId = window.localStorage.getItem("userId") || "";
+  const data = await getData(`api/users/${userId}`, [401]);
+  return {
+    ...data,
+    authToken: window.localStorage.getItem("auth-token")
+  };
 };

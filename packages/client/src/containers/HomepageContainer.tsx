@@ -5,6 +5,7 @@ import { fetchPageInfo } from "sagas/page";
 import { Homepage } from "pages/homepage";
 import { IState } from "interfaces/IState";
 import { PageLoader } from "components/loader";
+import { PageError } from "components/error";
 
 const mapStateToProps = (state: IState) => state;
 const mapDispatchToProps = (dispatch: any) => {
@@ -20,8 +21,8 @@ const HomepageComponent = (props: ConnectedProps<typeof connector>) => {
     props.getPage();
   }, []);
 
-  if (!props.mainPage.pending) return <Homepage />;
-
+  if (props.mainPage.error) return <PageError error={props.mainPage.error} />;
+  else if (!props.mainPage.pending) return <Homepage />;
   return <PageLoader />;
 };
 

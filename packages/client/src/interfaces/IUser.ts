@@ -5,7 +5,7 @@ export interface IUser {
   email: string;
   password: string;
   _id: string;
-  error?: { code: number; message: string };
+  // error?: { code: number; message: string };
   authToken?: string | null;
   tickets: ITicket[];
 }
@@ -23,7 +23,7 @@ export type IUserActionTypes =
 
 export interface IUserPayload {
   data: IUser;
-  error: string | null;
+  error?: { code: number; message: string };
   pending: boolean;
 }
 export interface IUserAction {

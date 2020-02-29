@@ -27,7 +27,8 @@ export const pageReducer = (state = initialState, action: any) => {
       console.log("Page Error");
       return {
         ...state,
-        pending: false
+        pending: false,
+        error: action.payload.error
       };
     default:
       return state;

@@ -29,7 +29,7 @@ export const SignInModal = (props: any) => {
         {props.error ? (
           <h5 className={styles.errorMsg}>
             <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
-            {props.error}
+            {props.error.message}
           </h5>
         ) : null}
         <form

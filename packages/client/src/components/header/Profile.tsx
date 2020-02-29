@@ -5,8 +5,8 @@ import SignUpModal from "containers/SignUpModalContainer";
 import SignInModal from "containers/SignInModalContainer";
 
 export function Profile(props: any) {
-  const { data: userData, isAuthorized, pending } = props;
-  console.log("user", props);
+  const { data: userData, isAuthorized, pending, error } = props;
+  if (error) return null;
 
   return (
     <>

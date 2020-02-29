@@ -1,5 +1,5 @@
-import React from "react";
-import { IFilm } from "interfaces/IFilm";
+import React, { MouseEvent } from "react";
+import { IFilm, IFilmPayload } from "interfaces/IFilm";
 import { config } from "config";
 import StarRatings from "react-star-ratings";
 import { Loader } from "components/loader";
@@ -10,6 +10,7 @@ import { ISession } from "interfaces/ISession";
 export interface IFilmCard {
   item: IFilm;
   pending: boolean;
+  buyTicket?: (filmId: string) => void;
 }
 
 export interface ISessionCard {
@@ -35,6 +36,7 @@ export function FilmCard(props: IFilmCard) {
           <span className={styles["button-text"]}>Watch trailer</span>
         </button>
         <button
+          // onClick={() => props.buyTicket({ film: film._id })}
           className={`waves-effect waves-light btn btn-large black ${styles["slide-btn"]}`}
         >
           <i className={`fas fa-shopping-cart ${styles["button-icon"]}`}></i>

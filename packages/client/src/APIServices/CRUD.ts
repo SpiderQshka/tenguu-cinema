@@ -30,7 +30,6 @@ export const getData = async (
   ignoreCodes: number[] = []
 ): Promise<IGetData> => {
   const response: Response = await tokenFetch(url);
-
   if (!(response.status < 400 || ignoreCodes.includes(response.status))) {
     try {
       return {

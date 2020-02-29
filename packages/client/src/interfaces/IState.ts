@@ -1,6 +1,10 @@
 import { IUserPayload } from "./IUser";
 import { ISessionsPayload } from "./ISession";
 import { IFilmPayload } from "./IFilm";
+export interface IModalsPayload {
+  isRegModalOpen: boolean;
+  isLoginModalOpen: boolean;
+}
 
 export type IPayloads = IUserPayload | ISessionsPayload | IFilmPayload;
 export interface IState {
@@ -11,4 +15,5 @@ export interface IState {
     pending: boolean;
     error: { code: number; message: string } | null;
   };
+  modals: IModalsPayload;
 }

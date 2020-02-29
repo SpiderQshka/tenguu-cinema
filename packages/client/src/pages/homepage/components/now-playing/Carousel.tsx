@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ArrowNext, ArrowPrev } from "./CarouselControls";
-import { FilmCard } from "components/film-card/index";
+import FilmCardContainer from "containers/FilmCardContainer";
 import Carousel, { LazyLoadTypes } from "react-slick";
 import styles from "./nowPlaying.module.sass";
 import "slick-carousel/slick/slick.css";
@@ -44,7 +44,7 @@ export function CarouselComponent(props: any) {
   return (
     <Carousel {...settings} className={styles["slick-slider"]}>
       {films.map((film: IFilm) => {
-        return <FilmCard item={film} key={film._id} pending={pending} />;
+        return <FilmCardContainer item={film} key={film._id} />;
       })}
     </Carousel>
   );

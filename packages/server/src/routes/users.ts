@@ -46,7 +46,7 @@ router.get("/:userId", authenticate, async (req: Request, res: Response) => {
   if (currentUserId !== req.params.userId)
     return res.status(403).json("Access denied");
 
-  const user = (await getUsersForClient())[0];
+  const user = (await getUsersForClient({ _id: currentUserId }))[0];
 
   if (!user) return res.status(404).json("Not found");
   return res.json(user);

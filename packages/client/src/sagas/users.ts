@@ -62,12 +62,12 @@ export function* userLoginSaga({ payload }: any) {
 export function* userRegisterSaga({ payload }: any) {
   const userData = yield call(() => registerUser(payload));
 
-  if (userData.error) yield put(userLoginError(userData.error));
+  if (userData.error) yield put(userRegisterError(userData.error));
   else {
     window.localStorage.setItem("userId", userData.body._id);
-    window.localStorage.setItem("auth-token", userData.authToken);
+    window.localStorage.setItem("auth-token", userData.body.authToken);
 
-    yield put(userRegister(userData.authToken, userData.body._id));
+    yield put(userRegister(userData.body.authToken, userData.body._id));
     yield put(fetchCurrentUserRequest());
   }
 }

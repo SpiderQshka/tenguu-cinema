@@ -1,31 +1,21 @@
-import React, { FormEvent, useRef } from "react";
-
-import { loginUser } from "APIServices/users";
+import React, { FormEvent } from "react";
 
 import styles from "./modals.module.sass";
 
-import M from "materialize-css";
-
 export const SignInModal = (props: any) => {
-  const signInModalRef = useRef(null);
-
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
 
-    props.loginUser(formData);
+    await props.loginUser(formData);
 
-    // const btnInstance = M.Modal.getInstance(
-    //   signInModalRef.current || new HTMLButtonElement()
-    // );
-
-    // btnInstance.close();
+    props.closeLoginModalRequest();
   };
   return (
-    <div id="signInModal" className="modal" ref={signInModalRef}>
-      <div className={`modal-content ${styles.modalContent}`}>
-        <h4>Sign In</h4>
+    <div className={styles.modalWrapper}>
+      <div className={`${styles.modalContent}`}>
+        <h4 className={styles.modalHeader}>Sign In</h4>
         {props.error ? (
           <h5 className={styles.errorMsg}>
             <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
@@ -59,15 +49,15 @@ export const SignInModal = (props: any) => {
             <button
               type="submit"
               value="Submit"
-              className="btn btn-large orange"
+              className={`btn btn-large orange ${styles.submitBtn}`}
             >
               Submit
             </button>
             <button
-              className="modal-close btn btn-large red"
-              onClick={e => e.preventDefault()}
+              className={`waves-effect waves-light btn btn-floating red ${styles.closeModalBtn}`}
+              onClick={props.closeLoginModal}
             >
-              Close modal
+              <i className="fas fa-times"></i>
             </button>
           </div>
         </form>

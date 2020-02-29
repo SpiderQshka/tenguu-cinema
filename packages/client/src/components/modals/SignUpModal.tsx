@@ -1,15 +1,8 @@
-import React, { FormEvent, useRef } from "react";
-import { call } from "redux-saga/effects";
-
-import { registerUser } from "APIServices/users";
+import React, { FormEvent } from "react";
 
 import styles from "./modals.module.sass";
 
-import M from "materialize-css";
-
 export const SignUpModal = (props: any) => {
-  const signUpModalRef = useRef(null);
-
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -17,20 +10,12 @@ export const SignUpModal = (props: any) => {
 
     await props.registerUser(formData);
 
-    // if (!props.error) {
-    //   const btnInstance = M.Modal.getInstance(
-    //     signUpModalRef.current || new HTMLButtonElement()
-    //   );
-
-    //   btnInstance.close();
-    // }
-
-    // console.log("Modal Error:", props.error);
+    props.closeRegisterModalRequest();
   };
   return (
-    <div id="signUpModal" className="modal" ref={signUpModalRef}>
-      <div className={`modal-content ${styles.modalContent}`}>
-        <h4>Sign Up</h4>
+    <div className={styles.modalWrapper}>
+      <div className={`${styles.modalContent}`}>
+        <h4 className={styles.modalHeader}>Sign Up</h4>
         {props.error ? (
           <h5 className={styles.errorMsg}>
             <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
@@ -73,15 +58,15 @@ export const SignUpModal = (props: any) => {
             <button
               type="submit"
               value="Submit"
-              className="btn btn-large orange"
+              className={`btn btn-large orange ${styles.submitBtn}`}
             >
               Submit
             </button>
             <button
-              className="modal-close btn btn-large red"
-              onClick={e => e.preventDefault()}
+              className={`waves-effect waves-light btn btn-floating red ${styles.closeModalBtn}`}
+              onClick={props.closeRegisterModal}
             >
-              Close modal
+              <i className="fas fa-times"></i>
             </button>
           </div>
         </form>

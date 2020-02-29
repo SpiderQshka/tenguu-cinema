@@ -21,7 +21,8 @@ const HomepageComponent = (props: ConnectedProps<typeof connector>) => {
     props.getPage();
   }, []);
 
-  if (props.mainPage.error) return <PageError error={props.mainPage.error} />;
+  if (props.mainPage.error && props.mainPage.error.code >= 500)
+    return <PageError error={props.mainPage.error} />;
   else if (!props.mainPage.pending) return <Homepage />;
   return <PageLoader />;
 };

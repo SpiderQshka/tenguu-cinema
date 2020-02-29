@@ -10,6 +10,10 @@ import { watchFetchFilmInfo } from "./films";
 import { watchFetchSessionInfo } from "./sessions";
 import { watchFetchPageInfo } from "./page";
 import { fetchAppInfo } from "./appInit";
+import {
+  watchCloseRegModalRequest,
+  watchCloseLoginModalRequest
+} from "./modals";
 
 export function* rootSaga() {
   yield all([
@@ -20,6 +24,8 @@ export function* rootSaga() {
     watchLogoutUser(),
     watchLoginUser(),
     watchRegisterUser(),
+    watchCloseRegModalRequest(),
+    watchCloseLoginModalRequest(),
     fetchAppInfo()
   ]);
 }

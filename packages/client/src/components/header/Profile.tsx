@@ -3,16 +3,21 @@ import styles from "./header.module.sass";
 
 import SignUpModal from "containers/SignUpModalContainer";
 import SignInModal from "containers/SignInModalContainer";
-import { IUserPayload } from "interfaces/IUser";
+import { IHeader } from ".";
 
-export function Profile(props: any) {
-  const { data: userData, pending, error } = props;
-  if (error) return null;
+export function Profile(props: IHeader) {
+  console.log(props);
 
+  const {
+    user: { data: userData, pending }
+  } = props;
   return (
     <>
-      <SignUpModal />
-      <SignInModal />
+      {props.modals.isRegModalOpen ? (
+        <SignUpModal />
+      ) : props.modals.isLoginModalOpen ? (
+        <SignInModal />
+      ) : null}
       <div className={styles["profile-block"]}>
         {userData._id ? (
           <>
@@ -56,18 +61,18 @@ export function Profile(props: any) {
               "Loading"
             ) : (
               <>
-                <a
-                  className="waves-effect waves-light btn-flat btn-large btn orange modal-trigger"
-                  href="#signUpModal"
+                <button
+                  className="waves-effect waves-light btn-flat btn-large btn orange"
+                  onClick={props.openRegisterModal}
                 >
                   Sign Up
-                </a>
-                <a
-                  className="waves-effect waves-light btn-large btn inherit-bgc btn-flat modal-trigger"
-                  href="#signInModal"
+                </button>
+                <button
+                  className="waves-effect waves-light btn-large btn inherit-bgc btn-flat"
+                  onClick={props.openLoginModal}
                 >
                   Sign In
-                </a>
+                </button>
               </>
             )}
           </div>

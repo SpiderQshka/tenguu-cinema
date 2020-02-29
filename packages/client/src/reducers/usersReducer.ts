@@ -46,7 +46,9 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
           ...state.data,
           authToken: action.payload.data.authToken,
           _id: action.payload.data._id
-        }
+        },
+        error: null,
+        pending: true
       };
     case USER_REG_ERROR:
       console.log("User register error", action.payload.error);
@@ -63,7 +65,8 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
           authToken: action.payload.data.authToken,
           _id: action.payload.data._id
         },
-        pending: true
+        pending: true,
+        error: null
       };
     case USER_LOGIN_ERROR:
       console.log("User login error", action.payload.error);
@@ -75,7 +78,9 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
       console.log("User logout");
       return {
         ...state,
-        data: {}
+        data: {},
+        error: null,
+        pending: false
       };
     default:
       return state;

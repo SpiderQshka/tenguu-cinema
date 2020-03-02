@@ -8,6 +8,7 @@ export interface IUser {
   // error?: { code: number; message: string };
   authToken?: string | null;
   tickets: ITicket[];
+  photo: string;
 }
 
 export type IUserActionTypes =

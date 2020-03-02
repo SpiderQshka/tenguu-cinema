@@ -30,6 +30,9 @@ export const userSchema: Schema<IUserEntity> = new Schema({
     type: String,
     required: true,
     default: "default"
+  },
+  photo: {
+    type: String
   }
 });
 

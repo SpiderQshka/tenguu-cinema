@@ -4,7 +4,6 @@ import {
   registerValidation,
   loginValidation
 } from "./validation/authValidation";
-
 const router: Router = Router();
 
 router.post("/register", async (req: Request, res: Response) => {
@@ -15,7 +14,8 @@ router.post("/register", async (req: Request, res: Response) => {
   const user = new models.User({
     username: req.body.username,
     password: await models.User.hashPassword(req.body.password),
-    email: req.body.email
+    email: req.body.email,
+    photo: req.file.filename || null
   });
   const newUser = await user.save();
 

@@ -17,7 +17,7 @@ export const postUserData = async (
 ): Promise<IPostData> => {
   const response: Response = await tokenFetch(url, {
     method: "POST",
-    body: new URLSearchParams([...formData]),
+    body: formData,
     headers
   });
 

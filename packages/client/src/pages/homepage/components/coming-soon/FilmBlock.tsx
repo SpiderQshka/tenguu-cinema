@@ -60,7 +60,7 @@ export const FilmBlock = (props: IFilmBlock) => {
                   Pre order
                 </button>
                 <button
-                  className={`waves-effect waves-light btn btn-large black ${styles.filmButton}`}
+                  className={`waves-effect waves-light btn-flat btn btn-large inherit-bgc ${styles.filmButton}`}
                 >
                   <i className={`fas fa-ellipsis-h ${styles.buttonIcon}`}></i>
                   Read more

@@ -18,8 +18,7 @@ export function* watchCloseLoginModalRequest() {
 
 export function* closeRegModalSaga() {
   const data = yield take(USER_REG);
-  const result = data.every((el: any) => !!el)[0];
-  if (result) yield put(closeRegModal());
+  if (data) yield put(closeRegModal());
 }
 
 export function* closeLoginModalSaga() {

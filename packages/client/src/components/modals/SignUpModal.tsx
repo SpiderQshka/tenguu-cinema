@@ -54,11 +54,20 @@ export const SignUpModal = (props: any) => {
             // value="1@mail.com"
             required
           />
+          <div className={`file-field input-field ${styles.fileField}`}>
+            <div className="waves-effect waves-light btn orange">
+              <span>Photo</span>
+              <input type="file" name="photo" />
+            </div>
+            <div className="file-path-wrapper">
+              <input className="file-path validate" type="text" />
+            </div>
+          </div>
           <div className={styles.buttons}>
             <button
               type="submit"
               value="Submit"
-              className={`btn btn-large orange ${styles.submitBtn}`}
+              className={`waves-effect waves-light btn btn-large orange ${styles.submitBtn}`}
             >
               Submit
             </button>

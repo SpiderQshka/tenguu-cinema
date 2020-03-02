@@ -7,7 +7,7 @@ import multer from "multer";
 
 const app: Express = express();
 
-const storage = multer.diskStorage({
+export const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, "uploads");
   },
@@ -21,8 +21,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.use(upload.single("image"));
-app.use(express.json());
+app.use(upload.single("photo"));
+app.use(function(err: any, req: any, res: any, next: any) {
+  console.log("This is the invalid field ->", err.field);
+  next(err);
+});
+// app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/static", express.static(path.resolve(__dirname, "../uploads")));
 app.use(passport.initialize());

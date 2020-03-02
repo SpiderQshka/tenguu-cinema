@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./header.module.sass";
+import { config } from "config";
 
 import SignUpModal from "containers/SignUpModalContainer";
 import SignInModal from "containers/SignInModalContainer";
@@ -33,8 +34,12 @@ export function Profile(props: IHeader) {
                 {pending ? "Loading" : userData.username}
               </span>
               <div className={styles["user_photo-block"]}>
-                {null ? (
-                  <img className={styles.photo} src="#" alt="User" />
+                {props.user.data.photo ? (
+                  <img
+                    className={styles.photo}
+                    src={config.baseUrl + props.user.data.photo}
+                    alt={props.user.data.username}
+                  />
                 ) : (
                   <i
                     className={`far fa-user ${styles["photo-placeholder"]}`}

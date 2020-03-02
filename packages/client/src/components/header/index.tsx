@@ -15,7 +15,6 @@ export interface IHeader {
 }
 
 export function Header(props: IHeader) {
-  if (props.user.error && props.user.error.code >= 500) return null;
   return (
     <section className={styles["header-container"]} id="home">
       <header className={styles["header"]}>

@@ -4,16 +4,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HeaderContainer from "./containers/HeaderContainer";
 import HomepageContainer from "./containers/HomepageContainer";
 import AdminpageContainer from "./containers/AdminpageContainer";
+import ErrorpageContainer from "./containers/ErrorpageContainer";
 
 import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css";
 import "./app.sass";
 
 M.AutoInit();
-document.addEventListener("DOMContentLoaded", function() {
-  var modals = document.querySelectorAll(".modal");
-  M.Modal.init(modals);
-});
 
 const App: React.FC = (props: any) => {
   return (
@@ -25,6 +22,9 @@ const App: React.FC = (props: any) => {
         </Route>
         <Route path="/admin">
           <AdminpageContainer />
+        </Route>
+        <Route path="/error">
+          <ErrorpageContainer />
         </Route>
         <Route path="*">
           <HeaderContainer />

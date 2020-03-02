@@ -77,6 +77,7 @@ export const getUsersForClient = async (params: object = {}) => {
       status: user.status,
       email: user.email,
       username: user.username,
+      photo: user.photo,
       tickets
     };
   });

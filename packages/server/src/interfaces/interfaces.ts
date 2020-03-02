@@ -46,6 +46,7 @@ interface IUser extends Document {
   password: string;
   email: string;
   status: string;
+  photo: string;
 }
 
 interface IComment extends Document {

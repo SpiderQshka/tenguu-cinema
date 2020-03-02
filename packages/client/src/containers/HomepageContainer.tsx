@@ -5,7 +5,7 @@ import { fetchPageInfo } from "sagas/page";
 import { Homepage } from "pages/homepage";
 import { IState } from "interfaces/IState";
 import { PageLoader } from "components/loader";
-import { PageError } from "components/error";
+import { Redirect } from "react-router-dom";
 
 const mapStateToProps = (state: IState) => state;
 const mapDispatchToProps = (dispatch: any) => {
@@ -22,7 +22,7 @@ const HomepageComponent = (props: ConnectedProps<typeof connector>) => {
   }, []);
 
   if (props.mainPage.error && props.mainPage.error.code >= 500)
-    return <PageError error={props.mainPage.error} />;
+    return <Redirect to="/error" />;
   else if (!props.mainPage.pending) return <Homepage />;
   return <PageLoader />;
 };

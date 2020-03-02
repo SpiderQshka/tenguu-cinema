@@ -13,8 +13,10 @@ const registerValidation = async (
       .required(),
     email: Joi.string()
       .email()
-      .required()
+      .required(),
+    photo: Joi.any()
   });
+  console.log(data);
 
   const { error = null } = schema.validate(data);
   if (error) return { error: error.details[0].message, code: 400 };

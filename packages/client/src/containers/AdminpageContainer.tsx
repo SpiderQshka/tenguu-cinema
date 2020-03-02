@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { fetchPageInfo } from "sagas/page";
 
-import { Homepage } from "pages/homepage";
 import { IState } from "interfaces/IState";
 import { PageLoader } from "components/loader";
 import { AdminPage } from "pages/adminpage";

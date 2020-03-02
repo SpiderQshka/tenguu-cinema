@@ -20,7 +20,8 @@ export const getFilmsForClient = async (params: object = {}) => {
       duration: film.duration,
       trailerLink: film.trailerLink,
       ratings: film.ratings,
-      filmImage: film.filmImage
+      filmImage: film.filmImage,
+      releaseDate: film.releaseDate
     };
   });
 

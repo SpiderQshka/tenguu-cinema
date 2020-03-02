@@ -1,15 +1,19 @@
 import React from "react";
-import Slider from "containers/FilmSliderContainer";
 import { SectionTitle } from "components/section-title";
 import styles from "./nowPlaying.module.sass";
+import { CarouselComponent } from "./Carousel";
+import { IFilm } from "interfaces/IFilm";
 
-export interface INowPlayingProps {}
+export interface INowPlayingProps {
+  data: IFilm[];
+}
 
 export function NowPlaying(props: INowPlayingProps) {
+  if (!props.data.length) return null;
   return (
     <section className={styles["now-playing"]} id="now-playing">
       <SectionTitle isDark={true} message="Now Playing" />
-      <Slider />
+      <CarouselComponent {...props} />
     </section>
   );
 }

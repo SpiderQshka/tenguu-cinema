@@ -7,16 +7,16 @@ import { IFilm } from "interfaces/IFilm";
 
 export interface IComingSoonProps {
   data: IFilm[];
-  pending: boolean;
 }
 
 export function ComingSoon(props: IComingSoonProps) {
-  const { data: films, pending } = props;
+  const { data: films } = props;
   const [filmIndex, handleFilmIndexChange] = useState(0);
+  if (!films.length) return null;
   return (
     <section className={styles["coming-soon"]} id="coming-soon">
       <SectionTitle isDark={false} message="Coming soon" />
-      <FilmBlock film={films[filmIndex]} pending={pending} />
+      <FilmBlock film={films[filmIndex]} />
       <Carousel {...props} handler={handleFilmIndexChange} />
     </section>
   );

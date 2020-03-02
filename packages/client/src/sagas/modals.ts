@@ -1,4 +1,4 @@
-import { put, call, takeEvery, take, all } from "redux-saga/effects";
+import { put, takeEvery, take } from "redux-saga/effects";
 
 import {
   CLOSE_LOGIN_MODAL_REQUEST,

@@ -1,5 +1,5 @@
-import React, { MouseEvent } from "react";
-import { IFilm, IFilmPayload } from "interfaces/IFilm";
+import React from "react";
+import { IFilm } from "interfaces/IFilm";
 import { config } from "config";
 import StarRatings from "react-star-ratings";
 import { Loader } from "components/loader";

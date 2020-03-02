@@ -8,13 +8,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { IFilm } from "interfaces/IFilm";
 
-export function CarouselComponent(props: any) {
-  const { data: films, pending } = props;
+export interface ICarouselComponent {
+  data: IFilm[];
+}
+
+export function CarouselComponent(props: ICarouselComponent) {
+  const { data: films } = props;
   const settings = {
     dots: false,
     lazyLoad: "progressive" as LazyLoadTypes,
     infinite: true,
-    slidesToShow: films.length > 5 ? 5 : films.length - 1,
+    slidesToShow:
+      films.length > 5 ? 5 : films.length === 1 ? 1 : films.length - 1,
     slidesToScroll: 1,
     nextArrow: <ArrowNext onClick={() => {}} />,
     prevArrow: <ArrowPrev onClick={() => {}} />,
@@ -43,7 +48,7 @@ export function CarouselComponent(props: any) {
   };
   return (
     <Carousel {...settings} className={styles["slick-slider"]}>
-      {films.map((film: IFilm) => {
+      {films.map(film => {
         return <FilmCardContainer item={film} key={film._id} />;
       })}
     </Carousel>

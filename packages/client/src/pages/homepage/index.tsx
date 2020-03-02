@@ -1,7 +1,7 @@
 import React from "react";
 
 import FilmCarousel from "containers/FilmCarouselContainer";
-import { NowPlaying } from "pages/homepage/components/now-playing";
+import NowPlaying from "containers/NowPlayingContainer";
 import ComingSoon from "containers/ComingSoonContainer";
 import { OurSkills } from "pages/homepage/components/our-skills";
 import { MapComponent } from "pages/homepage/components/map";

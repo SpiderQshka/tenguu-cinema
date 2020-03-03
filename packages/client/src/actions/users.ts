@@ -2,6 +2,10 @@ import { IUser, IUserPayload } from "interfaces/IUser";
 
 // Actions
 
+export const FETCH_USERS_REQUEST = "FETCH_USERS_REQUEST";
+export const FETCH_USERS_PENDING = "FETCH_USERS_PENDING";
+export const FETCH_USERS_ERROR = "FETCH_USERS_ERROR";
+export const FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
 export const FETCH_USER_PENDING = "FETCH_USER_PENDING";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const FETCH_USER_ERROR = "FETCH_USER_ERROR";
@@ -17,6 +21,36 @@ export const USER_LOGOUT = "USER_LOGOUT";
 
 // Action creators
 
+export const fetchUsersRequest = () => {
+  return {
+    type: FETCH_USERS_REQUEST
+  };
+};
+
+export const fetchUsersPending = () => {
+  return {
+    type: FETCH_USERS_PENDING
+  };
+};
+
+export const fetchUsersError = (error: any) => {
+  return {
+    type: FETCH_USERS_ERROR,
+    payload: {
+      error
+    }
+  };
+};
+
+export const fetchUsersSuccess = (users: IUser[]) => {
+  return {
+    type: FETCH_USERS_SUCCESS,
+    payload: {
+      data: users
+    }
+  };
+};
+
 export const fetchCurrentUserPending = () => {
   return {
     type: FETCH_USER_PENDING
@@ -27,7 +61,7 @@ export const fetchCurrentUserSuccess = (currentUser: IUser) => {
   return {
     type: FETCH_USER_SUCCESS,
     payload: {
-      data: currentUser
+      currentUser
     } as IUserPayload
   };
 };
@@ -65,7 +99,7 @@ export const userRegister = (authToken: string, _id: string) => {
   return {
     type: USER_REG,
     payload: {
-      data: {
+      currentUser: {
         authToken,
         _id
       }
@@ -86,7 +120,7 @@ export const userLogin = (authToken: string, _id: string) => {
   return {
     type: USER_LOGIN,
     payload: {
-      data: {
+      currentUser: {
         authToken,
         _id
       }

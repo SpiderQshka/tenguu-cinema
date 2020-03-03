@@ -2,16 +2,16 @@ import {
   FETCH_GENRES_ERROR,
   FETCH_GENRES_PENDING,
   FETCH_GENRES_SUCCESS
-} from "../actions/genres";
-import { IGenre } from "interfaces/IGenre";
+} from "actions/genres";
+import { IGenre, IGenresAction } from "interfaces/IGenre";
 
 const initialState = {
   pending: false,
-  genres: [] as IGenre[],
+  data: [] as IGenre[],
   error: null
 };
 
-export const genresReducer = (state = initialState, action: any) => {
+export const genresReducer = (state = initialState, action: IGenresAction) => {
   switch (action.type) {
     case FETCH_GENRES_PENDING:
       console.log("Pending");
@@ -23,13 +23,15 @@ export const genresReducer = (state = initialState, action: any) => {
       console.log("Success");
       return {
         ...state,
-        data: action.genres
+        data: action.payload.data,
+        pending: false
       };
     case FETCH_GENRES_ERROR:
       console.log("Error");
       return {
         ...state,
-        error: action.error
+        error: action.payload.error,
+        pending: false
       };
     default:
       return state;

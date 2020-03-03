@@ -8,19 +8,10 @@ import { PageLoader } from "components/loader";
 import { Redirect } from "react-router-dom";
 
 const mapStateToProps = (state: IState) => state;
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    getPage: fetchPageInfo
-  };
-};
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 const HomepageComponent = (props: ConnectedProps<typeof connector>) => {
-  useEffect(() => {
-    props.getPage();
-  }, []);
-
   if (props.mainPage.error && props.mainPage.error.code >= 500)
     return <Redirect to="/error" />;
   else if (!props.mainPage.pending) return <Homepage />;

@@ -1,33 +1,35 @@
 import {
-  FETCH_HALLS_ERROR,
-  FETCH_HALLS_PENDING,
-  FETCH_HALLS_SUCCESS
-} from "../actions/halls";
+  FETCH_TICKETS_ERROR,
+  FETCH_TICKETS_PENDING,
+  FETCH_TICKETS_SUCCESS
+} from "actions/tickets";
+import { ITicket, ITicketsPayload, ITicketsAction } from "interfaces/ITicket";
 
-import { IHall, IHallAction } from "interfaces/IHall";
-
-const initialState = {
+const initialState: ITicketsPayload = {
   pending: false,
-  data: [] as IHall[],
+  data: [] as ITicket[],
   error: null
 };
 
-export const hallsReducer = (state = initialState, action: IHallAction) => {
+export const ticketsReducer = (
+  state = initialState,
+  action: ITicketsAction
+) => {
   switch (action.type) {
-    case FETCH_HALLS_PENDING:
+    case FETCH_TICKETS_PENDING:
       console.log("Pending");
       return {
         ...state,
         pending: true
       };
-    case FETCH_HALLS_SUCCESS:
+    case FETCH_TICKETS_SUCCESS:
       console.log("Success");
       return {
         ...state,
         data: action.payload.data,
         pending: false
       };
-    case FETCH_HALLS_ERROR:
+    case FETCH_TICKETS_ERROR:
       console.log("Error");
       return {
         ...state,

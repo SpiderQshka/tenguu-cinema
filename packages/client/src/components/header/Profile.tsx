@@ -10,7 +10,7 @@ export function Profile(props: IHeader) {
   console.log(props);
 
   const {
-    user: { data: userData, pending }
+    users: { currentUser: userData, pending }
   } = props;
   return (
     <>
@@ -34,11 +34,11 @@ export function Profile(props: IHeader) {
                 {pending ? "Loading" : userData.username}
               </span>
               <div className={styles["user_photo-block"]}>
-                {props.user.data.photo ? (
+                {userData.photo ? (
                   <img
                     className={styles.photo}
-                    src={config.baseUrl + props.user.data.photo}
-                    alt={props.user.data.username}
+                    src={config.baseUrl + userData.photo}
+                    alt={userData.username}
                   />
                 ) : (
                   <i

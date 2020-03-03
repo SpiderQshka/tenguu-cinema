@@ -9,6 +9,10 @@ export interface IGetUser extends IPostData {
   body?: IUser;
 }
 
+export interface IGetUsers extends IPostData {
+  body?: IUser[];
+}
+
 export const postUserData = async (
   url: string,
   formData: any,
@@ -86,5 +90,12 @@ export const getUserInfo = async (): Promise<IGetUser> => {
       ...data.body,
       authToken: data.headers.get("auth-token")
     }
+  };
+};
+
+export const getUsers = async (): Promise<IGetUser> => {
+  const data = await getData(`api/users/`);
+  return {
+    ...data
   };
 };

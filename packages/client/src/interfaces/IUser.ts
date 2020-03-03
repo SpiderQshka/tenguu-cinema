@@ -5,10 +5,10 @@ export interface IUser {
   email: string;
   password: string;
   _id: string;
-  // error?: { code: number; message: string };
   authToken?: string | null;
   tickets: ITicket[];
   photo: string;
+  status: "admin" | "manager" | "default";
 }
 
 export type IUserActionTypes =
@@ -20,10 +20,16 @@ export type IUserActionTypes =
   | "USER_LOGOUT"
   | "USER_REG"
   | "USER_REG_ERROR"
-  | "USER_LOGIN_ERROR";
+  | "USER_LOGIN_ERROR"
+  | "FETCH_USERS"
+  | "FETCH_USERS_PENDING"
+  | "FETCH_USERS_ERROR"
+  | "FETCH_USERS_REQUEST"
+  | "FETCH_USERS_SUCCESS";
 
 export interface IUserPayload {
-  data: IUser;
+  data: IUser[];
+  currentUser: IUser;
   error?: { code: number; message: string };
   pending: boolean;
 }

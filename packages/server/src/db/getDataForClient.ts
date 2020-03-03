@@ -53,11 +53,10 @@ export const getTicketsForClient = async (params: object = {}) => {
 
   const ticketsPromises = tickets.map(async ticket => {
     const session = await getSessionsForClient({ _id: ticket.sessionId });
-    // const user = await models.User.findById(ticket.userId);
     return {
       _id: ticket._id,
       __v: ticket.__v,
-      // user,
+      userId: ticket.userId,
       status: ticket.status,
       seat: ticket.seat,
       session

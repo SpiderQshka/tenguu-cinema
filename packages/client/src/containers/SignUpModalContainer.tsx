@@ -5,7 +5,7 @@ import { IState } from "interfaces/IState";
 import { userRegisterRequest } from "actions/users";
 import { closeRegModalRequest, closeRegModal } from "actions/modals";
 
-const mapStateToProps = (state: IState) => state.user;
+const mapStateToProps = (state: IState) => state.users;
 const mapDispatchToProps = (dispatch: any) => {
   return {
     registerUser: (formData: FormData) => {

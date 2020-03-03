@@ -1,28 +1,27 @@
 import React, { useEffect } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { fetchPageInfo } from "sagas/page";
+import { connect } from "react-redux";
 
 import { IState } from "interfaces/IState";
 import { PageLoader } from "components/loader";
 import { AdminPage } from "pages/adminpage";
+import { fetchAdminPageRequest } from "actions/admin";
 
-const mapStateToProps = (state: IState) => state.mainPage;
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getPage: fetchPageInfo
+    getAdminPage: () => dispatch(fetchAdminPageRequest())
   };
 };
 
+const mapStateToProps = (state: IState) => state;
+
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-const AdminpageComponent = (props: ConnectedProps<typeof connector>) => {
+const AdminpageComponent = (props: any) => {
   useEffect(() => {
-    props.getPage();
+    props.getAdminPage();
   }, []);
-
-  if (!props.pending) return <AdminPage />;
-
-  return <PageLoader />;
+  if (props.pending) return <PageLoader />;
+  return <AdminPage {...props} />;
 };
 
 export default connector(AdminpageComponent);

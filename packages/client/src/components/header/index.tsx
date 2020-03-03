@@ -7,7 +7,7 @@ import { IUserPayload } from "interfaces/IUser";
 import { IModalsPayload } from "interfaces/IState";
 
 export interface IHeader {
-  user: IUserPayload;
+  users: IUserPayload;
   modals: IModalsPayload;
   logout: (event: MouseEvent<HTMLButtonElement>) => void;
   openRegisterModal: (event: MouseEvent<HTMLButtonElement>) => void;
@@ -15,6 +15,8 @@ export interface IHeader {
 }
 
 export function Header(props: IHeader) {
+  console.log(props);
+
   return (
     <section className={styles["header-container"]} id="home">
       <header className={styles["header"]}>

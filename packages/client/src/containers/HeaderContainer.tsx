@@ -1,4 +1,5 @@
-import { connect } from "react-redux";
+import React from "react";
+import { connect, ConnectedProps } from "react-redux";
 
 import { Header } from "components/header";
 import { IState } from "interfaces/IState";
@@ -6,7 +7,7 @@ import { userLogoutRequest } from "actions/users";
 import { openRegModal, openLoginModal } from "actions/modals";
 
 const mapStateToProps = (state: IState) => {
-  return { user: state.user, modals: state.modals };
+  return { users: state.users, modals: state.modals };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -19,4 +20,8 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(Header);
+const HeaderComponent = (props: ConnectedProps<typeof connector>) => {
+  return <Header {...props} />;
+};
+
+export default connector(HeaderComponent);

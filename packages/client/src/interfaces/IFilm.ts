@@ -1,6 +1,7 @@
 export interface IFilm {
   genres: string[];
   name: string;
+  duration: number;
   ratings: {
     _id: string;
     ratingValue: number;
@@ -16,7 +17,7 @@ export class FilmForShow {
   _id: string;
   genres: string[];
   name: string;
-  releaseDate: number;
+  duration: number;
   trailerLink: string;
   filmImage: string;
   ratings: {
@@ -24,11 +25,12 @@ export class FilmForShow {
     ratingValue: number;
     raterName: string;
   }[];
+  releaseDate: number;
   constructor() {
     this.genres = [] as string[];
     this.name = "";
     this._id = "";
-    this.releaseDate = 0;
+    this.duration = 0;
     this.trailerLink = "";
     this.filmImage = "";
     this.ratings = [
@@ -38,6 +40,7 @@ export class FilmForShow {
         raterName: string;
       }
     ];
+    this.releaseDate = 0;
   }
 }
 

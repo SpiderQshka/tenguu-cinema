@@ -1,83 +1,75 @@
 import React from "react";
-import { IUser, UserForShow } from "interfaces/IUser";
+import { IUser } from "interfaces/IUser";
 import { IAdminTablePayload } from ".";
 import { IFilm, FilmForShow } from "interfaces/IFilm";
+import { IGenre } from "interfaces/IGenre";
 
-export interface ITable {
-  name: string;
+export class TableKeys {
+  static users() {
+    return ["_id", "status", "email", "username", "photo", "tickets"];
+  }
+  static genres() {
+    return ["_id", "name"];
+  }
+  static films() {
+    return [
+      "_id",
+      "genres",
+      "name",
+      "duration",
+      "trailerLink",
+      "filmImage",
+      "ratings",
+      "releaseDate"
+    ];
+  }
+  static sessions() {
+    return ["_id", "dateTime", "price", "hall", "film"];
+  }
+  static halls() {
+    return ["_id", "name", "numberOfRows", "seatsOnRow"];
+  }
+  static tickets() {
+    return ["_id", "userId", "status", "seat", "session"];
+  }
+}
+
+export interface ITableContainer {
+  name: "users" | "films" | "genres" | "halls" | "sessions" | "tickets";
   payload: IAdminTablePayload;
 }
 
-export interface IUsersTable {
-  users: IUser[];
+export interface ITable {
+  data: any[];
+  keys: string[];
 }
 
-export interface IFilmsTable {
-  films: IFilm[];
-}
-
-export const UsersTable = (props: IUsersTable) => {
-  const { users } = props;
-  const keysOfUser = Object.keys(new UserForShow());
+export const Table = (props: ITable) => {
+  const { data, keys } = props;
   return (
     <table className={`striped responsive-table`}>
       <thead>
         <tr>
-          {keysOfUser.map((field, i) => (
+          {keys.map((field, i) => (
             <th key={`${field}-${i}`}>{field}</th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {users.map(user => (
+        {data.map(element => (
           <tr>
-            {Object.entries(user).map((field, i) => {
-              if (field[0] === "tickets") {
-                return null;
-              }
-              return (
-                <td key={`${field}-${i}`}>{field[1] ? field[1] : "null"}</td>
-              );
-            })}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
-export const FilmsTable = (props: IFilmsTable) => {
-  const { films } = props;
-  const keysOfFilm = Object.keys(new FilmForShow());
-  return (
-    <table className={`striped responsive-table`}>
-      <thead>
-        <tr>
-          {keysOfFilm.map((field, i) => (
-            <th key={`${field}-${i}`}>{field}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {films.map(film => (
-          <tr>
-            {Object.entries(film).map((field, i) => {
-              if (field[0] === "ratings") {
+            {Object.values(element).map((field: any, i) => {
+              if (typeof field === "object") {
+                if (Array.isArray(field))
+                  return <td key={`${field}-${i}`}>Array</td>;
                 return (
                   <td key={`${field}-${i}`}>
-                    {field[1].reduce(
-                      (prev: any, curr: any) =>
-                        prev.ratingValue + curr.ratingValue
-                    ) / field[1].length}
+                    {Object.values(field)[0] as any}
                   </td>
                 );
               }
-              // if(field[0] === "genres") {
-              //   return <td key={`${field}-${i}`}>{field[1]}</td>
-              // }
-              return (
-                <td key={`${field}-${i}`}>{field[1] ? field[1] : "null"}</td>
-              );
+
+              return <td key={`${field}-${i}`}>{field ? field : "null"}</td>;
             })}
           </tr>
         ))}
@@ -86,14 +78,7 @@ export const FilmsTable = (props: IFilmsTable) => {
   );
 };
 
-export const Table = (props: ITable) => {
+export const TableContainer = (props: ITableContainer) => {
   const { name, payload } = props;
-  switch (name) {
-    case "users":
-      return <UsersTable users={payload.users.data} />;
-    case "films":
-      return <FilmsTable films={payload.films.data} />;
-    default:
-      return null;
-  }
+  return <Table data={payload[name].data} keys={TableKeys[name]()} />;
 };

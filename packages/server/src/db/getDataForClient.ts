@@ -1,5 +1,33 @@
 import { models } from "../models/index";
 
+export const getHallsForClient = async (params: object = {}) => {
+  const halls = await models.Hall.find(params);
+
+  const hallsPromises = halls.map(async hall => {
+    return {
+      _id: hall._id,
+      name: hall.name,
+      numberOfRows: hall.numberOfRows,
+      seatsOnRow: hall.seatsOnRow
+    };
+  });
+
+  return Promise.all(hallsPromises);
+};
+
+export const getGenresForClient = async (params: object = {}) => {
+  const genres = await models.Genre.find(params);
+
+  const genresPromises = genres.map(async genre => {
+    return {
+      _id: genre._id,
+      name: genre.name
+    };
+  });
+
+  return Promise.all(genresPromises);
+};
+
 export const getFilmsForClient = async (params: object = {}) => {
   const films = await models.Film.find(params);
 
@@ -13,13 +41,13 @@ export const getFilmsForClient = async (params: object = {}) => {
     const genresArray = await Promise.all(genresPromises);
 
     return {
-      genres: genresArray,
       _id: film._id,
+      genres: genresArray,
       name: film.name,
       duration: film.duration,
       trailerLink: film.trailerLink,
-      ratings: film.ratings,
       filmImage: film.filmImage,
+      ratings: film.ratings,
       releaseDate: film.releaseDate
     };
   });

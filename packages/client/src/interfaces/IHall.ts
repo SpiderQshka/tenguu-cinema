@@ -1,6 +1,6 @@
 export interface IHall {
   name: string;
-  numberOfSeats: number;
+  numberOfRows: number;
   seatsOnRow: number;
   _id: string;
 }

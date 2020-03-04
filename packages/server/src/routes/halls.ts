@@ -6,11 +6,12 @@ import { IHall } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { deleteHall } from "../db/dbServices";
+import { getHallsForClient } from "../db/getDataForClient";
 
 const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
-  const halls = await models.Hall.find();
+  const halls = await getHallsForClient();
 
   res.json(halls);
 });
@@ -36,7 +37,7 @@ router.get("/:hallId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.hallId))
     return res.json("Wrong query format");
 
-  const hall = await models.Hall.findById(req.params.hallId);
+  const hall = await getHallsForClient({ _id: req.params.hallId });
 
   if (!hall) return res.status(404).json("Not found");
   return res.json(hall);

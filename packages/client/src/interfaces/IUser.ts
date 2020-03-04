@@ -11,23 +11,6 @@ export interface IUser {
   status: "admin" | "manager" | "default";
 }
 
-export class UserForShow {
-  _id: string;
-  status: string;
-  email: string;
-  username: string;
-  photo: string;
-  tickets: ITicket[];
-  constructor() {
-    this.username = "";
-    this.email = "";
-    this._id = "";
-    this.tickets = [];
-    this.photo = "";
-    this.status = "";
-  }
-}
-
 export type IUserActionTypes =
   | "FETCH_USER_PENDING"
   | "FETCH_USER_SUCCESS"

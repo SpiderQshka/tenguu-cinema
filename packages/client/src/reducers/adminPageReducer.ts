@@ -1,34 +1,42 @@
 import {
   FETCH_ADMIN_PAGE_ERROR,
   FETCH_ADMIN_PAGE_PENDING,
-  FETCH_ADMIN_PAGE_SUCCESS
+  FETCH_ADMIN_PAGE_SUCCESS,
+  CHANGE_CURRENT_TAB
 } from "actions/admin";
+import { IAdminPageAction, IAdminPagePayload } from "interfaces/IPages";
 
-const initialState = {
+const initialState: IAdminPagePayload = {
   pending: true,
-  error: null
+  error: null,
+  currentTab: "users"
 };
 
-export const AdminPageReducer = (state = initialState, action: any) => {
+export const AdminPageReducer = (
+  state = initialState,
+  action: IAdminPageAction
+) => {
   switch (action.type) {
     case FETCH_ADMIN_PAGE_PENDING:
-      console.log("Admin page Pending");
       return {
         ...state,
         pending: true
       };
     case FETCH_ADMIN_PAGE_SUCCESS:
-      console.log("Admin page Success");
       return {
         ...state,
         pending: false
       };
     case FETCH_ADMIN_PAGE_ERROR:
-      console.log("Admin page Error");
       return {
         ...state,
         pending: false,
         error: action.payload.error
+      };
+    case CHANGE_CURRENT_TAB:
+      return {
+        ...state,
+        currentTab: action.payload.currentTab
       };
     default:
       return state;

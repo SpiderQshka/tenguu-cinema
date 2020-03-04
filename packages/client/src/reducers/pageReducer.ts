@@ -3,28 +3,26 @@ import {
   FETCH_PAGE_SUCCESS,
   FETCH_PAGE_PENDING
 } from "actions/page";
+import { IMainPagePayload, IMainPageAction } from "interfaces/IPages";
 
-const initialState = {
+const initialState: IMainPagePayload = {
   pending: true,
   error: null
 };
 
-export const pageReducer = (state = initialState, action: any) => {
+export const pageReducer = (state = initialState, action: IMainPageAction) => {
   switch (action.type) {
     case FETCH_PAGE_PENDING:
-      console.log("Page Pending");
       return {
         ...state,
         pending: true
       };
     case FETCH_PAGE_SUCCESS:
-      console.log("Page Success");
       return {
         ...state,
         pending: false
       };
     case FETCH_PAGE_ERROR:
-      console.log("Page Error");
       return {
         ...state,
         pending: false,

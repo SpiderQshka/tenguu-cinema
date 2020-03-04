@@ -8,9 +8,21 @@
         padding: $extra-large-padding
         background-color: $secondary-color
         .asideMenu
-            
+            .asideMenuItem
+                a
+                    color: $accent-color
+                    font-size: $large-font-size
+                    display: block
+                    text-align: center
+                    padding: $default-padding 0
+                    border: 1px solid inherit
+                    transition: all .7s
+            .asideMenuItemActive
+                a
+                    border: 1px solid $accent-color
     .main
         flex-grow: 1    
         .header
+            text-transform: capitalize
             color: $secondary-color
             text-align: center

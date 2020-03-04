@@ -15,7 +15,6 @@ export const getFilmsForClient = async (params: object = {}) => {
     return {
       genres: genresArray,
       _id: film._id,
-      __v: film.__v,
       name: film.name,
       duration: film.duration,
       trailerLink: film.trailerLink,
@@ -37,7 +36,7 @@ export const getSessionsForClient = async (params: object = {}) => {
     const hall = await models.Hall.findById(session.hallId);
     return {
       _id: session._id,
-      __v: session.__v,
+
       dateTime: session.dateTime,
       price: session.price,
       hall,
@@ -55,7 +54,6 @@ export const getTicketsForClient = async (params: object = {}) => {
     const session = await getSessionsForClient({ _id: ticket.sessionId });
     return {
       _id: ticket._id,
-      __v: ticket.__v,
       userId: ticket.userId,
       status: ticket.status,
       seat: ticket.seat,
@@ -73,7 +71,6 @@ export const getUsersForClient = async (params: object = {}) => {
     const tickets = await getTicketsForClient({ userId: user._id });
     return {
       _id: user._id,
-      __v: user.__v,
       status: user.status,
       email: user.email,
       username: user.username,

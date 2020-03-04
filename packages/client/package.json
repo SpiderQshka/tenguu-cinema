@@ -42,6 +42,7 @@
     "@types/slick-carousel": "^1.6.34",
     "eslint-plugin-react": "^7.18.0",
     "redux-devtools-extension": "^2.13.8",
+    "ts-transformer-keys": "^0.4.1",
     "typescript": "^3.7.5"
   },
   "scripts": {

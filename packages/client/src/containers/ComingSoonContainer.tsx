@@ -7,9 +7,9 @@ import { IState } from "interfaces/IState";
 import { comingSoonFilmsSelector } from "selectors";
 
 const mapStateToProps = (state: IState) => comingSoonFilmsSelector(state);
-const ComingSoonComponent = (props: ConnectedProps<typeof connector>) => {
-  return <ComingSoon {...props} />;
-};
+// const ComingSoonComponent = (props: ConnectedProps<typeof connector>) => {
+//   return <ComingSoon {...props} />;
+// };
 const connector = connect(mapStateToProps);
 
-export default connector(ComingSoonComponent);
+export default connector(ComingSoon);

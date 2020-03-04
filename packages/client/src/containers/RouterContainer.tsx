@@ -5,33 +5,52 @@ import { IState } from "interfaces/IState";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import HeaderContainer from "./HeaderContainer";
 import HomepageContainer from "./HomepageContainer";
-import AdminRoute from "routes/Admin";
 import AdminpageContainer from "./AdminpageContainer";
 import ErrorpageContainer from "./ErrorpageContainer";
+import { PageLoader } from "components/loader";
 
 const mapStateToProps = (state: IState) => {
   return {
-    users: state.users
+    currentUserPending: state.users.currentUserPending,
+    userStatus: state.users.currentUser.status,
+    mainPagePending: state.mainPage.pending,
+    mainPageError: state.mainPage.error
   };
 };
 
 const connector = connect(mapStateToProps);
 
 function RouterContainer(props: ConnectedProps<typeof connector>) {
-  console.log(props);
-
+  const {
+    mainPagePending,
+    currentUserPending,
+    mainPageError,
+    userStatus
+  } = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
           <HeaderContainer />
-          <HomepageContainer />
+          {mainPagePending ? (
+            <PageLoader />
+          ) : mainPageError ? (
+            <Redirect to="/error" />
+          ) : (
+            <HomepageContainer />
+          )}
         </Route>
-        <AdminRoute {...props} path="/admin">
-          <AdminpageContainer />
-        </AdminRoute>
+        <Route path="/admin">
+          {currentUserPending ? (
+            <PageLoader />
+          ) : userStatus === "admin" ? (
+            <AdminpageContainer />
+          ) : (
+            <Redirect to="/" />
+          )}
+        </Route>
         <Route path="/error">
-          <ErrorpageContainer />
+          {mainPageError ? <ErrorpageContainer /> : <Redirect to="/" />}
         </Route>
         <Route>
           <Redirect to="/" />

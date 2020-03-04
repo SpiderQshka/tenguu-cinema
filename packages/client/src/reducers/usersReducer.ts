@@ -14,7 +14,8 @@ import {
 import { IUserAction, IUser, IUserPayload } from "interfaces/IUser";
 
 const initialState: IUserPayload | string = {
-  pending: true,
+  dataPending: false,
+  currentUserPending: false,
   data: [] as IUser[],
   currentUser: {} as IUser
 };
@@ -25,14 +26,14 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
       console.log("Pending");
       return {
         ...state,
-        pending: true
+        currentUserPending: true
       };
     case FETCH_USER_SUCCESS:
       console.log("Success");
       return {
         ...state,
         currentUser: action.payload.currentUser,
-        pending: false,
+        currentUserPending: false,
         error: null
       };
     case FETCH_USER_ERROR:
@@ -40,26 +41,26 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
       return {
         ...state,
         error: action.payload.error,
-        pending: false
+        currentUserPending: false
       };
     case FETCH_USERS_PENDING:
       console.log("Pending");
       return {
         ...state,
-        pending: true
+        dataPending: true
       };
     case FETCH_USERS_ERROR:
       console.log("Error", action.payload.error);
       return {
         ...state,
         error: action.payload.error,
-        pending: false
+        dataPending: false
       };
     case FETCH_USERS_SUCCESS:
       console.log("users Success");
       return {
         ...state,
-        pending: false,
+        dataPending: false,
         error: null,
         data: action.payload.data
       };
@@ -73,7 +74,7 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
           _id: action.payload.currentUser._id
         },
         error: null,
-        pending: true
+        currentUserPending: true
       };
     case USER_REG_ERROR:
       console.log("User register error", action.payload.error);
@@ -90,7 +91,7 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
           authToken: action.payload.currentUser.authToken,
           _id: action.payload.currentUser._id
         },
-        pending: true,
+        currentUserPending: true,
         error: null
       };
     case USER_LOGIN_ERROR:
@@ -106,7 +107,7 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
         currentUser: {},
         data: [],
         error: null,
-        pending: false
+        currentUserPending: false
       };
     default:
       return state;

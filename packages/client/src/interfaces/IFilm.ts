@@ -12,6 +12,35 @@ export interface IFilm {
   trailerLink: string;
 }
 
+export class FilmForShow {
+  _id: string;
+  genres: string[];
+  name: string;
+  releaseDate: number;
+  trailerLink: string;
+  filmImage: string;
+  ratings: {
+    _id: string;
+    ratingValue: number;
+    raterName: string;
+  }[];
+  constructor() {
+    this.genres = [] as string[];
+    this.name = "";
+    this._id = "";
+    this.releaseDate = 0;
+    this.trailerLink = "";
+    this.filmImage = "";
+    this.ratings = [
+      {} as {
+        _id: string;
+        ratingValue: number;
+        raterName: string;
+      }
+    ];
+  }
+}
+
 export type IFilmActionTypes =
   | "FETCH_FILMS_PENDING"
   | "FETCH_FILMS_SUCCESS"

@@ -8,7 +8,8 @@ export default async (): Promise<void> => {
       username: "admin",
       password: await models.User.hashPassword("password"),
       email: "admin@gmail.com",
-      status: "admin"
+      status: "admin",
+      photo: ""
     });
 
     admin.save();

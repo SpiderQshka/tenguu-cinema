@@ -10,7 +10,7 @@ export function Profile(props: IHeader) {
   console.log(props);
 
   const {
-    users: { currentUser: userData, pending }
+    users: { currentUser: userData, currentUserPending: pending }
   } = props;
   return (
     <>

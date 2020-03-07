@@ -7,10 +7,11 @@ import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { deleteFilm } from "../db/dbServices";
 import { getFilmsForClient } from "../db/getDataForClient";
+import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
   const films = await getFilmsForClient();
 
   return res.json(films);

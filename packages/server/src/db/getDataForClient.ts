@@ -1,11 +1,12 @@
 import { models } from "../models/index";
+import { IGenre } from "~src/interfaces/interfaces";
 
 export const getHallsForClient = async (params: object = {}) => {
   const halls = await models.Hall.find(params);
 
   const hallsPromises = halls.map(async hall => {
     return {
-      _id: hall._id,
+      id: hall._id,
       name: hall.name,
       numberOfRows: hall.numberOfRows,
       seatsOnRow: hall.seatsOnRow
@@ -20,7 +21,7 @@ export const getGenresForClient = async (params: object = {}) => {
 
   const genresPromises = genres.map(async genre => {
     return {
-      _id: genre._id,
+      id: genre._id,
       name: genre.name
     };
   });
@@ -33,15 +34,17 @@ export const getFilmsForClient = async (params: object = {}) => {
 
   const filmsPromises = films.map(async film => {
     const genresPromises = film.genreIds.map(
-      async (id): Promise<string> => {
-        const genre = await models.Genre.findById(id);
-        return genre ? genre.name : "";
+      async (id): Promise<{ id: string; name: string } | null> => {
+        const genre = await getGenresForClient({ _id: id });
+        console.log(genre);
+
+        return genre[0];
       }
     );
     const genresArray = await Promise.all(genresPromises);
 
     return {
-      _id: film._id,
+      id: film._id,
       genres: genresArray,
       name: film.name,
       duration: film.duration,
@@ -63,7 +66,7 @@ export const getSessionsForClient = async (params: object = {}) => {
 
     const hall = await models.Hall.findById(session.hallId);
     return {
-      _id: session._id,
+      id: session._id,
 
       dateTime: session.dateTime,
       price: session.price,
@@ -81,7 +84,7 @@ export const getTicketsForClient = async (params: object = {}) => {
   const ticketsPromises = tickets.map(async ticket => {
     const session = await getSessionsForClient({ _id: ticket.sessionId });
     return {
-      _id: ticket._id,
+      id: ticket._id,
       userId: ticket.userId,
       status: ticket.status,
       seat: ticket.seat,
@@ -98,7 +101,7 @@ export const getUsersForClient = async (params: object = {}) => {
   const usersPromises = users.map(async user => {
     const tickets = await getTicketsForClient({ userId: user._id });
     return {
-      _id: user._id,
+      id: user._id,
       status: user.status,
       email: user.email,
       username: user.username,

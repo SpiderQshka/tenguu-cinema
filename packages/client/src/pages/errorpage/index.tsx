@@ -12,10 +12,7 @@ export const PageError = (props: any) => {
     <section className={styles.pageErrorContainer}>
       <div className={styles.content}>
         <h2 className={styles.errorCode}>{props.error.code}</h2>
-        <p className={styles.errorMessage}>
-          Whops, looks like the <span className={styles.lined}>film</span>{" "}
-          server ran out
-        </p>
+        <p className={styles.errorMessage}>Whops, something went wrong</p>
       </div>
     </section>
   );

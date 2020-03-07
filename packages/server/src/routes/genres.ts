@@ -7,11 +7,12 @@ import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { deleteGenre } from "../db/dbServices";
 import { getGenresForClient } from "../db/getDataForClient";
+import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
-  const genres = await getGenresForClient();
+router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
+  const genres = await models.Genre.find();
 
   res.json(genres);
 });
@@ -37,7 +38,7 @@ router.get("/:genreId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.genreId))
     return res.json("Wrong query format");
 
-  const genre = await getGenresForClient({ _id: req.params.genreId });
+  const genre = await models.Genre.findById(req.params.genreId);
 
   if (!genre) return res.status(404).json("Not found");
   return res.json(genre);

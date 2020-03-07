@@ -19,6 +19,11 @@ export const USER_LOGIN_ERROR = "USER_LOGIN_ERROR";
 export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST";
 export const USER_LOGOUT = "USER_LOGOUT";
 
+export const USER_EDIT_REQUEST = "USER_EDIT_REQUEST";
+export const USER_EDIT = "USER_EDIT";
+export const USER_DELETE_REQUEST = "USER_DELETE_REQUEST";
+export const USER_DELETE = "USER_DELETE";
+
 // Action creators
 
 export const fetchUsersRequest = () => {
@@ -146,5 +151,35 @@ export const userLogoutRequest = () => {
 export const userLogout = () => {
   return {
     type: USER_LOGOUT
+  };
+};
+
+export const userEdit = () => {
+  return {
+    type: USER_EDIT
+  };
+};
+
+export const userEditRequest = (id: string) => {
+  return {
+    type: USER_EDIT_REQUEST,
+    payload: {
+      id
+    }
+  };
+};
+
+export const userDelete = () => {
+  return {
+    type: USER_DELETE
+  };
+};
+
+export const userDeleteRequest = (id: string) => {
+  return {
+    type: USER_DELETE_REQUEST,
+    payload: {
+      id
+    }
   };
 };

@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./header.module.sass";
 import { config } from "config";
 
-import SignUpModal from "containers/SignUpModalContainer";
-import SignInModal from "containers/SignInModalContainer";
+import SignUpModal from "containers/modals/SignUpModalContainer";
+import SignInModal from "containers/modals/SignInModalContainer";
 import { IHeader } from ".";
 
 export function Profile(props: IHeader) {

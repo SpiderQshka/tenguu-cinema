@@ -32,6 +32,7 @@ export const modalsReducer = (state = initialState, action: any) => {
         ...state,
         isRegModalOpen: true
       };
+
     default:
       return state;
   }

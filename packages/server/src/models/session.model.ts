@@ -22,4 +22,12 @@ const sessionScheme: Schema<ISession> = new Schema({
   }
 });
 
+sessionScheme.set("toJSON", {
+  transform: function(doc, ret, options) {
+    ret.id = ret._id;
+    delete ret._id;
+    delete ret.__v;
+  }
+});
+
 export default model<ISession>("Session", sessionScheme);

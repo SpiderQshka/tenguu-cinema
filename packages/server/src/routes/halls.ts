@@ -7,11 +7,12 @@ import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { deleteHall } from "../db/dbServices";
 import { getHallsForClient } from "../db/getDataForClient";
+import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
-  const halls = await getHallsForClient();
+router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
+  const halls = await models.Hall.find();
 
   res.json(halls);
 });
@@ -37,7 +38,7 @@ router.get("/:hallId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.hallId))
     return res.json("Wrong query format");
 
-  const hall = await getHallsForClient({ _id: req.params.hallId });
+  const hall = await models.Hall.findById(req.params.hallId);
 
   if (!hall) return res.status(404).json("Not found");
   return res.json(hall);
@@ -52,6 +53,7 @@ router.put(
 
     if (!doesIdMatchesFormat(req.params.hallId))
       return res.json("Wrong query format");
+    console.log(req.body);
 
     const { error, code } = await hallValidation(req.body);
     if (error) return res.status(code).json(error);

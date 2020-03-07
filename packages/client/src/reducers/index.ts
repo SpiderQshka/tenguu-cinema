@@ -8,6 +8,7 @@ import { hallsReducer } from "./hallsReducer";
 import { ticketsReducer } from "./ticketsReducer";
 import { genresReducer } from "./genresReducer";
 import { AdminPageReducer } from "./adminPageReducer";
+import { gridReducer } from "./gridReducer";
 
 export const allReducers = combineReducers({
   users: usersReducer,
@@ -18,5 +19,6 @@ export const allReducers = combineReducers({
   genres: genresReducer,
   modals: modalsReducer,
   mainPage: pageReducer,
-  adminPage: AdminPageReducer
+  adminPage: AdminPageReducer,
+  grid: gridReducer
 });

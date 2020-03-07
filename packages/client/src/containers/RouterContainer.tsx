@@ -5,9 +5,9 @@ import { IState } from "interfaces/IState";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import HeaderContainer from "./HeaderContainer";
 import HomepageContainer from "./HomepageContainer";
-import AdminpageContainer from "./AdminpageContainer";
 import ErrorpageContainer from "./ErrorpageContainer";
 import { PageLoader } from "components/loader";
+import { AdminPage } from "pages/adminpage";
 
 const mapStateToProps = (state: IState) => {
   return {
@@ -44,7 +44,7 @@ function RouterContainer(props: ConnectedProps<typeof connector>) {
           {currentUserPending ? (
             <PageLoader />
           ) : userStatus === "admin" ? (
-            <AdminpageContainer />
+            <AdminPage />
           ) : (
             <Redirect to="/" />
           )}

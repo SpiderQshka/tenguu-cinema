@@ -7,10 +7,11 @@ import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { deleteSession } from "../db/dbServices";
 import { getSessionsForClient } from "../db/getDataForClient";
+import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
   const sessions = await getSessionsForClient();
 
   res.json(sessions);

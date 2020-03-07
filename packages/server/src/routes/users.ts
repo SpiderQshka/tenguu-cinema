@@ -7,7 +7,8 @@ import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { requireAdmin } from "../helpers/requireAdmin";
 import { deleteUser } from "../db/dbServices";
-import { getTicketsForClient, getUsersForClient } from "../db/getDataForClient";
+import { getUsersForClient } from "../db/getDataForClient";
+import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
 
@@ -15,6 +16,7 @@ router.get(
   "/",
   authenticate,
   requireManager,
+  setTotalCountHeader,
   async (req: Request, res: Response) => {
     const users = await getUsersForClient();
 

@@ -1,106 +1,38 @@
 import React from "react";
-import { IState } from "interfaces/IState";
-import styles from "./adminpage.module.sass";
-import { TabsType } from "interfaces/IPages";
-import { IUserPayload } from "interfaces/IUser";
-import { TableContainer } from "./Tables";
-import { IFilmPayload } from "interfaces/IFilm";
-import { ISessionsPayload } from "interfaces/ISession";
-import { IGenresPayload } from "interfaces/IGenre";
-import { IHallPayload } from "interfaces/IHall";
-import { ITicketsPayload } from "interfaces/ITicket";
+import jsonServerProvider from "ra-data-json-server";
+import { createHashHistory } from "history";
+import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
+import { Provider } from "react-redux";
+import createAdminStore from "createAdminStore";
+import { adminPageTokenFetch } from "APIServices/CRUD";
+import { HallList, HallEdit, HallCreate } from "./lists/HallList";
+import { GenreList, GenreEdit, GenreCreate } from "./lists/GenreList";
+import { FilmList } from "./lists/FilmList";
 
-export interface IAdminPage extends IState {
-  changeTab: (tab: TabsType) => void;
-}
+const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
+const history = createHashHistory({ hashType: "noslash" });
 
-export interface IAdminTablePayload {
-  films: IFilmPayload;
-  sessions: ISessionsPayload;
-  users: IUserPayload;
-  genres: IGenresPayload;
-  halls: IHallPayload;
-  tickets: ITicketsPayload;
-}
-
-export const AdminPage = (props: IAdminPage) => {
-  const {
-    films,
-    mainPage,
-    sessions,
-    users,
-    genres,
-    halls,
-    tickets,
-    changeTab,
-    adminPage: { currentTab }
-  } = props;
-  const payload: IAdminTablePayload = {
-    films,
-    sessions,
-    users,
-    genres,
-    halls,
-    tickets
-  };
+export const AdminPage = () => {
   return (
-    <section className={styles.wrapper}>
-      <aside className={styles.aside}>
-        <ul className={styles.asideMenu}>
-          <li
-            className={`${styles.asideMenuItem} ${
-              currentTab === "users" ? styles.asideMenuItemActive : null
-            }`}
-            onClick={() => changeTab("users")}
-          >
-            Users
-          </li>
-          <li
-            className={`${styles.asideMenuItem} ${
-              currentTab === "films" ? styles.asideMenuItemActive : null
-            }`}
-            onClick={() => changeTab("films")}
-          >
-            Films
-          </li>
-          <li
-            className={`${styles.asideMenuItem} ${
-              currentTab === "genres" ? styles.asideMenuItemActive : null
-            }`}
-            onClick={() => changeTab("genres")}
-          >
-            Genres
-          </li>
-          <li
-            className={`${styles.asideMenuItem} ${
-              currentTab === "halls" ? styles.asideMenuItemActive : null
-            }`}
-            onClick={() => changeTab("halls")}
-          >
-            Halls
-          </li>
-          <li
-            className={`${styles.asideMenuItem} ${
-              currentTab === "tickets" ? styles.asideMenuItemActive : null
-            }`}
-            onClick={() => changeTab("tickets")}
-          >
-            Tickets
-          </li>
-          <li
-            className={`${styles.asideMenuItem} ${
-              currentTab === "sessions" ? styles.asideMenuItemActive : null
-            }`}
-            onClick={() => changeTab("sessions")}
-          >
-            Sessions
-          </li>
-        </ul>
-      </aside>
-      <main className={styles.main}>
-        <h3 className={styles.header}>{currentTab}</h3>
-        <TableContainer name={currentTab} payload={payload} />
-      </main>
-    </section>
+    <Provider store={createAdminStore({ dataProvider, history })}>
+      <Admin dataProvider={dataProvider} history={history} title="My Admin">
+        <Resource
+          name="halls"
+          list={HallList}
+          edit={HallEdit}
+          create={HallCreate}
+        />
+        <Resource name="tickets" list={ListGuesser} />
+        <Resource name="sessions" list={ListGuesser} />
+        <Resource name="films" list={FilmList} />
+        <Resource name="users" list={ListGuesser} />
+        <Resource
+          name="genres"
+          list={GenreList}
+          edit={GenreEdit}
+          create={GenreCreate}
+        />
+      </Admin>
+    </Provider>
   );
 };

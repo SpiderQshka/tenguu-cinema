@@ -20,9 +20,9 @@ export const hallValidation = async (
   const { error = null } = schema.validate(data);
   if (error) return { error: error.details[0].message, code: 400 };
 
-  const doesHallNameExists = await models.Hall.findOne({ name: data.name });
-  if (doesHallNameExists)
-    return { error: "Hall name already exists", code: 400 };
+  // const doesHallNameExists = await models.Hall.findOne({ name: data.name });
+  // if (doesHallNameExists)
+  //   return { error: "Hall name already exists", code: 400 };
 
   return { error: null, code: 200 };
 };

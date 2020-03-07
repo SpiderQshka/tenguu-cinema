@@ -5,9 +5,11 @@ import { IGenresPayload } from "./IGenre";
 import { IHallPayload } from "./IHall";
 import { ITicketsPayload } from "./ITicket";
 import { IMainPagePayload, IAdminPagePayload } from "./IPages";
+import { IGridPayload } from "./IGrid";
 export interface IModalsPayload {
   isRegModalOpen: boolean;
   isLoginModalOpen: boolean;
+  isEditUserModalOpen: boolean;
 }
 
 export type IPayloads =
@@ -19,7 +21,8 @@ export type IPayloads =
   | IModalsPayload
   | IGenresPayload
   | IHallPayload
-  | ITicketsPayload;
+  | ITicketsPayload
+  | IGridPayload;
 export interface IState {
   users: IUserPayload;
   sessions: ISessionsPayload;
@@ -30,4 +33,5 @@ export interface IState {
   genres: IGenresPayload;
   halls: IHallPayload;
   tickets: ITicketsPayload;
+  grid: IGridPayload;
 }

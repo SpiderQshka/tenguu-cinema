@@ -3825,7 +3825,7 @@ connect-history-api-fallback@^1.6.0:
   resolved "https://registry.yarnpkg.com/connect-history-api-fallback/-/connect-history-api-fallback-1.6.0.tgz#8b32089359308d111115d81cad3fceab888f97bc"
   integrity sha512-e54B99q/OUoH64zYYRf3HBP5z24G38h5D3qXu23JGRoigpX5Ss4r9ZnDk3g0Z8uQC2x2lPaJ+UlWBc1ZWBWdLg==
 
-connected-react-router@^6.5.2:
+connected-react-router@^6.5.2, connected-react-router@^6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/connected-react-router/-/connected-react-router-6.7.0.tgz#1c37a65684f1729533264c1b1903ee91c8ca3a15"
   integrity sha512-RDmcmiwSfUWQ3U7J7RVkc9cwNtek26fUn0DWpA8pS7JylC97VNeosrsIxjJ/3CGDrzZPqnc0Hr/kZxjh75JGlw==
@@ -10706,13 +10706,36 @@ ra-core@^3.2.3:
     recompose "~0.26.0"
     reselect "~3.0.0"
 
-ra-data-json-server@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/ra-data-json-server/-/ra-data-json-server-3.2.3.tgz#1aac0ee94329d6836cdb6c4a2b0e9a8d6a288b24"
-  integrity sha512-KtRKcEdln7eBHlLkN4WjxrQE26HUyDWQmWf61XT4UXYGTH3gZCxL2PXm9sEIaGLNXWm6ae6HZ5k/YiJVGIxGQw==
+ra-core@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.3.0.tgz#5da4b2059c46eeaf59154fd475374e7a5e213dd8"
+  integrity sha512-D/Yp9PeMiaa6xKinbBH2cmy/G+Bkj1LMM5auRjG6qkoXc8U6oiqOmY2M4ZCO8LH7Kwujr5tyeW7gj3oU6c0hgg==
+  dependencies:
+    "@testing-library/react" "^8.0.7"
+    classnames "~2.2.5"
+    date-fns "^1.29.0"
+    eventemitter3 "^3.0.0"
+    inflection "~1.12.0"
+    lodash "~4.17.5"
+    prop-types "^15.6.1"
+    query-string "^5.1.1"
+    recompose "~0.26.0"
+    reselect "~3.0.0"
+
+ra-data-json-server@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/ra-data-json-server/-/ra-data-json-server-3.3.0.tgz#ffee353667d0830a047c9c4f3dfe0e322228daad"
+  integrity sha512-+SZnGhOz6njPhMy/unGOAAYbYDRF5C5WP2t6GAImUL4taR4B/a/FUaoWBolc8PXLzvGR1ReChnLQEO5g4Sm02w==
   dependencies:
     query-string "^5.1.1"
-    ra-core "^3.2.3"
+    ra-core "^3.3.0"
+
+ra-data-simple-rest@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/ra-data-simple-rest/-/ra-data-simple-rest-3.2.2.tgz#8bc266b446bfb0212d1c02a76688300179a60362"
+  integrity sha512-lquW7bBHv112yfA11tIsX+31AZ0kOwbqldrCOtbWWvVxwd0DhVeZX731FLg9WY+o0hYd+TZF7dnmUlXqyJo0dQ==
+  dependencies:
+    query-string "^5.1.1"
 
 ra-i18n-polyglot@^3.2.3:
   version "3.2.3"

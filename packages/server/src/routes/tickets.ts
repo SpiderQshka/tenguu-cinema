@@ -8,14 +8,20 @@ import { authenticate } from "../helpers/authenticate";
 import { deleteTicket } from "../db/dbServices";
 import { requireManager } from "../helpers/requireManager";
 import { getTicketsForClient } from "../db/getDataForClient";
+import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
 
-router.get("/", authenticate, async (req: Request, res: Response) => {
-  const tickets = await getTicketsForClient();
+router.get(
+  "/",
+  authenticate,
+  setTotalCountHeader,
+  async (req: Request, res: Response) => {
+    const tickets = await getTicketsForClient();
 
-  res.json(tickets);
-});
+    res.json(tickets);
+  }
+);
 
 router.post("/", authenticate, async (req: Request, res: Response) => {
   const { error, code } = await ticketValidation(req.body);

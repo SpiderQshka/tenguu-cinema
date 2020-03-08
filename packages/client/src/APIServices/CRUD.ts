@@ -31,7 +31,6 @@ const fetchJson = async (url: string, options: any) => {
     var formData = new FormData();
     options.body = JSON.parse(options.body);
     for (let key in options.body) {
-      console.log(key, options.body[key]);
       if (key === "id" || key === "_id") continue;
       else formData.append(key, options.body[key]);
     }

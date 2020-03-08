@@ -16,8 +16,8 @@ export const FilmBlock = (props: IFilmBlock) => {
         <div className={styles.basicInfoBlock}>
           <ul className={styles.genres}>
             {film.genres.map(genre => (
-              <li className={styles.genre} key={genre}>
-                {genre}
+              <li className={styles.genre} key={genre.id}>
+                {genre.name}
               </li>
             ))}
           </ul>

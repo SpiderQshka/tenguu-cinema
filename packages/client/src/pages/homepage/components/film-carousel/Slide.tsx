@@ -27,8 +27,8 @@ export function Slide(props: ISlide) {
           <div className={styles["slide-content"]}>
             <ul className={styles["genres"]}>
               {film.genres.map(genre => (
-                <li className={styles["genre"]} key={genre}>
-                  {genre}
+                <li className={styles["genre"]} key={genre.id}>
+                  {genre.name}
                 </li>
               ))}
             </ul>

@@ -1,47 +1,18 @@
-export interface IFilm {
-  genres: string[];
-  name: string;
-  duration: number;
-  ratings: {
-    _id: string;
-    ratingValue: number;
-    raterName: string;
-  }[];
-  filmImage: string;
-  _id: string;
-  releaseDate: number;
-  trailerLink: string;
-}
+import { IGenre } from "./IGenre";
 
-export class FilmForShow {
-  _id: string;
-  genres: string[];
+export interface IFilm {
+  genres: IGenre[];
   name: string;
   duration: number;
-  trailerLink: string;
-  filmImage: string;
   ratings: {
     _id: string;
     ratingValue: number;
     raterName: string;
   }[];
+  filmImage: string;
+  _id: string;
   releaseDate: number;
-  constructor() {
-    this.genres = [] as string[];
-    this.name = "";
-    this._id = "";
-    this.duration = 0;
-    this.trailerLink = "";
-    this.filmImage = "";
-    this.ratings = [
-      {} as {
-        _id: string;
-        ratingValue: number;
-        raterName: string;
-      }
-    ];
-    this.releaseDate = 0;
-  }
+  trailerLink: string;
 }
 
 export type IFilmActionTypes =

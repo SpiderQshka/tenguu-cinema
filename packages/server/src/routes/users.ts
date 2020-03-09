@@ -43,7 +43,7 @@ router.get("/:userId", authenticate, async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.userId))
     return res.json("Wrong query format");
 
-  const currentUserId = req.user ? req.user["_id"].toString() : null;
+  const currentUserId = req.user ? req.user["id"].toString() : null;
 
   if (currentUserId !== req.params.userId)
     return res.status(403).json("Access denied");

@@ -8,7 +8,13 @@ export const SignInModal = (props: any) => {
 
     const formData = new FormData(e.target as HTMLFormElement);
 
-    await props.loginUser(formData);
+    let object: any = {};
+    formData.forEach((value, key) => {
+      object[key] = value;
+    });
+    var json = JSON.stringify(object);
+
+    await props.loginUser(json);
 
     props.closeLoginModalRequest();
   };

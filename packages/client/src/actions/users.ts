@@ -86,17 +86,17 @@ export const fetchCurrentUserRequest = () => {
   };
 };
 
-export const userLoginRequest = (formData: FormData) => {
+export const userLoginRequest = (json: JSON) => {
   return {
     type: USER_LOGIN_REQUEST,
-    payload: formData
+    payload: json
   };
 };
 
-export const userRegisterRequest = (formData: FormData) => {
+export const userRegisterRequest = (json: JSON) => {
   return {
     type: USER_REG_REQUEST,
-    payload: formData
+    payload: json
   };
 };
 
@@ -151,35 +151,5 @@ export const userLogoutRequest = () => {
 export const userLogout = () => {
   return {
     type: USER_LOGOUT
-  };
-};
-
-export const userEdit = () => {
-  return {
-    type: USER_EDIT
-  };
-};
-
-export const userEditRequest = (id: string) => {
-  return {
-    type: USER_EDIT_REQUEST,
-    payload: {
-      id
-    }
-  };
-};
-
-export const userDelete = () => {
-  return {
-    type: USER_DELETE
-  };
-};
-
-export const userDeleteRequest = (id: string) => {
-  return {
-    type: USER_DELETE_REQUEST,
-    payload: {
-      id
-    }
   };
 };

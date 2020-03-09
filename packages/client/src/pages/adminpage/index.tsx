@@ -7,7 +7,7 @@ import createAdminStore from "createAdminStore";
 import { adminPageTokenFetch } from "APIServices/CRUD";
 import { HallList, HallEdit, HallCreate } from "./lists/HallList";
 import { GenreList, GenreEdit, GenreCreate } from "./lists/GenreList";
-import { FilmList } from "./lists/FilmList";
+import { FilmList, FilmEdit } from "./lists/FilmList";
 
 const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
 const history = createHashHistory({ hashType: "noslash" });
@@ -24,7 +24,7 @@ export const AdminPage = () => {
         />
         <Resource name="tickets" list={ListGuesser} />
         <Resource name="sessions" list={ListGuesser} />
-        <Resource name="films" list={FilmList} />
+        <Resource name="films" list={FilmList} edit={FilmEdit} />
         <Resource name="users" list={ListGuesser} />
         <Resource
           name="genres"

@@ -33,8 +33,8 @@ export default function FilmCarousel(props: IFilmPayload) {
   };
   return (
     <Carousel className={styles["film-carousel"]} {...settings}>
-      {films.map((film: any) => {
-        return <Slide film={film} key={film._id} pending={pending} />;
+      {films.map(film => {
+        return <Slide film={film} key={film.id} pending={pending} />;
       })}
     </Carousel>
   );

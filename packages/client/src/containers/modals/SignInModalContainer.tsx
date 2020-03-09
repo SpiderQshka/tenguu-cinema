@@ -9,8 +9,8 @@ import { closeLoginModal, closeLoginModalRequest } from "actions/modals";
 const mapStateToProps = (state: IState) => state.users;
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    loginUser: (formData: FormData) => {
-      dispatch(userLoginRequest(formData));
+    loginUser: (data: JSON) => {
+      dispatch(userLoginRequest(data));
     },
     closeLoginModalRequest: () => {
       dispatch(closeLoginModalRequest());

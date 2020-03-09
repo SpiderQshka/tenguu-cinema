@@ -17,11 +17,9 @@ export default ({ dataProvider, history }: any) => {
   };
   const sagaMiddleware = createSagaMiddleware();
 
-  const composeEnhancers = compose;
-
   const store = createStore(
     resettableAppReducer,
-    composeEnhancers(applyMiddleware(sagaMiddleware, routerMiddleware(history)))
+    compose(applyMiddleware(sagaMiddleware, routerMiddleware(history)))
   );
   sagaMiddleware.run(saga);
   return store;

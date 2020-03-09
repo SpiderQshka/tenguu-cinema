@@ -9,6 +9,7 @@ export const filmValidation = async (
 ): Promise<{ error: string | null; code: number }> => {
   const schema = Joi.object({
     name: Joi.string().required(),
+    genres: Joi.array(),
     genreIds: Joi.array().items(
       Joi.string()
         .pattern(_IDREGEXP)
@@ -28,14 +29,14 @@ export const filmValidation = async (
       }).required()
     ),
     filmImage: Joi.string().required(),
-    releaseDate: Joi.number().required()
+    releaseDate: Joi.date().required()
   });
 
   const { error = null } = schema.validate(data);
   if (error) return { error: error.details[0].message, code: 400 };
 
-  const doesFilmExists = await models.Film.findOne({ name: data.name });
-  if (doesFilmExists) return { error: "Film name already exists", code: 400 };
+  // const doesFilmExists = await models.Film.findOne({ name: data.name });
+  // if (doesFilmExists) return { error: "Film name already exists", code: 400 };
 
   const doesFilmGenresExists = async (
     genreIdsArray: Schema.Types.ObjectId[]

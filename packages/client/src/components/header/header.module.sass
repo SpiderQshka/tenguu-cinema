@@ -53,15 +53,13 @@ $photo-size: 40px
                 vertical-align: middle
                 &:last-child
                     margin-right: $default-margin
-            .profile-block  
+            .profile-block
                 .unauth
-                    color: $primary-color
-                    margin: 0 $small-margin
-                    letter-spacing: 1px
                     font-size: $default-font-size
-                    & > a
-                        &:last-child
-                            margin-left: $extra-small-margin
+                    .loadingText
+                        color: $primary-color
+                    button:last-child
+                        margin: 0 $default-margin
                 .user-block, .tickets-block
                     display: inline-block
                 .user-block
@@ -113,7 +111,7 @@ $photo-size: 40px
                 .menu-btn
                     color: $primary-color !important
                     opacity: .5
-                    font-size: $default-font-size
+                    // font-size: $default-font-size
                     &:first-child
                         margin-right: $extra-small-margin
                     &:hover

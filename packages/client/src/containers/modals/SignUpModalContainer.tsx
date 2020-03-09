@@ -8,8 +8,8 @@ import { closeRegModalRequest, closeRegModal } from "actions/modals";
 const mapStateToProps = (state: IState) => state.users;
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    registerUser: (formData: FormData) => {
-      dispatch(userRegisterRequest(formData));
+    registerUser: (data: JSON) => {
+      dispatch(userRegisterRequest(data));
     },
     closeRegisterModalRequest: () => {
       dispatch(closeRegModalRequest());

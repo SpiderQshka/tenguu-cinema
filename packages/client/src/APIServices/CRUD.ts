@@ -26,15 +26,20 @@ export const tokenFetch = async (
   });
 };
 
+const removeIds = (obj: any) => {
+  if (typeof obj !== "object") return obj;
+  for (let key in obj) {
+    removeIds(obj[key]);
+    if (key === "id" || key === "_id") delete obj[key];
+  }
+  return obj;
+};
+
 const fetchJson = async (url: string, options: any) => {
   if (options.body) {
-    var formData = new FormData();
     options.body = JSON.parse(options.body);
-    for (let key in options.body) {
-      if (key === "id" || key === "_id") continue;
-      else formData.append(key, options.body[key]);
-    }
-    options.body = formData;
+    removeIds(options.body);
+    options.body = JSON.stringify(options.body);
   }
 
   const requestHeaders =
@@ -134,13 +139,13 @@ export const getData = async (
 
 export const postData = async (
   url: string,
-  formData: any,
-  headers = new Headers(),
+  json: JSON,
+  headers = new Headers({ "Content-Type": "application/json" }),
   ignoreCodes: number[] = []
 ): Promise<IPostData> => {
   const response: Response = await tokenFetch(url, {
     method: "POST",
-    body: formData,
+    body: json,
     headers
   });
 

@@ -8,6 +8,7 @@ $slide-buttons-border-radius: 10px
 
 .film-carousel
     .arrow-block
+        z-index: 1
         display: flex
         position: absolute
         top: calc(50% - 27px)
@@ -37,9 +38,8 @@ $slide-buttons-border-radius: 10px
             border-radius: 10px
             border-bottom-left-radius: 30px
             .genres
-                font-size: $large-font-size
-                margin-bottom: $extra-large-margin
                 .genre
+                    z-index: 1
                     display: inline-block
                     padding: 0 $default-margin
                     color: $primary-color
@@ -48,21 +48,19 @@ $slide-buttons-border-radius: 10px
                     &:first-child
                         padding-left: 0
                         border-left: none
+                    span
+                        font-size: $default-font-size
             .film-name
                 font-size: $film-name-font-size
                 color: $primary-color
                 text-transform: uppercase
-                margin-bottom: $extra-large-margin
+                margin: $extra-large-margin 0
             .buttons
                 .slide-btn
-                    width: auto
-                    height: auto
                     font-size: $default-font-size
                     color: $primary-color
-                    text-transform: uppercase
-                    margin-right: $default-margin
                     .button-icon
-                        margin-right: $large-margin
+                        margin: 0 $small-margin
                         color: $accent-color
         .slide-ratings
             padding: 0 $extra-large-padding $large-padding
@@ -77,4 +75,4 @@ $slide-buttons-border-radius: 10px
                     color: $primary-color
                     font-weight: lighter
                     margin-bottom: $extra-large-margin
-@import "./media"
+@import "./media.module"

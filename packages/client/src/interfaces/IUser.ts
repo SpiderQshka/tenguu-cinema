@@ -4,7 +4,7 @@ export interface IUser {
   username: string;
   email: string;
   password: string;
-  _id: string;
+  id: string;
   authToken?: string | null;
   tickets: ITicket[];
   photo: string;
@@ -28,11 +28,9 @@ export type IUserActionTypes =
   | "FETCH_USERS_SUCCESS";
 
 export interface IUserPayload {
-  data: IUser[];
   currentUser: IUser;
   error?: { code: number; message: string };
   currentUserPending: boolean;
-  dataPending: boolean;
 }
 export interface IUserAction {
   type: IUserActionTypes;

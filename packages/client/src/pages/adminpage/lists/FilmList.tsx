@@ -1,4 +1,4 @@
-import React, { cloneElement } from "react";
+import React from "react";
 import {
   List,
   Datagrid,
@@ -10,11 +10,21 @@ import {
   Create,
   TextInput,
   UrlField,
-  ReferenceArrayField,
+  SimpleFormIterator,
   SingleFieldList,
   ChipField,
   ArrayField,
-  DateField
+  DateField,
+  ArrayInput,
+  DateInput,
+  NumberInput,
+  ReferenceInput,
+  SelectInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
+  ReferenceArrayField,
+  ImageInput,
+  ImageField
 } from "react-admin";
 
 export const FilmList = (props: any) => {
@@ -23,11 +33,11 @@ export const FilmList = (props: any) => {
       <Datagrid>
         <TextField source="id" />
         <TextField source="name" />
-        <ArrayField source="genres">
+        <ReferenceArrayField source="genreIds" reference="genres">
           <SingleFieldList>
             <ChipField source="name" />
           </SingleFieldList>
-        </ArrayField>
+        </ReferenceArrayField>
         <NumberField source="duration" />
         <UrlField source="trailerLink" />
         <TextField source="filmImage" />
@@ -43,20 +53,37 @@ export const FilmList = (props: any) => {
   );
 };
 
-export const GenreEdit = (props: any) => {
+export const FilmEdit = (props: any) => {
   console.log(props);
 
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput disabled source="id" />
+        <ReferenceArrayInput source="genreIds" reference="genres">
+          <SelectArrayInput label="Genres">
+            <ChipField source="name" />
+          </SelectArrayInput>
+        </ReferenceArrayInput>
         <TextInput source="name" />
+        <NumberInput source="duration" />
+        <TextInput source="trailerLink" />
+        <ImageInput source="pictures" label="Related pictures" accept="image/*">
+          <ImageField source="src" title="title" />
+        </ImageInput>
+
+        <ArrayInput source="ratings">
+          <SimpleFormIterator>
+            <TextInput source="raterName" label="Rater name" />
+            <NumberInput source="ratingValue" label="Rating value" />
+          </SimpleFormIterator>
+        </ArrayInput>
+        <DateInput source="releaseDate" />
       </SimpleForm>
     </Edit>
   );
 };
 
-export const GenreCreate = (props: any) => (
+export const FilmCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="name" />

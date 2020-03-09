@@ -22,6 +22,8 @@ router.post(
   authenticate,
   requireManager,
   async (req: Request, res: Response) => {
+    console.log(req.body.pictures);
+
     const { error, code } = await filmValidation(req.body);
     if (error) return res.status(code).json(error);
 
@@ -54,7 +56,7 @@ router.put(
 
     if (!doesIdMatchesFormat(req.params.filmId))
       return res.json("Wrong query format");
-
+    console.log(req.body.pictures, req.file);
     const { error, code } = await filmValidation(req.body);
     if (error) return res.status(code).json(error);
 

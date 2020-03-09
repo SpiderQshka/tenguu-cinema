@@ -48,7 +48,7 @@ export function Carousel(props: any) {
     <CarouselSlick {...settings} className={styles["slick-slider"]}>
       {films.map((film: IFilm) => {
         return (
-          <ComingSoonFilmCard item={film} key={film._id} pending={pending} />
+          <ComingSoonFilmCard item={film} key={film.id} pending={pending} />
         );
       })}
     </CarouselSlick>

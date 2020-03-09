@@ -4,6 +4,7 @@ import routes from "./routes/index";
 import passport from "passport";
 import "./config/passport";
 import multer from "multer";
+import bodyParser from "body-parser";
 
 const app: Express = express();
 
@@ -21,13 +22,13 @@ export const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.use(upload.single("photo"));
+app.use(upload.single("photo"), upload.single("pictures"));
 app.use(function(err: any, req: any, res: any, next: any) {
   console.log("This is the invalid field ->", err.field);
   next(err);
 });
-// app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use("/static", express.static(path.resolve(__dirname, "../uploads")));
 app.use(passport.initialize());
 app.use(passport.session());

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./header.module.sass";
 import { config } from "config";
+import { Button, Typography } from "@material-ui/core/";
 
 import SignUpModal from "containers/modals/SignUpModalContainer";
 import SignInModal from "containers/modals/SignInModalContainer";
@@ -20,19 +21,16 @@ export function Profile(props: IHeader) {
         <SignInModal />
       ) : null}
       <div className={styles["profile-block"]}>
-        {userData._id ? (
+        {userData.id ? (
           <>
-            <button
-              className="waves-effect waves-light btn-large btn-flat btn orange"
-              onClick={props.logout}
-            >
+            <Button variant="contained" color="primary" onClick={props.logout}>
               Log out
-            </button>
+            </Button>
             <div className={styles["vertical-line"]}></div>
             <div className={styles["user-block"]}>
-              <span className={styles["user_name"]}>
+              <Typography variant="overline" className={styles["user_name"]}>
                 {pending ? "Loading" : userData.username}
-              </span>
+              </Typography>
               <div className={styles["user_photo-block"]}>
                 {userData.photo ? (
                   <img
@@ -49,13 +47,15 @@ export function Profile(props: IHeader) {
             </div>
             <div className={styles["vertical-line"]}></div>
             <div className={styles["tickets-block"]}>
-              <span className={styles["text"]}>My Tickets</span>
+              <Typography variant="overline" className={styles["text"]}>
+                My Tickets
+              </Typography>
               <div className={styles["info-block"]}>
-                <span className={styles["info-text"]}>
+                <Typography className={styles["info-text"]}>
                   {!pending && userData.tickets[0]
                     ? userData.tickets.length
                     : 0}
-                </span>
+                </Typography>
               </div>
             </div>
             <div className={styles["vertical-line"]}></div>
@@ -63,21 +63,23 @@ export function Profile(props: IHeader) {
         ) : (
           <div className={styles.unauth}>
             {pending ? (
-              "Loading"
+              <Typography
+                variant="overline"
+                component="span"
+                className={styles.loadingText}
+              >
+                Loading
+              </Typography>
             ) : (
               <>
-                <button
-                  className="waves-effect waves-light btn-flat btn-large btn orange"
+                <Button
+                  variant="contained"
+                  color="primary"
                   onClick={props.openRegisterModal}
                 >
                   Sign Up
-                </button>
-                <button
-                  className="waves-effect waves-light btn-large btn inherit-bgc btn-flat"
-                  onClick={props.openLoginModal}
-                >
-                  Sign In
-                </button>
+                </Button>
+                <Button onClick={props.openLoginModal}>Sign In</Button>
               </>
             )}
           </div>

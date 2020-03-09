@@ -2,7 +2,7 @@ import React from "react";
 import { config } from "config";
 import { Loader } from "components/loader";
 import { Progressbar } from "./Progressbar";
-
+import { Typography, Button } from "@material-ui/core/";
 import { IFilm } from "interfaces/IFilm";
 import styles from "./film-carousel.module.sass";
 
@@ -27,34 +27,42 @@ export function Slide(props: ISlide) {
           <div className={styles["slide-content"]}>
             <ul className={styles["genres"]}>
               {film.genres.map(genre => (
-                <li className={styles["genre"]} key={genre.id}>
-                  {genre.name}
+                <li className={styles["genre"]} key={genre}>
+                  <Typography variant="overline">{genre}</Typography>
                 </li>
               ))}
             </ul>
-            <h2 className={styles["film-name"]}>{film.name}</h2>
+            <Typography variant="h1" className={styles["film-name"]}>
+              {film.name}
+            </Typography>
             <div className={styles["buttons"]}>
-              <button
-                className={`col s12 waves-effect waves-light btn-flat btn-large inherit-bgc ${styles["slide-btn"]}`}
+              <Button
+                className={styles["slide-btn"]}
+                startIcon={
+                  <i className={`fas fa-play ${styles["button-icon"]}`}></i>
+                }
               >
-                <i className={`fas fa-play ${styles["button-icon"]}`}></i>
-                <span className={styles["button-text"]}>Watch trailer</span>
-              </button>
-              <button
-                className={`col s12 waves-effect waves-light btn-flat btn-large inherit-bgc ${styles["slide-btn"]}`}
+                Watch trailer
+              </Button>
+              <Button
+                className={styles["slide-btn"]}
+                startIcon={
+                  <i
+                    className={`fas fa-shopping-cart ${styles["button-icon"]}`}
+                  ></i>
+                }
               >
-                <i
-                  className={`fas fa-shopping-cart ${styles["button-icon"]}`}
-                ></i>
-                <span className={styles["button-text"]}>Buy ticket</span>
-              </button>
+                Buy ticket
+              </Button>
             </div>
           </div>
           <ul className={styles["slide-ratings"]}>
             {film.ratings.map(rating => {
               return (
                 <li className={styles["rating-element"]} key={rating._id}>
-                  <h3 className={styles["rater-name"]}>{rating.raterName}</h3>
+                  <Typography variant="h2" className={styles["rater-name"]}>
+                    {rating.raterName}
+                  </Typography>
                   <div className="progressbar-container">
                     <Progressbar
                       value={rating.ratingValue * 10}

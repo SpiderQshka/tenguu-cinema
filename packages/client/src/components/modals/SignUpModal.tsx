@@ -8,7 +8,13 @@ export const SignUpModal = (props: any) => {
 
     const formData = new FormData(e.target as HTMLFormElement);
 
-    await props.registerUser(formData);
+    let object: any = {};
+    formData.forEach((value, key) => {
+      object[key] = value;
+    });
+    var json = JSON.stringify(object);
+
+    await props.registerUser(json);
 
     props.closeRegisterModalRequest();
   };

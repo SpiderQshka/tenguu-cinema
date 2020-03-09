@@ -49,7 +49,7 @@ export function CarouselComponent(props: ICarouselComponent) {
   return (
     <Carousel {...settings} className={styles["slick-slider"]}>
       {films.map(film => {
-        return <FilmCardContainer item={film} key={film._id} />;
+        return <FilmCardContainer item={film} key={film.id} />;
       })}
     </Carousel>
   );

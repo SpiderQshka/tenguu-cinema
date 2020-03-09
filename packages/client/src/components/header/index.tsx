@@ -15,8 +15,6 @@ export interface IHeader {
 }
 
 export function Header(props: IHeader) {
-  console.log(props);
-
   return (
     <section className={styles["header-container"]} id="home">
       <header className={styles["header"]}>

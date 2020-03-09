@@ -34,11 +34,9 @@ export const getFilmsForClient = async (params: object = {}) => {
 
   const filmsPromises = films.map(async film => {
     const genresPromises = film.genreIds.map(
-      async (id): Promise<{ id: string; name: string } | null> => {
+      async (id): Promise<string | null> => {
         const genre = await getGenresForClient({ _id: id });
-        console.log(genre);
-
-        return genre[0];
+        return genre[0].name;
       }
     );
     const genresArray = await Promise.all(genresPromises);
@@ -46,6 +44,7 @@ export const getFilmsForClient = async (params: object = {}) => {
     return {
       id: film._id,
       genres: genresArray,
+      genreIds: film.genreIds,
       name: film.name,
       duration: film.duration,
       trailerLink: film.trailerLink,

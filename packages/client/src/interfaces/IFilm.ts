@@ -1,7 +1,7 @@
 import { IGenre } from "./IGenre";
 
 export interface IFilm {
-  genres: IGenre[];
+  genres: string[];
   name: string;
   duration: number;
   ratings: {
@@ -10,8 +10,8 @@ export interface IFilm {
     raterName: string;
   }[];
   filmImage: string;
-  _id: string;
-  releaseDate: number;
+  id: string;
+  releaseDate: Date;
   trailerLink: string;
 }
 

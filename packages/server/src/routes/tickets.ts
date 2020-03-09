@@ -27,15 +27,6 @@ router.post("/", authenticate, async (req: Request, res: Response) => {
   const { error, code } = await ticketValidation(req.body);
   if (error) return res.status(code).json(error);
 
-  const currentUserId = req.user ? req.user["_id"].toString() : null;
-
-  if (currentUserId !== req.body.userId)
-    return res
-      .status(400)
-      .json(
-        "User id in ticket data doesn't match with id of currently logged user"
-      );
-
   const ticket = new models.Ticket({
     sessionId: req.body.sessionId,
     userId: req.body.userId,
@@ -90,19 +81,21 @@ router.delete(
     const ticketForDelete = await models.Ticket.findById(req.params.ticketId);
     if (!ticketForDelete) return res.status(404).json("Not found");
 
-    const currentUserId = req.user ? req.user["_id"].toString() : null;
-    const ticketOwner = await models.User.findById(ticketForDelete?.userId);
+    // const currentUserId = req.user ? req.user["_id"].toString() : null;
+    // const ticketOwner = await models.User.findById(ticketForDelete?.userId);
 
-    const ticketOwnerId = ticketOwner ? ticketOwner["_id"].toString() : null;
+    // const ticketOwnerId = ticketOwner ? ticketOwner["_id"].toString() : null;
 
-    if (currentUserId !== ticketOwnerId)
-      return res
-        .status(400)
-        .json(
-          "User id in ticket data doesn't match with id of currently logged user"
-        );
+    // if (currentUserId !== ticketOwnerId)
+    //   return res
+    //     .status(400)
+    //     .json(
+    //       "User id in ticket data doesn't match with id of currently logged user"
+    //     );
 
-    const deletedTicket = await deleteTicket({ _id: req.params.ticketId });
+    const deletedTicket = await models.Ticket.findByIdAndDelete(
+      req.params.ticketId
+    );
 
     return res.json(deletedTicket);
   }

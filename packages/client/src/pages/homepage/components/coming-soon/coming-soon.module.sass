@@ -7,9 +7,18 @@
         max-width: $content-width
         margin: 70px auto 0
         color: $primary-color
-        .filmTrailer
+        .trailerContainer
+            position: relative
             width: 100%
-            border: 1px solid $accent-color
+            height: 0
+            padding-bottom: 56.25%
+            .filmTrailer
+                position: absolute
+                top: 0
+                left: 0
+                width: 100%
+                height: 100%
+                border: 1px solid $accent-color
         .basicInfoBlock
             margin: 40px 0
             .genres

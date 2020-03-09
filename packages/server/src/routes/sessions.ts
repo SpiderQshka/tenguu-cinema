@@ -75,7 +75,9 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.sessionId))
       return res.json("Wrong query format");
 
-    const deletedSession = await deleteSession({ _id: req.params.sessionId });
+    const deletedSession = await models.Session.findByIdAndDelete(
+      req.params.sessionId
+    );
 
     return res.json(deletedSession);
   }

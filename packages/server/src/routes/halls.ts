@@ -76,7 +76,7 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.hallId))
       return res.json("Wrong query format");
 
-    const deletedHall = await deleteHall({ _id: req.params.hallId });
+    const deletedHall = await models.Hall.findByIdAndDelete(req.params.hallId);
 
     return res.json(deletedHall);
   }

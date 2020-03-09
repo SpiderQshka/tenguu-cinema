@@ -22,7 +22,7 @@ router.post(
   authenticate,
   requireManager,
   async (req: Request, res: Response) => {
-    console.log(req.body.pictures);
+    console.log(req.body);
 
     const { error, code } = await filmValidation(req.body);
     if (error) return res.status(code).json(error);
@@ -77,7 +77,7 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.filmId))
       return res.json("Wrong query format");
 
-    const deletedFilm = await deleteFilm({ _id: req.params.filmId });
+    const deletedFilm = await models.Film.findByIdAndDelete(req.params.filmId);
 
     return res.json(deletedFilm);
   }

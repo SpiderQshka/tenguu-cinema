@@ -55,13 +55,13 @@ function RouterContainer(props: ConnectedProps<typeof connector>) {
             )}
           </Route>
           <Route path="/admin">
-            {currentUserPending ? (
+            {/* {currentUserPending ? (
               <PageLoader />
-            ) : userStatus === "admin" ? (
-              <AdminPage />
-            ) : (
+            ) : userStatus === "admin" ? ( */}
+            <AdminPage />
+            {/* ) : (
               <Redirect to="/" />
-            )}
+            )} */}
           </Route>
           <Route path="/error">
             {mainPageError ? <ErrorpageContainer /> : <Redirect to="/" />}

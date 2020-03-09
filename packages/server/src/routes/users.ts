@@ -105,7 +105,7 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.userId))
       return res.json("Wrong query format");
 
-    const deletedUser = await deleteUser({ _id: req.params.userId });
+    const deletedUser = await models.User.findByIdAndDelete(req.params.userId);
 
     return res.json(deletedUser);
   }

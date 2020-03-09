@@ -54,8 +54,6 @@ export const FilmList = (props: any) => {
 };
 
 export const FilmEdit = (props: any) => {
-  console.log(props);
-
   return (
     <Edit {...props}>
       <SimpleForm>
@@ -67,9 +65,9 @@ export const FilmEdit = (props: any) => {
         <TextInput source="name" />
         <NumberInput source="duration" />
         <TextInput source="trailerLink" />
-        <ImageInput source="pictures" label="Related pictures" accept="image/*">
+        {/* <ImageInput source="pictures" label="Related pictures" accept="image/*">
           <ImageField source="src" title="title" />
-        </ImageInput>
+        </ImageInput> */}
 
         <ArrayInput source="ratings">
           <SimpleFormIterator>
@@ -86,7 +84,25 @@ export const FilmEdit = (props: any) => {
 export const FilmCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
+      <ReferenceArrayInput source="genreIds" reference="genres">
+        <SelectArrayInput label="Genres">
+          <ChipField source="name" />
+        </SelectArrayInput>
+      </ReferenceArrayInput>
       <TextInput source="name" />
+      <NumberInput source="duration" />
+      <TextInput source="trailerLink" />
+      {/* <ImageInput source="pictures" label="Related pictures" accept="image/*">
+        <ImageField source="src" title="title" />
+      </ImageInput> */}
+
+      <ArrayInput source="ratings">
+        <SimpleFormIterator>
+          <TextInput source="raterName" label="Rater name" />
+          <NumberInput source="ratingValue" label="Rating value" />
+        </SimpleFormIterator>
+      </ArrayInput>
+      <DateInput source="releaseDate" />
     </SimpleForm>
   </Create>
 );

@@ -1,5 +1,5 @@
 import { models } from "../models/index";
-import { IGenre } from "~src/interfaces/interfaces";
+import { ObjectId } from "mongodb";
 
 export const getHallsForClient = async (params: object = {}) => {
   const halls = await models.Hall.find(params);
@@ -36,7 +36,7 @@ export const getFilmsForClient = async (params: object = {}) => {
     const genresPromises = film.genreIds.map(
       async (id): Promise<string | null> => {
         const genre = await getGenresForClient({ _id: id });
-        return genre[0].name;
+        return genre[0] ? genre[0].name : "Deleted";
       }
     );
     const genresArray = await Promise.all(genresPromises);
@@ -63,14 +63,15 @@ export const getSessionsForClient = async (params: object = {}) => {
   const sessionsPromises = sessions.map(async session => {
     const film = await getFilmsForClient({ _id: session.filmId });
 
-    const hall = await models.Hall.findById(session.hallId);
+    const hall = await getHallsForClient({ _id: session.hallId });
     return {
       id: session._id,
-
       dateTime: session.dateTime,
       price: session.price,
-      hall,
-      film: film[0]
+      hall: hall[0],
+      hallId: session.hallId,
+      film: film[0],
+      filmId: session.filmId
     };
   });
 
@@ -87,7 +88,8 @@ export const getTicketsForClient = async (params: object = {}) => {
       userId: ticket.userId,
       status: ticket.status,
       seat: ticket.seat,
-      session
+      session: session[0],
+      sessionId: ticket.sessionId
     };
   });
 
@@ -105,7 +107,10 @@ export const getUsersForClient = async (params: object = {}) => {
       email: user.email,
       username: user.username,
       photo: user.photo,
-      tickets
+      tickets,
+      ticketIds: tickets
+        .filter(ticket => user._id.equals(ticket.userId))
+        .map(ticket => ticket.id)
     };
   });
 

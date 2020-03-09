@@ -75,7 +75,9 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.json("Wrong query format");
 
-    const deletedGenre = await deleteGenre({ _id: req.params.genreId });
+    const deletedGenre = await models.Genre.findByIdAndDelete(
+      req.params.genreId
+    );
     if (!deletedGenre) return res.status(404).json("Not found");
 
     return res.json(deletedGenre);

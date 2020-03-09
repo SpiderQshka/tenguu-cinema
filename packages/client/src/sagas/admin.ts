@@ -6,11 +6,7 @@ import {
   fetchAdminPageError
 } from "actions/admin";
 
-import {
-  fetchUsersRequest,
-  FETCH_USERS_SUCCESS,
-  FETCH_USERS_ERROR
-} from "actions/users";
+import { fetchCurrentUserRequest, FETCH_USER_SUCCESS } from "actions/users";
 import {
   FETCH_TICKETS_SUCCESS,
   fetchTicketsRequest,
@@ -33,24 +29,8 @@ export function* watchFecthAdminInfo() {
 
 export function* fetchAdminInfo() {
   yield put(fetchAdminPagePending());
-  yield all([
-    put(fetchUsersRequest()),
-    put(fetchTicketsRequest()),
-    put(fetchHallsRequest()),
-    put(fetchGenresRequest())
-  ]);
-  const data = yield race([
-    all([
-      take(FETCH_TICKETS_SUCCESS),
-      take(FETCH_HALLS_SUCCESS),
-      take(FETCH_GENRES_SUCCESS),
-      take(FETCH_USERS_SUCCESS)
-    ]),
-    take(FETCH_USERS_ERROR),
-    take(FETCH_TICKETS_ERROR),
-    take(FETCH_HALLS_ERROR),
-    take(FETCH_GENRES_ERROR)
-  ]);
-  if (!data.payload) yield put(fetchAdminPageSuccess());
+  yield put(fetchCurrentUserRequest());
+  const data = yield take(FETCH_USER_SUCCESS);
+  if (data) yield put(fetchAdminPageSuccess());
   else yield put(fetchAdminPageError(data.payload.error));
 }

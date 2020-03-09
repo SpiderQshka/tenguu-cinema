@@ -12,7 +12,14 @@ export const FilmBlock = (props: IFilmBlock) => {
   return (
     <div className={styles.filmBlock}>
       <div className={styles.filmInfo}>
-        <video src={film.trailerLink} className={styles.filmTrailer}></video>
+        <div className={styles.trailerContainer}>
+          <iframe
+            className={styles.filmTrailer}
+            title="Trailer"
+            src={film.trailerLink}
+          ></iframe>
+        </div>
+
         <div className={styles.basicInfoBlock}>
           <ul className={styles.genres}>
             {film.genres.map(genre => (
@@ -23,7 +30,9 @@ export const FilmBlock = (props: IFilmBlock) => {
           </ul>
           <p className={styles.filmName}>{film.name}</p>
           <div className={styles.date}>
-            {film.releaseDate || "Date not found"}
+            {film.releaseDate
+              ? new Date(film.releaseDate).toLocaleDateString()
+              : "Date not found"}
           </div>
         </div>
         <div className={styles.descriptionAndRatingsBlock}>

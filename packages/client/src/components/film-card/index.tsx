@@ -45,19 +45,21 @@ export function FilmCard(props: IFilmCard) {
       </div>
       <div className={`${styles["info-block"]}`}>
         <div className={styles["rating"]}>
-          <StarRatings
-            rating={
-              film.ratings
-                .map(rating => rating.ratingValue)
-                .reduce((prev, curr) => prev + curr, 0) /
-              film.ratings.length /
-              2
-            }
-            starRatedColor={"orange"}
-            starEmptyColor={"white"}
-            starDimension={"30px"}
-            starSpacing={"4px"}
-          />
+          {film.ratings[0] && (
+            <StarRatings
+              rating={
+                film.ratings
+                  .map(rating => rating.ratingValue)
+                  .reduce((prev, curr) => prev + curr, 0) /
+                film.ratings.length /
+                2
+              }
+              starRatedColor={"orange"}
+              starEmptyColor={"white"}
+              starDimension={"30px"}
+              starSpacing={"4px"}
+            />
+          )}
         </div>
         <div className={styles["film-name"]}>{film.name}</div>
       </div>
@@ -77,19 +79,21 @@ export function ComingSoonFilmCard(props: IFilmCard) {
     >
       <div className={`${styles["info-block"]}`}>
         <div className={styles["rating"]}>
-          <StarRatings
-            rating={
-              film.ratings
-                .map(rating => rating.ratingValue)
-                .reduce((prev, curr) => prev + curr, 0) /
-              film.ratings.length /
-              2
-            }
-            starRatedColor={"orange"}
-            starEmptyColor={"white"}
-            starDimension={"20px"}
-            starSpacing={"2px"}
-          />
+          {film.ratings[0] && (
+            <StarRatings
+              rating={
+                film.ratings
+                  .map(rating => rating.ratingValue)
+                  .reduce((prev, curr) => prev + curr, 0) /
+                film.ratings.length /
+                2
+              }
+              starRatedColor={"orange"}
+              starEmptyColor={"white"}
+              starDimension={"30px"}
+              starSpacing={"4px"}
+            />
+          )}
         </div>
         <div className={styles["film-name"]}>{film.name}</div>
         <div className={styles["date"]}>{film.releaseDate}</div>

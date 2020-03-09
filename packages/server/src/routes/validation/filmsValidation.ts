@@ -26,9 +26,9 @@ export const filmValidation = async (
           .max(10)
           .required(),
         raterName: Joi.string().required()
-      }).required()
+      })
     ),
-    filmImage: Joi.string().required(),
+    filmImage: Joi.string(),
     releaseDate: Joi.date().required()
   });
 

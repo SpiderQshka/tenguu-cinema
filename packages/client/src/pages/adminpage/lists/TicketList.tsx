@@ -4,13 +4,14 @@ import {
   Datagrid,
   TextField,
   EditButton,
-  NumberField,
   Edit,
   SimpleForm,
   Create,
+  NumberInput,
+  ReferenceInput,
   SelectInput,
-  TextInput,
-  NumberInput
+  ReferenceField,
+  NumberField
 } from "react-admin";
 
 export const TicketList = (props: any) => {
@@ -18,9 +19,18 @@ export const TicketList = (props: any) => {
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <TextField source="name" />
-        <NumberField source="numberOfRows" />
-        <NumberField source="seatsOnRow" />
+        <ReferenceField
+          source="sessionId"
+          reference="sessions"
+          title="sessions"
+        >
+          <TextField source="id" />
+        </ReferenceField>
+        <ReferenceField source="userId" reference="users" title="users">
+          <TextField source="username" />
+        </ReferenceField>
+        <NumberField source="seat.row"></NumberField>
+        <NumberField source="seat.seatNumber"></NumberField>
         <EditButton />
       </Datagrid>
     </List>
@@ -31,10 +41,18 @@ export const TicketEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput disabled source="id" />
-        <TextInput source="name" />
-        <NumberInput source="numberOfRows" />
-        <NumberInput source="seatsOnRow" />
+        <ReferenceInput
+          source="sessionId"
+          reference="sessions"
+          title="sessions"
+        >
+          <SelectInput source="id" />
+        </ReferenceInput>
+        <ReferenceInput source="userId" reference="users" title="users">
+          <SelectInput source="username" />
+        </ReferenceInput>
+        <NumberInput source="seat.row"></NumberInput>
+        <NumberInput source="seat.seatNumber"></NumberInput>
       </SimpleForm>
     </Edit>
   );
@@ -43,9 +61,14 @@ export const TicketEdit = (props: any) => {
 export const TicketCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="name" />
-      <NumberInput source="numberOfRows" />
-      <NumberInput source="seatsOnRow" />
+      <ReferenceInput source="sessionId" reference="sessions">
+        <SelectInput source="id" />
+      </ReferenceInput>
+      <ReferenceInput source="userId" reference="users">
+        <SelectInput source="username" />
+      </ReferenceInput>
+      <NumberInput source="seat.row"></NumberInput>
+      <NumberInput source="seat.seatNumber"></NumberInput>
     </SimpleForm>
   </Create>
 );

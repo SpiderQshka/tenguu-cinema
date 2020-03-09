@@ -56,23 +56,25 @@ export function Slide(props: ISlide) {
               </Button>
             </div>
           </div>
-          <ul className={styles["slide-ratings"]}>
-            {film.ratings.map(rating => {
-              return (
-                <li className={styles["rating-element"]} key={rating._id}>
-                  <Typography variant="h2" className={styles["rater-name"]}>
-                    {rating.raterName}
-                  </Typography>
-                  <div className="progressbar-container">
-                    <Progressbar
-                      value={rating.ratingValue * 10}
-                      text={rating.ratingValue + ""}
-                    />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+          {film.ratings && (
+            <ul className={styles["slide-ratings"]}>
+              {film.ratings.map(rating => {
+                return (
+                  <li className={styles["rating-element"]} key={rating._id}>
+                    <Typography variant="h2" className={styles["rater-name"]}>
+                      {rating.raterName}
+                    </Typography>
+                    <div className="progressbar-container">
+                      <Progressbar
+                        value={rating.ratingValue * 10}
+                        text={rating.ratingValue + ""}
+                      />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       )}
     </div>

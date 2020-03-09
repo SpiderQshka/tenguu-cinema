@@ -8,7 +8,7 @@ const sessionScheme: Schema<ISession> = new Schema({
     required: true
   },
   dateTime: {
-    type: Number,
+    type: Date,
     required: true
   },
   price: {

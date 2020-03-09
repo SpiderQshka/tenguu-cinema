@@ -14,11 +14,7 @@ import {
   USER_REG_REQUEST,
   userRegister,
   userRegisterError,
-  userLoginError,
-  FETCH_USERS_REQUEST,
-  fetchUsersError,
-  fetchUsersSuccess,
-  fetchUsersPending
+  userLoginError
 } from "actions/users";
 
 export function* watchFetchUserInfo() {
@@ -40,7 +36,6 @@ export function* watchRegisterUser() {
 export function* fetchUserInfo() {
   yield put(fetchCurrentUserPending());
   const data = yield call(getUserInfo);
-
   if (data.error) yield put(fetchCurrentUserError(data.error));
   else yield put(fetchCurrentUserSuccess(data.body));
 }

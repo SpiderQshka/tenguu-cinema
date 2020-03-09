@@ -16,7 +16,9 @@ export const sessionValidation = async (
       .required(),
     hallId: Joi.string()
       .pattern(_IDREGEXP)
-      .required()
+      .required(),
+    hall: Joi.object(),
+    film: Joi.object()
   });
 
   const { error = null } = schema.validate(data);
@@ -45,9 +47,11 @@ export const sessionValidation = async (
 
         if (!filmOfSession) throw Error;
         return (
-          session.dateTime >
-            currentSession.dateTime + currentSessionFilm.duration ||
-          session.dateTime + filmOfSession.duration < currentSession.dateTime
+          new Date(session.dateTime).getTime() >
+            new Date(currentSession.dateTime).getTime() +
+              currentSessionFilm.duration ||
+          new Date(session.dateTime).getTime() + filmOfSession.duration <
+            new Date(currentSession.dateTime).getTime()
         );
       }
     );

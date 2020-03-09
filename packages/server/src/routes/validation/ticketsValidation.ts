@@ -21,7 +21,9 @@ export const ticketValidation = async (
         .min(1)
         .required()
     }).required(),
-    status: Joi.string().default("active")
+    status: Joi.string().default("active"),
+    session: Joi.object(),
+    user: Joi.object()
   });
 
   const { error = null } = schema.validate(data);

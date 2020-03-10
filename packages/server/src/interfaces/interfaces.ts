@@ -33,6 +33,7 @@ interface IFilm extends Document {
   }[];
   filmImage: string;
   releaseDate: number;
+  description: string;
 }
 
 interface IHall extends Document {

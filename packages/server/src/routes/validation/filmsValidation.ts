@@ -29,14 +29,12 @@ export const filmValidation = async (
       })
     ),
     filmImage: Joi.string(),
-    releaseDate: Joi.date().required()
+    releaseDate: Joi.date().required(),
+    description: Joi.string().required()
   });
 
   const { error = null } = schema.validate(data);
   if (error) return { error: error.details[0].message, code: 400 };
-
-  // const doesFilmExists = await models.Film.findOne({ name: data.name });
-  // if (doesFilmExists) return { error: "Film name already exists", code: 400 };
 
   const doesFilmGenresExists = async (
     genreIdsArray: Schema.Types.ObjectId[]

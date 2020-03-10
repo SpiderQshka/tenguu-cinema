@@ -13,6 +13,7 @@ export interface IFilm {
   id: string;
   releaseDate: Date;
   trailerLink: string;
+  description: string;
 }
 
 export type IFilmActionTypes =

@@ -55,9 +55,9 @@ export const FilmBlock = (props: IFilmBlock) => {
           </div>
           <div className={styles.descriptionBlock}>
             <Typography variant="body1" className={styles.descriptionText}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-              tempore, similique laboriosam dolor voluptate consectetur fugit
-              illum non sunt corrupti.
+              {props.film.description
+                ? props.film.description
+                : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius tempore, similique laboriosam dolor voluptate consectetur fugit illum non sunt corrupti."}
             </Typography>
             <div className={styles.descriptionButtons}>
               <Fab

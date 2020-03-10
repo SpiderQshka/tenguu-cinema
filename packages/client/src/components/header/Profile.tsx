@@ -15,11 +15,9 @@ export function Profile(props: IHeader) {
   } = props;
   return (
     <>
-      {props.modals.isRegModalOpen ? (
-        <SignUpModal />
-      ) : props.modals.isLoginModalOpen ? (
-        <SignInModal />
-      ) : null}
+      <SignUpModal />
+      <SignInModal />
+
       <div className={styles["profile-block"]}>
         {userData.id ? (
           <>
@@ -46,14 +44,19 @@ export function Profile(props: IHeader) {
               </div>
             </div>
             <div className={styles["vertical-line"]}></div>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => history.push("/admin")}
-            >
-              Admin
-            </Button>
-            <div className={styles["vertical-line"]}></div>
+            {userData.status === "admin" && (
+              <>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => history.push("/admin")}
+                >
+                  Admin
+                </Button>
+                <div className={styles["vertical-line"]}></div>
+              </>
+            )}
+
             <div className={styles["tickets-block"]}>
               <Typography variant="overline" className={styles["text"]}>
                 My Tickets

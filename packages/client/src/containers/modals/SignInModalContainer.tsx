@@ -6,7 +6,9 @@ import { SignInModal } from "components/modals/SignInModal";
 import { IState } from "interfaces/IState";
 import { closeLoginModal, closeLoginModalRequest } from "actions/modals";
 
-const mapStateToProps = (state: IState) => state.users;
+const mapStateToProps = (state: IState) => {
+  return { users: state.users, modals: state.modals };
+};
 const mapDispatchToProps = (dispatch: any) => {
   return {
     loginUser: (data: JSON) => {

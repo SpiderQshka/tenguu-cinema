@@ -50,7 +50,8 @@ export const getFilmsForClient = async (params: object = {}) => {
       trailerLink: film.trailerLink,
       filmImage: film.filmImage,
       ratings: film.ratings,
-      releaseDate: film.releaseDate
+      releaseDate: film.releaseDate,
+      description: film.description
     };
   });
 

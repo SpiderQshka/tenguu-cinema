@@ -18,13 +18,11 @@ import {
   ArrayInput,
   DateInput,
   NumberInput,
-  ReferenceInput,
-  SelectInput,
+  RichTextField,
   ReferenceArrayInput,
   SelectArrayInput,
   ReferenceArrayField,
-  ImageInput,
-  ImageField
+  RichTextInput
 } from "react-admin";
 
 export const FilmList = (props: any) => {
@@ -47,6 +45,7 @@ export const FilmList = (props: any) => {
           </SingleFieldList>
         </ArrayField>
         <DateField source="releaseDate" />
+        <RichTextField source="description" />
         <EditButton />
       </Datagrid>
     </List>
@@ -76,6 +75,7 @@ export const FilmEdit = (props: any) => {
           </SimpleFormIterator>
         </ArrayInput>
         <DateInput source="releaseDate" />
+        <TextInput source="description" />
       </SimpleForm>
     </Edit>
   );
@@ -103,6 +103,7 @@ export const FilmCreate = (props: any) => (
         </SimpleFormIterator>
       </ArrayInput>
       <DateInput source="releaseDate" />
+      <TextInput source="description" />
     </SimpleForm>
   </Create>
 );

@@ -1,5 +1,17 @@
 import React, { FormEvent } from "react";
-
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+  Typography,
+  FormControl,
+  InputLabel,
+  Input,
+  FormHelperText
+} from "@material-ui/core";
 import styles from "./modals.module.sass";
 
 export const SignUpModal = (props: any) => {
@@ -19,73 +31,73 @@ export const SignUpModal = (props: any) => {
     props.closeRegisterModalRequest();
   };
   return (
-    <div className={styles.modalWrapper}>
-      <div className={`${styles.modalContent}`}>
-        <h4 className={styles.modalHeader}>Sign Up</h4>
-        {props.error ? (
-          <h5 className={styles.errorMsg}>
+    <Dialog
+      onClose={props.closeRegisterModal}
+      aria-labelledby="customized-dialog-title"
+      open={props.modals.isRegModalOpen}
+    >
+      <DialogTitle id="customized-dialog-title">Sign Up</DialogTitle>
+      <DialogContent dividers>
+        {props.users.error ? (
+          <Typography variant="overline" className={styles.errorMsg}>
             <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
-            {props.error.message}
-          </h5>
+            {props.users.error.message}
+          </Typography>
         ) : null}
         <form
-          className={`form register-form ${styles.form}`}
+          name="form"
+          id="form"
+          className={styles.form}
           onSubmit={submitHandler}
         >
-          <input
-            className="validate"
-            placeholder="Username"
-            name="username"
-            type="text"
-            // value="123"
-            required
-          />
-
-          <input
-            className="validate"
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Password"
-            // value="123456"
-            required
-          />
-
-          <input
-            className="validate"
-            id="email"
-            type="email"
-            placeholder="Email"
-            name="email"
-            // value="1@mail.com"
-            required
-          />
-          <div className={`file-field input-field ${styles.fileField}`}>
-            <div className="waves-effect waves-light btn orange">
-              <span>Photo</span>
-              <input type="file" name="photo" />
-            </div>
-            <div className="file-path-wrapper">
-              <input className="file-path validate" type="text" />
-            </div>
-          </div>
-          <div className={styles.buttons}>
-            <button
-              type="submit"
-              value="Submit"
-              className={`waves-effect waves-light btn btn-large orange ${styles.submitBtn}`}
-            >
-              Submit
-            </button>
-            <button
-              className={`waves-effect waves-light btn btn-floating red ${styles.closeModalBtn}`}
-              onClick={props.closeRegisterModal}
-            >
-              <i className="fas fa-times"></i>
-            </button>
-          </div>
+          <FormControl>
+            <InputLabel htmlFor="username">Username</InputLabel>
+            <Input
+              id="username"
+              type="text"
+              name="username"
+              className={styles.input}
+            />
+          </FormControl>
+          <FormControl>
+            <InputLabel htmlFor="email">Email address</InputLabel>
+            <Input
+              id="email"
+              type="email"
+              name="email"
+              className={styles.input}
+            />
+          </FormControl>
+          <FormControl>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <Input
+              id="password"
+              type="password"
+              name="password"
+              className={styles.input}
+            />
+          </FormControl>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          type="submit"
+          form="form"
+          value="Submit"
+          autoFocus
+          color="primary"
+          className={styles.submitBtn}
+        >
+          Submit
+        </Button>
+        <Button
+          onClick={props.closeRegisterModal}
+          color="secondary"
+          className={styles.closeModalBtn}
+        >
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };

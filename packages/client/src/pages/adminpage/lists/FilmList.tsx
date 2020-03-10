@@ -21,8 +21,7 @@ import {
   RichTextField,
   ReferenceArrayInput,
   SelectArrayInput,
-  ReferenceArrayField,
-  RichTextInput
+  ReferenceArrayField
 } from "react-admin";
 
 export const FilmList = (props: any) => {

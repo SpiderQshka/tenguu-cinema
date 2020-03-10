@@ -1,8 +1,7 @@
 import React from "react";
 import jsonServerProvider from "ra-data-json-server";
-import { DataProvider } from "ra-core";
 import { createHashHistory } from "history";
-import { Admin, Resource, ListGuesser, EditGuesser } from "react-admin";
+import { Admin, Resource } from "react-admin";
 import { Provider } from "react-redux";
 import createAdminStore from "createAdminStore";
 import { adminPageTokenFetch } from "APIServices/CRUD";

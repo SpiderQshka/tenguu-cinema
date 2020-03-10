@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./footer.module.sass";
+import { Button, Typography, TextField, Input } from "@material-ui/core/";
 
 export const Footer = () => {
   return (
@@ -7,87 +8,76 @@ export const Footer = () => {
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <div className={styles.menuBlock}>
-            <h4 className={styles.header}>Menu</h4>
+            <Typography variant="h6" className={styles.header}>
+              Menu
+            </Typography>
             <div className={styles.line}></div>
             <ul className={styles.menuList}>
               <li className={styles.menuItem}>
-                <a className="waves-effect waves-light btn black" href="#home">
-                  Home
-                </a>
+                <Button href="#home">Back to top</Button>
               </li>
               <li className={styles.menuItem}>
-                <a
-                  className="waves-effect waves-light btn black"
-                  href="#now-playing"
-                >
-                  Now playing
-                </a>
+                <Button href="#now-playing">Now playing</Button>
               </li>
               <li className={styles.menuItem}>
-                <a
-                  className="waves-effect waves-light btn black"
-                  href="#coming-soon"
-                >
-                  Coming soon
-                </a>
+                <Button href="#coming-soon">Coming soon</Button>
               </li>
               <li className={styles.menuItem}>
-                <a className="waves-effect waves-light btn black" href="#map">
-                  Where are we?
-                </a>
-              </li>
-              <li className={styles.menuItem}>
-                <a className="waves-effect waves-light btn black" href="#home">
-                  Term of Service
-                </a>
+                <Button href="#map">Where are we?</Button>
               </li>
             </ul>
           </div>
           <div className={styles.addressInfoBlock}>
-            <h4 className={styles.header}>address information</h4>
+            <Typography variant="h6" className={styles.header}>
+              adress information
+            </Typography>
             <div className={styles.line}></div>
-            <p className={styles.addressData}>
+            <Typography variant="body1" className={styles.addressData}>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores
               consectetur minus voluptatum tempore.
-            </p>
-            <p className={styles.mail}>admin@gmail.com</p>
-            <p className={styles.tel}>1234567890</p>
+            </Typography>
+            <Typography variant="subtitle1" className={styles.mail}>
+              admin@gmail.com
+            </Typography>
+            <Typography variant="overline" className={styles.tel}>
+              1234567890
+            </Typography>
           </div>
           <div className={styles.leaveMsgBlock}>
-            <h4 className={styles.header}>leave a message</h4>
+            <Typography variant="h6" className={styles.header}>
+              leave a message
+            </Typography>
             <div className={styles.line}></div>
             <form
               action=""
               className={styles.footerForm}
               onSubmit={e => e.preventDefault()}
             >
-              <input
+              <Input
                 type="text"
                 name="name"
                 placeholder="Name"
-                className="input-field inline validate"
                 required
+                fullWidth
               />
-              <input
+              <Input
                 type="email"
                 name="email"
                 placeholder="Email"
-                className="validate"
                 required
+                fullWidth
               />
-              <textarea
-                name="msg"
-                placeholder="Message"
-                className="materialize-textarea validate"
-                required
-              ></textarea>
+
+              <TextField placeholder="Message" multiline fullWidth />
             </form>
-            <button
-              className={`waves-effect waves-light btn orange ${styles.footerBtn}`}
+            <Button
+              variant="contained"
+              color="primary"
               type="submit"
+              className={styles.footerBtn}
             >
               Send to us
-            </button>
+            </Button>
           </div>
         </div>
         <div className={styles.footerCopyrightBlock}></div>

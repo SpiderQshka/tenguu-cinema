@@ -3,7 +3,7 @@ import { IFilm } from "interfaces/IFilm";
 import { config } from "config";
 import StarRatings from "react-star-ratings";
 import { Loader } from "components/loader";
-
+import { Typography, Fab } from "@material-ui/core/";
 import styles from "./film-card.module.sass";
 import { ISession } from "interfaces/ISession";
 
@@ -29,19 +29,24 @@ export function FilmCard(props: IFilmCard) {
       }}
     >
       <div className={`scale-transition ${styles["buttons"]}`}>
-        <button
-          className={`waves-effect waves-light btn btn-large orange ${styles["slide-btn"]}`}
+        <Fab
+          className={styles["slide-btn"]}
+          variant="extended"
+          color="primary"
+          size="large"
         >
           <i className={`fas fa-play ${styles["button-icon"]}`}></i>
-          <span className={styles["button-text"]}>Watch trailer</span>
-        </button>
-        <button
-          // onClick={() => props.buyTicket({ film: film._id })}
-          className={`waves-effect waves-light btn btn-large black ${styles["slide-btn"]}`}
+          Watch trailer
+        </Fab>
+        <Fab
+          className={styles["slide-btn"]}
+          variant="extended"
+          color="secondary"
+          size="large"
         >
           <i className={`fas fa-shopping-cart ${styles["button-icon"]}`}></i>
-          <span className={styles["button-text"]}>Buy ticket</span>
-        </button>
+          Buy ticket
+        </Fab>
       </div>
       <div className={`${styles["info-block"]}`}>
         <div className={styles["rating"]}>
@@ -61,7 +66,9 @@ export function FilmCard(props: IFilmCard) {
             />
           )}
         </div>
-        <div className={styles["film-name"]}>{film.name}</div>
+        <Typography variant="h3" className={styles["film-name"]}>
+          {film.name}
+        </Typography>
       </div>
     </div>
   );
@@ -95,8 +102,12 @@ export function ComingSoonFilmCard(props: IFilmCard) {
             />
           )}
         </div>
-        <div className={styles["film-name"]}>{film.name}</div>
-        <div className={styles["date"]}>{film.releaseDate}</div>
+        <Typography variant="h3" className={styles["film-name"]}>
+          {film.name}
+        </Typography>
+        <Typography variant="overline" className={styles.date}>
+          {film.releaseDate}
+        </Typography>
       </div>
     </div>
   );

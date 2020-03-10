@@ -1,24 +1,10 @@
 import React from "react";
 
 import styles from "./loader.module.sass";
+import { CircularProgress } from "@material-ui/core/";
 
 export const Loader = () => {
-  return (
-    <h1>Loading...</h1>
-    // <div className="preloader-wrapper big active">
-    //   <div className="spinner-layer spinner-red-only">
-    //     <div className="circle-clipper left">
-    //       <div className="circle"></div>
-    //     </div>
-    //     <div className="gap-patch">
-    //       <div className="circle"></div>
-    //     </div>
-    //     <div className="circle-clipper right">
-    //       <div className="circle"></div>
-    //     </div>
-    //   </div>
-    // </div>
-  );
+  return <CircularProgress />;
 };
 
 export const PageLoader = () => {

@@ -1,6 +1,7 @@
 import React from "react";
-import { CircularProgressbar } from "react-circular-progressbar";
+import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { Typography } from "@material-ui/core/";
 import "./progressbar.sass";
 
 export interface IProgressbar {
@@ -11,12 +12,16 @@ export interface IProgressbar {
 export const Progressbar = (props: IProgressbar) => {
   return (
     <div className="progressbar-container">
-      <CircularProgressbar
+      <CircularProgressbarWithChildren
         styles={{}}
         value={props.value}
-        text={props.text}
+        // text={props.text}
         background={true}
-      />
+      >
+        <Typography variant="overline" className="progressbarValue">
+          {props.value}
+        </Typography>
+      </CircularProgressbarWithChildren>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { config } from "config";
 import styles from "./coming-soon.module.sass";
 import { IFilm } from "interfaces/IFilm";
-
+import { Typography, Chip, Fab } from "@material-ui/core/";
 export interface IFilmBlock {
   film: IFilm;
 }
@@ -24,52 +24,68 @@ export const FilmBlock = (props: IFilmBlock) => {
           <ul className={styles.genres}>
             {film.genres.map(genre => (
               <li className={styles.genre} key={genre}>
-                {genre}
+                <Typography variant="overline">{genre}</Typography>
               </li>
             ))}
           </ul>
-          <p className={styles.filmName}>{film.name}</p>
-          <div className={styles.date}>
-            {film.releaseDate
-              ? new Date(film.releaseDate).toLocaleDateString()
-              : "Date not found"}
+          <Typography variant="h3" className={styles.filmName}>
+            {film.name}
+          </Typography>
+          <div>
+            <Chip
+              icon={<i className={`far fa-clock ${styles.icon}`}></i>}
+              label={
+                <Typography variant="overline" className={styles.date}>
+                  {film.releaseDate
+                    ? new Date(film.releaseDate).toLocaleDateString()
+                    : "Date not found"}
+                </Typography>
+              }
+              color="secondary"
+            />
           </div>
         </div>
         <div className={styles.descriptionAndRatingsBlock}>
           <div className={styles.filmPhotoBlock}>
             <img
               src={config.baseUrl + film.filmImage}
-              alt="film"
+              alt="film logo"
               className={styles.filmPhoto}
             />
           </div>
           <div className={styles.descriptionBlock}>
-            <p className={styles.descriptionText}>
+            <Typography variant="body1" className={styles.descriptionText}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
               tempore, similique laboriosam dolor voluptate consectetur fugit
               illum non sunt corrupti.
-            </p>
+            </Typography>
             <div className={styles.descriptionButtons}>
-              <button
-                className={`waves-effect waves-light btn btn-large orange ${styles.filmButton}`}
+              <Fab
+                className={styles.filmButton}
+                variant="extended"
+                color="primary"
+                size="large"
               >
                 <i className={`fas fa-shopping-cart ${styles.buttonIcon}`}></i>
                 Pre order
-              </button>
-              <button
-                className={`waves-effect waves-light btn-flat btn btn-large inherit-bgc ${styles.filmButton}`}
+              </Fab>
+              <Fab
+                className={styles.filmButton}
+                variant="extended"
+                color="secondary"
+                size="large"
               >
                 <i className={`fas fa-ellipsis-h ${styles.buttonIcon}`}></i>
                 Read more
-              </button>
+              </Fab>
             </div>
           </div>
           <div className={styles.ratingsBlock}>
             {film.ratings.map(rating => (
               <div className={styles.ratingElement} key={rating._id}>
-                <p className={styles.ratingText}>
+                <Typography variant="overline" className={styles.ratingText}>
                   {rating.ratingValue} - {rating.raterName}
-                </p>
+                </Typography>
                 <div className={styles.ratingValueContainer}>
                   <div
                     className={styles.ratingValue}

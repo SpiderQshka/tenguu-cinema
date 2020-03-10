@@ -14,9 +14,9 @@
             .header
                 text-transform: uppercase
                 text-align: left
-                font-size: $large-font-size
+                // font-size: $large-font-size
                 margin-bottom: $large-margin
-                font-weight: 600
+                // font-weight: 600
             .line
                 width: 100px
                 height: 1px
@@ -27,23 +27,27 @@
                 padding: $extra-large-padding
                 .menuList
                     .menuItem
-                        a
+                        & *
                             text-align: left
                             padding-left: 0
+                            color: $primary-color
             .addressInfoBlock
                 flex-basis: 400px
                 padding: $extra-large-padding
                 .addressData
                     line-height: 2
-                    margin-bottom: $extra-large-margin
+                    margin-bottom: $large-margin
             .leaveMsgBlock
                 display: flex
                 flex-direction: column
                 padding: $extra-large-padding
                 .footerForm
                     max-width: 300px
-                    input, textarea
+                    input, textarea 
                         color: $primary-color
+                        &:placeholder
+                            color: $primary-color
                 .footerBtn
                     align-self: end
                     margin-top: $default-margin
+                    color: $primary-color

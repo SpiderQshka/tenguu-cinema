@@ -38,6 +38,7 @@ export function Carousel(props: any) {
       {
         breakpoint: 700,
         settings: {
+          centerMode: false,
           slidesToShow: 1,
           arrows: false
         }

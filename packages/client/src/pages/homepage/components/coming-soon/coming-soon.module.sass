@@ -35,11 +35,13 @@
             .filmName
                 color: $accent-color
                 text-transform: uppercase
-                font-size: $extra-large-font-size
                 font-weight: 400
                 margin: $large-margin 0
             .date
                 color: $primary-shade-color
+                font-size: $small-font-size
+                .icon
+                    font-size: $default-font-size
         .descriptionAndRatingsBlock
             position: relative
             display: flex
@@ -62,7 +64,6 @@
                     margin-bottom: $extra-large-margin
                 .descriptionButtons
                     .filmButton
-                        height: auto
                         color: $primary-color
                         &:first-of-type
                             .buttonIcon
@@ -78,15 +79,16 @@
                 flex-direction: column
                 justify-content: center
                 .ratingElement
-                    color: $primary-shade-color
+                    color: $primary-color
                     margin-bottom: $default-margin
                     .ratingText
                         white-space: nowrap
                         margin: $small-margin 0
                         text-transform: capitalize
+                        font-size: $small-font-size
                     .ratingValueContainer
                         width: 100%
-                        background-color: $primary-shade-color
+                        background-color: $primary-color
                         .ratingValue
                             width: 0px
                             height: 0px
@@ -102,12 +104,12 @@
             top: calc(50% - 27px)
             align-items: center
             justify-content: center
-            border: 1px solid $accent-color
-            .carouselArrowIcon
+            .icon
+                font-size: $large-font-size
                 color: $accent-color
         .arrow-next
             right: -100px
         .arrow-prev
             left: -100px
 
-@import "./media"
+@import "./media.module"

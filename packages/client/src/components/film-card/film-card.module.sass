@@ -12,15 +12,17 @@
         flex-direction: column
         justify-content: center
         .slide-btn
-            display: block
             font-size: $default-font-size
+            font-weight: 400
             border-radius: 27px
+            color: $primary-color
+            padding: $default-padding
             &:first-of-type
                 margin-bottom: $default-margin
                 .button-icon
                     color: $primary-color
             .button-icon
-                margin-right: $large-margin
+                margin-right: $default-margin
                 color: $accent-color
             .button-text
                 color: $primary-color
@@ -34,8 +36,10 @@
         .film-name
             margin: $default-margin 0
             text-transform: capitalize
-            font-size: $large-font-size
+            font-size: $extra-large-font-size
             font-weight: 400
 .sessionCard
     margin: 0 $large-margin
+
+@import "./media.module"
     

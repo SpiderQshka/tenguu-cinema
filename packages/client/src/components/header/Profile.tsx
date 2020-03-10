@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./header.module.sass";
 import { config } from "config";
+import { useHistory } from "react-router-dom";
 import { Button, Typography } from "@material-ui/core/";
-
 import SignUpModal from "containers/modals/SignUpModalContainer";
 import SignInModal from "containers/modals/SignInModalContainer";
 import { IHeader } from ".";
 
 export function Profile(props: IHeader) {
-  console.log(props);
+  const history = useHistory();
 
   const {
     users: { currentUser: userData, currentUserPending: pending }
@@ -45,6 +45,14 @@ export function Profile(props: IHeader) {
                 )}
               </div>
             </div>
+            <div className={styles["vertical-line"]}></div>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => history.push("/admin")}
+            >
+              Admin
+            </Button>
             <div className={styles["vertical-line"]}></div>
             <div className={styles["tickets-block"]}>
               <Typography variant="overline" className={styles["text"]}>

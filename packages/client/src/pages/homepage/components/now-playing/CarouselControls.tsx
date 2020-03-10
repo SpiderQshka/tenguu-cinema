@@ -1,5 +1,5 @@
 import React from "react";
-
+import { IconButton } from "@material-ui/core/";
 import styles from "./nowPlaying.module.sass";
 
 export interface IArrowProps {
@@ -8,22 +8,22 @@ export interface IArrowProps {
 
 export function ArrowNext(props: IArrowProps) {
   return (
-    <button
+    <IconButton
       onClick={props.onClick}
-      className={`waves-effect waves-orange btn btn-large btn-floating inherit-bgc btn-flat ${styles["arrow-block"]} ${styles["arrow-next"]}`}
+      className={`${styles["arrow-block"]} ${styles["arrow-next"]}`}
     >
-      <i className={`fas fa-chevron-right icon ${styles.icon}`}></i>
-    </button>
+      <i className={`fas fa-chevron-right ${styles.icon}`}></i>
+    </IconButton>
   );
 }
 
 export function ArrowPrev(props: IArrowProps) {
   return (
-    <button
+    <IconButton
       onClick={props.onClick}
-      className={`waves-effect waves-orange btn btn-large btn-floating inherit-bgc btn-flat ${styles["arrow-block"]} ${styles["arrow-prev"]}`}
+      className={`${styles["arrow-block"]} ${styles["arrow-prev"]}`}
     >
-      <i className={`fas fa-chevron-left icon ${styles.icon}`}></i>
-    </button>
+      <i className={`fas fa-chevron-left ${styles.icon}`}></i>
+    </IconButton>
   );
 }

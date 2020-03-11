@@ -9,7 +9,7 @@ import { IGridPayload } from "./IGrid";
 export interface IModalsPayload {
   isRegModalOpen: boolean;
   isLoginModalOpen: boolean;
-  isEditUserModalOpen: boolean;
+  isBuyTicketModalOpen: boolean;
 }
 
 export type IPayloads =

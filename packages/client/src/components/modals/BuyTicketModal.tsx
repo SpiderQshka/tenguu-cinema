@@ -1,64 +1,97 @@
 import React, { FormEvent } from "react";
-
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Typography,
+  FormControl,
+  InputLabel,
+  Input,
+  Select,
+  MenuItem
+} from "@material-ui/core";
 import styles from "./modals.module.sass";
+import { ISession } from "interfaces/ISession";
 
 export const BuyTicketModal = (props: any) => {
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
 
-    // const formData = new FormData(e.target as HTMLFormElement);
+    const formData = new FormData(e.target as HTMLFormElement);
 
-    // await props.loginUser(formData);
+    let object: any = {};
+    formData.forEach((value, key) => {
+      object[key] = value;
+    });
+    var json = JSON.stringify(object);
 
-    // props.closeLoginModalRequest();
+    await props.buyTicket(json);
+
+    props.closeModalRequest();
   };
   return (
-    <div className={styles.modalWrapper}>
-      <div className={`${styles.modalContent}`}>
-        <h4 className={styles.modalHeader}>Sign In</h4>
-        {props.error ? (
-          <h5 className={styles.errorMsg}>
+    <Dialog
+      onClose={props.closeModal}
+      aria-labelledby="customized-dialog-title"
+      open={props.modals.isBuyTicketModalOpen}
+    >
+      <DialogTitle id="customized-dialog-title">Sign In</DialogTitle>
+      <DialogContent dividers>
+        {props.tickets.error ? (
+          <Typography variant="overline" className={styles.errorMsg}>
             <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
-            {props.error.message}
-          </h5>
+            {props.tickets.error.message}
+          </Typography>
         ) : null}
-        <form className={`form ${styles.form}`} onSubmit={submitHandler}>
-          <input
-            className="validate"
-            id="email"
-            type="email"
-            placeholder="Email"
-            name="email"
-            // value="1@mail.com"
-            required
-          />
-          <input
-            className="validate"
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Password"
-            // value="123456"
-            required
-          />
-
-          <div className={styles.buttons}>
-            <button
-              type="submit"
-              value="Submit"
-              className={`btn btn-large orange ${styles.submitBtn}`}
+        <form
+          name="form"
+          id="form"
+          className={styles.form}
+          onSubmit={submitHandler}
+        >
+          <FormControl>
+            <InputLabel htmlFor="email">Email address</InputLabel>
+            <Select
+              id="email"
+              type="email"
+              name="email"
+              className={styles.input}
             >
-              Submit
-            </button>
-            <button
-              className={`waves-effect waves-light btn btn-floating red ${styles.closeModalBtn}`}
-              onClick={props.closeLoginModal}
-            >
-              <i className="fas fa-times"></i>
-            </button>
-          </div>
+              {/* {props.sessions.map((session: ISession) => <MenuItem value={session.id}>{session.}</MenuItem>)} */}
+            </Select>
+          </FormControl>
+          <FormControl>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <Input
+              id="password"
+              type="password"
+              name="password"
+              className={styles.input}
+            />
+          </FormControl>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          type="submit"
+          form="form"
+          value="Submit"
+          autoFocus
+          color="primary"
+          className={styles.submitBtn}
+        >
+          Submit
+        </Button>
+        <Button
+          onClick={props.closeLoginModal}
+          color="secondary"
+          className={styles.closeModalBtn}
+        >
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };

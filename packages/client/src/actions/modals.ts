@@ -13,6 +13,7 @@ export const CLOSE_REG_MODAL_REQUEST = "CLOSE_REG_MODAL_REQUEST";
 export const CLOSE_LOGIN_MODAL_REQUEST = "CLOSE_LOGIN_MODAL_REQUEST";
 export const OPEN_BUY_TICKET_MODAL = "OPEN_BUY_TICKET_MODAL";
 export const CLOSE_BUY_TICKET_MODAL = "CLOSE_BUY_TICKET_MODAL";
+export const CLOSE_BUY_TICKET_MODAL_REQUEST = "CLOSE_BUY_TICKET_MODAL_REQUEST";
 
 // Action creators
 
@@ -62,5 +63,11 @@ export const openBuyTicketModal = (data: ITicketModal) => {
 export const closeBuyTicketModal = () => {
   return {
     type: CLOSE_BUY_TICKET_MODAL
+  };
+};
+
+export const closeBuyTicketModalRequest = () => {
+  return {
+    type: CLOSE_BUY_TICKET_MODAL_REQUEST
   };
 };

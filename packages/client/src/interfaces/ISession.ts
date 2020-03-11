@@ -6,7 +6,7 @@ export interface ISession {
   price: number;
   hall: IHall;
   film: IFilm;
-  _id: string;
+  id: string;
 }
 
 export type ISessionActionTypes =

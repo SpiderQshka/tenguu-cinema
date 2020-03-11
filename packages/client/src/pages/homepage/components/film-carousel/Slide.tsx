@@ -9,10 +9,11 @@ import styles from "./film-carousel.module.sass";
 export interface ISlide {
   film: IFilm;
   pending: boolean;
+  buyTicket: (id: string) => void;
 }
 
 export function Slide(props: ISlide) {
-  const { film, pending } = props;
+  const { film, pending, buyTicket } = props;
   return (
     <div
       className={styles["slide-wrapper"]}
@@ -51,6 +52,7 @@ export function Slide(props: ISlide) {
                     className={`fas fa-shopping-cart ${styles["button-icon"]}`}
                   ></i>
                 }
+                onClick={() => buyTicket(film.id)}
               >
                 Buy ticket
               </Button>

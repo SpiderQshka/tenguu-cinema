@@ -1,14 +1,15 @@
 import {
   FETCH_TICKETS_ERROR,
   FETCH_TICKETS_PENDING,
-  FETCH_TICKETS_SUCCESS
+  FETCH_TICKETS_SUCCESS,
+  BUY_TICKET,
+  BUY_TICKET_ERROR
 } from "actions/tickets";
 import { ITicket, ITicketsPayload, ITicketsAction } from "interfaces/ITicket";
 
 const initialState: ITicketsPayload = {
   pending: false,
-  data: [] as ITicket[],
-  error: null
+  data: [] as ITicket[]
 };
 
 export const ticketsReducer = (
@@ -17,23 +18,33 @@ export const ticketsReducer = (
 ) => {
   switch (action.type) {
     case FETCH_TICKETS_PENDING:
-      console.log("Pending");
       return {
         ...state,
         pending: true
       };
     case FETCH_TICKETS_SUCCESS:
-      console.log("Success");
       return {
         ...state,
         data: action.payload.data,
         pending: false
       };
     case FETCH_TICKETS_ERROR:
-      console.log("Error");
       return {
         ...state,
         error: action.payload.error,
+        pending: false
+      };
+    case BUY_TICKET_ERROR:
+      return {
+        ...state,
+        error: action.payload.error,
+        pending: false
+      };
+    case BUY_TICKET:
+      return {
+        ...state,
+        error: null,
+        data: [...state.data, action.payload.data],
         pending: false
       };
     default:

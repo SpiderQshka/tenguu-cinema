@@ -9,7 +9,8 @@ import {
 
 const initialState = {
   isRegModalOpen: false,
-  isLoginModalOpen: false
+  isLoginModalOpen: false,
+  isBuyTicketModalOpen: false
 };
 
 export const modalsReducer = (state = initialState, action: any) => {

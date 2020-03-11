@@ -5,6 +5,8 @@ export const FETCH_SESSIONS_PENDING = "FETCH_SESSIONS_PENDING";
 export const FETCH_SESSIONS_SUCCESS = "FETCH_SESSIONS_SUCCESS";
 export const FETCH_SESSIONS_ERROR = "FETCH_SESSIONS_ERROR";
 export const FETCH_SESSIONS_REQUEST = "FETCH_SESSIONS_REQUEST";
+export const CHANGE_ACTIVE_SESSION_FOR_BUYING =
+  "CHANGE_ACTIVE_SESSION_FOR_BUYING";
 
 // Action creators
 
@@ -35,5 +37,16 @@ export const fetchSessionsError = (error: Error) => {
 export const fetchSessionsRequest = () => {
   return {
     type: FETCH_SESSIONS_REQUEST
+  };
+};
+
+export const changeActiveSessionForBuying = (
+  activeSessionForBuyingId: string
+) => {
+  return {
+    type: CHANGE_ACTIVE_SESSION_FOR_BUYING,
+    payload: {
+      activeSessionForBuyingId
+    }
   };
 };

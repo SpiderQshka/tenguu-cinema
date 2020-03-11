@@ -13,3 +13,31 @@
     padding-bottom: $large-padding !important
     .errorIcon
         margin-right: $default-margin
+
+.hallScheme
+    margin: $default-margin 0 
+    .row
+        padding-left: $large-padding
+        position: relative
+        .rowNumber
+            position: absolute
+            left: 0
+            top: 0
+            font-size: $default-font-size
+            line-height: 1.4
+.seatInput
+    box-sizing: border-box
+    appearance: none
+    background: white
+    outline: 2px solid $secondary-color
+    border: 3px solid $primary-color
+    width: 16px
+    height: 16px
+
+.seatInput.taken
+    background: red
+    outline-color: red
+
+.seatInput:checked 
+    background: $accent-color
+    outline-color: $accent-color

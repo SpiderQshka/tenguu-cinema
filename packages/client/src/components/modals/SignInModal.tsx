@@ -17,11 +17,11 @@ export const SignInModal = (props: any) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
 
-    let object: any = {};
+    const object: any = {};
     formData.forEach((value, key) => {
       object[key] = value;
     });
-    var json = JSON.stringify(object);
+    const json = JSON.stringify(object);
 
     await props.loginUser(json);
 
@@ -30,10 +30,9 @@ export const SignInModal = (props: any) => {
   return (
     <Dialog
       onClose={props.closeLoginModal}
-      aria-labelledby="customized-dialog-title"
       open={props.modals.isLoginModalOpen}
     >
-      <DialogTitle id="customized-dialog-title">Sign In</DialogTitle>
+      <DialogTitle>Sign In</DialogTitle>
       <DialogContent dividers>
         {props.users.error ? (
           <Typography variant="overline" className={styles.errorMsg}>
@@ -47,7 +46,7 @@ export const SignInModal = (props: any) => {
           className={styles.form}
           onSubmit={submitHandler}
         >
-          <FormControl>
+          <FormControl required>
             <InputLabel htmlFor="email">Email address</InputLabel>
             <Input
               id="email"
@@ -56,7 +55,7 @@ export const SignInModal = (props: any) => {
               className={styles.input}
             />
           </FormControl>
-          <FormControl>
+          <FormControl required>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
               id="password"

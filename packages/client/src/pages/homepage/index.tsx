@@ -12,10 +12,10 @@ export function Homepage() {
     <>
       <FilmCarousel />
       <NowPlaying />
-      <ComingSoon />
+      {/* <ComingSoon />
       <OurSkills />
       <MapComponent />
-      <Footer />
+      <Footer /> */}
     </>
   );
 }

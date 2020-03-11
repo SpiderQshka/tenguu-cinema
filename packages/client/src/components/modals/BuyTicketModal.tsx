@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -8,14 +8,79 @@ import {
   Typography,
   FormControl,
   InputLabel,
-  Input,
   Select,
   MenuItem
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { ISession } from "interfaces/ISession";
+import { IFilm } from "interfaces/IFilm";
+import date from "date-and-time";
+import { IHall } from "interfaces/IHall";
+import { ITicketsPayload } from "interfaces/ITicket";
 
-export const BuyTicketModal = (props: any) => {
+interface IBuyTicketModal {
+  currentFilm: IFilm;
+  currentSession: ISession;
+  isBuyTicketModalOpen: boolean;
+  sessions: ISession[];
+  halls: IHall[];
+  tickets: ITicketsPayload;
+  buyTicket: (data: any) => void;
+  changeActiveSession: (id: string) => void;
+  closeModalRequest: () => void;
+  closeModal: () => void;
+}
+
+export const BuyTicketModal = (props: IBuyTicketModal) => {
+  console.log(props);
+
+  const handleSessionChange = (e: any) => {
+    props.changeActiveSession(e.target.value as string);
+  };
+  const renderHallScheme = (rows: number, columns: number) => {
+    let result = [];
+    for (let i = 0; i < rows; i++) {
+      let row = [];
+      for (let j = 0; j < columns; j++) {
+        row.push(null);
+      }
+      result.push(row);
+    }
+    const elements = result.map((row, i) => {
+      const result = row.map((el, j) => {
+        const isSeatTaken = props.tickets.data.some(
+          ticket =>
+            ticket.seat.row === i + 1 &&
+            ticket.seat.seatNumber === j + 1 &&
+            ticket.sessionId === props.currentSession.id
+        );
+        return (
+          <label className={styles.seatLabel} key={`${i}-${j}`}>
+            <input
+              type="radio"
+              name="seat"
+              required
+              className={`${styles.seatInput} ${isSeatTaken && styles.taken}`}
+              value={`${i}-${j}`}
+            />
+          </label>
+        );
+      });
+      return (
+        <div className={styles.row} key={i}>
+          <Typography variant="overline" className={styles.rowNumber}>
+            {i + 1}
+          </Typography>
+          {result}
+        </div>
+      );
+    });
+    return (
+      <div className={styles.hallScheme}>
+        <Typography variant="h6">Choose a seat</Typography> {elements}
+      </div>
+    );
+  };
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -25,7 +90,13 @@ export const BuyTicketModal = (props: any) => {
     formData.forEach((value, key) => {
       object[key] = value;
     });
-    var json = JSON.stringify(object);
+
+    object.userId = window.localStorage.getItem("userId");
+    object.seat = {
+      row: +object.seat.slice(0, object.seat.indexOf("-")) + 1,
+      seatNumber: +object.seat.slice(object.seat.indexOf("-") + 1) + 1
+    };
+    const json = JSON.stringify(object);
 
     await props.buyTicket(json);
 
@@ -33,59 +104,83 @@ export const BuyTicketModal = (props: any) => {
   };
   return (
     <Dialog
+      scroll="body"
       onClose={props.closeModal}
-      aria-labelledby="customized-dialog-title"
-      open={props.modals.isBuyTicketModalOpen}
+      open={props.isBuyTicketModalOpen}
     >
-      <DialogTitle id="customized-dialog-title">Sign In</DialogTitle>
+      <DialogTitle>{`Buy ticket${props.currentFilm &&
+        `, film "${props.currentFilm.name}"`}`}</DialogTitle>
       <DialogContent dividers>
-        {props.tickets.error ? (
+        {props.tickets.error && (
           <Typography variant="overline" className={styles.errorMsg}>
             <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
             {props.tickets.error.message}
           </Typography>
-        ) : null}
-        <form
-          name="form"
-          id="form"
-          className={styles.form}
-          onSubmit={submitHandler}
-        >
-          <FormControl>
-            <InputLabel htmlFor="email">Email address</InputLabel>
-            <Select
-              id="email"
-              type="email"
-              name="email"
-              className={styles.input}
-            >
-              {/* {props.sessions.map((session: ISession) => <MenuItem value={session.id}>{session.}</MenuItem>)} */}
-            </Select>
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              id="password"
-              type="password"
-              name="password"
-              className={styles.input}
-            />
-          </FormControl>
-        </form>
+        )}
+        {props.currentFilm &&
+        props.sessions.some(
+          session => session.film.id === props.currentFilm.id
+        ) ? (
+          <form
+            name="form"
+            id="form"
+            className={styles.form}
+            onSubmit={submitHandler}
+          >
+            <FormControl fullWidth required>
+              <InputLabel htmlFor="sessionId">Date of the session</InputLabel>
+              <Select
+                value={props.currentSession ? props.currentSession.id : ""}
+                id="session"
+                name="sessionId"
+                className={styles.input}
+                onChange={handleSessionChange}
+              >
+                {props.sessions
+                  .filter(session => session.film.id === props.currentFilm.id)
+                  .map(session => (
+                    <MenuItem value={session.id} key={session.id}>
+                      {date.format(new Date(session.dateTime), "D MMMM, dddd")}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+            <FormControl>
+              {props.currentSession &&
+                renderHallScheme(
+                  props.currentSession.hall.numberOfRows,
+                  props.currentSession.hall.seatsOnRow
+                )}
+            </FormControl>
+          </form>
+        ) : (
+          <Typography variant="overline" className={styles.errorMsg}>
+            <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+            {props.currentFilm
+              ? "Whops, film doesn't have any sessions yet"
+              : "Loading"}
+          </Typography>
+        )}
       </DialogContent>
       <DialogActions>
+        {props.currentFilm &&
+          props.sessions.some(
+            session => session.film.id === props.currentFilm.id
+          ) && (
+            <Button
+              type="submit"
+              form="form"
+              value="Submit"
+              autoFocus
+              color="primary"
+              className={styles.submitBtn}
+            >
+              Submit
+            </Button>
+          )}
+
         <Button
-          type="submit"
-          form="form"
-          value="Submit"
-          autoFocus
-          color="primary"
-          className={styles.submitBtn}
-        >
-          Submit
-        </Button>
-        <Button
-          onClick={props.closeLoginModal}
+          onClick={props.closeModal}
           color="secondary"
           className={styles.closeModalBtn}
         >

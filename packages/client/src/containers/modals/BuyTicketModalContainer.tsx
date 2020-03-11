@@ -1,18 +1,25 @@
 import { connect } from "react-redux";
-
-import { SignInModal } from "components/modals/SignInModal";
 import { IState } from "interfaces/IState";
 import {
   closeBuyTicketModalRequest,
   closeBuyTicketModal
 } from "actions/modals";
 import { buyTicketRequest } from "actions/tickets";
+import {
+  activeForBuyingFilmSelector,
+  activeForBuyingSessionSelector
+} from "selectors";
+import { BuyTicketModal } from "components/modals/BuyTicketModal";
+import { changeActiveSessionForBuying } from "actions/sessions";
 
 const mapStateToProps = (state: IState) => {
   return {
-    tickets: state.tickets,
-    modals: state.modals,
-    sessions: state.sessions
+    currentFilm: activeForBuyingFilmSelector(state),
+    currentSession: activeForBuyingSessionSelector(state),
+    isBuyTicketModalOpen: state.modals.isBuyTicketModalOpen,
+    sessions: state.sessions.data,
+    halls: state.halls.data,
+    tickets: state.tickets
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
@@ -25,10 +32,12 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     closeModal: () => {
       dispatch(closeBuyTicketModal());
-    }
+    },
+    changeActiveSession: (id: string) =>
+      dispatch(changeActiveSessionForBuying(id))
   };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default connector(SignInModal);
+export default connector(BuyTicketModal);

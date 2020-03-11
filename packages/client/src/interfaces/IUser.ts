@@ -25,7 +25,8 @@ export type IUserActionTypes =
   | "FETCH_USERS_PENDING"
   | "FETCH_USERS_ERROR"
   | "FETCH_USERS_REQUEST"
-  | "FETCH_USERS_SUCCESS";
+  | "FETCH_USERS_SUCCESS"
+  | "ADD_TICKET_TO_USER";
 
 export interface IUserPayload {
   currentUser: IUser;

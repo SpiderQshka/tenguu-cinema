@@ -6,6 +6,7 @@ import { Button, Typography } from "@material-ui/core/";
 import SignUpModal from "containers/modals/SignUpModalContainer";
 import SignInModal from "containers/modals/SignInModalContainer";
 import { IHeader } from ".";
+import BuyTicketModal from "containers/modals/BuyTicketModalContainer";
 
 export function Profile(props: IHeader) {
   const history = useHistory();
@@ -17,6 +18,7 @@ export function Profile(props: IHeader) {
     <>
       <SignUpModal />
       <SignInModal />
+      <BuyTicketModal />
 
       <div className={styles["profile-block"]}>
         {userData.id ? (

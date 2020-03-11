@@ -1,7 +1,7 @@
-export interface ITicketModal {
-  filmId?: string;
-  sessionId?: string;
-}
+// export interface ITicketModal {
+//   filmId?: string;
+//   sessionId?: string;
+// }
 
 // Actions
 
@@ -53,10 +53,9 @@ export const openLoginModal = () => {
   };
 };
 
-export const openBuyTicketModal = (data: ITicketModal) => {
+export const openBuyTicketModal = () => {
   return {
-    type: OPEN_BUY_TICKET_MODAL,
-    ...data
+    type: OPEN_BUY_TICKET_MODAL
   };
 };
 

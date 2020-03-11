@@ -51,9 +51,12 @@ export const buyTicketRequest = (data: JSON) => {
   };
 };
 
-export const buyTicket = () => {
+export const buyTicket = (data: any) => {
   return {
-    type: BUY_TICKET
+    type: BUY_TICKET,
+    payload: {
+      data
+    }
   };
 };
 

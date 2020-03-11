@@ -50,7 +50,7 @@ export const SignUpModal = (props: any) => {
           className={styles.form}
           onSubmit={submitHandler}
         >
-          <FormControl>
+          <FormControl required>
             <InputLabel htmlFor="username">Username</InputLabel>
             <Input
               id="username"
@@ -59,7 +59,7 @@ export const SignUpModal = (props: any) => {
               className={styles.input}
             />
           </FormControl>
-          <FormControl>
+          <FormControl required>
             <InputLabel htmlFor="email">Email address</InputLabel>
             <Input
               id="email"
@@ -68,7 +68,7 @@ export const SignUpModal = (props: any) => {
               className={styles.input}
             />
           </FormControl>
-          <FormControl>
+          <FormControl required>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
               id="password"

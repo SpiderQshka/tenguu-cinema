@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import { FilmCard } from "components/film-card";
 import { IState } from "interfaces/IState";
 import { openBuyTicketModal } from "actions/modals";
+import { changeActiveFilmForBuying } from "actions/films";
 
 const mapStateToProps = (state: IState) => state.films;
 const mapDispatchToProps = (dispatch: any) => {
   return {
     buyTicket: (filmId: string) => {
-      dispatch(openBuyTicketModal({ filmId }));
+      dispatch(changeActiveFilmForBuying(filmId));
+      dispatch(openBuyTicketModal());
     }
   };
 };

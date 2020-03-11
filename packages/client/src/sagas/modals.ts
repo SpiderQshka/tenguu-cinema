@@ -8,8 +8,7 @@ import {
   closeBuyTicketModal,
   CLOSE_BUY_TICKET_MODAL_REQUEST
 } from "actions/modals";
-import { USER_REG, USER_LOGIN } from "actions/users";
-import { BUY_TICKET } from "actions/tickets";
+import { USER_REG, USER_LOGIN, ADD_TICKET_TO_USER } from "actions/users";
 
 export function* watchCloseRegModalRequest() {
   yield takeEvery(CLOSE_REG_MODAL_REQUEST, closeRegModalSaga);
@@ -19,7 +18,7 @@ export function* watchCloseLoginModalRequest() {
   yield takeEvery(CLOSE_LOGIN_MODAL_REQUEST, closeLoginModalSaga);
 }
 
-export function* watchcloseBuyTicketModalRequest() {
+export function* watchCloseBuyTicketModalRequest() {
   yield takeEvery(CLOSE_BUY_TICKET_MODAL_REQUEST, closeBuyTicketModalSaga);
 }
 
@@ -34,6 +33,6 @@ export function* closeLoginModalSaga() {
 }
 
 export function* closeBuyTicketModalSaga() {
-  const data = yield take(BUY_TICKET);
+  const data = yield take(ADD_TICKET_TO_USER);
   if (data) yield put(closeBuyTicketModal());
 }

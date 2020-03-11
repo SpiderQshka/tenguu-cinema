@@ -1,7 +1,8 @@
 import {
   FETCH_SESSIONS_ERROR,
   FETCH_SESSIONS_PENDING,
-  FETCH_SESSIONS_SUCCESS
+  FETCH_SESSIONS_SUCCESS,
+  CHANGE_ACTIVE_SESSION_FOR_BUYING
 } from "actions/sessions";
 import {
   ISessionsPayload,
@@ -39,6 +40,11 @@ export const sessionsReducer = (
         ...state,
         error: action.payload.error,
         pending: false
+      };
+    case CHANGE_ACTIVE_SESSION_FOR_BUYING:
+      return {
+        ...state,
+        activeSessionForBuyingId: action.payload.activeSessionForBuyingId
       };
     default:
       return state;

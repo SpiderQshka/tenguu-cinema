@@ -6,7 +6,8 @@ import {
   USER_LOGOUT,
   USER_REG,
   USER_REG_ERROR,
-  USER_LOGIN_ERROR
+  USER_LOGIN_ERROR,
+  ADD_TICKET_TO_USER
 } from "actions/users";
 import { IUserAction, IUser, IUserPayload } from "interfaces/IUser";
 
@@ -71,6 +72,19 @@ export const usersReducer = (state = initialState, action: IUserAction) => {
       return {
         ...state,
         currentUser: {},
+        error: null,
+        currentUserPending: false
+      };
+    case ADD_TICKET_TO_USER:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          tickets: [
+            ...state.currentUser.tickets,
+            action.payload.currentUser.tickets
+          ]
+        },
         error: null,
         currentUserPending: false
       };

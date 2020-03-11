@@ -2,7 +2,7 @@ export interface IHall {
   name: string;
   numberOfRows: number;
   seatsOnRow: number;
-  _id: string;
+  id: string;
 }
 
 export type IHallActionTypes =

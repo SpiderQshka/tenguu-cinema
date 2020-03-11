@@ -5,6 +5,7 @@ export const FETCH_FILMS_PENDING = "FETCH_FILMS_PENDING";
 export const FETCH_FILMS_SUCCESS = "FETCH_FILMS_SUCCESS";
 export const FETCH_FILMS_ERROR = "FETCH_FILMS_ERROR";
 export const FETCH_FILMS_REQUEST = "FETCH_FILMS_REQUEST";
+export const CHANGE_ACTIVE_FILM_FOR_BUYING = "CHANGE_ACTIVE_FILM_FOR_BUYING";
 
 // Action creators
 
@@ -35,5 +36,14 @@ export const fetchFilmsError = (error: Error) => {
 export const fetchFilmsRequest = () => {
   return {
     type: FETCH_FILMS_REQUEST
+  };
+};
+
+export const changeActiveFilmForBuying = (activeFilmForBuyingId: string) => {
+  return {
+    type: CHANGE_ACTIVE_FILM_FOR_BUYING,
+    payload: {
+      activeFilmForBuyingId
+    }
   };
 };

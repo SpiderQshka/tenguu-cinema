@@ -34,12 +34,7 @@ const theme = createMuiTheme({
 });
 
 function RouterContainer(props: ConnectedProps<typeof connector>) {
-  const {
-    mainPagePending,
-    currentUserPending,
-    mainPageError,
-    userStatus
-  } = props;
+  const { mainPagePending, mainPageError } = props;
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -48,7 +43,7 @@ function RouterContainer(props: ConnectedProps<typeof connector>) {
             <HeaderContainer />
             {mainPagePending ? (
               <PageLoader />
-            ) : mainPageError ? (
+            ) : mainPageError && mainPageError.code >= 500 ? (
               <Redirect to="/error" />
             ) : (
               <HomepageContainer />

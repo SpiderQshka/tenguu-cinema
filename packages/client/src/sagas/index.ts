@@ -12,12 +12,13 @@ import { watchFetchPageInfo } from "./page";
 import { fetchAppInfo } from "./appInit";
 import {
   watchCloseRegModalRequest,
-  watchCloseLoginModalRequest
+  watchCloseLoginModalRequest,
+  watchCloseBuyTicketModalRequest
 } from "./modals";
 import { watchFecthAdminInfo } from "./admin";
 import { watchFetchGenresInfo } from "./genres";
 import { watchFetchHallsInfo } from "./halls";
-import { watchFetchTicketsInfo } from "./tickets";
+import { watchFetchTicketsInfo, watchBuyTicketRequest } from "./tickets";
 
 export function* rootSaga() {
   yield all([
@@ -31,8 +32,10 @@ export function* rootSaga() {
     watchLogoutUser(),
     watchLoginUser(),
     watchRegisterUser(),
+    watchBuyTicketRequest(),
     watchCloseRegModalRequest(),
     watchCloseLoginModalRequest(),
+    watchCloseBuyTicketModalRequest(),
     fetchAppInfo(),
     watchFecthAdminInfo()
   ]);

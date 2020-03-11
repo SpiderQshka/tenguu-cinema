@@ -9,8 +9,16 @@ import styles from "./film-carousel.module.sass";
 
 import { IFilmPayload } from "interfaces/IFilm";
 
-export default function FilmCarousel(props: IFilmPayload) {
-  const { data: films, pending } = props;
+export interface IFilmCarousel {
+  films: IFilmPayload;
+  buyTicket: (id: string) => void;
+}
+
+export default function FilmCarousel(props: IFilmCarousel) {
+  const {
+    films: { data: films, pending },
+    buyTicket
+  } = props;
   const settings = {
     dots: false,
     lazyLoad: "progressive" as LazyLoadTypes,
@@ -34,7 +42,14 @@ export default function FilmCarousel(props: IFilmPayload) {
   return (
     <Carousel className={styles["film-carousel"]} {...settings}>
       {films.map(film => {
-        return <Slide film={film} key={film.id} pending={pending} />;
+        return (
+          <Slide
+            film={film}
+            key={film.id}
+            pending={pending}
+            buyTicket={buyTicket}
+          />
+        );
       })}
     </Carousel>
   );

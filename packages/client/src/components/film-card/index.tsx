@@ -43,6 +43,9 @@ export function FilmCard(props: IFilmCard) {
           variant="extended"
           color="secondary"
           size="large"
+          onClick={() =>
+            props.buyTicket ? props.buyTicket(props.item.id) : {}
+          }
         >
           <i className={`fas fa-shopping-cart ${styles["button-icon"]}`}></i>
           Buy ticket

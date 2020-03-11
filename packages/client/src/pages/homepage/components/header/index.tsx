@@ -12,6 +12,8 @@ export interface IHeader {
   logout: (event: MouseEvent<HTMLButtonElement>) => void;
   openRegisterModal: (event: MouseEvent<HTMLButtonElement>) => void;
   openLoginModal: (event: MouseEvent<HTMLButtonElement>) => void;
+  openTicketsTab: () => void;
+  closeTicketsTab: () => void;
 }
 
 export function Header(props: IHeader) {

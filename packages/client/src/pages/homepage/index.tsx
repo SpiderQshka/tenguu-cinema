@@ -5,17 +5,17 @@ import NowPlaying from "containers/NowPlayingContainer";
 import ComingSoon from "containers/ComingSoonContainer";
 import { OurSkills } from "pages/homepage/components/our-skills";
 import { MapComponent } from "pages/homepage/components/map";
-import { Footer } from "components/footer";
+import { Footer } from "pages/homepage/components/footer";
 
 export function Homepage() {
   return (
     <>
       <FilmCarousel />
       <NowPlaying />
-      {/* <ComingSoon />
+      <ComingSoon />
       <OurSkills />
       <MapComponent />
-      <Footer /> */}
+      <Footer />
     </>
   );
 }

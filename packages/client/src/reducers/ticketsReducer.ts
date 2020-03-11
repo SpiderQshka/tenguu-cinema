@@ -3,13 +3,16 @@ import {
   FETCH_TICKETS_PENDING,
   FETCH_TICKETS_SUCCESS,
   BUY_TICKET,
-  BUY_TICKET_ERROR
+  BUY_TICKET_ERROR,
+  OPEN_TICKETS_TAB,
+  CLOSE_TICKETS_TAB
 } from "actions/tickets";
 import { ITicket, ITicketsPayload, ITicketsAction } from "interfaces/ITicket";
 
 const initialState: ITicketsPayload = {
   pending: false,
-  data: [] as ITicket[]
+  data: [] as ITicket[],
+  isTicketsTabOpen: false
 };
 
 export const ticketsReducer = (
@@ -46,6 +49,16 @@ export const ticketsReducer = (
         error: null,
         data: [...state.data, action.payload.data],
         pending: false
+      };
+    case CLOSE_TICKETS_TAB:
+      return {
+        ...state,
+        isTicketsTabOpen: false
+      };
+    case OPEN_TICKETS_TAB:
+      return {
+        ...state,
+        isTicketsTabOpen: true
       };
     default:
       return state;

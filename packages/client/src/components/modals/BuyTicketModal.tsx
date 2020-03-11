@@ -105,7 +105,10 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
   return (
     <Dialog
       scroll="body"
-      onClose={props.closeModal}
+      // onClose={() => {
+      //   props.changeActiveSession("");
+      //   props.closeModal();
+      // }}
       open={props.isBuyTicketModalOpen}
     >
       <DialogTitle>{`Buy ticket${props.currentFilm &&
@@ -156,9 +159,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
         ) : (
           <Typography variant="overline" className={styles.errorMsg}>
             <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
-            {props.currentFilm
-              ? "Whops, film doesn't have any sessions yet"
-              : "Loading"}
+            Whops, film doesn't have any sessions yet
           </Typography>
         )}
       </DialogContent>
@@ -180,7 +181,10 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
           )}
 
         <Button
-          onClick={props.closeModal}
+          onClick={() => {
+            props.closeModal();
+            props.changeActiveSession("");
+          }}
           color="secondary"
           className={styles.closeModalBtn}
         >

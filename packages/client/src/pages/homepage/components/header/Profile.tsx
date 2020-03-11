@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./header.module.sass";
 import { config } from "config";
 import { useHistory } from "react-router-dom";
-import { Button, Typography } from "@material-ui/core/";
+import { Button, Typography, Menu, MenuItem } from "@material-ui/core/";
 import SignUpModal from "containers/modals/SignUpModalContainer";
 import SignInModal from "containers/modals/SignInModalContainer";
 import { IHeader } from ".";
@@ -10,6 +10,12 @@ import BuyTicketModal from "containers/modals/BuyTicketModalContainer";
 
 export function Profile(props: IHeader) {
   const history = useHistory();
+
+  // const [ticketsBtn, setTicketsBtn] = useState(null);
+
+  // const handleClick = (event: any) => {
+  //   setTicketsBtn(event.currentTarget);
+  // };
 
   const {
     users: { currentUser: userData, currentUserPending: pending }
@@ -60,9 +66,31 @@ export function Profile(props: IHeader) {
             )}
 
             <div className={styles["tickets-block"]}>
+              {/* <Button onClick={handleClick}> */}
               <Typography variant="overline" className={styles["text"]}>
                 My Tickets
               </Typography>
+              {/* </Button> */}
+
+              {/* <Menu
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "center"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "center"
+                }}
+                id="simple-menu"
+                anchorEl={ticketsBtn}
+                keepMounted
+                open={Boolean(ticketsBtn)}
+                // onClose={handleClose}
+              >
+                <MenuItem onClick={() => {}}>Profile</MenuItem>
+                <MenuItem onClick={() => {}}>My account</MenuItem>
+                <MenuItem onClick={() => {}}>Logout</MenuItem>
+              </Menu> */}
               <div className={styles["info-block"]}>
                 <Typography className={styles["info-text"]}>
                   {!pending && userData.tickets[0]

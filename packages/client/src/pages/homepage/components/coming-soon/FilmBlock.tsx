@@ -5,6 +5,7 @@ import { IFilm } from "interfaces/IFilm";
 import { Typography, Chip, Fab } from "@material-ui/core/";
 export interface IFilmBlock {
   film: IFilm;
+  buyTicket: (filmId: string) => void;
 }
 
 export const FilmBlock = (props: IFilmBlock) => {
@@ -65,6 +66,7 @@ export const FilmBlock = (props: IFilmBlock) => {
                 variant="extended"
                 color="primary"
                 size="large"
+                onClick={() => props.buyTicket(props.film.id)}
               >
                 <i className={`fas fa-shopping-cart ${styles.buttonIcon}`}></i>
                 Pre order

@@ -7,6 +7,7 @@ import { IFilm } from "interfaces/IFilm";
 
 export interface IComingSoonProps {
   data: IFilm[];
+  buyTicket: (filmId: string) => void;
 }
 
 export function ComingSoon(props: IComingSoonProps) {
@@ -16,7 +17,7 @@ export function ComingSoon(props: IComingSoonProps) {
   return (
     <section className={styles["coming-soon"]} id="coming-soon">
       <SectionTitle isDark={false} message="Coming soon" />
-      <FilmBlock film={films[filmIndex]} />
+      <FilmBlock film={films[filmIndex]} buyTicket={props.buyTicket} />
       <Carousel {...props} handler={handleFilmIndexChange} />
     </section>
   );

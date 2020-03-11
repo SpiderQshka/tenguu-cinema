@@ -17,7 +17,9 @@ export type ITicketsActionTypes =
   | "FETCH_TICKETS_ERROR"
   | "FETCH_TICKETS_REQUEST"
   | "BUY_TICKET"
-  | "BUY_TICKET_ERROR";
+  | "BUY_TICKET_ERROR"
+  | "OPEN_TICKETS_TAB"
+  | "CLOSE_TICKETS_TAB";
 
 export interface ITicketsPayload {
   data: ITicket[];
@@ -26,6 +28,7 @@ export interface ITicketsPayload {
     code: number;
   };
   pending: boolean;
+  isTicketsTabOpen?: boolean;
 }
 export interface ITicketsAction {
   type: ITicketsActionTypes;

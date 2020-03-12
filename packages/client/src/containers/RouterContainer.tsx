@@ -14,7 +14,8 @@ const mapStateToProps = (state: IState) => {
     currentUserPending: state.users.currentUserPending,
     userStatus: state.users.currentUser.status,
     mainPagePending: state.mainPage.pending,
-    mainPageError: state.mainPage.error
+    mainPageError: state.mainPage.error,
+    lang: state.lang.currentLang
   };
 };
 
@@ -33,7 +34,12 @@ const theme = createMuiTheme({
 });
 
 function RouterContainer(props: ConnectedProps<typeof connector>) {
-  const { mainPagePending, mainPageError } = props;
+  const {
+    mainPagePending,
+    mainPageError,
+    currentUserPending,
+    userStatus
+  } = props;
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -48,13 +54,13 @@ function RouterContainer(props: ConnectedProps<typeof connector>) {
             )}
           </Route>
           <Route path="/admin">
-            {/* {currentUserPending ? (
+            {currentUserPending ? (
               <PageLoader />
-            ) : userStatus === "admin" ? ( */}
-            <AdminPage />
-            {/* ) : (
+            ) : userStatus === "admin" ? (
+              <AdminPage lang={props.lang} />
+            ) : (
               <Redirect to="/" />
-            )} */}
+            )}
           </Route>
           <Route path="/error">
             {mainPageError ? <ErrorpageContainer /> : <Redirect to="/" />}

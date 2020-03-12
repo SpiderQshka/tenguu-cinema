@@ -136,65 +136,53 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
           </Typography>
         )}
         {props.currentFilm &&
-        props.sessions.some(
-          session => session.film.id === props.currentFilm.id
-        ) ? (
-          <form
-            name="form"
-            id="form"
-            className={styles.form}
-            onSubmit={submitHandler}
-          >
-            <FormControl fullWidth required>
-              <InputLabel htmlFor="sessionId">
-                <FormattedMessage
-                  id="homepage.modal.buyTicket.date"
-                  defaultMessage="Date of the session"
-                />
-              </InputLabel>
-              <Select
-                value={props.currentSession ? props.currentSession.id : ""}
-                id="session"
-                name="sessionId"
-                className={styles.input}
-                onChange={handleSessionChange}
-              >
-                {props.sessions
-                  .filter(session => session.film.id === props.currentFilm.id)
-                  .map(session => (
-                    <MenuItem value={session.id} key={session.id}>
-                      <FormattedDate
-                        value={new Date(session.dateTime)}
-                        year="numeric"
-                        month="long"
-                        day="2-digit"
-                      />
-                      {/* {date.format(new Date(session.dateTime), "D MMMM, dddd")} */}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-            <FormControl>
-              {props.currentSession &&
-                renderHallScheme(
-                  props.currentSession.hall.numberOfRows,
-                  props.currentSession.hall.seatsOnRow
-                )}
-            </FormControl>
-          </form>
-        ) : (
-          !props.tickets.error && (
-            <Typography variant="overline" className={styles.errorMsg}>
-              <i
-                className={`fas fa-exclamation-circle ${styles.errorIcon}`}
-              ></i>
-              <FormattedMessage
-                id="homepage.modal.buyTicket.noSessionsError"
-                defaultMessage="Whops, film doesn't have any sessions yet"
-              />
-            </Typography>
-          )
-        )}
+          props.sessions.some(
+            session => session.film.id === props.currentFilm.id
+          ) && (
+            <form
+              name="form"
+              id="form"
+              className={styles.form}
+              onSubmit={submitHandler}
+            >
+              <FormControl fullWidth required>
+                <InputLabel htmlFor="sessionId">
+                  <FormattedMessage
+                    id="homepage.modal.buyTicket.date"
+                    defaultMessage="Date of the session"
+                  />
+                </InputLabel>
+                <Select
+                  value={props.currentSession ? props.currentSession.id : ""}
+                  id="session"
+                  name="sessionId"
+                  className={styles.input}
+                  onChange={handleSessionChange}
+                >
+                  {props.sessions
+                    .filter(session => session.film.id === props.currentFilm.id)
+                    .map(session => (
+                      <MenuItem value={session.id} key={session.id}>
+                        <FormattedDate
+                          value={new Date(session.dateTime)}
+                          year="numeric"
+                          month="long"
+                          day="2-digit"
+                          hour12={true}
+                        />
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+              <FormControl>
+                {props.currentSession &&
+                  renderHallScheme(
+                    props.currentSession.hall.numberOfRows,
+                    props.currentSession.hall.seatsOnRow
+                  )}
+              </FormControl>
+            </form>
+          )}
       </DialogContent>
       <DialogActions>
         {props.currentFilm &&

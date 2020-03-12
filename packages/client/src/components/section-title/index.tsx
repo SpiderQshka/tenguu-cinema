@@ -4,7 +4,7 @@ import styles from "./section-title.module.sass";
 
 export interface ISectionTitle {
   isDark: boolean;
-  message: string;
+  message: JSX.Element;
 }
 
 export function SectionTitle(props: ISectionTitle) {

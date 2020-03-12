@@ -1,0 +1,22 @@
+import React from "react";
+import { IState } from "interfaces/IState";
+import { connect, ConnectedProps } from "react-redux";
+import { IntlProvider } from "react-intl";
+import ru from "translations/ru.json";
+import en from "translations/en.json";
+
+const messages = {
+  ru,
+  en
+};
+
+const mapStateToProps = (state: IState) => state;
+
+const connector = connect(mapStateToProps);
+
+const IntlProviderContainer = (props: ConnectedProps<typeof connector>) => {
+  const lang = props.lang.currentLang;
+  return <IntlProvider locale={lang} messages={messages[lang]} {...props} />;
+};
+
+export default connector(IntlProviderContainer);

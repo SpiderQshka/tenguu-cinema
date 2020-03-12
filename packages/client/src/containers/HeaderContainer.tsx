@@ -1,14 +1,18 @@
-import React from "react";
-import { connect, ConnectedProps } from "react-redux";
+import { connect } from "react-redux";
 
 import { Header } from "pages/homepage/components/header";
 import { IState } from "interfaces/IState";
 import { userLogoutRequest } from "actions/users";
 import { openRegModal, openLoginModal } from "actions/modals";
 import { openTicketsTab, closeTicketsTab } from "actions/tickets";
+import { changeLang } from "actions/lang";
 
 const mapStateToProps = (state: IState) => {
-  return { users: state.users, modals: state.modals };
+  return {
+    users: state.users,
+    modals: state.modals,
+    lang: state.lang.currentLang
+  };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -17,14 +21,11 @@ const mapDispatchToProps = (dispatch: any) => {
     openRegisterModal: () => dispatch(openRegModal()),
     openLoginModal: () => dispatch(openLoginModal()),
     openTicketsTab: () => dispatch(openTicketsTab()),
-    closeTicketsTab: () => dispatch(closeTicketsTab())
+    closeTicketsTab: () => dispatch(closeTicketsTab()),
+    changeLang: (lang: string) => dispatch(changeLang(lang))
   };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-const HeaderComponent = (props: ConnectedProps<typeof connector>) => {
-  return <Header {...props} />;
-};
-
-export default connector(HeaderComponent);
+export default connector(Header);

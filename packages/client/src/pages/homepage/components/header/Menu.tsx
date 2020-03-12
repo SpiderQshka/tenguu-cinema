@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import styles from "./header.module.sass";
 import { IconButton, Menu, MenuItem } from "@material-ui/core/";
 import { IHeader } from ".";
+import { FormattedMessage } from "react-intl";
+import { Switch } from "@material-ui/core";
 
 export function MenuComponent(props: IHeader) {
   const history = useHistory();
@@ -41,16 +43,34 @@ export function MenuComponent(props: IHeader) {
             <>
               {userData.status === "admin" && (
                 <MenuItem onClick={() => history.push("/admin")}>
-                  Admin
+                  <FormattedMessage
+                    id="homepage.header.menu.admin"
+                    defaultMessage="Admin"
+                  />
                 </MenuItem>
               )}
+              <MenuItem>
+                <Switch
+                  checked={props.lang === "ru"}
+                  onChange={() => {
+                    props.changeLang(props.lang === "ru" ? "en" : "ru");
+                  }}
+                />
+                <FormattedMessage
+                  id="homepage.header.menu.changeLang"
+                  defaultMessage="Change lang"
+                />
+              </MenuItem>
               <MenuItem
                 onClick={() => {
                   props.logout();
                   handleClose();
                 }}
               >
-                Log out
+                <FormattedMessage
+                  id="homepage.header.menu.logOut"
+                  defaultMessage="Log Out"
+                />
               </MenuItem>
             </>
           )}

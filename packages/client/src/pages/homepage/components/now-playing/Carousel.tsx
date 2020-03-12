@@ -10,6 +10,7 @@ import { IFilm } from "interfaces/IFilm";
 
 export interface ICarouselComponent {
   data: IFilm[];
+  lang: string;
 }
 
 export function CarouselComponent(props: ICarouselComponent) {

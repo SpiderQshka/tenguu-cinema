@@ -13,6 +13,7 @@ import {
   FormHelperText
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
+import { FormattedMessage } from "react-intl";
 
 export const SignUpModal = (props: any) => {
   const submitHandler = async (e: FormEvent) => {
@@ -36,7 +37,12 @@ export const SignUpModal = (props: any) => {
       aria-labelledby="customized-dialog-title"
       open={props.modals.isRegModalOpen}
     >
-      <DialogTitle id="customized-dialog-title">Sign Up</DialogTitle>
+      <DialogTitle id="customized-dialog-title">
+        <FormattedMessage
+          id="homepage.modal.signUp.title"
+          defaultMessage="Sign Up"
+        />
+      </DialogTitle>
       <DialogContent dividers>
         {props.users.error ? (
           <Typography variant="overline" className={styles.errorMsg}>
@@ -51,7 +57,12 @@ export const SignUpModal = (props: any) => {
           onSubmit={submitHandler}
         >
           <FormControl required>
-            <InputLabel htmlFor="username">Username</InputLabel>
+            <InputLabel htmlFor="username">
+              <FormattedMessage
+                id="homepage.modal.signIn.username"
+                defaultMessage="Username"
+              />
+            </InputLabel>
             <Input
               id="username"
               type="text"
@@ -60,7 +71,12 @@ export const SignUpModal = (props: any) => {
             />
           </FormControl>
           <FormControl required>
-            <InputLabel htmlFor="email">Email address</InputLabel>
+            <InputLabel htmlFor="email">
+              <FormattedMessage
+                id="homepage.modal.email"
+                defaultMessage="Email"
+              />
+            </InputLabel>
             <Input
               id="email"
               type="email"
@@ -69,7 +85,12 @@ export const SignUpModal = (props: any) => {
             />
           </FormControl>
           <FormControl required>
-            <InputLabel htmlFor="password">Password</InputLabel>
+            <InputLabel htmlFor="password">
+              <FormattedMessage
+                id="homepage.modal.password"
+                defaultMessage="Password"
+              />
+            </InputLabel>
             <Input
               id="password"
               type="password"
@@ -88,14 +109,17 @@ export const SignUpModal = (props: any) => {
           color="primary"
           className={styles.submitBtn}
         >
-          Submit
+          <FormattedMessage
+            id="homepage.modal.submit"
+            defaultMessage="Submit"
+          />
         </Button>
         <Button
           onClick={props.closeRegisterModal}
           color="secondary"
           className={styles.closeModalBtn}
         >
-          Close
+          <FormattedMessage id="homepage.modal.close" defaultMessage="Close" />
         </Button>
       </DialogActions>
     </Dialog>

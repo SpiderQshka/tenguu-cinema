@@ -7,7 +7,12 @@ import { comingSoonFilmsSelector } from "selectors";
 import { changeActiveFilmForBuying } from "actions/films";
 import { openBuyTicketModal } from "actions/modals";
 
-const mapStateToProps = (state: IState) => comingSoonFilmsSelector(state);
+const mapStateToProps = (state: IState) => {
+  return {
+    data: comingSoonFilmsSelector(state).data,
+    lang: state.lang.currentLang
+  };
+};
 const mapDispatchToProps = (dispatch: any) => {
   return {
     buyTicket: (filmId: string) => {

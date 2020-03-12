@@ -4,11 +4,10 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { orange, grey } from "@material-ui/core/colors";
 import { IState } from "interfaces/IState";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import HeaderContainer from "./HeaderContainer";
-import HomepageContainer from "./HomepageContainer";
 import ErrorpageContainer from "./ErrorpageContainer";
 import { PageLoader } from "components/loader";
 import { AdminPage } from "pages/adminpage";
+import { Homepage } from "pages/homepage";
 
 const mapStateToProps = (state: IState) => {
   return {
@@ -40,13 +39,12 @@ function RouterContainer(props: ConnectedProps<typeof connector>) {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <HeaderContainer />
             {mainPagePending ? (
               <PageLoader />
             ) : mainPageError && mainPageError.code >= 500 ? (
               <Redirect to="/error" />
             ) : (
-              <HomepageContainer />
+              <Homepage />
             )}
           </Route>
           <Route path="/admin">

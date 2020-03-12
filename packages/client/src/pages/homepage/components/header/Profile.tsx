@@ -6,6 +6,7 @@ import SignInModal from "containers/modals/SignInModalContainer";
 import BuyTicketModal from "containers/modals/BuyTicketModalContainer";
 import { Button, Typography, Menu, MenuItem } from "@material-ui/core/";
 import { IHeader } from ".";
+import { FormattedMessage } from "react-intl";
 
 export function Profile(props: IHeader) {
   const {
@@ -21,7 +22,14 @@ export function Profile(props: IHeader) {
           <>
             <div className={styles["user-block"]}>
               <Typography variant="overline" className={styles["user_name"]}>
-                {pending ? "Loading" : userData.username}
+                {pending ? (
+                  <FormattedMessage
+                    id="homepage.header.profile.loading"
+                    defaultMessage="Loading"
+                  />
+                ) : (
+                  userData.username
+                )}
               </Typography>
               <div className={styles["user_photo-block"]}>
                 {userData.photo ? (
@@ -42,7 +50,10 @@ export function Profile(props: IHeader) {
             <div className={styles["tickets-block"]}>
               {/* <Button onClick={handleClick}> */}
               <Typography variant="overline" className={styles["text"]}>
-                My Tickets
+                <FormattedMessage
+                  id="homepage.header.profile.tickets"
+                  defaultMessage="My Tickets"
+                />
               </Typography>
               {/* </Button> */}
               <div className={styles["info-block"]}>
@@ -63,7 +74,10 @@ export function Profile(props: IHeader) {
                 component="span"
                 className={styles.loadingText}
               >
-                Loading
+                <FormattedMessage
+                  id="homepage.header.profile.loading"
+                  defaultMessage="Loading"
+                />
               </Typography>
             ) : (
               <>
@@ -72,9 +86,17 @@ export function Profile(props: IHeader) {
                   color="primary"
                   onClick={props.openRegisterModal}
                 >
-                  Sign Up
+                  <FormattedMessage
+                    id="homepage.header.profile.signUp"
+                    defaultMessage="Sign Up"
+                  />
                 </Button>
-                <Button onClick={props.openLoginModal}>Sign In</Button>
+                <Button onClick={props.openLoginModal}>
+                  <FormattedMessage
+                    id="homepage.header.profile.signIn"
+                    defaultMessage="Sign In"
+                  />
+                </Button>
               </>
             )}
           </div>

@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -17,6 +17,7 @@ import { IFilm } from "interfaces/IFilm";
 import date from "date-and-time";
 import { IHall } from "interfaces/IHall";
 import { ITicketsPayload } from "interfaces/ITicket";
+import { FormattedMessage, FormattedDate } from "react-intl";
 
 interface IBuyTicketModal {
   currentFilm: IFilm;
@@ -32,8 +33,6 @@ interface IBuyTicketModal {
 }
 
 export const BuyTicketModal = (props: IBuyTicketModal) => {
-  console.log(props);
-
   const handleSessionChange = (e: any) => {
     props.changeActiveSession(e.target.value as string);
   };
@@ -77,7 +76,13 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
     });
     return (
       <div className={styles.hallScheme}>
-        <Typography variant="h6">Choose a seat</Typography> {elements}
+        <Typography variant="h6">
+          <FormattedMessage
+            id="homepage.modal.buyTicket.chooseSeat"
+            defaultMessage="Choose a seat"
+          />
+        </Typography>
+        {elements}
       </div>
     );
   };
@@ -102,22 +107,32 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
 
     props.closeModalRequest();
   };
+  const areSessionsExists =
+    props.currentFilm &&
+    props.sessions.some(session => session.film.id === props.currentFilm.id);
   return (
-    <Dialog
-      scroll="body"
-      // onClose={() => {
-      //   props.changeActiveSession("");
-      //   props.closeModal();
-      // }}
-      open={props.isBuyTicketModalOpen}
-    >
-      <DialogTitle>{`Buy ticket${props.currentFilm &&
-        `, film "${props.currentFilm.name}"`}`}</DialogTitle>
+    <Dialog scroll="body" open={props.isBuyTicketModalOpen}>
+      <DialogTitle>
+        <FormattedMessage
+          id="homepage.modal.buyTicket.title"
+          defaultMessage="Buy ticket"
+        />
+        <Typography variant="h6">
+          {props.currentFilm && `"${props.currentFilm.name}"`}
+        </Typography>
+      </DialogTitle>
       <DialogContent dividers>
-        {props.tickets.error && (
+        {(props.tickets.error || !areSessionsExists) && (
           <Typography variant="overline" className={styles.errorMsg}>
             <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
-            {props.tickets.error.message}
+            {!areSessionsExists ? (
+              <FormattedMessage
+                id="homepage.modal.buyTicket.noSessionsError"
+                defaultMessage="Whops, film doesn't have any sessions yet"
+              />
+            ) : (
+              props.tickets.error?.message
+            )}
           </Typography>
         )}
         {props.currentFilm &&
@@ -131,7 +146,12 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
             onSubmit={submitHandler}
           >
             <FormControl fullWidth required>
-              <InputLabel htmlFor="sessionId">Date of the session</InputLabel>
+              <InputLabel htmlFor="sessionId">
+                <FormattedMessage
+                  id="homepage.modal.buyTicket.date"
+                  defaultMessage="Date of the session"
+                />
+              </InputLabel>
               <Select
                 value={props.currentSession ? props.currentSession.id : ""}
                 id="session"
@@ -143,7 +163,13 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
                   .filter(session => session.film.id === props.currentFilm.id)
                   .map(session => (
                     <MenuItem value={session.id} key={session.id}>
-                      {date.format(new Date(session.dateTime), "D MMMM, dddd")}
+                      <FormattedDate
+                        value={new Date(session.dateTime)}
+                        year="numeric"
+                        month="long"
+                        day="2-digit"
+                      />
+                      {/* {date.format(new Date(session.dateTime), "D MMMM, dddd")} */}
                     </MenuItem>
                   ))}
               </Select>
@@ -157,10 +183,17 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
             </FormControl>
           </form>
         ) : (
-          <Typography variant="overline" className={styles.errorMsg}>
-            <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
-            Whops, film doesn't have any sessions yet
-          </Typography>
+          !props.tickets.error && (
+            <Typography variant="overline" className={styles.errorMsg}>
+              <i
+                className={`fas fa-exclamation-circle ${styles.errorIcon}`}
+              ></i>
+              <FormattedMessage
+                id="homepage.modal.buyTicket.noSessionsError"
+                defaultMessage="Whops, film doesn't have any sessions yet"
+              />
+            </Typography>
+          )
         )}
       </DialogContent>
       <DialogActions>
@@ -176,7 +209,10 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
               color="primary"
               className={styles.submitBtn}
             >
-              Submit
+              <FormattedMessage
+                id="homepage.modal.submit"
+                defaultMessage="Submit"
+              />
             </Button>
           )}
 
@@ -188,7 +224,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
           color="secondary"
           className={styles.closeModalBtn}
         >
-          Close
+          <FormattedMessage id="homepage.modal.close" defaultMessage="Close" />
         </Button>
       </DialogActions>
     </Dialog>

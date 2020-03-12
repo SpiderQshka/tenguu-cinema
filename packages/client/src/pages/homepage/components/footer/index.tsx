@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./footer.module.sass";
 import { Button, Typography, TextField, Input } from "@material-ui/core/";
+import { FormattedMessage } from "react-intl";
 
 export const Footer = () => {
   return (
@@ -9,32 +10,61 @@ export const Footer = () => {
         <div className={styles.footerContent}>
           <div className={styles.menuBlock}>
             <Typography variant="h6" className={styles.header}>
-              Menu
+              <FormattedMessage
+                id="homepage.footer.menu"
+                defaultMessage="Menu"
+              />
             </Typography>
             <div className={styles.line}></div>
             <ul className={styles.menuList}>
               <li className={styles.menuItem}>
-                <Button href="#home">Back to top</Button>
+                <Button href="#home">
+                  <FormattedMessage
+                    id="homepage.footer.button.backToTop"
+                    defaultMessage="Back to top"
+                  />
+                </Button>
               </li>
               <li className={styles.menuItem}>
-                <Button href="#now-playing">Now playing</Button>
+                <Button href="#now-playing">
+                  <FormattedMessage
+                    id="homepage.footer.button.nowPlaying"
+                    defaultMessage="Now playing"
+                  />
+                </Button>
               </li>
               <li className={styles.menuItem}>
-                <Button href="#coming-soon">Coming soon</Button>
+                <Button href="#coming-soon">
+                  <FormattedMessage
+                    id="homepage.footer.button.comingSoon"
+                    defaultMessage="Coming soon"
+                  />
+                </Button>
               </li>
               <li className={styles.menuItem}>
-                <Button href="#map">Where are we?</Button>
+                <Button href="#map">
+                  {" "}
+                  <FormattedMessage
+                    id="homepage.footer.button.map"
+                    defaultMessage="Where are we?"
+                  />
+                </Button>
               </li>
             </ul>
           </div>
           <div className={styles.addressInfoBlock}>
             <Typography variant="h6" className={styles.header}>
-              adress information
+              <FormattedMessage
+                id="homepage.footer.adressInfo"
+                defaultMessage="Adress information"
+              />
             </Typography>
             <div className={styles.line}></div>
             <Typography variant="body1" className={styles.addressData}>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolores
-              consectetur minus voluptatum tempore.
+              <FormattedMessage
+                id="homepage.footer.adressData"
+                defaultMessage="lorem ipsum sir amet"
+              />
             </Typography>
             <Typography variant="subtitle1" className={styles.mail}>
               admin@gmail.com
@@ -45,11 +75,13 @@ export const Footer = () => {
           </div>
           <div className={styles.leaveMsgBlock}>
             <Typography variant="h6" className={styles.header}>
-              leave a message
+              <FormattedMessage
+                id="homepage.footer.leaveMessage"
+                defaultMessage="Leave a message"
+              />
             </Typography>
             <div className={styles.line}></div>
             <form
-              action=""
               className={styles.footerForm}
               onSubmit={e => e.preventDefault()}
             >
@@ -76,7 +108,10 @@ export const Footer = () => {
               type="submit"
               className={styles.footerBtn}
             >
-              Send to us
+              <FormattedMessage
+                id="homepage.footer.button.sendMessage"
+                defaultMessage="Send to us"
+              />
             </Button>
           </div>
         </div>

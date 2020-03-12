@@ -6,16 +6,19 @@ import { Loader } from "components/loader";
 import { Typography, Fab } from "@material-ui/core/";
 import styles from "./film-card.module.sass";
 import { ISession } from "interfaces/ISession";
+import { FormattedMessage } from "react-intl";
 
 export interface IFilmCard {
   item: IFilm;
-  pending: boolean;
+  pending?: boolean;
   buyTicket?: (filmId: string) => void;
+  lang: string;
 }
 
 export interface ISessionCard {
   item: ISession;
-  pending: boolean;
+  pending?: boolean;
+  lang: string;
 }
 
 export function FilmCard(props: IFilmCard) {
@@ -36,7 +39,10 @@ export function FilmCard(props: IFilmCard) {
           size="large"
         >
           <i className={`fas fa-play ${styles["button-icon"]}`}></i>
-          Watch trailer
+          <FormattedMessage
+            id="homepage.button.watchTrailer"
+            defaultMessage="Watch trailer"
+          />
         </Fab>
         <Fab
           className={styles["slide-btn"]}
@@ -48,7 +54,10 @@ export function FilmCard(props: IFilmCard) {
           }
         >
           <i className={`fas fa-shopping-cart ${styles["button-icon"]}`}></i>
-          Buy ticket
+          <FormattedMessage
+            id="homepage.button.buyTicket"
+            defaultMessage="Buy ticket"
+          />
         </Fab>
       </div>
       <div className={`${styles["info-block"]}`}>

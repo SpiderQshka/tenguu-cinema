@@ -12,6 +12,10 @@ export interface IModalsPayload {
   isBuyTicketModalOpen: boolean;
 }
 
+export interface ILangPayload {
+  currentLang: "ru" | "en";
+}
+
 export type IPayloads =
   | IUserPayload
   | ISessionsPayload
@@ -24,6 +28,7 @@ export type IPayloads =
   | ITicketsPayload
   | IGridPayload;
 export interface IState {
+  lang: ILangPayload;
   users: IUserPayload;
   sessions: ISessionsPayload;
   films: IFilmPayload;

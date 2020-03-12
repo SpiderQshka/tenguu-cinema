@@ -6,7 +6,7 @@ import { openBuyTicketModal } from "actions/modals";
 import { changeActiveFilmForBuying } from "actions/films";
 
 const mapStateToProps = (state: IState) => {
-  return { films: state.films };
+  return { films: state.films, lang: state.lang.currentLang };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

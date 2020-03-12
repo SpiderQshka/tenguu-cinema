@@ -5,6 +5,7 @@ import { Progressbar } from "./Progressbar";
 import { Typography, Button } from "@material-ui/core/";
 import { IFilm } from "interfaces/IFilm";
 import styles from "./film-carousel.module.sass";
+import { FormattedMessage } from "react-intl";
 
 export interface ISlide {
   film: IFilm;
@@ -43,7 +44,10 @@ export function Slide(props: ISlide) {
                   <i className={`fas fa-play ${styles["button-icon"]}`}></i>
                 }
               >
-                Watch trailer
+                <FormattedMessage
+                  id="homepage.button.watchTrailer"
+                  defaultMessage="Watch trailer"
+                />
               </Button>
               <Button
                 className={styles["slide-btn"]}
@@ -54,7 +58,10 @@ export function Slide(props: ISlide) {
                 }
                 onClick={() => buyTicket(film.id)}
               >
-                Buy ticket
+                <FormattedMessage
+                  id="homepage.button.buyTicket"
+                  defaultMessage="Buy ticket"
+                />
               </Button>
             </div>
           </div>

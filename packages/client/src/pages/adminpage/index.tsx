@@ -4,6 +4,9 @@ import { createHashHistory } from "history";
 import { Admin, Resource } from "react-admin";
 import { Provider } from "react-redux";
 import createAdminStore from "createAdminStore";
+import polyglotI18nProvider from "ra-i18n-polyglot";
+import russianMessages from "ra-language-russian";
+import englishMessages from "ra-language-english";
 import { adminPageTokenFetch } from "APIServices/CRUD";
 import { HallList, HallEdit, HallCreate } from "./lists/HallList";
 import { GenreList, GenreEdit, GenreCreate } from "./lists/GenreList";
@@ -14,11 +17,21 @@ import { UserList, UserCreate, UserEdit } from "./lists/UserList";
 
 const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
 const history = createHashHistory({ hashType: "noslash" });
+const messages = {
+  ru: russianMessages,
+  en: englishMessages
+} as any;
+const i18nProvider = polyglotI18nProvider(locale => messages[locale]);
 
 export const AdminPage = () => {
   return (
     <Provider store={createAdminStore({ dataProvider, history })}>
-      <Admin dataProvider={dataProvider} history={history} title="My Admin">
+      <Admin
+        dataProvider={dataProvider}
+        history={history}
+        i18nProvider={i18nProvider}
+        title="My Admin"
+      >
         <Resource
           name="halls"
           list={HallList}

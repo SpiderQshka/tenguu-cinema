@@ -11,6 +11,7 @@ import {
   Input
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
+import { FormattedMessage } from "react-intl";
 
 export const SignInModal = (props: any) => {
   const submitHandler = async (e: FormEvent) => {
@@ -32,7 +33,12 @@ export const SignInModal = (props: any) => {
       onClose={props.closeLoginModal}
       open={props.modals.isLoginModalOpen}
     >
-      <DialogTitle>Sign In</DialogTitle>
+      <DialogTitle>
+        <FormattedMessage
+          id="homepage.modal.signIn.title"
+          defaultMessage="Sign In"
+        />
+      </DialogTitle>
       <DialogContent dividers>
         {props.users.error ? (
           <Typography variant="overline" className={styles.errorMsg}>
@@ -47,7 +53,12 @@ export const SignInModal = (props: any) => {
           onSubmit={submitHandler}
         >
           <FormControl required>
-            <InputLabel htmlFor="email">Email address</InputLabel>
+            <InputLabel htmlFor="email">
+              <FormattedMessage
+                id="homepage.modal.email"
+                defaultMessage="Email address"
+              />
+            </InputLabel>
             <Input
               id="email"
               type="email"
@@ -56,7 +67,12 @@ export const SignInModal = (props: any) => {
             />
           </FormControl>
           <FormControl required>
-            <InputLabel htmlFor="password">Password</InputLabel>
+            <InputLabel htmlFor="password">
+              <FormattedMessage
+                id="homepage.modal.password"
+                defaultMessage="Password"
+              />
+            </InputLabel>
             <Input
               id="password"
               type="password"
@@ -75,14 +91,17 @@ export const SignInModal = (props: any) => {
           color="primary"
           className={styles.submitBtn}
         >
-          Submit
+          <FormattedMessage
+            id="homepage.modal.submit"
+            defaultMessage="Submit"
+          />
         </Button>
         <Button
           onClick={props.closeLoginModal}
           color="secondary"
           className={styles.closeModalBtn}
         >
-          Close
+          <FormattedMessage id="homepage.modal.close" defaultMessage="Close" />
         </Button>
       </DialogActions>
     </Dialog>

@@ -9,11 +9,13 @@ import { IModalsPayload } from "interfaces/IState";
 export interface IHeader {
   users: IUserPayload;
   modals: IModalsPayload;
+  lang: string;
   logout: () => void;
   openRegisterModal: () => void;
   openLoginModal: () => void;
   openTicketsTab: () => void;
   closeTicketsTab: () => void;
+  changeLang: (lang: string) => void;
 }
 
 export function Header(props: IHeader) {

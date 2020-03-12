@@ -6,10 +6,11 @@ import { combineReducers } from "redux";
 import { modalsReducer } from "./modalsReducer";
 import { hallsReducer } from "./hallsReducer";
 import { ticketsReducer } from "./ticketsReducer";
-import { genresReducer } from "./genresReducer";
+import { langReducer } from "./langReducer";
 import { AdminPageReducer } from "./adminPageReducer";
 
 export const allReducers = combineReducers({
+  lang: langReducer,
   users: usersReducer,
   films: filmsReducer,
   sessions: sessionsReducer,

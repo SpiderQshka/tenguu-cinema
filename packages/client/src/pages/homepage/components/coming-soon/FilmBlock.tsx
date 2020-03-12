@@ -3,9 +3,11 @@ import { config } from "config";
 import styles from "./coming-soon.module.sass";
 import { IFilm } from "interfaces/IFilm";
 import { Typography, Chip, Fab } from "@material-ui/core/";
+import { FormattedMessage } from "react-intl";
 export interface IFilmBlock {
   film: IFilm;
   buyTicket: (filmId: string) => void;
+  lang: string;
 }
 
 export const FilmBlock = (props: IFilmBlock) => {
@@ -50,15 +52,20 @@ export const FilmBlock = (props: IFilmBlock) => {
           <div className={styles.filmPhotoBlock}>
             <img
               src={config.baseUrl + film.filmImage}
-              alt="film logo"
+              alt="..."
               className={styles.filmPhoto}
             />
           </div>
           <div className={styles.descriptionBlock}>
             <Typography variant="body1" className={styles.descriptionText}>
-              {props.film.description
-                ? props.film.description
-                : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius tempore, similique laboriosam dolor voluptate consectetur fugit illum non sunt corrupti."}
+              {props.film.description ? (
+                props.film.description
+              ) : (
+                <FormattedMessage
+                  id="homepage.comingSoon.filmDescription"
+                  defaultMessage="Description isn't provided."
+                />
+              )}
             </Typography>
             <div className={styles.descriptionButtons}>
               <Fab
@@ -69,7 +76,10 @@ export const FilmBlock = (props: IFilmBlock) => {
                 onClick={() => props.buyTicket(props.film.id)}
               >
                 <i className={`fas fa-shopping-cart ${styles.buttonIcon}`}></i>
-                Pre order
+                <FormattedMessage
+                  id="homepage.button.preOrder"
+                  defaultMessage="Pre order"
+                />
               </Fab>
               <Fab
                 className={styles.filmButton}
@@ -78,7 +88,10 @@ export const FilmBlock = (props: IFilmBlock) => {
                 size="large"
               >
                 <i className={`fas fa-ellipsis-h ${styles.buttonIcon}`}></i>
-                Read more
+                <FormattedMessage
+                  id="homepage.button.readMore"
+                  defaultMessage="Read more"
+                />
               </Fab>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React, { MouseEvent } from "react";
 import { Logo } from "./Logo";
-import { Menu } from "./Menu";
+import { MenuComponent } from "./Menu";
 import { Profile } from "./Profile";
 import styles from "./header.module.sass";
 import { IUserPayload } from "interfaces/IUser";
@@ -9,9 +9,9 @@ import { IModalsPayload } from "interfaces/IState";
 export interface IHeader {
   users: IUserPayload;
   modals: IModalsPayload;
-  logout: (event: MouseEvent<HTMLButtonElement>) => void;
-  openRegisterModal: (event: MouseEvent<HTMLButtonElement>) => void;
-  openLoginModal: (event: MouseEvent<HTMLButtonElement>) => void;
+  logout: () => void;
+  openRegisterModal: () => void;
+  openLoginModal: () => void;
   openTicketsTab: () => void;
   closeTicketsTab: () => void;
 }
@@ -23,7 +23,7 @@ export function Header(props: IHeader) {
         <Logo />
         <div className={styles["content-block"]}>
           <Profile {...props} />
-          <Menu />
+          {props.users.currentUser.id && <MenuComponent {...props} />}
         </div>
       </header>
     </section>

@@ -1,7 +1,7 @@
 import React from "react";
 import jsonServerProvider from "ra-data-json-server";
 import { createHashHistory } from "history";
-import { Admin, Resource } from "react-admin";
+import { Admin, Resource, useLocale, useSetLocale } from "react-admin";
 import { Provider } from "react-redux";
 import createAdminStore from "createAdminStore";
 import { adminPageTokenFetch } from "APIServices/CRUD";
@@ -14,22 +14,24 @@ import { UserList, UserCreate, UserEdit } from "./lists/UserList";
 import polyglotI18nProvider from "ra-i18n-polyglot";
 import russianMessages from "ra-language-russian";
 import englishMessages from "ra-language-english";
-
-const messages = {
-  ru: russianMessages,
-  en: englishMessages
-} as any;
+import { TranslationEdit, TranslationList } from "./lists/TranslationList";
 
 const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
 const history = createHashHistory({ hashType: "noslash" });
 
 export const AdminPage = (props: { lang: string }) => {
+  const messages = {
+    ru: russianMessages,
+    en: englishMessages
+  } as any;
+
   return (
     <Provider store={createAdminStore({ dataProvider, history })}>
       <Admin
         dataProvider={dataProvider}
+        locale={props.lang}
         history={history}
-        title="My Admin"
+        title={props.lang === "ru" ? "Админ панель" : "My admin"}
         i18nProvider={polyglotI18nProvider(() => messages[props.lang])}
       >
         <Resource
@@ -67,6 +69,11 @@ export const AdminPage = (props: { lang: string }) => {
           list={TicketList}
           edit={TicketEdit}
           create={TicketCreate}
+        />
+        <Resource
+          name="translations"
+          list={TranslationList}
+          edit={TranslationEdit}
         />
       </Admin>
     </Provider>

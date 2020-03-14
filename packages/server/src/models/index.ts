@@ -5,5 +5,15 @@ import Film from "./film.model";
 import Hall from "./hall.model";
 import Ticket from "./ticket.model";
 import Session from "./session.model";
+import Translation from "./translation.model";
 
-export const models = { User, Comment, Genre, Film, Hall, Ticket, Session };
+export const models = {
+  User,
+  Comment,
+  Genre,
+  Film,
+  Hall,
+  Ticket,
+  Session,
+  Translation
+};

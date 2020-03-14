@@ -11,7 +11,9 @@ import {
   ReferenceInput,
   SelectInput,
   ReferenceField,
-  NumberField
+  NumberField,
+  ReferenceArrayInput,
+  SelectArrayInput
 } from "react-admin";
 
 export const TicketList = (props: any) => {
@@ -41,15 +43,11 @@ export const TicketEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="sessionId"
-          reference="sessions"
-          title="sessions"
-        >
-          <SelectInput source="id" />
+        <ReferenceInput source="sessionId" reference="sessions">
+          <SelectInput optionText="id" />
         </ReferenceInput>
-        <ReferenceInput source="userId" reference="users" title="users">
-          <SelectInput source="username" />
+        <ReferenceInput source="userId" reference="users">
+          <SelectInput optionText="username" />
         </ReferenceInput>
         <NumberInput source="seat.row"></NumberInput>
         <NumberInput source="seat.seatNumber"></NumberInput>
@@ -62,10 +60,10 @@ export const TicketCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
       <ReferenceInput source="sessionId" reference="sessions">
-        <SelectInput source="id" />
+        <SelectInput optionText="id" />
       </ReferenceInput>
       <ReferenceInput source="userId" reference="users">
-        <SelectInput source="username" />
+        <SelectInput optionText="username" />
       </ReferenceInput>
       <NumberInput source="seat.row"></NumberInput>
       <NumberInput source="seat.seatNumber"></NumberInput>

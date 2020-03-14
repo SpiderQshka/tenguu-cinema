@@ -55,4 +55,18 @@ interface IComment extends Document {
   filmId: Schema.Types.ObjectId;
 }
 
-export { ITicket, IGenre, ISession, IFilm, IHall, IUser, IComment };
+interface ITranslation extends Document {
+  ru: string;
+  en: string;
+}
+
+export {
+  ITicket,
+  IGenre,
+  ISession,
+  IFilm,
+  IHall,
+  IUser,
+  IComment,
+  ITranslation
+};

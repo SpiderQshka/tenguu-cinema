@@ -9,7 +9,8 @@ import {
   SimpleForm,
   Create,
   TextInput,
-  NumberInput
+  NumberInput,
+  ReferenceField
 } from "react-admin";
 
 export const HallList = (props: any) => {
@@ -17,7 +18,12 @@ export const HallList = (props: any) => {
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <TextField source="name" />
+        <ReferenceField source="name" label="ru" reference="translations">
+          <TextField source="ru" />
+        </ReferenceField>
+        <ReferenceField source="name" label="en" reference="translations">
+          <TextField source="en" />
+        </ReferenceField>
         <NumberField source="numberOfRows" />
         <NumberField source="seatsOnRow" />
         <EditButton />
@@ -27,12 +33,11 @@ export const HallList = (props: any) => {
 };
 
 export const HallEdit = (props: any) => {
-  console.log(props);
-
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="name" />
+        <TextInput source="ru" label="Name (ru)" />
+        <TextInput source="en" label="Name (en)" />
         <NumberInput source="numberOfRows" />
         <NumberInput source="seatsOnRow" />
       </SimpleForm>
@@ -43,7 +48,8 @@ export const HallEdit = (props: any) => {
 export const HallCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="name" />
+      <TextInput source="ru" label="Name (ru)" />
+      <TextInput source="en" label="Name (en)" />
       <NumberInput source="numberOfRows" />
       <NumberInput source="seatsOnRow" />
     </SimpleForm>

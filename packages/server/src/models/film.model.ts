@@ -3,7 +3,8 @@ import { IFilm } from "../interfaces/interfaces";
 
 const filmScheme: Schema<IFilm> = new Schema({
   name: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "translation",
     required: true
   },
   genreIds: [
@@ -40,7 +41,8 @@ const filmScheme: Schema<IFilm> = new Schema({
     required: true
   },
   description: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "translation",
     required: true
   }
 });

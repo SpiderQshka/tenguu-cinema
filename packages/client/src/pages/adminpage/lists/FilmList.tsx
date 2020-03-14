@@ -21,19 +21,29 @@ import {
   RichTextField,
   ReferenceArrayInput,
   SelectArrayInput,
-  ReferenceArrayField
+  ReferenceArrayField,
+  ReferenceField,
+  LongTextInput
 } from "react-admin";
+import RichTextInput from "ra-input-rich-text";
 
 export const FilmList = (props: any) => {
   return (
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <TextField source="name" />
-        <ReferenceArrayField source="genreIds" reference="genres">
+        <ReferenceField source="name" label="ru" reference="translations">
+          <TextField source="ru" />
+        </ReferenceField>
+        <ReferenceField source="name" label="en" reference="translations">
+          <TextField source="en" />
+        </ReferenceField>
+        <ReferenceArrayField source="genres" reference="translations">
+          {/* <ReferenceArrayField source="name" reference="translations"> */}
           <SingleFieldList>
-            <ChipField source="name" />
+            <ChipField source="en" />
           </SingleFieldList>
+          {/* </ReferenceArrayField> */}
         </ReferenceArrayField>
         <NumberField source="duration" />
         <UrlField source="trailerLink" />
@@ -44,7 +54,8 @@ export const FilmList = (props: any) => {
           </SingleFieldList>
         </ArrayField>
         <DateField source="releaseDate" />
-        <RichTextField source="description" />
+        <RichTextField source="descRu" label="description (ru)" />
+        <RichTextField source="descEn" label="description (en)" />
         <EditButton />
       </Datagrid>
     </List>
@@ -55,12 +66,13 @@ export const FilmEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <TextInput source="nameRu" label="Name (ru)" />
+        <TextInput source="nameEn" label="Name (en)" />
         <ReferenceArrayInput source="genreIds" reference="genres">
           <SelectArrayInput label="Genres">
             <ChipField source="name" />
           </SelectArrayInput>
         </ReferenceArrayInput>
-        <TextInput source="name" />
         <NumberInput source="duration" />
         <TextInput source="trailerLink" />
         {/* <ImageInput source="pictures" label="Related pictures" accept="image/*">
@@ -74,7 +86,8 @@ export const FilmEdit = (props: any) => {
           </SimpleFormIterator>
         </ArrayInput>
         <DateInput source="releaseDate" />
-        <TextInput source="description" />
+        <RichTextInput source="descRu" label="description (ru)" />
+        <RichTextInput source="descEn" label="description (en)" />
       </SimpleForm>
     </Edit>
   );
@@ -83,12 +96,13 @@ export const FilmEdit = (props: any) => {
 export const FilmCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
+      <TextInput source="nameRu" label="Name (ru)" />
+      <TextInput source="nameEn" label="Name (en)" />
       <ReferenceArrayInput source="genreIds" reference="genres">
         <SelectArrayInput label="Genres">
           <ChipField source="name" />
         </SelectArrayInput>
       </ReferenceArrayInput>
-      <TextInput source="name" />
       <NumberInput source="duration" />
       <TextInput source="trailerLink" />
       {/* <ImageInput source="pictures" label="Related pictures" accept="image/*">
@@ -102,7 +116,8 @@ export const FilmCreate = (props: any) => (
         </SimpleFormIterator>
       </ArrayInput>
       <DateInput source="releaseDate" />
-      <TextInput source="description" />
+      <RichTextInput source="descRu" label="description (ru)" />
+      <RichTextInput source="descEn" label="description (en)" />
     </SimpleForm>
   </Create>
 );

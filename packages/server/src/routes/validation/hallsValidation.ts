@@ -12,9 +12,7 @@ export const hallValidation = async (
     seatsOnRow: Joi.number()
       .min(1)
       .required(),
-    name: Joi.string()
-      .min(1)
-      .required()
+    name: Joi.string().required()
   });
 
   const { error = null } = schema.validate(data);

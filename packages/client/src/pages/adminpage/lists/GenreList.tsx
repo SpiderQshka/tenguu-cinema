@@ -9,15 +9,28 @@ import {
   SimpleForm,
   Create,
   TextInput,
-  NumberInput
+  ReferenceField,
+  useLocale
 } from "react-admin";
 
 export const GenreList = (props: any) => {
+  const locale = useLocale();
+  console.log(props);
+
   return (
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <TextField source="name" />
+        <ReferenceField
+          source="name"
+          label={locale === "en" ? "Name (ru)" : "Имя (русск.)"}
+          reference="translations"
+        >
+          <TextField source="ru" />
+        </ReferenceField>
+        <ReferenceField source="name" label="en" reference="translations">
+          <TextField source="en" />
+        </ReferenceField>
         <EditButton />
       </Datagrid>
     </List>
@@ -25,13 +38,11 @@ export const GenreList = (props: any) => {
 };
 
 export const GenreEdit = (props: any) => {
-  console.log(props);
-
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput disabled source="id" />
-        <TextInput source="name" />
+        <TextInput source="ru" label="Name (ru)" />
+        <TextInput source="en" label="Name (en)" />
       </SimpleForm>
     </Edit>
   );
@@ -40,7 +51,8 @@ export const GenreEdit = (props: any) => {
 export const GenreCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="name" />
+      <TextInput source="ru" label="Name (ru)" />
+      <TextInput source="en" label="Name (en)" />
     </SimpleForm>
   </Create>
 );

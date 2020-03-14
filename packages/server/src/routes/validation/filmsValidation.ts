@@ -10,11 +10,13 @@ export const filmValidation = async (
   const schema = Joi.object({
     name: Joi.string().required(),
     genres: Joi.array(),
-    genreIds: Joi.array().items(
-      Joi.string()
-        .pattern(_IDREGEXP)
-        .required()
-    ),
+    genreIds: Joi.array()
+      .items(
+        Joi.string()
+          .pattern(_IDREGEXP)
+          .required()
+      )
+      .required(),
     duration: Joi.number()
       .min(60)
       .required(),

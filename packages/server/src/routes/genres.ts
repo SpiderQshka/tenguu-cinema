@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { models } from "../models/index";
 import { genreValidation } from "./validation/genresValidation";
+import { translationValidation } from "./validation/translationValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IGenre } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
@@ -22,11 +23,33 @@ router.post(
   authenticate,
   requireManager,
   async (req: Request, res: Response) => {
-    const { error, code } = await genreValidation(req.body);
+    const { error: e, code: c } = await translationValidation({
+      ru: req.body.ru,
+      en: req.body.en
+    });
+    if (e) return res.status(c).json(e);
+    const translation = new models.Translation({
+      ru: req.body.ru,
+      en: req.body.en
+    });
+    const newTranslation = await translation.save();
+
+    delete req.body.ru;
+    delete req.body.en;
+
+    console.log(
+      newTranslation._id.toHexString(),
+      typeof newTranslation._id.toHexString()
+    );
+    const { error, code } = await genreValidation({
+      ...req.body,
+      name: newTranslation._id.toHexString()
+    });
     if (error) return res.status(code).json(error);
 
     const genre = new models.Genre({
-      ...req.body
+      ...req.body,
+      name: newTranslation._id.toHexString()
     });
     const newGenre = await genre.save();
 
@@ -49,17 +72,35 @@ router.put(
   authenticate,
   requireManager,
   async (req: Request, res: Response) => {
-    const genre: IGenre = req.body;
-
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.json("Wrong query format");
 
-    const { error, code } = await genreValidation(req.body);
+    const { error: e, code: c } = await translationValidation({
+      ru: req.body.ru,
+      en: req.body.en
+    });
+    if (e) return res.status(c).json(e);
+    const translation = new models.Translation({
+      ru: req.body.ru,
+      en: req.body.en
+    });
+    const newTranslation = await translation.save();
+
+    delete req.body.ru;
+    delete req.body.en;
+
+    const { error, code } = await genreValidation({
+      ...req.body,
+      name: newTranslation._id.toHexString()
+    });
     if (error) return res.status(code).json(error);
 
     const updatedGenre = await models.Genre.findByIdAndUpdate(
       req.params.genreId,
-      genre
+      {
+        ...req.body,
+        name: newTranslation._id.toHexString()
+      }
     );
 
     if (!updatedGenre) return res.status(404).json("Not found");

@@ -3,7 +3,8 @@ import { IGenre } from "../interfaces/interfaces";
 
 const genreScheme: Schema<IGenre> = new Schema({
   name: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "translation",
     required: true
   }
 });

@@ -41,6 +41,7 @@ app.use("/api/users", routes.users);
 app.use("/api/tickets", routes.tickets);
 app.use("/api/halls", routes.halls);
 app.use("/api/sessions", routes.sessions);
-app.use("/api", routes.notFound);
+app.use("/api/translations", routes.translations);
+app.use("*", routes.notFound);
 
 export { app };

@@ -8,6 +8,7 @@ import { requireManager } from "../helpers/requireManager";
 import { deleteFilm } from "../db/dbServices";
 import { getFilmsForClient } from "../db/getDataForClient";
 import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
+import { translationValidation } from "./validation/translationValidation";
 
 const router: Router = Router();
 
@@ -22,13 +23,42 @@ router.post(
   authenticate,
   requireManager,
   async (req: Request, res: Response) => {
-    console.log(req.body);
+    const { error: e, code: c } = await translationValidation({
+      ru: req.body.descRu,
+      en: req.body.descEn
+    });
+    const { error: er, code: co } = await translationValidation({
+      ru: req.body.nameRu,
+      en: req.body.nameEn
+    });
+    if (e || er) return res.status(c || co).json(e || er);
+    const nameTranslation = new models.Translation({
+      ru: req.body.nameRu,
+      en: req.body.nameEn
+    });
+    const descTranslation = new models.Translation({
+      ru: req.body.descRu,
+      en: req.body.descEn
+    });
+    const newDescTranslation = await descTranslation.save();
+    const newNameTranslation = await nameTranslation.save();
 
-    const { error, code } = await filmValidation(req.body);
+    delete req.body.nameRu;
+    delete req.body.nameEn;
+    delete req.body.descRu;
+    delete req.body.descEn;
+
+    const { error, code } = await filmValidation({
+      ...req.body,
+      name: newNameTranslation._id.toHexString(),
+      description: newDescTranslation._id.toHexString()
+    });
     if (error) return res.status(code).json(error);
 
     const film = new models.Film({
-      ...req.body
+      ...req.body,
+      name: newNameTranslation._id.toHexString(),
+      description: newDescTranslation._id.toHexString()
     });
     const newFilm = await film.save();
 
@@ -52,16 +82,48 @@ router.put(
   authenticate,
   requireManager,
   async (req: Request, res: Response) => {
-    const film: IFilm = req.body;
-
     if (!doesIdMatchesFormat(req.params.filmId))
       return res.json("Wrong query format");
-    console.log(req.body.pictures, req.file);
-    const { error, code } = await filmValidation(req.body);
+
+    const { error: e, code: c } = await translationValidation({
+      ru: req.body.descRu,
+      en: req.body.descEn
+    });
+    const { error: er, code: co } = await translationValidation({
+      ru: req.body.nameRu,
+      en: req.body.nameEn
+    });
+
+    if (e || er) return res.status(c || co).json(e || er);
+
+    const nameTranslation = new models.Translation({
+      ru: req.body.nameRu,
+      en: req.body.nameEn
+    });
+    const descTranslation = new models.Translation({
+      ru: req.body.descRu,
+      en: req.body.descEn
+    });
+
+    const newDescTranslation = await descTranslation.save();
+    const newNameTranslation = await nameTranslation.save();
+
+    delete req.body.nameRu;
+    delete req.body.nameEn;
+    delete req.body.descRu;
+    delete req.body.descEn;
+
+    const { error, code } = await filmValidation({
+      ...req.body,
+      name: newNameTranslation._id.toHexString(),
+      description: newDescTranslation._id.toHexString()
+    });
     if (error) return res.status(code).json(error);
 
     const updatedFilm = await models.Film.findByIdAndUpdate(req.params.filmId, {
-      ...film
+      ...req.body,
+      name: newNameTranslation._id.toHexString(),
+      description: newDescTranslation._id.toHexString()
     });
 
     if (!updatedFilm) return res.status(404).json("Film not found");

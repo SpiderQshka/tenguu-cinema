@@ -27,12 +27,14 @@ export const FilmBlock = (props: IFilmBlock) => {
           <ul className={styles.genres}>
             {film.genres.map(genre => (
               <li className={styles.genre} key={genre}>
-                <Typography variant="overline">{genre}</Typography>
+                <Typography variant="overline">
+                  <FormattedMessage id={genre} />
+                </Typography>
               </li>
             ))}
           </ul>
           <Typography variant="h3" className={styles.filmName}>
-            {film.name}
+            <FormattedMessage id={film.name} />
           </Typography>
           <div>
             <Chip
@@ -59,7 +61,7 @@ export const FilmBlock = (props: IFilmBlock) => {
           <div className={styles.descriptionBlock}>
             <Typography variant="body1" className={styles.descriptionText}>
               {props.film.description ? (
-                props.film.description
+                <FormattedMessage id={props.film.description} />
               ) : (
                 <FormattedMessage
                   id="homepage.comingSoon.filmDescription"

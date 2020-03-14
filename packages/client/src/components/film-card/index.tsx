@@ -6,7 +6,7 @@ import { Loader } from "components/loader";
 import { Typography, Fab } from "@material-ui/core/";
 import styles from "./film-card.module.sass";
 import { ISession } from "interfaces/ISession";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, FormattedDate } from "react-intl";
 
 export interface IFilmCard {
   item: IFilm;
@@ -79,7 +79,7 @@ export function FilmCard(props: IFilmCard) {
           )}
         </div>
         <Typography variant="h3" className={styles["film-name"]}>
-          {film.name}
+          <FormattedMessage id={film.name} />
         </Typography>
       </div>
     </div>
@@ -115,10 +115,16 @@ export function ComingSoonFilmCard(props: IFilmCard) {
           )}
         </div>
         <Typography variant="h3" className={styles["film-name"]}>
-          {film.name}
+          <FormattedMessage id={film.name} />
         </Typography>
         <Typography variant="overline" className={styles.date}>
-          {film.releaseDate}
+          <FormattedDate
+            value={new Date(film.releaseDate)}
+            year="numeric"
+            month="long"
+            day="2-digit"
+            hour12={true}
+          />
         </Typography>
       </div>
     </div>

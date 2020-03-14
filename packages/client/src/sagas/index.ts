@@ -19,6 +19,7 @@ import { watchFecthAdminInfo } from "./admin";
 import { watchFetchGenresInfo } from "./genres";
 import { watchFetchHallsInfo } from "./halls";
 import { watchFetchTicketsInfo, watchBuyTicketRequest } from "./tickets";
+import { watchFetchTranslationsInfo } from "./lang";
 
 export function* rootSaga() {
   yield all([
@@ -36,6 +37,7 @@ export function* rootSaga() {
     watchCloseRegModalRequest(),
     watchCloseLoginModalRequest(),
     watchCloseBuyTicketModalRequest(),
+    watchFetchTranslationsInfo(),
     fetchAppInfo(),
     watchFecthAdminInfo()
   ]);

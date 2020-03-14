@@ -30,12 +30,14 @@ export function Slide(props: ISlide) {
             <ul className={styles["genres"]}>
               {film.genres.map(genre => (
                 <li className={styles["genre"]} key={genre}>
-                  <Typography variant="overline">{genre}</Typography>
+                  <Typography variant="overline">
+                    <FormattedMessage id={genre} />
+                  </Typography>
                 </li>
               ))}
             </ul>
             <Typography variant="h1" className={styles["film-name"]}>
-              {film.name}
+              <FormattedMessage id={film.name} />
             </Typography>
             <div className={styles["buttons"]}>
               <Button

@@ -1,8 +1,9 @@
-import { CHANGE_LANG } from "actions/lang";
+import { CHANGE_LANG, FETCH_TRANSLATIONS_SUCCESS } from "actions/lang";
 import { ILangPayload } from "interfaces/IState";
 
 const initialState = {
-  currentLang: "ru"
+  currentLang: "ru",
+  translations: {} as any
 };
 
 export const langReducer = (state = initialState, action: any) => {
@@ -12,6 +13,11 @@ export const langReducer = (state = initialState, action: any) => {
       return {
         ...state,
         currentLang: payload.currentLang
+      };
+    case FETCH_TRANSLATIONS_SUCCESS:
+      return {
+        ...state,
+        translations: action.payload.data
       };
     default:
       return state;

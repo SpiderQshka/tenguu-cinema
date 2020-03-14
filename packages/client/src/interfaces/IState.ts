@@ -14,6 +14,10 @@ export interface IModalsPayload {
 
 export interface ILangPayload {
   currentLang: "ru" | "en";
+  translations: {
+    ru: any;
+    en: any;
+  };
 }
 
 export type IPayloads =

@@ -16,7 +16,14 @@ const connector = connect(mapStateToProps);
 
 const IntlProviderContainer = (props: ConnectedProps<typeof connector>) => {
   const lang = props.lang.currentLang;
-  return <IntlProvider locale={lang} messages={messages[lang]} {...props} />;
+  const dbMessages = props.lang.translations;
+  return (
+    <IntlProvider
+      locale={lang}
+      messages={{ ...messages[lang], ...dbMessages[lang] }}
+      {...props}
+    />
+  );
 };
 
 export default connector(IntlProviderContainer);

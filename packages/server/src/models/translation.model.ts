@@ -20,4 +20,4 @@ translationScheme.set("toJSON", {
   }
 });
 
-export default model<IGenre>("Translation", translationScheme);
+export default model<ITranslation>("Translation", translationScheme);

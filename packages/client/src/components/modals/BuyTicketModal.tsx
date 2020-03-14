@@ -118,7 +118,9 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
           defaultMessage="Buy ticket"
         />
         <Typography variant="h6">
-          {props.currentFilm && `"${props.currentFilm.name}"`}
+          <FormattedMessage
+            id={props.currentFilm ? props.currentFilm.name : ""}
+          />
         </Typography>
       </DialogTitle>
       <DialogContent dividers>

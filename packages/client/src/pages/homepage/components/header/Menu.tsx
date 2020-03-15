@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styles from "./header.module.sass";
-import { IconButton, Menu, MenuItem } from "@material-ui/core/";
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+  Badge
+} from "@material-ui/core/";
 import { IHeader } from ".";
 import { FormattedMessage } from "react-intl";
 import { Switch } from "@material-ui/core";
+import { config } from "config";
 
 export function MenuComponent(props: IHeader) {
   const history = useHistory();
@@ -41,27 +48,80 @@ export function MenuComponent(props: IHeader) {
         >
           {userData.id && (
             <>
+              <MenuItem
+                className={`${styles.menuItem} ${styles.menuUserBlock}`}
+              >
+                <Typography variant="body1" className={styles["user_name"]}>
+                  {props.users.currentUserPending ? (
+                    <FormattedMessage
+                      id="homepage.header.profile.loading"
+                      defaultMessage="Loading"
+                    />
+                  ) : (
+                    userData.username
+                  )}
+                </Typography>
+                <div className={styles["user_photo-block"]}>
+                  {userData.photo ? (
+                    <img
+                      className={styles.photo}
+                      src={config.baseUrl + userData.photo}
+                      alt={userData.username}
+                    />
+                  ) : (
+                    <i
+                      className={`far fa-user ${styles["photo-placeholder"]}`}
+                    ></i>
+                  )}
+                </div>
+              </MenuItem>
               {userData.status === "admin" && (
-                <MenuItem onClick={() => history.push("/admin")}>
+                <MenuItem
+                  onClick={() => history.push("/admin")}
+                  className={styles.menuItem}
+                >
                   <FormattedMessage
                     id="homepage.header.menu.admin"
                     defaultMessage="Admin"
                   />
                 </MenuItem>
               )}
-              <MenuItem>
-                <Switch
-                  checked={props.lang === "ru"}
-                  onChange={() => {
-                    props.changeLang(props.lang === "ru" ? "en" : "ru");
-                  }}
-                />
+              <MenuItem
+                className={`${styles.menuItem} ${styles.menuTicketsBlock}`}
+              >
+                <Badge
+                  className={styles.badge}
+                  badgeContent={
+                    !props.users.currentUserPending && userData.tickets[0]
+                      ? userData.tickets.length
+                      : 0
+                  }
+                  color="primary"
+                  showZero
+                >
+                  <Typography variant="body1" className={styles["text"]}>
+                    <FormattedMessage
+                      id="homepage.header.profile.tickets"
+                      defaultMessage="My Tickets"
+                    />
+                  </Typography>
+                </Badge>
+              </MenuItem>
+              <MenuItem className={styles.menuItem}>
                 <FormattedMessage
                   id="homepage.header.menu.changeLang"
                   defaultMessage="Change lang"
                 />
+                <Switch
+                  checked={props.lang === "ru"}
+                  color="primary"
+                  onChange={() => {
+                    props.changeLang(props.lang === "ru" ? "en" : "ru");
+                  }}
+                />
               </MenuItem>
               <MenuItem
+                className={styles.menuItem}
                 onClick={() => {
                   props.logout();
                   handleClose();

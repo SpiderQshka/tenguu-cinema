@@ -13,8 +13,7 @@ export interface IHeader {
   logout: () => void;
   openRegisterModal: () => void;
   openLoginModal: () => void;
-  openTicketsTab: () => void;
-  closeTicketsTab: () => void;
+  openUserTicketsModal: () => void;
   changeLang: (lang: string) => void;
 }
 

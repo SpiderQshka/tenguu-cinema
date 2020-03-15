@@ -25,7 +25,8 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: orange[500],
-      light: grey[50]
+      light: grey[50],
+      contrastText: grey[50]
     },
     secondary: {
       main: grey[900]

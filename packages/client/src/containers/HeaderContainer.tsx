@@ -3,8 +3,11 @@ import { connect } from "react-redux";
 import { Header } from "pages/homepage/components/header";
 import { IState } from "interfaces/IState";
 import { userLogoutRequest } from "actions/users";
-import { openRegModal, openLoginModal } from "actions/modals";
-import { openTicketsTab, closeTicketsTab } from "actions/tickets";
+import {
+  openRegModal,
+  openLoginModal,
+  openUserTicketModal
+} from "actions/modals";
 import { changeLang } from "actions/lang";
 
 const mapStateToProps = (state: IState) => {
@@ -20,8 +23,7 @@ const mapDispatchToProps = (dispatch: any) => {
     logout: () => dispatch(userLogoutRequest()),
     openRegisterModal: () => dispatch(openRegModal()),
     openLoginModal: () => dispatch(openLoginModal()),
-    openTicketsTab: () => dispatch(openTicketsTab()),
-    closeTicketsTab: () => dispatch(closeTicketsTab()),
+    openUserTicketsModal: () => dispatch(openUserTicketModal()),
     changeLang: (lang: string) => dispatch(changeLang(lang))
   };
 };

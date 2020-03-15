@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./header.module.sass";
 import { config } from "config";
 import SignUpModal from "containers/modals/SignUpModalContainer";
 import SignInModal from "containers/modals/SignInModalContainer";
 import BuyTicketModal from "containers/modals/BuyTicketModalContainer";
-import { Button, Typography, Menu, MenuItem } from "@material-ui/core/";
+import UserTicketsModal from "containers/modals/UserTicketsModalContainer";
+import { Button, Typography, Badge } from "@material-ui/core/";
 import { IHeader } from ".";
 import { FormattedMessage } from "react-intl";
 
@@ -17,6 +18,7 @@ export function Profile(props: IHeader) {
       <SignUpModal />
       <SignInModal />
       <BuyTicketModal />
+      <UserTicketsModal />
       <div className={styles["profile-block"]}>
         {userData.id ? (
           <>
@@ -48,21 +50,26 @@ export function Profile(props: IHeader) {
             <div className={styles["vertical-line"]}></div>
 
             <div className={styles["tickets-block"]}>
-              {/* <Button onClick={handleClick}> */}
-              <Typography variant="overline" className={styles["text"]}>
-                <FormattedMessage
-                  id="homepage.header.profile.tickets"
-                  defaultMessage="My Tickets"
-                />
-              </Typography>
-              {/* </Button> */}
-              <div className={styles["info-block"]}>
-                <Typography className={styles["info-text"]}>
-                  {!pending && userData.tickets[0]
-                    ? userData.tickets.length
-                    : 0}
-                </Typography>
-              </div>
+              <Badge
+                className={styles.badge}
+                badgeContent={
+                  !pending && userData.tickets[0] ? userData.tickets.length : 0
+                }
+                color="primary"
+                showZero
+              >
+                <Button
+                  onClick={props.openUserTicketsModal}
+                  className={styles["text"]}
+                >
+                  <Typography variant="overline">
+                    <FormattedMessage
+                      id="homepage.header.profile.tickets"
+                      defaultMessage="My Tickets"
+                    />
+                  </Typography>
+                </Button>
+              </Badge>
             </div>
             <div className={styles["vertical-line"]}></div>
           </>

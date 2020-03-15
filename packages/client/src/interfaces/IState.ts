@@ -10,6 +10,7 @@ export interface IModalsPayload {
   isRegModalOpen: boolean;
   isLoginModalOpen: boolean;
   isBuyTicketModalOpen: boolean;
+  isUserTicketsModalOpen: boolean;
 }
 
 export interface ILangPayload {

@@ -82,40 +82,50 @@ $photo-size: 40px
                     align-items: center
                     background-color: $accent-color
                     .photo
-                        // border-radius: 50%
-                        // width: $photo-size
+
                         height: $photo-size
                     .photo-placeholder
                         font-size: $large-font-size
                         color: $primary-color
                         
             .tickets-block
-                position: relative
                 padding: $default-padding 0 
                 .text
                     color: $primary-color
-                .info-block
-                    position: absolute
-                    display: flex
-                    align-items: center
-                    justify-content: center
-                    top: 0
-                    right: calc(-#{$large-margin})
-                    width: calc(#{$small-font-size} * 1.7)
-                    height: calc(#{$small-font-size} * 1.7)
-                    background-color: $accent-color
-                    border-radius: 50%
-                    .info-text
-                        color: $primary-color
-
             .menu-block
                 .menu-btn
                     color: $primary-color !important
                     opacity: .5
-                    // font-size: $default-font-size
                     &:first-child
                         margin-right: $extra-small-margin
                     &:hover
                         opacity: 1
                     i
                         font-size: $large-font-size !important
+.menuUserBlock
+    display: none !important
+    .user_name
+        display: inline-block
+        color: $secondary-color
+        margin-right: $small-margin
+        text-transform: capitalize
+    .user_photo-block
+        border-radius: 50%
+        width: $photo-size
+        height: $photo-size
+        overflow: hidden
+        display: inline-flex
+        justify-content: center
+        align-items: center
+        background-color: $accent-color
+        .photo
+            height: $photo-size
+        .photo-placeholder
+            font-size: $large-font-size
+            color: $primary-color
+.menuTicketsBlock
+    display: none !important
+    padding-top: $default-padding !important
+    padding-bottom: $default-padding !important
+    .text
+        color: $secondary-color

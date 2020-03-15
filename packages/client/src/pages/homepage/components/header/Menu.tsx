@@ -88,6 +88,7 @@ export function MenuComponent(props: IHeader) {
               )}
               <MenuItem
                 className={`${styles.menuItem} ${styles.menuTicketsBlock}`}
+                onClick={props.openUserTicketsModal}
               >
                 <Badge
                   className={styles.badge}

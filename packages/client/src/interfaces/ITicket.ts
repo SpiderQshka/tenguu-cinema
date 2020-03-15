@@ -1,7 +1,7 @@
 import { ISession } from "./ISession";
 
 export interface ITicket {
-  session: ISession;
+  id: string;
   sessionId: string;
   userId: string;
   seat: {

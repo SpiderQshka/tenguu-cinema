@@ -33,6 +33,9 @@
   "homepage.modal.signUp.title": "Sign Up",
   "homepage.modal.buyTicket.chooseSeat": "Choose a seat",
   "homepage.modal.buyTicket.title": "Buy ticket",
-  "homepage.modal.buyTicket.date": "Date of the session",
-  "homepage.modal.buyTicket.noSessionsError": "Whops, film doesn't have any sessions yet"
+  "homepage.modal.buyTicket.date": "Session date",
+  "homepage.modal.buyTicket.noSessionsError": "Whops, film doesn't have any sessions yet",
+  "homepage.modal.userTicketsModal.row": "row №",
+  "homepage.modal.userTicketsModal.seatNumber": "seat №",
+  "homepage.modal.userTicketsModal.hall": "Hall"
 }

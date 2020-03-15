@@ -75,10 +75,13 @@ router.put(
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.json("Wrong query format");
 
-    const { error: e, code: c } = await translationValidation({
-      ru: req.body.ru,
-      en: req.body.en
-    });
+    const { error: e, code: c } = await translationValidation(
+      {
+        ru: req.body.ru,
+        en: req.body.en
+      },
+      false
+    );
     if (e) return res.status(c).json(e);
     const translation = new models.Translation({
       ru: req.body.ru,
@@ -89,10 +92,15 @@ router.put(
     delete req.body.ru;
     delete req.body.en;
 
-    const { error, code } = await genreValidation({
-      ...req.body,
-      name: newTranslation._id.toHexString()
-    });
+    const { error, code } = await genreValidation(
+      {
+        ...req.body,
+        name: newTranslation._id.toHexString()
+          ? newTranslation._id.toHexString()
+          : req.body.name
+      },
+      false
+    );
     if (error) return res.status(code).json(error);
 
     const updatedGenre = await models.Genre.findByIdAndUpdate(

@@ -17,14 +17,15 @@
   "homepage.ourSkills.skillName": "IMAX@",
   "homepage.ourSkills.skillMessage": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere vero ipsam a cumque saepe eius repellendus consequuntur dolorum ut. Nihil?",
   "homepage.footer.menu": "Меню",
-  "homepage.footer.adressInfo": "Наш адресс",
+  "homepage.footer.adressData": "г.Минск, Партизанский район, Филимонова ул. 15.",
+  "homepage.footer.adressInfo": "Наш адрес",
   "homepage.footer.leaveMessage": "Оставить отзыв",
   "homepage.footer.button.sendMessage": "Послать нам",
   "homepage.footer.button.backToTop": "Наверх",
   "homepage.footer.button.nowPlaying": "Сейчас в прокате",
   "homepage.footer.button.comingSoon": "Грядущие показы",
   "homepage.footer.button.map": "Где нас найти?",
-  "homepage.modal.email": "Адрес электронной почты",
+  "homepage.modal.email": "Адрес эл. почты",
   "homepage.modal.submit": "Отправить",
   "homepage.modal.close": "Закрыть",
   "homepage.modal.password": "Пароль",
@@ -34,5 +35,8 @@
   "homepage.modal.buyTicket.chooseSeat": "Выберите место",
   "homepage.modal.buyTicket.title": "Купить билет",
   "homepage.modal.buyTicket.date": "Выберите сеанс",
-  "homepage.modal.buyTicket.noSessionsError": "Ой, похоже на этот фильм ещё нет сеансов"
+  "homepage.modal.buyTicket.noSessionsError": "Ой, похоже на этот фильм ещё нет сеансов",
+  "homepage.modal.userTicketsModal.row": "ряд",
+  "homepage.modal.userTicketsModal.seatNumber": "место",
+  "homepage.modal.userTicketsModal.hall": "Зал"
 }

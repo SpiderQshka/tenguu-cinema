@@ -8,80 +8,79 @@ import {
   Typography,
   FormControl,
   InputLabel,
-  Input,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, FormattedDate } from "react-intl";
+import { ITicket } from "interfaces/ITicket";
+import { ISession } from "interfaces/ISession";
 
 export const UserTicketsModal = (props: any) => {
-  console.log(props);
-
-  //   const submitHandler = async (e: FormEvent) => {
-  //     e.preventDefault();
-  //     const formData = new FormData(e.target as HTMLFormElement);
-
-  //     const object: any = {};
-  //     formData.forEach((value, key) => {
-  //       object[key] = value;
-  //     });
-  //     const json = JSON.stringify(object);
-
-  //     await props.loginUser(json);
-
-  //     props.closeLoginModalRequest();
-  //   };
   return (
     <Dialog
       onClose={props.closeModal}
       open={props.modals.isUserTicketsModalOpen}
     >
       <DialogTitle>
-        {/* <FormattedMessage
-          id="homepage.modal.signIn.title"
-          defaultMessage="Sign In"
-        /> */}
-        Tickets
+        <FormattedMessage
+          id="homepage.header.profile.tickets"
+          defaultMessage="My Tickets"
+        />
       </DialogTitle>
       <DialogContent dividers>
         <List>
-          <ListItem>
-            <ListItemAvatar>
-              <i className="fas fa-ticket-alt"></i>
-            </ListItemAvatar>
-            <ListItemText primary="Ticket" secondary="Date"></ListItemText>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <i className="fas fa-ticket-alt"></i>
-            </ListItemAvatar>
-            <ListItemText primary="Ticket" secondary="Date"></ListItemText>
-          </ListItem>
-          <ListItem>
-            <ListItemAvatar>
-              <i className="fas fa-ticket-alt"></i>
-            </ListItemAvatar>
-            <ListItemText primary="Ticket" secondary="Date"></ListItemText>
-          </ListItem>
+          {props.user.tickets &&
+            props.user.tickets.map((ticket: ITicket, i: number) => {
+              const currentSession = props.sessions.filter(
+                (session: ISession) => ticket.sessionId === session.id
+              )[0];
+              return (
+                <ListItem>
+                  <ListItemAvatar>
+                    <i className="fas fa-ticket-alt"></i>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <>
+                        "<FormattedMessage id={currentSession.film.name} />
+                        ";{" "}
+                        <FormattedMessage
+                          id="homepage.modal.userTicketsModal.hall"
+                          defaultMessage="Hall"
+                        />{" "}
+                        "<FormattedMessage id={currentSession.hall.name} />
+                        ",{" "}
+                        <FormattedMessage
+                          id="homepage.modal.userTicketsModal.row"
+                          defaultMessage="Row"
+                        />{" "}
+                        {ticket.seat.row},{" "}
+                        <FormattedMessage
+                          id="homepage.modal.userTicketsModal.seatNumber"
+                          defaultMessage="Seat"
+                        />{" "}
+                        {ticket.seat.seatNumber}
+                      </>
+                    }
+                    secondary={
+                      <FormattedDate
+                        value={new Date(currentSession.dateTime)}
+                        year="numeric"
+                        month="long"
+                        day="2-digit"
+                        hour12={true}
+                      />
+                    }
+                  ></ListItemText>
+                </ListItem>
+              );
+            })}
         </List>
       </DialogContent>
       <DialogActions>
-        {/* <Button
-          type="submit"
-          form="form"
-          value="Submit"
-          autoFocus
-          color="primary"
-          className={styles.submitBtn}
-        >
-          <FormattedMessage
-            id="homepage.modal.submit"
-            defaultMessage="Submit"
-          />
-        </Button> */}
         <Button
           onClick={props.closeModal}
           color="secondary"

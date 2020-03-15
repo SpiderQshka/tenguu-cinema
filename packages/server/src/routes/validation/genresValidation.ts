@@ -3,11 +3,16 @@ import { IGenre } from "../../interfaces/interfaces";
 import { models } from "../../models/index";
 
 export const genreValidation = async (
-  data: IGenre
+  data: IGenre,
+  areFieldsRequired: boolean = true
 ): Promise<{ error: string | null; code: number }> => {
-  const schema = Joi.object({
-    name: Joi.string().required()
-  });
+  const schema = areFieldsRequired
+    ? Joi.object({
+        name: Joi.string().required()
+      })
+    : Joi.object({
+        name: Joi.string().optional()
+      });
 
   const { error = null } = schema.validate(data);
   if (error) return { error: error.details[0].message, code: 400 };

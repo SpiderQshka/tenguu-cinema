@@ -7,9 +7,9 @@ const mapStateToProps = (state: IState) => {
   return {
     isModalOpen: state.modals.isBuyTicketModalOpen,
     sessions: state.sessions.data,
-    halls: state.halls.data,
-    tickets: state.tickets,
-    modals: state.modals
+    tickets: state.tickets.data,
+    modals: state.modals,
+    user: state.users.currentUser
   };
 };
 const mapDispatchToProps = (dispatch: any) => {

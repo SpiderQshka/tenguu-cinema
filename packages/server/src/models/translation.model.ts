@@ -3,12 +3,10 @@ import { IGenre, ITranslation } from "../interfaces/interfaces";
 
 const translationScheme: Schema<ITranslation> = new Schema({
   ru: {
-    type: String,
-    required: true
+    type: String
   },
   en: {
-    type: String,
-    required: true
+    type: String
   }
 });
 

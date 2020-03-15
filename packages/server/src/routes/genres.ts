@@ -75,44 +75,16 @@ router.put(
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.json("Wrong query format");
 
-    const { error: e, code: c } = await translationValidation(
-      {
-        ru: req.body.ru,
-        en: req.body.en
-      },
-      false
-    );
-    if (e) return res.status(c).json(e);
-    const translation = new models.Translation({
-      ru: req.body.ru,
-      en: req.body.en
+    const genre = await models.Genre.findById(req.params.genreId);
+    const translation = await models.Translation.findById(genre?.name);
+
+    await models.Translation.findByIdAndUpdate(genre?.name, {
+      ru: req.body.ru ? req.body.ru : translation?.ru,
+      en: req.body.en ? req.body.en : translation?.en
     });
-    const newTranslation = await translation.save();
 
-    delete req.body.ru;
-    delete req.body.en;
-
-    const { error, code } = await genreValidation(
-      {
-        ...req.body,
-        name: newTranslation._id.toHexString()
-          ? newTranslation._id.toHexString()
-          : req.body.name
-      },
-      false
-    );
-    if (error) return res.status(code).json(error);
-
-    const updatedGenre = await models.Genre.findByIdAndUpdate(
-      req.params.genreId,
-      {
-        ...req.body,
-        name: newTranslation._id.toHexString()
-      }
-    );
-
-    if (!updatedGenre) return res.status(404).json("Not found");
-    return res.json(updatedGenre);
+    if (!genre) return res.status(404).json("Not found");
+    return res.json(genre);
   }
 );
 

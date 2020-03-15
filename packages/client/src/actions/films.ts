@@ -6,6 +6,8 @@ export const FETCH_FILMS_SUCCESS = "FETCH_FILMS_SUCCESS";
 export const FETCH_FILMS_ERROR = "FETCH_FILMS_ERROR";
 export const FETCH_FILMS_REQUEST = "FETCH_FILMS_REQUEST";
 export const CHANGE_ACTIVE_FILM_FOR_BUYING = "CHANGE_ACTIVE_FILM_FOR_BUYING";
+export const CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER =
+  "CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER";
 
 // Action creators
 
@@ -44,6 +46,17 @@ export const changeActiveFilmForBuying = (activeFilmForBuyingId: string) => {
     type: CHANGE_ACTIVE_FILM_FOR_BUYING,
     payload: {
       activeFilmForBuyingId
+    }
+  };
+};
+
+export const changeActiveFilmForShowTrailer = (
+  activeFilmForShowTrailerId: string
+) => {
+  return {
+    type: CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER,
+    payload: {
+      activeFilmForShowTrailerId
     }
   };
 };

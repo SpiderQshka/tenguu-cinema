@@ -2,10 +2,8 @@ import { Router, Request, Response } from "express";
 import { models } from "../models/index";
 import { filmValidation } from "./validation/filmsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
-import { IFilm } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
-import { deleteFilm } from "../db/dbServices";
 import { getFilmsForClient } from "../db/getDataForClient";
 import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 import { translationValidation } from "./validation/translationValidation";
@@ -85,28 +83,21 @@ router.put(
     if (!doesIdMatchesFormat(req.params.filmId))
       return res.json("Wrong query format");
 
-    const { error: e, code: c } = await translationValidation({
-      ru: req.body.descRu,
-      en: req.body.descEn
-    });
-    const { error: er, code: co } = await translationValidation({
-      ru: req.body.nameRu,
-      en: req.body.nameEn
+    const film = await models.Film.findById(req.params.filmId);
+    const nameTranslation = await models.Translation.findById(film?.name);
+    const descTranslation = await models.Translation.findById(
+      film?.description
+    );
+
+    await models.Translation.findByIdAndUpdate(film?.name, {
+      ru: req.body.nameRu ? req.body.nameRu : nameTranslation?.ru,
+      en: req.body.nameEn ? req.body.nameEn : nameTranslation?.en
     });
 
-    if (e || er) return res.status(c || co).json(e || er);
-
-    const nameTranslation = new models.Translation({
-      ru: req.body.nameRu,
-      en: req.body.nameEn
+    await models.Translation.findByIdAndUpdate(film?.description, {
+      ru: req.body.descRu ? req.body.descRu : descTranslation?.ru,
+      en: req.body.descEn ? req.body.descEn : descTranslation?.en
     });
-    const descTranslation = new models.Translation({
-      ru: req.body.descRu,
-      en: req.body.descEn
-    });
-
-    const newDescTranslation = await descTranslation.save();
-    const newNameTranslation = await nameTranslation.save();
 
     delete req.body.nameRu;
     delete req.body.nameEn;
@@ -114,16 +105,12 @@ router.put(
     delete req.body.descEn;
 
     const { error, code } = await filmValidation({
-      ...req.body,
-      name: newNameTranslation._id.toHexString(),
-      description: newDescTranslation._id.toHexString()
+      ...req.body
     });
     if (error) return res.status(code).json(error);
 
     const updatedFilm = await models.Film.findByIdAndUpdate(req.params.filmId, {
-      ...req.body,
-      name: newNameTranslation._id.toHexString(),
-      description: newDescTranslation._id.toHexString()
+      ...req.body
     });
 
     if (!updatedFilm) return res.status(404).json("Film not found");

@@ -2,7 +2,8 @@ import {
   FETCH_FILMS_ERROR,
   FETCH_FILMS_PENDING,
   FETCH_FILMS_SUCCESS,
-  CHANGE_ACTIVE_FILM_FOR_BUYING
+  CHANGE_ACTIVE_FILM_FOR_BUYING,
+  CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER
 } from "actions/films";
 
 import { IFilmAction, IFilm, IFilmPayload } from "interfaces/IFilm";
@@ -39,6 +40,11 @@ export const filmsReducer = (state = initialState, action: IFilmAction) => {
       return {
         ...state,
         activeFilmForBuyingId: action.payload.activeFilmForBuyingId
+      };
+    case CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER:
+      return {
+        ...state,
+        activeFilmForShowTrailerId: action.payload.activeFilmForShowTrailerId
       };
     default:
       return state;

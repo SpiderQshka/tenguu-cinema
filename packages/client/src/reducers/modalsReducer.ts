@@ -6,14 +6,17 @@ import {
   OPEN_BUY_TICKET_MODAL,
   CLOSE_BUY_TICKET_MODAL,
   CLOSE_USER_TICKETS_MODAL,
-  OPEN_USER_TICKETS_MODAL
+  OPEN_USER_TICKETS_MODAL,
+  CLOSE_WATCH_TRAILER_MODAL,
+  OPEN_WATCH_TRAILER_MODAL
 } from "actions/modals";
 
 const initialState = {
   isRegModalOpen: false,
   isLoginModalOpen: false,
   isBuyTicketModalOpen: false,
-  isUserTicketsModalOpen: false
+  isUserTicketsModalOpen: false,
+  isWatchTrailerModalOpen: false
 };
 
 export const modalsReducer = (state = initialState, action: any) => {
@@ -57,6 +60,16 @@ export const modalsReducer = (state = initialState, action: any) => {
       return {
         ...state,
         isUserTicketsModalOpen: true
+      };
+    case CLOSE_WATCH_TRAILER_MODAL:
+      return {
+        ...state,
+        isWatchTrailerModalOpen: false
+      };
+    case OPEN_WATCH_TRAILER_MODAL:
+      return {
+        ...state,
+        isWatchTrailerModalOpen: true
       };
 
     default:

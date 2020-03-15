@@ -11,6 +11,7 @@ export interface ISlide {
   film: IFilm;
   pending: boolean;
   buyTicket: (id: string) => void;
+  watchTrailer: (id: string) => void;
 }
 
 export function Slide(props: ISlide) {
@@ -44,6 +45,9 @@ export function Slide(props: ISlide) {
                 className={styles["slide-btn"]}
                 startIcon={
                   <i className={`fas fa-play ${styles["button-icon"]}`}></i>
+                }
+                onClick={() =>
+                  props.watchTrailer ? props.watchTrailer(props.film.id) : {}
                 }
               >
                 <FormattedMessage

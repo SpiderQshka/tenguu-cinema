@@ -12,6 +12,7 @@ import { IFilmPayload } from "interfaces/IFilm";
 export interface IFilmCarousel {
   films: IFilmPayload;
   buyTicket: (id: string) => void;
+  watchTrailer: (id: string) => void;
 }
 
 export default function FilmCarousel(props: IFilmCarousel) {
@@ -48,6 +49,7 @@ export default function FilmCarousel(props: IFilmCarousel) {
             key={film.id}
             pending={pending}
             buyTicket={buyTicket}
+            watchTrailer={props.watchTrailer}
           />
         );
       })}

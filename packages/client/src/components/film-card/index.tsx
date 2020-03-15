@@ -12,6 +12,7 @@ export interface IFilmCard {
   item: IFilm;
   pending?: boolean;
   buyTicket?: (filmId: string) => void;
+  watchTrailer?: (filmId: string) => void;
   lang: string;
 }
 
@@ -37,6 +38,9 @@ export function FilmCard(props: IFilmCard) {
           variant="extended"
           color="primary"
           size="large"
+          onClick={() =>
+            props.watchTrailer ? props.watchTrailer(props.item.id) : {}
+          }
         >
           <i className={`fas fa-play ${styles["button-icon"]}`}></i>
           <FormattedMessage

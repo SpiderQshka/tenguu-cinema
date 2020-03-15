@@ -11,6 +11,7 @@ export interface IModalsPayload {
   isLoginModalOpen: boolean;
   isBuyTicketModalOpen: boolean;
   isUserTicketsModalOpen: boolean;
+  isWatchTrailerModalOpen: boolean;
 }
 
 export interface ILangPayload {

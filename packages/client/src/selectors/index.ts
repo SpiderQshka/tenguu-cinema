@@ -41,3 +41,14 @@ export const activeForBuyingSessionSelector = createSelector(
     );
   }
 );
+
+export const activeForShowTrailerFilmSelector = createSelector(
+  filmsPayloadSelector,
+  films => {
+    return (
+      films.data.filter(
+        film => film.id === films.activeFilmForShowTrailerId
+      )[0] || null
+    );
+  }
+);

@@ -1,6 +1,7 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import styles from "./error.module.sass";
+import { Typography } from "@material-ui/core";
 export interface IPageError {
   error: {
     message: string;
@@ -13,12 +14,12 @@ export const PageError = (props: any) => {
     <section className={styles.pageErrorContainer}>
       <div className={styles.content}>
         <h2 className={styles.errorCode}> {props.error.code}</h2>
-        <p className={styles.errorMessage}>
+        <Typography variant="overline" className={styles.errorMessage}>
           <FormattedMessage
             id="errorpage.message"
             defaultMessage="Whops, something went wrong"
           />
-        </p>
+        </Typography>
       </div>
     </section>
   );

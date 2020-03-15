@@ -16,6 +16,8 @@ export const CLOSE_BUY_TICKET_MODAL = "CLOSE_BUY_TICKET_MODAL";
 export const CLOSE_BUY_TICKET_MODAL_REQUEST = "CLOSE_BUY_TICKET_MODAL_REQUEST";
 export const OPEN_USER_TICKETS_MODAL = "OPEN_USER_TICKETS_MODAL";
 export const CLOSE_USER_TICKETS_MODAL = "CLOSE_USER_TICKETS_MODAL";
+export const OPEN_WATCH_TRAILER_MODAL = "OPEN_WATCH_TRAILER_MODAL";
+export const CLOSE_WATCH_TRAILER_MODAL = "CLOSE_WATCH_TRAILER_MODAL";
 
 // Action creators
 
@@ -82,5 +84,17 @@ export const openUserTicketModal = () => {
 export const closeUserTicketModal = () => {
   return {
     type: CLOSE_USER_TICKETS_MODAL
+  };
+};
+
+export const openWatchTrailerModal = () => {
+  return {
+    type: OPEN_WATCH_TRAILER_MODAL
+  };
+};
+
+export const closeWatchTrailerModal = () => {
+  return {
+    type: CLOSE_WATCH_TRAILER_MODAL
   };
 };

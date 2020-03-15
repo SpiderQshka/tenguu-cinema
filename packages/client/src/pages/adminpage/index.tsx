@@ -1,7 +1,8 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import jsonServerProvider from "ra-data-json-server";
 import { createHashHistory } from "history";
-import { Admin, Resource, useLocale, useSetLocale } from "react-admin";
+import { Admin, Resource } from "react-admin";
 import { Provider } from "react-redux";
 import createAdminStore from "createAdminStore";
 import { adminPageTokenFetch } from "APIServices/CRUD";
@@ -15,6 +16,7 @@ import polyglotI18nProvider from "ra-i18n-polyglot";
 import russianMessages from "ra-language-russian";
 import englishMessages from "ra-language-english";
 import { TranslationEdit, TranslationList } from "./lists/TranslationList";
+import { Fab } from "@material-ui/core";
 
 const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
 const history = createHashHistory({ hashType: "noslash" });
@@ -31,6 +33,7 @@ export const AdminPage = (props: { lang: string }) => {
         dataProvider={dataProvider}
         locale={props.lang}
         history={history}
+        customRoutes={[<Redirect from="/login" to="/" />]}
         title={props.lang === "ru" ? "Админ панель" : "My admin"}
         i18nProvider={polyglotI18nProvider(() => messages[props.lang])}
       >

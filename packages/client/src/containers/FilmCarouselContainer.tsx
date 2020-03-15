@@ -2,8 +2,11 @@ import { connect } from "react-redux";
 
 import Carousel from "pages/homepage/components/film-carousel";
 import { IState } from "interfaces/IState";
-import { openBuyTicketModal } from "actions/modals";
-import { changeActiveFilmForBuying } from "actions/films";
+import { openBuyTicketModal, openWatchTrailerModal } from "actions/modals";
+import {
+  changeActiveFilmForBuying,
+  changeActiveFilmForShowTrailer
+} from "actions/films";
 
 const mapStateToProps = (state: IState) => {
   return { films: state.films, lang: state.lang.currentLang };
@@ -14,6 +17,10 @@ const mapDispatchToProps = (dispatch: any) => {
     buyTicket: (filmId: string) => {
       dispatch(changeActiveFilmForBuying(filmId));
       dispatch(openBuyTicketModal());
+    },
+    watchTrailer: (filmId: string) => {
+      dispatch(changeActiveFilmForShowTrailer(filmId));
+      dispatch(openWatchTrailerModal());
     }
   };
 };

@@ -71,29 +71,23 @@ router.put(
     if (!doesIdMatchesFormat(req.params.hallId))
       return res.json("Wrong query format");
 
-    const { error: e, code: c } = await translationValidation({
-      ru: req.body.ru,
-      en: req.body.en
+    const hall = await models.Hall.findById(req.params.hallId);
+    const translation = await models.Translation.findById(hall?.name);
+    await models.Translation.findByIdAndUpdate(hall?.name, {
+      ru: req.body.ru ? req.body.ru : translation?.ru,
+      en: req.body.en ? req.body.en : translation?.en
     });
-    if (e) return res.status(c).json(e);
-    const translation = new models.Translation({
-      ru: req.body.ru,
-      en: req.body.en
-    });
-    const newTranslation = await translation.save();
 
     delete req.body.ru;
     delete req.body.en;
 
     const { error, code } = await hallValidation({
-      ...req.body,
-      name: newTranslation._id.toHexString()
+      ...req.body
     });
     if (error) return res.status(code).json(error);
 
     const updatedHall = await models.Hall.findByIdAndUpdate(req.params.hallId, {
-      ...req.body,
-      name: newTranslation._id.toHexString()
+      ...req.body
     });
     if (!updatedHall) return res.status(404).json("Not found");
 

@@ -5,7 +5,6 @@ import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { ISession } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
-import { deleteSession } from "../db/dbServices";
 import { getSessionsForClient } from "../db/getDataForClient";
 import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 

@@ -5,6 +5,7 @@ import SignUpModal from "containers/modals/SignUpModalContainer";
 import SignInModal from "containers/modals/SignInModalContainer";
 import BuyTicketModal from "containers/modals/BuyTicketModalContainer";
 import UserTicketsModal from "containers/modals/UserTicketsModalContainer";
+import WatchTrailerModal from "containers/modals/WatchTrailerModalContailner";
 import { Button, Typography, Badge } from "@material-ui/core/";
 import { IHeader } from ".";
 import { FormattedMessage } from "react-intl";
@@ -19,6 +20,7 @@ export function Profile(props: IHeader) {
       <SignInModal />
       <BuyTicketModal />
       <UserTicketsModal />
+      <WatchTrailerModal />
       <div className={styles["profile-block"]}>
         {userData.id ? (
           <>

@@ -21,13 +21,15 @@ export type IFilmActionTypes =
   | "FETCH_FILMS_SUCCESS"
   | "FETCH_FILMS_ERROR"
   | "FETCH_FILMS_REQUEST"
-  | "CHANGE_ACTIVE_FILM_FOR_BUYING";
+  | "CHANGE_ACTIVE_FILM_FOR_BUYING"
+  | "CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER";
 
 export interface IFilmPayload {
   data: IFilm[];
   error: Error | null;
   pending: boolean;
   activeFilmForBuyingId?: string;
+  activeFilmForShowTrailerId?: string;
 }
 export interface IFilmAction {
   type: IFilmActionTypes;

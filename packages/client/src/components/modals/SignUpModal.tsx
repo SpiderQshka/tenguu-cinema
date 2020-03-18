@@ -3,17 +3,23 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Button,
   Typography,
   FormControl,
   InputLabel,
-  Input,
-  FormHelperText
+  Input
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { FormattedMessage } from "react-intl";
+
+function encodeImageFileAsURL(photo: any, cb: Function) {
+  const reader = new FileReader();
+  reader.readAsDataURL(photo);
+  reader.onloadend = function() {
+    cb(reader.result);
+  };
+}
 
 export const SignUpModal = (props: any) => {
   const submitHandler = async (e: FormEvent) => {
@@ -25,11 +31,13 @@ export const SignUpModal = (props: any) => {
     formData.forEach((value, key) => {
       object[key] = value;
     });
-    var json = JSON.stringify(object);
 
-    await props.registerUser(json);
-
-    props.closeRegisterModalRequest();
+    encodeImageFileAsURL(object.photo, async (result: any) => {
+      object.photo = result;
+      const json = JSON.stringify(object);
+      await props.registerUser(json);
+      props.closeRegisterModalRequest();
+    });
   };
   return (
     <Dialog
@@ -95,6 +103,20 @@ export const SignUpModal = (props: any) => {
               id="password"
               type="password"
               name="password"
+              className={styles.input}
+            />
+          </FormControl>
+          <FormControl required>
+            <InputLabel htmlFor="photo">
+              <FormattedMessage
+                id="homepage.modal.image"
+                defaultMessage="photo"
+              />
+            </InputLabel>
+            <Input
+              id="photo"
+              type="file"
+              name="photo"
               className={styles.input}
             />
           </FormControl>

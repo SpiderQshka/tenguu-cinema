@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./header.module.sass";
-import { config } from "config";
 import SignUpModal from "containers/modals/SignUpModalContainer";
 import SignInModal from "containers/modals/SignInModalContainer";
 import BuyTicketModal from "containers/modals/BuyTicketModalContainer";
@@ -39,7 +38,7 @@ export function Profile(props: IHeader) {
                 {userData.photo ? (
                   <img
                     className={styles.photo}
-                    src={config.baseUrl + userData.photo}
+                    src={userData.photo}
                     alt={userData.username}
                   />
                 ) : (

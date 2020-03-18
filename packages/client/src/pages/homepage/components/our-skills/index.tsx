@@ -1,7 +1,7 @@
 import React from "react";
 import { SectionTitle } from "components/section-title";
 import styles from "./our-skills.module.sass";
-import { Typography, Chip, Fab } from "@material-ui/core/";
+import { Typography } from "@material-ui/core/";
 import { FormattedMessage } from "react-intl";
 
 export function OurSkills() {

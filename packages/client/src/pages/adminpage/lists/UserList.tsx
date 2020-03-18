@@ -7,16 +7,13 @@ import {
   Edit,
   SimpleForm,
   Create,
-  NumberInput,
-  ReferenceInput,
-  SelectInput,
   EmailField,
   ReferenceArrayField,
   SingleFieldList,
   ChipField,
   TextInput,
-  ReferenceArrayInput,
-  SelectArrayInput
+  SelectInput,
+  PasswordInput
 } from "react-admin";
 
 export const UserList = (props: any) => {
@@ -54,9 +51,16 @@ export const UserEdit = (props: any) => {
 export const UserCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
-      <TextInput source="status" />
+      <SelectInput
+        source="status"
+        choices={[
+          { id: "default", name: "Default" },
+          { id: "manager", name: "Manager" }
+        ]}
+      />
       <TextInput source="email" />
       <TextInput source="username" />
+      <PasswordInput source="password" />
     </SimpleForm>
   </Create>
 );

@@ -4,12 +4,13 @@ import { IFilm } from "../interfaces/interfaces";
 const filmScheme: Schema<IFilm> = new Schema({
   name: {
     type: Schema.Types.ObjectId,
-    ref: "translation",
+    ref: "Translation",
     required: true
   },
   genreIds: [
     {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Genre",
       required: true
     }
   ],

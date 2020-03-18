@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Button } from "@material-ui/core/";
+import { Typography } from "@material-ui/core/";
 import styles from "./section-title.module.sass";
 
 export interface ISectionTitle {

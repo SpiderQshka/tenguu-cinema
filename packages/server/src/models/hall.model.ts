@@ -12,7 +12,7 @@ const hallScheme: Schema<IHall> = new Schema({
   },
   name: {
     type: Schema.Types.ObjectId,
-    ref: "translation",
+    ref: "Translation",
     required: true
   }
 });

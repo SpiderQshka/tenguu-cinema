@@ -1,6 +1,5 @@
 import React from "react";
 import { IFilm } from "interfaces/IFilm";
-import { config } from "config";
 import StarRatings from "react-star-ratings";
 import { Loader } from "components/loader";
 import { Typography, Fab } from "@material-ui/core/";
@@ -29,7 +28,7 @@ export function FilmCard(props: IFilmCard) {
     <div
       className={styles["card"]}
       style={{
-        backgroundImage: `url(${config.baseUrl + film.filmImage})`
+        backgroundImage: `url(${film.filmImage})`
       }}
     >
       <div className={`scale-transition ${styles["buttons"]}`}>
@@ -97,7 +96,7 @@ export function ComingSoonFilmCard(props: IFilmCard) {
     <div
       className={`${styles.card} ${styles.sessionCard}`}
       style={{
-        backgroundImage: `url(${config.baseUrl + film.filmImage})`
+        backgroundImage: `url(${film.filmImage})`
       }}
     >
       <div className={`${styles["info-block"]}`}>

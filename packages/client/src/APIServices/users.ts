@@ -1,4 +1,4 @@
-import { getData, IPostData, postData, putData } from "./CRUD";
+import { getData, IPostData, postData } from "./CRUD";
 import { IUser } from "interfaces/IUser";
 
 export interface IPostUser extends IPostData {

@@ -4,7 +4,6 @@ import {
   Datagrid,
   TextField,
   EditButton,
-  NumberField,
   Edit,
   SimpleForm,
   Create,
@@ -25,10 +24,16 @@ export const GenreList = (props: any) => {
           source="name"
           label={locale === "en" ? "Name (ru)" : "Имя (русск.)"}
           reference="translations"
+          linkType={false}
         >
           <TextField source="ru" />
         </ReferenceField>
-        <ReferenceField source="name" label="en" reference="translations">
+        <ReferenceField
+          source="name"
+          label="en"
+          reference="translations"
+          linkType={false}
+        >
           <TextField source="en" />
         </ReferenceField>
         <EditButton />

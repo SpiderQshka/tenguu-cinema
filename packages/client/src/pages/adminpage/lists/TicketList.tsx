@@ -11,9 +11,7 @@ import {
   ReferenceInput,
   SelectInput,
   ReferenceField,
-  NumberField,
-  ReferenceArrayInput,
-  SelectArrayInput
+  NumberField
 } from "react-admin";
 
 export const TicketList = (props: any) => {

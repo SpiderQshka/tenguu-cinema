@@ -1,11 +1,9 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import jsonServerProvider from "ra-data-json-server";
 import { createHashHistory } from "history";
 import { Admin, Resource } from "react-admin";
 import { Provider } from "react-redux";
 import createAdminStore from "createAdminStore";
-import { adminPageTokenFetch } from "APIServices/CRUD";
 import { HallList, HallEdit, HallCreate } from "./lists/HallList";
 import { GenreList, GenreEdit, GenreCreate } from "./lists/GenreList";
 import { FilmList, FilmEdit, FilmCreate } from "./lists/FilmList";
@@ -15,8 +13,10 @@ import { UserList, UserCreate, UserEdit } from "./lists/UserList";
 import polyglotI18nProvider from "ra-i18n-polyglot";
 import russianMessages from "ra-language-russian";
 import englishMessages from "ra-language-english";
-import { TranslationEdit, TranslationList } from "./lists/TranslationList";
-import { Fab } from "@material-ui/core";
+import { TranslationList } from "./lists/TranslationList";
+import imageDataProvider from "./imageDataProvider";
+import jsonServerProvider from "ra-data-json-server";
+import { adminPageTokenFetch } from "APIServices/CRUD";
 
 const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
 const history = createHashHistory({ hashType: "noslash" });
@@ -28,12 +28,10 @@ export const AdminPage = (props: { lang: string }) => {
   } as any;
 
   return (
-    <Provider store={createAdminStore({ dataProvider, history })}>
+    <Provider store={createAdminStore({ imageDataProvider, history })}>
       <Admin
-        dataProvider={dataProvider}
-        locale={props.lang}
+        dataProvider={imageDataProvider}
         history={history}
-        customRoutes={[<Redirect from="/login" to="/" />]}
         title={props.lang === "ru" ? "Админ панель" : "My admin"}
         i18nProvider={polyglotI18nProvider(() => messages[props.lang])}
       >
@@ -73,11 +71,7 @@ export const AdminPage = (props: { lang: string }) => {
           edit={TicketEdit}
           create={TicketCreate}
         />
-        <Resource
-          name="translations"
-          list={TranslationList}
-          edit={TranslationEdit}
-        />
+        <Resource name="translations" list={TranslationList} />
       </Admin>
     </Provider>
   );

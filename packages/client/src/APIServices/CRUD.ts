@@ -1,4 +1,4 @@
-import { fetchUtils, HttpError } from "react-admin";
+import { HttpError } from "react-admin";
 export interface IGetData {
   error?: { code: number; message: string };
   body?: any;

@@ -4,12 +4,9 @@ import {
   Datagrid,
   TextField,
   EditButton,
-  NumberField,
   Edit,
   SimpleForm,
-  Create,
-  TextInput,
-  ReferenceField
+  TextInput
 } from "react-admin";
 
 export const TranslationList = (props: any) => {

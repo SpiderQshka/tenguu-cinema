@@ -14,9 +14,8 @@ const registerValidation = async (
     email: Joi.string()
       .email()
       .required(),
-    photo: Joi.any()
+    photo: Joi.string()
   });
-  console.log(data);
 
   const { error = null } = schema.validate(data);
   if (error) return { error: error.details[0].message, code: 400 };

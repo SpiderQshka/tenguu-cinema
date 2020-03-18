@@ -14,7 +14,6 @@ import {
 import styles from "./modals.module.sass";
 import { ISession } from "interfaces/ISession";
 import { IFilm } from "interfaces/IFilm";
-import date from "date-and-time";
 import { IHall } from "interfaces/IHall";
 import { ITicketsPayload } from "interfaces/ITicket";
 import { FormattedMessage, FormattedDate } from "react-intl";

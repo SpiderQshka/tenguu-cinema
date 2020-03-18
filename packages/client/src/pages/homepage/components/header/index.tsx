@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React from "react";
 import { Logo } from "./Logo";
 import { MenuComponent } from "./Menu";
 import { Profile } from "./Profile";

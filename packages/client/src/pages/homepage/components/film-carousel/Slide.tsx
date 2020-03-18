@@ -1,5 +1,4 @@
 import React from "react";
-import { config } from "config";
 import { Loader } from "components/loader";
 import { Progressbar } from "./Progressbar";
 import { Typography, Button } from "@material-ui/core/";
@@ -20,7 +19,7 @@ export function Slide(props: ISlide) {
     <div
       className={styles["slide-wrapper"]}
       style={{
-        backgroundImage: `url(${config.baseUrl + film.filmImage})`
+        backgroundImage: `url(${film.filmImage})`
       }}
     >
       {pending ? (

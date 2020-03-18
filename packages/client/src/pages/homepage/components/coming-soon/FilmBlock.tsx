@@ -1,9 +1,9 @@
 import React from "react";
-import { config } from "config";
 import styles from "./coming-soon.module.sass";
 import { IFilm } from "interfaces/IFilm";
 import { Typography, Chip, Fab } from "@material-ui/core/";
 import { FormattedMessage } from "react-intl";
+
 export interface IFilmBlock {
   film: IFilm;
   buyTicket: (filmId: string) => void;
@@ -52,11 +52,7 @@ export const FilmBlock = (props: IFilmBlock) => {
         </div>
         <div className={styles.descriptionAndRatingsBlock}>
           <div className={styles.filmPhotoBlock}>
-            <img
-              src={config.baseUrl + film.filmImage}
-              alt="..."
-              className={styles.filmPhoto}
-            />
+            <img src={film.filmImage} alt="..." className={styles.filmPhoto} />
           </div>
           <div className={styles.descriptionBlock}>
             <Typography variant="body1" className={styles.descriptionText}>

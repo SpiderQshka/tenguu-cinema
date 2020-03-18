@@ -1,13 +1,10 @@
-import React, { FormEvent } from "react";
+import React from "react";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   Button,
-  Typography,
-  FormControl,
-  InputLabel,
   List,
   ListItem,
   ListItemAvatar,

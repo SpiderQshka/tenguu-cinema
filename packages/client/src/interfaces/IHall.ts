@@ -13,7 +13,7 @@ export type IHallActionTypes =
 
 export interface IHallPayload {
   data: IHall[];
-  error: Error | null;
+  error: { code: number; message: string } | null;
   pending: boolean;
 }
 export interface IHallAction {

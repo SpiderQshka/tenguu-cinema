@@ -1,5 +1,5 @@
 import { CHANGE_LANG, FETCH_TRANSLATIONS_SUCCESS } from "actions/lang";
-import { ILangPayload } from "interfaces/IState";
+import { ILangPayload } from "interfaces/ILang";
 
 const initialState = {
   currentLang: "ru",

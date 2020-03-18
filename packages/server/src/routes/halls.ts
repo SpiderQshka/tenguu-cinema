@@ -3,7 +3,7 @@ import { models } from "../models/index";
 import { hallValidation } from "./validation/hallsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
-import { requireManager } from "../helpers/requireManager";
+import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { translationValidation } from "./validation/translationValidation";
 
 const router: Router = Router();
@@ -17,7 +17,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.post(
   "/",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const { error: e, code: c } = await translationValidation({
       ru: req.body.ru,
@@ -62,7 +62,7 @@ router.get("/:hallId", async (req: Request, res: Response) => {
 router.put(
   "/:hallId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.hallId))
       return res.json("Wrong query format");
@@ -94,7 +94,7 @@ router.put(
 router.delete(
   "/:hallId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.hallId))
       return res.json("Wrong query format");

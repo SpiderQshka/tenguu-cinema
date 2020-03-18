@@ -11,7 +11,7 @@ export type IGenreActionTypes =
 
 export interface IGenresPayload {
   data: IGenre[];
-  error: Error | null;
+  error: { code: number; message: string } | null;
   pending: boolean;
 }
 export interface IGenresAction {

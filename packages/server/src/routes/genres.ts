@@ -4,7 +4,7 @@ import { genreValidation } from "./validation/genresValidation";
 import { translationValidation } from "./validation/translationValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
-import { requireManager } from "../helpers/requireManager";
+import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
@@ -18,7 +18,7 @@ router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
 router.post(
   "/",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const { error: e, code: c } = await translationValidation({
       ru: req.body.ru,
@@ -67,7 +67,7 @@ router.get("/:genreId", async (req: Request, res: Response) => {
 router.put(
   "/:genreId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.json("Wrong query format");
@@ -88,7 +88,7 @@ router.put(
 router.delete(
   "/:genreId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.json("Wrong query format");

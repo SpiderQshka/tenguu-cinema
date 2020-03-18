@@ -1,5 +1,4 @@
 import { models } from "../models/index";
-import { ObjectId } from "mongodb";
 
 export const getHallsForClient = async (params: object = {}) => {
   const halls = await models.Hall.find(params);

@@ -11,7 +11,6 @@ import {
   buyTicket
 } from "actions/tickets";
 import { addTicketToUser } from "actions/users";
-import { ITicket } from "interfaces/ITicket";
 
 export function* watchFetchTicketsInfo() {
   yield takeEvery(FETCH_TICKETS_REQUEST, fetchTicketsInfo);

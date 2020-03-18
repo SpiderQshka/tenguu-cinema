@@ -26,7 +26,7 @@ export type IFilmActionTypes =
 
 export interface IFilmPayload {
   data: IFilm[];
-  error: Error | null;
+  error: { code: number; message: string } | null;
   pending: boolean;
   activeFilmForBuyingId?: string;
   activeFilmForShowTrailerId?: string;

@@ -1,15 +1,13 @@
 import {
   FETCH_ADMIN_PAGE_ERROR,
   FETCH_ADMIN_PAGE_PENDING,
-  FETCH_ADMIN_PAGE_SUCCESS,
-  CHANGE_CURRENT_TAB
+  FETCH_ADMIN_PAGE_SUCCESS
 } from "actions/admin";
 import { IAdminPageAction, IAdminPagePayload } from "interfaces/IPages";
 
 const initialState: IAdminPagePayload = {
   pending: true,
-  error: null,
-  currentTab: "users"
+  error: null
 };
 
 export const AdminPageReducer = (
@@ -32,11 +30,6 @@ export const AdminPageReducer = (
         ...state,
         pending: false,
         error: action.payload.error
-      };
-    case CHANGE_CURRENT_TAB:
-      return {
-        ...state,
-        currentTab: action.payload.currentTab
       };
     default:
       return state;

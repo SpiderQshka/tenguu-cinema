@@ -18,7 +18,7 @@ export type ISessionActionTypes =
 
 export interface ISessionsPayload {
   data: ISession[];
-  error: Error | null;
+  error: { code: number; message: string } | null;
   pending: boolean;
   activeSessionForBuyingId?: string;
 }

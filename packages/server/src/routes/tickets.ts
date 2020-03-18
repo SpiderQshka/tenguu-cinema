@@ -5,7 +5,7 @@ import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { ITicket } from "../interfaces/interfaces";
 import { TicketStatuses } from "../types/types";
 import { authenticate } from "../helpers/authenticate";
-import { requireManager } from "../helpers/requireManager";
+import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { getTicketsForClient } from "../db/getDataForClient";
 
 const router: Router = Router();
@@ -61,7 +61,7 @@ router.get("/:ticketId", authenticate, async (req: Request, res: Response) => {
 router.put(
   "/:ticketId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const ticket: ITicket = req.body;
 
@@ -90,18 +90,6 @@ router.delete(
 
     const ticketForDelete = await models.Ticket.findById(req.params.ticketId);
     if (!ticketForDelete) return res.status(404).json("Not found");
-
-    // const currentUserId = req.user ? req.user["_id"].toString() : null;
-    // const ticketOwner = await models.User.findById(ticketForDelete?.userId);
-
-    // const ticketOwnerId = ticketOwner ? ticketOwner["_id"].toString() : null;
-
-    // if (currentUserId !== ticketOwnerId)
-    //   return res
-    //     .status(400)
-    //     .json(
-    //       "User id in ticket data doesn't match with id of currently logged user"
-    //     );
 
     const deletedTicket = await models.Ticket.findByIdAndDelete(
       req.params.ticketId

@@ -13,7 +13,8 @@ import { IUserAction, IUser, IUserPayload } from "interfaces/IUser";
 
 const initialState: IUserPayload = {
   currentUserPending: false,
-  currentUser: {} as IUser
+  currentUser: {} as IUser,
+  error: null
 };
 
 export const usersReducer = (state = initialState, action: IUserAction) => {

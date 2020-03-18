@@ -1,15 +1,6 @@
-export type TabsType =
-  | "users"
-  | "genres"
-  | "sessions"
-  | "tickets"
-  | "films"
-  | "halls";
-
 export interface IAdminPagePayload {
   pending: boolean;
   error: { code: number; message: string } | null;
-  currentTab: TabsType;
 }
 
 export type IAdminPageActionTypes =

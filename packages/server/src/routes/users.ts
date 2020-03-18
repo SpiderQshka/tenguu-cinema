@@ -4,7 +4,7 @@ import { userValidation } from "./validation/usersValidation";
 import { IUser } from "../interfaces/interfaces";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
-import { requireManager } from "../helpers/requireManager";
+import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { requireAdmin } from "../helpers/requireAdmin";
 import { getUsersForClient } from "../db/getDataForClient";
 
@@ -13,26 +13,11 @@ const router: Router = Router();
 router.get(
   "/",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const users = await getUsersForClient();
 
     return res.set("X-Total-Count", `${users.length}`).json(users);
-  }
-);
-
-router.get(
-  "/manager/:userId",
-  authenticate,
-  requireManager,
-  async (req: Request, res: Response) => {
-    if (!doesIdMatchesFormat(req.params.userId))
-      return res.json("Wrong query format");
-
-    const user = await models.User.findById(req.params.userId);
-
-    if (!user) return res.status(404).json("Not found");
-    return res.json(user);
   }
 );
 
@@ -41,8 +26,9 @@ router.get("/:userId", authenticate, async (req: Request, res: Response) => {
     return res.json("Wrong query format");
 
   const currentUserId = req.user ? req.user["id"].toString() : null;
-
-  if (currentUserId !== req.params.userId)
+  const currentUser: any = req.user;
+  const currentUserStatus: "admin" | "manager" | "default" = currentUser.status;
+  if (currentUserId !== req.params.userId && currentUserStatus !== "admin")
     return res.status(403).json("Access denied");
 
   const user = (await getUsersForClient({ _id: currentUserId }))[0];
@@ -74,7 +60,7 @@ router.post(
 router.put(
   "/:userId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const user: IUser = req.body;
 
@@ -97,7 +83,7 @@ router.put(
 router.delete(
   "/:userId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.userId))
       return res.json("Wrong query format");

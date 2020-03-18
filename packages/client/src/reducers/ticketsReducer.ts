@@ -10,7 +10,7 @@ import { ITicket, ITicketsPayload, ITicketsAction } from "interfaces/ITicket";
 const initialState: ITicketsPayload = {
   pending: false,
   data: [] as ITicket[],
-  isTicketsTabOpen: false
+  error: null
 };
 
 export const ticketsReducer = (

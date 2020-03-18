@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-export const requireManager = async (
+export const requireManagerOrAdmin = async (
   req: Request,
   res: Response,
   next: Function

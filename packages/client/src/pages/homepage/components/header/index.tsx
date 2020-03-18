@@ -4,7 +4,7 @@ import { MenuComponent } from "./Menu";
 import { Profile } from "./Profile";
 import styles from "./header.module.sass";
 import { IUserPayload } from "interfaces/IUser";
-import { IModalsPayload } from "interfaces/IState";
+import { IModalsPayload } from "interfaces/IModal";
 
 export interface IHeader {
   users: IUserPayload;

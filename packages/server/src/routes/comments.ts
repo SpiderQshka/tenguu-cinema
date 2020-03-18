@@ -4,7 +4,7 @@ import { commentValidation } from "./validation/commentsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { IComment } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
-import { requireManager } from "../helpers/requireManager";
+import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { deleteComment } from "../db/dbServices";
 
 const router: Router = Router();
@@ -18,7 +18,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.post(
   "/",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const { error, code } = await commentValidation(req.body);
     if (error) return res.status(code).json(error);
@@ -45,7 +45,7 @@ router.get("/:commentId", async (req: Request, res: Response) => {
 router.put(
   "/:commentId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const comment: IComment = req.body;
 
@@ -68,7 +68,7 @@ router.put(
 router.delete(
   "/:commentId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.commentId))
       return res.json("Wrong query format");

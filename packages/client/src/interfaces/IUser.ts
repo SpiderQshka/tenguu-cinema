@@ -30,7 +30,7 @@ export type IUserActionTypes =
 
 export interface IUserPayload {
   currentUser: IUser;
-  error?: { code: number; message: string };
+  error: { code: number; message: string } | null;
   currentUserPending: boolean;
 }
 export interface IUserAction {

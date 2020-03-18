@@ -25,7 +25,10 @@ export const fetchSessionsSuccess = (data: ISession[]) => {
   };
 };
 
-export const fetchSessionsError = (error: Error) => {
+export const fetchSessionsError = (error: {
+  code: number;
+  message: string;
+}) => {
   return {
     type: FETCH_SESSIONS_ERROR,
     payload: {

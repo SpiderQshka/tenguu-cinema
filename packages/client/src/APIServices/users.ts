@@ -9,10 +9,6 @@ export interface IGetUser extends IPostData {
   body?: IUser;
 }
 
-export interface IGetUsers extends IPostData {
-  body?: IUser[];
-}
-
 export const registerUser = async (json: JSON): Promise<IPostUser> => {
   const data = await postData("api/auth/register", json);
   return {

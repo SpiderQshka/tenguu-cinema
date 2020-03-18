@@ -15,7 +15,6 @@ import {
   SelectInput,
   ReferenceField,
   ReferenceArrayInput,
-  SelectArrayInput,
   ChipField
 } from "react-admin";
 

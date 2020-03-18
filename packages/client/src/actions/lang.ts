@@ -1,5 +1,5 @@
 // Actions
-import { ILangPayload } from "interfaces/IState";
+import { ILangPayload } from "interfaces/ILang";
 export const CHANGE_LANG = "CHANGE_LANG";
 export const FETCH_TRANSLATIONS_REQUEST = "FETCH_TRANSLATIONS_REQUEST";
 export const FETCH_TRANSLATIONS_SUCCESS = "FETCH_TRANSLATIONS_SUCCESS";

@@ -26,7 +26,7 @@ export const fetchFilmsSuccess = (data: IFilm[]) => {
   };
 };
 
-export const fetchFilmsError = (error: Error) => {
+export const fetchFilmsError = (error: any) => {
   return {
     type: FETCH_FILMS_ERROR,
     payload: {

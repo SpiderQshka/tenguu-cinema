@@ -8,7 +8,7 @@ interface ITicket extends Document {
     row: number;
     seatNumber: number;
   };
-  status: string;
+  status: UserStatuses;
 }
 
 interface IGenre extends Document {

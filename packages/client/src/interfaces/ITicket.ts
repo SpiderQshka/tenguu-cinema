@@ -1,5 +1,3 @@
-import { ISession } from "./ISession";
-
 export interface ITicket {
   id: string;
   sessionId: string;
@@ -23,12 +21,11 @@ export type ITicketsActionTypes =
 
 export interface ITicketsPayload {
   data: ITicket[];
-  error?: {
+  error: {
     message: string;
     code: number;
-  };
+  } | null;
   pending: boolean;
-  isTicketsTabOpen?: boolean;
 }
 export interface ITicketsAction {
   type: ITicketsActionTypes;

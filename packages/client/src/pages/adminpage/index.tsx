@@ -14,10 +14,10 @@ import russianMessages from "ra-language-russian";
 import englishMessages from "ra-language-english";
 import { TranslationList } from "./lists/TranslationList";
 import imageDataProvider from "./imageDataProvider";
-import jsonServerProvider from "ra-data-json-server";
-import { adminPageTokenFetch } from "APIServices/CRUD";
+// import jsonServerProvider from "ra-data-json-server";
+// import { adminPageTokenFetch } from "APIServices/CRUD";
 
-const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
+// const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
 const history = createHashHistory({ hashType: "noslash" });
 
 export const AdminPage = (props: { lang: string }) => {

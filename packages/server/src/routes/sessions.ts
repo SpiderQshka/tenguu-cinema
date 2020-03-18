@@ -4,7 +4,7 @@ import { sessionValidation } from "./validation/sessionsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { ISession } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
-import { requireManager } from "../helpers/requireManager";
+import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { getSessionsForClient } from "../db/getDataForClient";
 
 const router: Router = Router();
@@ -18,7 +18,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.post(
   "/",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const { error, code } = await sessionValidation(req.body);
     if (error) return res.status(code).json(error);
@@ -45,7 +45,7 @@ router.get("/:sessionId", async (req: Request, res: Response) => {
 router.put(
   "/:sessionId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const session: ISession = req.body;
 
@@ -68,7 +68,7 @@ router.put(
 router.delete(
   "/:sessionId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.sessionId))
       return res.json("Wrong query format");

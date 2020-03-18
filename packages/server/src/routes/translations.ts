@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { models } from "../models/index";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
-import { requireManager } from "../helpers/requireManager";
+import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 
 const router: Router = Router();
 
@@ -25,7 +25,7 @@ router.get("/:genreId", async (req: Request, res: Response) => {
 router.delete(
   "/:genreId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.json("Wrong query format");

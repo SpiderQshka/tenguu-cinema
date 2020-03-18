@@ -3,7 +3,7 @@ import { models } from "../models/index";
 import { filmValidation } from "./validation/filmsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
-import { requireManager } from "../helpers/requireManager";
+import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { getFilmsForClient } from "../db/getDataForClient";
 import { translationValidation } from "./validation/translationValidation";
 
@@ -18,7 +18,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.post(
   "/",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const { error: e, code: c } = await translationValidation({
       ru: req.body.descRu,
@@ -77,7 +77,7 @@ router.get("/:filmId", async (req: Request, res: Response) => {
 router.put(
   "/:filmId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.filmId))
       return res.json("Wrong query format");
@@ -120,7 +120,7 @@ router.put(
 router.delete(
   "/:filmId",
   authenticate,
-  requireManager,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     if (!doesIdMatchesFormat(req.params.filmId))
       return res.json("Wrong query format");

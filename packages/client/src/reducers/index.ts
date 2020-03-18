@@ -16,7 +16,6 @@ export const allReducers = combineReducers({
   sessions: sessionsReducer,
   halls: hallsReducer,
   tickets: ticketsReducer,
-  // genres: genresReducer,
   modals: modalsReducer,
   mainPage: pageReducer,
   adminPage: AdminPageReducer

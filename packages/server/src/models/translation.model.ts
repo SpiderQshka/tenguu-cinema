@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IGenre, ITranslation } from "../interfaces/interfaces";
+import { ITranslation } from "../interfaces/interfaces";
 
 const translationScheme: Schema<ITranslation> = new Schema({
   ru: {

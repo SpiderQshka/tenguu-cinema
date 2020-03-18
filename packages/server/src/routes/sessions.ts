@@ -6,14 +6,13 @@ import { ISession } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { getSessionsForClient } from "../db/getDataForClient";
-import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
 
-router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   const sessions = await getSessionsForClient();
 
-  res.json(sessions);
+  res.set("X-Total-Count", `${sessions.length}`).json(sessions);
 });
 
 router.post(

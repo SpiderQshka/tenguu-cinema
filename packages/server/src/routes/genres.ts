@@ -3,11 +3,8 @@ import { models } from "../models/index";
 import { genreValidation } from "./validation/genresValidation";
 import { translationValidation } from "./validation/translationValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
-import { IGenre } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
-import { deleteGenre } from "../db/dbServices";
-import { getGenresForClient } from "../db/getDataForClient";
 import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
@@ -15,7 +12,7 @@ const router: Router = Router();
 router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
   const genres = await models.Genre.find();
 
-  res.json(genres);
+  res.set("X-Total-Count", `${genres.length}`).json(genres);
 });
 
 router.post(

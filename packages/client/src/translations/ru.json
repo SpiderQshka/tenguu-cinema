@@ -33,7 +33,7 @@
   "homepage.modal.signIn.username": "Имя пользователя",
   "homepage.modal.signUp.title": "Зарегистрироваться",
   "homepage.modal.buyTicket.chooseSeat": "Выберите место",
-  "homepage.modal.buyTicket.title": "Купить билет",
+  "homepage.modal.buyTicket.title": "Купить билет на фильм",
   "homepage.modal.buyTicket.date": "Выберите сеанс",
   "homepage.modal.buyTicket.noSessionsError": "Ой, похоже на этот фильм ещё нет сеансов",
   "homepage.modal.userTicketsModal.row": "ряд",

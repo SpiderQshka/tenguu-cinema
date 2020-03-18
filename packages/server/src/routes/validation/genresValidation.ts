@@ -1,6 +1,5 @@
 import Joi from "@hapi/joi";
 import { IGenre } from "../../interfaces/interfaces";
-import { models } from "../../models/index";
 
 export const genreValidation = async (
   data: IGenre,

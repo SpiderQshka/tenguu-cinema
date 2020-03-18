@@ -16,7 +16,7 @@ import { ISession } from "interfaces/ISession";
 import { IFilm } from "interfaces/IFilm";
 import { IHall } from "interfaces/IHall";
 import { ITicketsPayload } from "interfaces/ITicket";
-import { FormattedMessage, FormattedDate } from "react-intl";
+import { FormattedMessage, FormattedDate, FormattedTime } from "react-intl";
 
 interface IBuyTicketModal {
   currentFilm: IFilm;
@@ -55,9 +55,8 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
         return (
           <label className={styles.seatLabel} key={`${i}-${j}`}>
             <input
-              type="radio"
+              type="checkbox"
               name="seat"
-              required
               className={`${styles.seatInput} ${isSeatTaken && styles.taken}`}
               value={`${i}-${j}`}
             />
@@ -91,16 +90,26 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
     const formData = new FormData(e.target as HTMLFormElement);
 
     let object: any = {};
-    formData.forEach((value, key) => {
-      object[key] = value;
-    });
-
     object.userId = window.localStorage.getItem("userId");
-    object.seat = {
-      row: +object.seat.slice(0, object.seat.indexOf("-")) + 1,
-      seatNumber: +object.seat.slice(object.seat.indexOf("-") + 1) + 1
-    };
-    const json = JSON.stringify(object);
+    object.seat = [];
+    formData.forEach((value: any, key) => {
+      if (key === "seat") {
+        object[key] = [
+          ...object[key],
+          {
+            row: +value.slice(0, value.indexOf("-")) + 1,
+            seatNumber: +value.slice(value.indexOf("-") + 1) + 1
+          }
+        ];
+      } else object[key] = value;
+    });
+    const tickets = object.seat.map(
+      (seat: { row: number; seatNumber: number }) => {
+        return { ...object, seat: seat };
+      }
+    );
+
+    const json = JSON.stringify(tickets);
 
     await props.buyTicket(json);
 
@@ -110,17 +119,21 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
     props.currentFilm &&
     props.sessions.some(session => session.film.id === props.currentFilm.id);
   return (
-    <Dialog scroll="body" open={props.isBuyTicketModalOpen}>
+    <Dialog fullScreen scroll="body" open={props.isBuyTicketModalOpen}>
       <DialogTitle>
         <FormattedMessage
           id="homepage.modal.buyTicket.title"
           defaultMessage="Buy ticket"
+        />{" "}
+        "
+        <FormattedMessage
+          id={
+            props.currentFilm
+              ? props.currentFilm.name
+              : "homepage.header.profile.loading"
+          }
         />
-        <Typography variant="h6">
-          <FormattedMessage
-            id={props.currentFilm ? props.currentFilm.name : ""}
-          />
-        </Typography>
+        "
       </DialogTitle>
       <DialogContent dividers>
         {(props.tickets.error || !areSessionsExists) && (
@@ -171,6 +184,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
                           day="2-digit"
                           hour12={true}
                         />
+                        , <FormattedTime value={new Date(session.dateTime)} />
                       </MenuItem>
                     ))}
                 </Select>

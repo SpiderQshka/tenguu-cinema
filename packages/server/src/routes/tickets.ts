@@ -5,37 +5,47 @@ import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { ITicket } from "../interfaces/interfaces";
 import { TicketStatuses } from "../types/types";
 import { authenticate } from "../helpers/authenticate";
-import { deleteTicket } from "../db/dbServices";
 import { requireManager } from "../helpers/requireManager";
 import { getTicketsForClient } from "../db/getDataForClient";
-import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
 
-router.get(
-  "/",
-  authenticate,
-  setTotalCountHeader,
-  async (req: Request, res: Response) => {
-    const tickets = await getTicketsForClient();
+router.get("/", authenticate, async (req: Request, res: Response) => {
+  const tickets = await getTicketsForClient();
 
-    res.json(tickets);
-  }
-);
+  res.set("X-Total-Count", `${tickets.length}`).json(tickets);
+});
 
 router.post("/", authenticate, async (req: Request, res: Response) => {
-  const { error, code } = await ticketValidation(req.body);
-  if (error) return res.status(code).json(error);
+  if (Array.isArray(req.body)) {
+    const promises = req.body.map(async (ticketData: any) => {
+      const { error, code } = await ticketValidation(ticketData);
+      if (error) return res.status(code).json(error);
 
-  const ticket = new models.Ticket({
-    sessionId: req.body.sessionId,
-    userId: req.body.userId,
-    seat: req.body.seat,
-    status: req.body.status as TicketStatuses
-  });
+      const ticket = new models.Ticket({
+        sessionId: ticketData.sessionId,
+        userId: ticketData.userId,
+        seat: ticketData.seat,
+        status: ticketData.status as TicketStatuses
+      });
+      return await ticket.save();
+    });
+    const result = await Promise.all(promises);
 
-  const addedTicket = await ticket.save();
-  return res.json(addedTicket);
+    return res.json(result);
+  } else {
+    const { error, code } = await ticketValidation(req.body);
+    if (error) return res.status(code).json(error);
+
+    const ticket = new models.Ticket({
+      sessionId: req.body.sessionId,
+      userId: req.body.userId,
+      seat: req.body.seat,
+      status: req.body.status as TicketStatuses
+    });
+    const addedTicket = await ticket.save();
+    return res.json([addedTicket]);
+  }
 });
 
 router.get("/:ticketId", authenticate, async (req: Request, res: Response) => {

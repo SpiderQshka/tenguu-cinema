@@ -1,6 +1,5 @@
 import Joi from "@hapi/joi";
 import { IUser } from "../../interfaces/interfaces";
-import { models } from "../../models/index";
 
 export const userValidation = async (
   data: IUser

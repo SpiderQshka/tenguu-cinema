@@ -32,7 +32,7 @@
   "homepage.modal.signIn.username": "Username",
   "homepage.modal.signUp.title": "Sign Up",
   "homepage.modal.buyTicket.chooseSeat": "Choose a seat",
-  "homepage.modal.buyTicket.title": "Buy ticket",
+  "homepage.modal.buyTicket.title": "Buy ticket on film",
   "homepage.modal.buyTicket.date": "Session date",
   "homepage.modal.buyTicket.noSessionsError": "Whops, film doesn't have any sessions yet",
   "homepage.modal.userTicketsModal.row": "row №",

@@ -2,20 +2,16 @@ import { Router, Request, Response } from "express";
 import { models } from "../models/index";
 import { hallValidation } from "./validation/hallsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
-import { IHall } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
-import { deleteHall } from "../db/dbServices";
-import { getHallsForClient } from "../db/getDataForClient";
-import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 import { translationValidation } from "./validation/translationValidation";
 
 const router: Router = Router();
 
-router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   const halls = await models.Hall.find();
 
-  res.json(halls);
+  res.set("X-Total-Count", `${halls.length}`).json(halls);
 });
 
 router.post(

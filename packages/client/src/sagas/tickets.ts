@@ -11,6 +11,7 @@ import {
   buyTicket
 } from "actions/tickets";
 import { addTicketToUser } from "actions/users";
+import { ITicket } from "interfaces/ITicket";
 
 export function* watchFetchTicketsInfo() {
   yield takeEvery(FETCH_TICKETS_REQUEST, fetchTicketsInfo);
@@ -29,10 +30,11 @@ export function* fetchTicketsInfo() {
 
 export function* buyTicketSaga({ payload }: any) {
   const data = yield call(() => postData("api/tickets", payload.data));
-  console.log(data.body);
   if (data.error) yield put(buyTicketError(data.error));
   else {
-    yield put(addTicketToUser(data.body));
-    yield put(buyTicket(data.body));
+    for (let i = 0; i < data.body.length; i++) {
+      yield put(addTicketToUser(data.body[i]));
+      yield put(buyTicket(data.body[i]));
+    }
   }
 }

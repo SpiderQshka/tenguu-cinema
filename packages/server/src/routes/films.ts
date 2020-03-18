@@ -5,15 +5,14 @@ import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { getFilmsForClient } from "../db/getDataForClient";
-import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 import { translationValidation } from "./validation/translationValidation";
 
 const router: Router = Router();
 
-router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   const films = await getFilmsForClient();
 
-  return res.json(films);
+  return res.set("X-Total-Count", `${films.length}`).json(films);
 });
 
 router.post(

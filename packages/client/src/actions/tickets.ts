@@ -9,8 +9,6 @@ export const FETCH_TICKETS_ERROR = "FETCH_TICKETS_ERROR";
 export const BUY_TICKET_REQUEST = "BUY_TICKET_REQUEST";
 export const BUY_TICKET = "BUY_TICKET";
 export const BUY_TICKET_ERROR = "BUY_TICKET_ERROR";
-export const OPEN_TICKETS_TAB = "OPEN_TICKETS_TAB";
-export const CLOSE_TICKETS_TAB = "CLOSE_TICKETS_TAB";
 
 // Action creators
 
@@ -68,17 +66,5 @@ export const buyTicketError = (error: Error) => {
     payload: {
       error
     }
-  };
-};
-
-export const openTicketsTab = () => {
-  return {
-    type: OPEN_TICKETS_TAB
-  };
-};
-
-export const closeTicketsTab = () => {
-  return {
-    type: CLOSE_TICKETS_TAB
   };
 };

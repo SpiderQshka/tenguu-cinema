@@ -1,5 +1,4 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import { createHashHistory } from "history";
 import { Admin, Resource } from "react-admin";
 import { Provider } from "react-redux";

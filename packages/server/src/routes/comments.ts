@@ -6,14 +6,13 @@ import { IComment } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManager } from "../helpers/requireManager";
 import { deleteComment } from "../db/dbServices";
-import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 
 const router: Router = Router();
 
-router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   const comments = await models.Comment.find();
 
-  res.json(comments);
+  res.set("X-Total-Count", `${comments.length}`).json(comments);
 });
 
 router.post(

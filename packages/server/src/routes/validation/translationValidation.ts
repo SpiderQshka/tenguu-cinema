@@ -1,6 +1,4 @@
 import Joi from "@hapi/joi";
-import { IGenre, ITranslation } from "../../interfaces/interfaces";
-import { models } from "../../models/index";
 
 export const translationValidation = async (
   data: {

@@ -228,3 +228,48 @@ export const putData = async (
     };
   }
 };
+
+export const deleteData = async (
+  url: string,
+  id: string,
+  headers = new Headers(),
+  ignoreCodes: number[] = []
+): Promise<IPostData> => {
+  const response: Response = await tokenFetch(`${url}/${id}`, {
+    method: "DELETE",
+    headers
+  });
+
+  if (!(response.status < 400 || ignoreCodes.includes(response.status))) {
+    try {
+      return {
+        body: {},
+        error: {
+          message: await response.json(),
+          code: response.status
+        },
+        headers: response.headers
+      };
+    } catch (e) {
+      return {
+        body: {},
+        error: {
+          message: response.statusText,
+          code: response.status
+        },
+        headers: response.headers
+      };
+    }
+  }
+  try {
+    return {
+      body: await response.json(),
+      headers: response.headers
+    };
+  } catch (e) {
+    return {
+      body: response,
+      headers: response.headers
+    };
+  }
+};

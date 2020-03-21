@@ -28,7 +28,7 @@ export function NowPlaying(props: INowPlayingProps) {
           <i className={`far fa-clock ${styles.filmsNotFoundIcon}`}></i>
           <Typography variant="h5" className={styles.filmsNotFoundText}>
             <FormattedMessage
-              id="homepage.comingSoon.filmsNotFound"
+              id="homepage.nowPlaying.filmsNotFound"
               defaultMessage="Films not found"
             />
           </Typography>

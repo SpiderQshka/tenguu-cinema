@@ -15,6 +15,7 @@
   "homepage.sectionTitle.comingSoon": "Coming soon",
   "homepage.sectionTitle.ourSkills": "Your experience is gonna be exquisite",
   "homepage.comingSoon.filmsNotFound": "Nothing coming soon yet(",
+  "homepage.nowPlaying.filmsNotFound": "Nothing playing now(",
   "homepage.ourSkills.skillName": "IMAX@",
   "homepage.ourSkills.skillMessage": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere vero ipsam a cumque saepe eius repellendus consequuntur dolorum ut. Nihil?",
   "homepage.footer.menu": "Menu",
@@ -38,5 +39,6 @@
   "homepage.modal.buyTicket.noSessionsError": "Whops, film doesn't have any sessions yet",
   "homepage.modal.userTicketsModal.row": "row №",
   "homepage.modal.userTicketsModal.seatNumber": "seat №",
-  "homepage.modal.userTicketsModal.hall": "Hall"
+  "homepage.modal.userTicketsModal.hall": "Hall",
+  "homepage.modal.userTicketsModal.noTicketsWarning": "You don't have any tickets yet. Buy one!"
 }

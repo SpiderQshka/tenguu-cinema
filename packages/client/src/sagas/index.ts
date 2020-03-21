@@ -18,7 +18,11 @@ import {
 import { watchFecthAdminInfo } from "./admin";
 import { watchFetchGenresInfo } from "./genres";
 import { watchFetchHallsInfo } from "./halls";
-import { watchFetchTicketsInfo, watchBuyTicketRequest } from "./tickets";
+import {
+  watchFetchTicketsInfo,
+  watchBuyTicketRequest,
+  watchDeleteTicketRequest
+} from "./tickets";
 import { watchFetchTranslationsInfo } from "./lang";
 
 export function* rootSaga() {
@@ -38,6 +42,7 @@ export function* rootSaga() {
     watchCloseLoginModalRequest(),
     watchCloseBuyTicketModalRequest(),
     watchFetchTranslationsInfo(),
+    watchDeleteTicketRequest(),
     fetchAppInfo(),
     watchFecthAdminInfo()
   ]);

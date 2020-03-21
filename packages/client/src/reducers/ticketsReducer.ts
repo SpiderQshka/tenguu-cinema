@@ -3,7 +3,8 @@ import {
   FETCH_TICKETS_PENDING,
   FETCH_TICKETS_SUCCESS,
   BUY_TICKET,
-  BUY_TICKET_ERROR
+  BUY_TICKET_ERROR,
+  DELETE_TICKET
 } from "actions/tickets";
 import { ITicket, ITicketsPayload, ITicketsAction } from "interfaces/ITicket";
 
@@ -46,6 +47,15 @@ export const ticketsReducer = (
         ...state,
         error: null,
         data: [...state.data, action.payload.data],
+        pending: false
+      };
+    case DELETE_TICKET:
+      return {
+        ...state,
+        error: null,
+        data: state.data.filter(
+          ticket => ticket.id !== action.payload.ticketForDeleteId
+        ),
         pending: false
       };
     default:

@@ -9,6 +9,8 @@ export const FETCH_TICKETS_ERROR = "FETCH_TICKETS_ERROR";
 export const BUY_TICKET_REQUEST = "BUY_TICKET_REQUEST";
 export const BUY_TICKET = "BUY_TICKET";
 export const BUY_TICKET_ERROR = "BUY_TICKET_ERROR";
+export const DELETE_TICKET_REQUEST = "DELETE_TICKET_REQUEST";
+export const DELETE_TICKET = "DELETE_TICKET";
 
 // Action creators
 
@@ -65,6 +67,24 @@ export const buyTicketError = (error: Error) => {
     type: BUY_TICKET_ERROR,
     payload: {
       error
+    }
+  };
+};
+
+export const deleteTicketRequest = (id: any) => {
+  return {
+    type: DELETE_TICKET_REQUEST,
+    payload: {
+      id
+    }
+  };
+};
+
+export const deleteTicket = (id: any) => {
+  return {
+    type: DELETE_TICKET,
+    payload: {
+      ticketForDeleteId: id
     }
   };
 };

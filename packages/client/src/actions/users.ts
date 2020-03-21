@@ -15,7 +15,6 @@ export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGIN_ERROR = "USER_LOGIN_ERROR";
 export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST";
 export const USER_LOGOUT = "USER_LOGOUT";
-export const ADD_TICKET_TO_USER = "ADD_TICKET_TO_USER";
 
 // Action creators
 
@@ -114,16 +113,5 @@ export const userLogoutRequest = () => {
 export const userLogout = () => {
   return {
     type: USER_LOGOUT
-  };
-};
-
-export const addTicketToUser = (data: ITicket) => {
-  return {
-    type: ADD_TICKET_TO_USER,
-    payload: {
-      currentUser: {
-        tickets: data
-      }
-    }
   };
 };

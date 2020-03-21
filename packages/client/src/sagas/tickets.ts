@@ -1,6 +1,6 @@
 import { put, call, takeEvery } from "redux-saga/effects";
 
-import { getData, postData } from "APIServices/CRUD";
+import { getData, postData, deleteData } from "APIServices/CRUD";
 import {
   FETCH_TICKETS_REQUEST,
   fetchTicketsPending,
@@ -8,9 +8,10 @@ import {
   fetchTicketsSuccess,
   BUY_TICKET_REQUEST,
   buyTicketError,
-  buyTicket
+  buyTicket,
+  DELETE_TICKET_REQUEST,
+  deleteTicket
 } from "actions/tickets";
-import { addTicketToUser } from "actions/users";
 
 export function* watchFetchTicketsInfo() {
   yield takeEvery(FETCH_TICKETS_REQUEST, fetchTicketsInfo);
@@ -18,6 +19,10 @@ export function* watchFetchTicketsInfo() {
 
 export function* watchBuyTicketRequest() {
   yield takeEvery(BUY_TICKET_REQUEST, buyTicketSaga);
+}
+
+export function* watchDeleteTicketRequest() {
+  yield takeEvery(DELETE_TICKET_REQUEST, deleteTicketSaga);
 }
 
 export function* fetchTicketsInfo() {
@@ -35,4 +40,10 @@ export function* buyTicketSaga({ payload }: any) {
       yield put(buyTicket(data.body[i]));
     }
   }
+}
+
+export function* deleteTicketSaga({ payload }: any) {
+  const data = yield call(() => deleteData("api/tickets", payload.id));
+  if (!data.error) yield put(deleteTicket(payload.id));
+  else yield put(buyTicketError(data.error));
 }

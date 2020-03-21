@@ -15,6 +15,7 @@
   "homepage.sectionTitle.comingSoon": "Грядущие показы",
   "homepage.sectionTitle.ourSkills": "Опыт будет уникален",
   "homepage.comingSoon.filmsNotFound": "Грядущих показов нет(",
+  "homepage.nowPlaying.filmsNotFound": "Сейчас в прокате ничего нет(",
   "homepage.ourSkills.skillName": "IMAX@",
   "homepage.ourSkills.skillMessage": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere vero ipsam a cumque saepe eius repellendus consequuntur dolorum ut. Nihil?",
   "homepage.footer.menu": "Меню",
@@ -39,5 +40,6 @@
   "homepage.modal.buyTicket.noSessionsError": "Ой, похоже на этот фильм ещё нет сеансов",
   "homepage.modal.userTicketsModal.row": "ряд",
   "homepage.modal.userTicketsModal.seatNumber": "место",
-  "homepage.modal.userTicketsModal.hall": "Зал"
+  "homepage.modal.userTicketsModal.hall": "Зал",
+  "homepage.modal.userTicketsModal.noTicketsWarning": "У вас ещё нет билетов. Возмите!"
 }

@@ -74,7 +74,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
     });
     return (
       <div className={styles.hallScheme}>
-        <Typography variant="h6">
+        <Typography variant="h6" className={styles.hallSchemeHeader}>
           <FormattedMessage
             id="homepage.modal.buyTicket.chooseSeat"
             defaultMessage="Choose a seat"
@@ -160,7 +160,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
               onSubmit={submitHandler}
             >
               <FormControl fullWidth required>
-                <InputLabel htmlFor="sessionId">
+                <InputLabel htmlFor="session">
                   <FormattedMessage
                     id="homepage.modal.buyTicket.date"
                     defaultMessage="Date of the session"

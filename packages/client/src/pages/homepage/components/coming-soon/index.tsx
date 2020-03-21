@@ -5,6 +5,7 @@ import { Carousel } from "./Carousel";
 import styles from "./coming-soon.module.sass";
 import { IFilm } from "interfaces/IFilm";
 import { FormattedMessage } from "react-intl";
+import { Typography } from "@material-ui/core/";
 
 export interface IComingSoonProps {
   data: IFilm[];
@@ -15,7 +16,6 @@ export interface IComingSoonProps {
 export function ComingSoon(props: IComingSoonProps) {
   const { data: films } = props;
   const [filmIndex, handleFilmIndexChange] = useState(0);
-  if (!films.length) return null;
   return (
     <section className={styles["coming-soon"]} id="coming-soon">
       <SectionTitle
@@ -27,12 +27,26 @@ export function ComingSoon(props: IComingSoonProps) {
           />
         }
       />
-      <FilmBlock
-        film={films[filmIndex]}
-        buyTicket={props.buyTicket}
-        lang={props.lang}
-      />
-      <Carousel {...props} handler={handleFilmIndexChange} />
+      {!films.length ? (
+        <>
+          <i className={`far fa-clock ${styles.filmsNotFoundIcon}`}></i>
+          <Typography variant="h5" className={styles.filmsNotFoundText}>
+            <FormattedMessage
+              id="homepage.comingSoon.filmsNotFound"
+              defaultMessage="Films not found"
+            />
+          </Typography>
+        </>
+      ) : (
+        <>
+          <FilmBlock
+            film={films[filmIndex]}
+            buyTicket={props.buyTicket}
+            lang={props.lang}
+          />
+          <Carousel {...props} handler={handleFilmIndexChange} />
+        </>
+      )}
     </section>
   );
 }

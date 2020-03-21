@@ -4,6 +4,7 @@ import styles from "./nowPlaying.module.sass";
 import { CarouselComponent } from "./Carousel";
 import { IFilm } from "interfaces/IFilm";
 import { FormattedMessage } from "react-intl";
+import { Typography } from "@material-ui/core/";
 
 export interface INowPlayingProps {
   data: IFilm[];
@@ -11,7 +12,6 @@ export interface INowPlayingProps {
 }
 
 export function NowPlaying(props: INowPlayingProps) {
-  if (!props.data.length) return null;
   return (
     <section className={styles["now-playing"]} id="now-playing">
       <SectionTitle
@@ -23,7 +23,19 @@ export function NowPlaying(props: INowPlayingProps) {
           />
         }
       />
-      <CarouselComponent {...props} />
+      {!props.data.length ? (
+        <>
+          <i className={`far fa-clock ${styles.filmsNotFoundIcon}`}></i>
+          <Typography variant="h5" className={styles.filmsNotFoundText}>
+            <FormattedMessage
+              id="homepage.comingSoon.filmsNotFound"
+              defaultMessage="Films not found"
+            />
+          </Typography>
+        </>
+      ) : (
+        <CarouselComponent {...props} />
+      )}
     </section>
   );
 }

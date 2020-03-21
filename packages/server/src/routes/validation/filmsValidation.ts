@@ -47,7 +47,7 @@ export const filmValidation = async (
     return await Promise.all(promises);
   };
 
-  doesFilmGenresExists(data.genreIds).then(genres => {
+  doesFilmGenresExists(data.genres).then(genres => {
     if (!genres.every(genre => !!genre))
       return { error: "Genre not found", code: 404 };
   });

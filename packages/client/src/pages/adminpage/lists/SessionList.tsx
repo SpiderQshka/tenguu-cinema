@@ -12,6 +12,7 @@ import {
   DateInput,
   NumberInput,
   ReferenceInput,
+  ReferenceArrayField,
   SelectInput,
   ReferenceField,
   ReferenceArrayInput,
@@ -41,15 +42,13 @@ export const SessionEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceArrayInput source="film" reference="films">
-          <SelectInput>
-            <ChipField source="name" />
-          </SelectInput>
-        </ReferenceArrayInput>
+        <ReferenceInput source="film" reference="films">
+          <SelectInput optionText="name" />
+        </ReferenceInput>
         <DateInput source="dateTime" />
         <NumberInput source="price" />
-        <ReferenceInput source="hall" reference="halls">
-          <SelectInput source="name" />
+        <ReferenceInput source="genre" reference="genres">
+          <SelectInput optionText="name" />
         </ReferenceInput>
       </SimpleForm>
     </Edit>

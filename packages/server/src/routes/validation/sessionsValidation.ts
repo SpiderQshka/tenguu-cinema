@@ -28,22 +28,22 @@ export const sessionValidation = async (
 
   const currentSession = data;
 
-  const currentSessionFilm = await models.Film.findById(currentSession.filmId);
+  const currentSessionFilm = await models.Film.findById(currentSession.film);
 
   if (!currentSessionFilm) return { error: "Film not found", code: 404 };
 
-  const CurrentSessionHall = await models.Hall.findById(currentSession.hallId);
+  const CurrentSessionHall = await models.Hall.findById(currentSession.hall);
 
   if (!CurrentSessionHall) return { error: "Hall not found", code: 404 };
 
   const sessionsWithTheSameHall = await models.Session.find({
-    hallId: currentSession.hallId
+    hallId: currentSession.hall
   });
 
   const isTimeForSessionFree = async () => {
     const promises = sessionsWithTheSameHall.map(
       async (session): Promise<boolean> => {
-        const filmOfSession = await models.Film.findById(session.filmId);
+        const filmOfSession = await models.Film.findById(session.film);
 
         if (!filmOfSession) throw Error;
         return (

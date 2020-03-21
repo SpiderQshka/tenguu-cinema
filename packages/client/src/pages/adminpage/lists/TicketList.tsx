@@ -19,7 +19,7 @@ export const TicketList = (props: any) => {
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <ReferenceField source="session" reference="sessions" title="sessions">
+        <ReferenceField source="session" reference="sessions">
           <TextField source="id" />
         </ReferenceField>
         <ReferenceField source="user" reference="users" title="users">

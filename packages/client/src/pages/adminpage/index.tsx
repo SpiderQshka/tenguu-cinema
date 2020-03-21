@@ -13,7 +13,7 @@ import polyglotI18nProvider from "ra-i18n-polyglot";
 import russianMessages from "ra-language-russian";
 import englishMessages from "ra-language-english";
 import { TranslationList } from "./lists/TranslationList";
-import imageDataProvider from "./imageDataProvider";
+import { myDataProvider } from "./imageDataProvider";
 // import jsonServerProvider from "ra-data-json-server";
 // import { adminPageTokenFetch } from "APIServices/CRUD";
 
@@ -27,9 +27,9 @@ export const AdminPage = (props: { lang: string }) => {
   } as any;
 
   return (
-    <Provider store={createAdminStore({ imageDataProvider, history })}>
+    <Provider store={createAdminStore({ myDataProvider, history })}>
       <Admin
-        dataProvider={imageDataProvider}
+        dataProvider={myDataProvider}
         history={history}
         title={props.lang === "ru" ? "Админ панель" : "My admin"}
         i18nProvider={polyglotI18nProvider(() => messages[props.lang])}

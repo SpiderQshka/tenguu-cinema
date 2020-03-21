@@ -18,7 +18,7 @@ export const commentValidation = async (
   const { error = null } = schema.validate(data);
   if (error) return { error: error.details[0].message, code: 400 };
 
-  const film = await models.Film.findById(data.filmId);
+  const film = await models.Film.findById(data.film);
   if (!film) return { error: "Film not found", code: 404 };
 
   return { error: null, code: 200 };

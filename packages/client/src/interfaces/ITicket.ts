@@ -1,7 +1,10 @@
+import { IUser } from "./IUser";
+import { ISession } from "./ISession";
+
 export interface ITicket {
   id: string;
-  sessionId: string;
-  userId: string;
+  session: string;
+  user: string;
   seat: {
     row: number;
     seatNumber: number;

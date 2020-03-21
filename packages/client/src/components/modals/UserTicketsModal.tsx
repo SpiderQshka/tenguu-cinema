@@ -29,10 +29,10 @@ export const UserTicketsModal = (props: any) => {
       </DialogTitle>
       <DialogContent dividers>
         <List>
-          {props.user.tickets &&
-            props.user.tickets.map((ticket: ITicket, i: number) => {
+          {props.tickets &&
+            props.tickets.map((ticket: ITicket, i: number) => {
               const currentSession = props.sessions.filter(
-                (session: ISession) => ticket.sessionId === session.id
+                (session: ISession) => ticket.session === session.id
               )[0];
               return (
                 <ListItem>

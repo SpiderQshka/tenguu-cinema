@@ -23,12 +23,12 @@ export const SessionList = (props: any) => {
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <ReferenceField source="filmId" reference="films" title="film">
+        <ReferenceField source="film" reference="films" title="film">
           <TextField source="name" />
         </ReferenceField>
         <DateField source="dateTime" showTime />
         <NumberField source="price" />
-        <ReferenceField source="hallId" reference="halls" title="hall">
+        <ReferenceField source="hall" reference="halls" title="hall">
           <TextField source="name" />
         </ReferenceField>
         <EditButton />
@@ -41,14 +41,14 @@ export const SessionEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceArrayInput source="filmId" reference="films">
+        <ReferenceArrayInput source="film" reference="films">
           <SelectInput>
             <ChipField source="name" />
           </SelectInput>
         </ReferenceArrayInput>
         <DateInput source="dateTime" />
         <NumberInput source="price" />
-        <ReferenceInput source="hallId" reference="halls">
+        <ReferenceInput source="hall" reference="halls">
           <SelectInput source="name" />
         </ReferenceInput>
       </SimpleForm>
@@ -60,12 +60,12 @@ export const SessionCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceArrayInput source="filmId" reference="films">
+        <ReferenceArrayInput source="film" reference="films">
           <SelectInput optionText="id" />
         </ReferenceArrayInput>
         <DateInput source="dateTime" />
         <NumberInput source="price" />
-        <ReferenceArrayInput source="hallId" reference="halls">
+        <ReferenceArrayInput source="hall" reference="halls">
           <SelectInput source="name" />
         </ReferenceArrayInput>
       </SimpleForm>

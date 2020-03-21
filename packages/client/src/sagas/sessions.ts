@@ -14,7 +14,7 @@ export function* watchFetchSessionInfo() {
 
 export function* fetchSessionInfo() {
   yield put(fetchSessionsPending());
-  const data = yield call(() => getData("api/sessions"));
+  const data = yield call(() => getData("api/sessions/parced"));
   if (data.error) yield put(fetchSessionsError(data.error));
   else yield put(fetchSessionsSuccess(data.body));
 }

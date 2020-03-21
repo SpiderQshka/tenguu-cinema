@@ -93,8 +93,9 @@ export function MenuComponent(props: IHeader) {
                 <Badge
                   className={styles.badge}
                   badgeContent={
-                    !props.users.currentUserPending && userData.tickets[0]
-                      ? userData.tickets.length
+                    !props.users.currentUserPending &&
+                    props.currentUserTickets[0]
+                      ? props.currentUserTickets.length
                       : 0
                   }
                   color="primary"

@@ -7,10 +7,10 @@ export const ticketValidation = async (
   data: ITicket
 ): Promise<{ error: string | null; code: number }> => {
   const schema = Joi.object({
-    sessionId: Joi.string()
+    session: Joi.string()
       .pattern(_IDREGEXP)
       .required(),
-    userId: Joi.string()
+    user: Joi.string()
       .pattern(_IDREGEXP)
       .required(),
     seat: Joi.object({
@@ -21,9 +21,7 @@ export const ticketValidation = async (
         .min(1)
         .required()
     }).required(),
-    status: Joi.string().default("active"),
-    session: Joi.object().optional(),
-    user: Joi.object().optional()
+    status: Joi.string().default("active")
   });
 
   const { error = null } = schema.validate(data);
@@ -31,11 +29,11 @@ export const ticketValidation = async (
 
   // __________data validation___________
 
-  const currentSession = await models.Session.findById(data.sessionId);
+  const currentSession = await models.Session.findById(data.session);
 
   if (!currentSession) return { error: "Session not found", code: 404 };
 
-  const currentHall = await models.Hall.findById(currentSession.hallId);
+  const currentHall = await models.Hall.findById(currentSession.hall);
 
   if (!currentHall) return { error: "Hall not found", code: 404 };
 
@@ -50,7 +48,7 @@ export const ticketValidation = async (
     };
 
   const takenTickets = await models.Ticket.find({
-    sessionId: data.sessionId,
+    session: data.session,
     status: "active"
   });
 
@@ -63,7 +61,7 @@ export const ticketValidation = async (
 
   if (isNotSeatAvailable) return { error: "Seat is already taken", code: 400 };
 
-  const isUserExists = await models.User.findById(data.userId);
+  const isUserExists = await models.User.findById(data.user);
 
   if (!isUserExists) return { error: "User not found", code: 404 };
 

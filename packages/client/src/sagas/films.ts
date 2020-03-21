@@ -14,7 +14,7 @@ export function* watchFetchFilmInfo() {
 
 export function* fetchFilmInfo() {
   yield put(fetchFilmsPending());
-  const data = yield call(() => getData("api/films"));
+  const data = yield call(() => getData("api/films/parced"));
   if (data.error) yield put(fetchFilmsError(data.error));
   else yield put(fetchFilmsSuccess(data.body));
 }

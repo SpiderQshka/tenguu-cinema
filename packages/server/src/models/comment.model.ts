@@ -6,7 +6,7 @@ const commentScheme: Schema<IComment> = new Schema({
     type: String,
     required: true
   },
-  filmId: {
+  film: {
     type: Schema.Types.ObjectId,
     ref: "Film"
   }

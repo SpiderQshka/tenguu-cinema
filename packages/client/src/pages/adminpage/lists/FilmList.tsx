@@ -24,7 +24,8 @@ import {
   ReferenceArrayField,
   ReferenceField,
   ImageInput,
-  ImageField
+  ImageField,
+  ReferenceInput
 } from "react-admin";
 import RichTextInput from "ra-input-rich-text";
 
@@ -49,9 +50,11 @@ export const FilmList = (props: any) => {
         >
           <TextField source="en" />
         </ReferenceField>
-        <ReferenceArrayField source="genres" reference="translations">
+        <ReferenceArrayField reference="genres" source="genres">
           <SingleFieldList>
-            <ChipField source="ru" />
+            <ReferenceField source="name" reference="translations" link={false}>
+              <ChipField source="ru" />
+            </ReferenceField>
           </SingleFieldList>
         </ReferenceArrayField>
         <NumberField source="duration" />
@@ -79,7 +82,6 @@ export const FilmList = (props: any) => {
         >
           <RichTextField source="en" />
         </ReferenceField>
-
         <EditButton />
       </Datagrid>
     </List>
@@ -92,10 +94,8 @@ export const FilmEdit = (props: any) => {
       <SimpleForm>
         <TextInput source="nameRu" label="Name (ru)" />
         <TextInput source="nameEn" label="Name (en)" />
-        <ReferenceArrayInput source="genreIds" reference="genres">
-          <SelectArrayInput label="Genres">
-            <ChipField source="name" />
-          </SelectArrayInput>
+        <ReferenceArrayInput source="genres" reference="genres">
+          <SelectArrayInput optionText="name" />
         </ReferenceArrayInput>
         <NumberInput source="duration" />
         <TextInput source="trailerLink" />
@@ -123,10 +123,8 @@ export const FilmCreate = (props: any) => (
     <SimpleForm>
       <TextInput source="nameRu" label="Name (ru)" />
       <TextInput source="nameEn" label="Name (en)" />
-      <ReferenceArrayInput source="genreIds" reference="genres">
-        <SelectArrayInput label="Genres">
-          <ChipField source="name" />;
-        </SelectArrayInput>
+      <ReferenceArrayInput source="genres" reference="genres">
+        <SelectArrayInput optionText="name" />
       </ReferenceArrayInput>
       <NumberInput source="duration" />
       <TextInput source="trailerLink" />

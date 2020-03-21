@@ -21,21 +21,38 @@ router.get(
   }
 );
 
-router.get("/:userId", authenticate, async (req: Request, res: Response) => {
-  if (!doesIdMatchesFormat(req.params.userId))
-    return res.json("Wrong query format");
+router.get(
+  "/parced/:userId",
+  authenticate,
+  async (req: Request, res: Response) => {
+    if (!doesIdMatchesFormat(req.params.userId))
+      return res.json("Wrong query format");
 
-  const currentUserId = req.user ? req.user["id"].toString() : null;
-  const currentUser: any = req.user;
-  const currentUserStatus: "admin" | "manager" | "default" = currentUser.status;
-  if (currentUserId !== req.params.userId && currentUserStatus !== "admin")
-    return res.status(403).json("Access denied");
+    const currentUserId = req.user ? req.user["id"].toString() : null;
+    if (currentUserId !== req.params.userId)
+      return res.status(403).json("Access denied");
 
-  const user = (await getUsersForClient({ _id: currentUserId }))[0];
+    const user = (await getUsersForClient({ _id: currentUserId }))[0];
 
-  if (!user) return res.status(404).json("Not found");
-  return res.json(user);
-});
+    if (!user) return res.status(404).json("Not found");
+    return res.json(user);
+  }
+);
+
+router.get(
+  "/:userId",
+  authenticate,
+  requireManagerOrAdmin,
+  async (req: Request, res: Response) => {
+    if (!doesIdMatchesFormat(req.params.userId))
+      return res.json("Wrong query format");
+
+    const user = await models.User.findById(req.params.userId);
+
+    if (!user) return res.status(404).json("Not found");
+    return res.json(user);
+  }
+);
 
 router.post(
   "/",

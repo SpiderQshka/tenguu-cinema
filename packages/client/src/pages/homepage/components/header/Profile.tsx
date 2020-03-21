@@ -11,7 +11,8 @@ import { FormattedMessage } from "react-intl";
 
 export function Profile(props: IHeader) {
   const {
-    users: { currentUser: userData, currentUserPending: pending }
+    users: { currentUser: userData, currentUserPending: pending },
+    currentUserTickets
   } = props;
   return (
     <>
@@ -54,7 +55,9 @@ export function Profile(props: IHeader) {
               <Badge
                 className={styles.badge}
                 badgeContent={
-                  !pending && userData.tickets[0] ? userData.tickets.length : 0
+                  !pending && currentUserTickets[0]
+                    ? currentUserTickets.length
+                    : 0
                 }
                 color="primary"
                 showZero

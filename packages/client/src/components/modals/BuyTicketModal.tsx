@@ -50,7 +50,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
           ticket =>
             ticket.seat.row === i + 1 &&
             ticket.seat.seatNumber === j + 1 &&
-            ticket.sessionId === props.currentSession.id
+            ticket.session === props.currentSession.id
         );
         return (
           <label className={styles.seatLabel} key={`${i}-${j}`}>
@@ -90,7 +90,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
     const formData = new FormData(e.target as HTMLFormElement);
 
     let object: any = {};
-    object.userId = window.localStorage.getItem("userId");
+    object.user = window.localStorage.getItem("userId");
     object.seat = [];
     formData.forEach((value: any, key) => {
       if (key === "seat") {
@@ -169,7 +169,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
                 <Select
                   value={props.currentSession ? props.currentSession.id : ""}
                   id="session"
-                  name="sessionId"
+                  name="session"
                   className={styles.input}
                   onChange={handleSessionChange}
                 >

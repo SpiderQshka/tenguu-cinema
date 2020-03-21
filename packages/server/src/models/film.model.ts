@@ -7,7 +7,7 @@ const filmScheme: Schema<IFilm> = new Schema({
     ref: "Translation",
     required: true
   },
-  genreIds: [
+  genres: [
     {
       type: Schema.Types.ObjectId,
       ref: "Genre",

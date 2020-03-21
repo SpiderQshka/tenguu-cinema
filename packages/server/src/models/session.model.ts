@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import { ISession } from "../interfaces/interfaces";
 
 const sessionScheme: Schema<ISession> = new Schema({
-  filmId: {
+  film: {
     type: Schema.Types.ObjectId,
     ref: "Film",
     required: true
@@ -15,7 +15,7 @@ const sessionScheme: Schema<ISession> = new Schema({
     type: Number,
     required: true
   },
-  hallId: {
+  hall: {
     type: Schema.Types.ObjectId,
     ref: "Hall",
     required: true

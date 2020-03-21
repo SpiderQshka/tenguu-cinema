@@ -5,9 +5,11 @@ import { Profile } from "./Profile";
 import styles from "./header.module.sass";
 import { IUserPayload } from "interfaces/IUser";
 import { IModalsPayload } from "interfaces/IModal";
+import { ITicket } from "interfaces/ITicket";
 
 export interface IHeader {
   users: IUserPayload;
+  currentUserTickets: ITicket[];
   modals: IModalsPayload;
   lang: string;
   logout: () => void;

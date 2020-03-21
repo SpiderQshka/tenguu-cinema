@@ -9,10 +9,12 @@ import {
   openUserTicketModal
 } from "actions/modals";
 import { changeLang } from "actions/lang";
+import { currentTicketsSelector } from "selectors";
 
 const mapStateToProps = (state: IState) => {
   return {
     users: state.users,
+    currentUserTickets: currentTicketsSelector(state),
     modals: state.modals,
     lang: state.lang.currentLang
   };

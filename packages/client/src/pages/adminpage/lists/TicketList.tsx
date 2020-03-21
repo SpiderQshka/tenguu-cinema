@@ -19,14 +19,10 @@ export const TicketList = (props: any) => {
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <ReferenceField
-          source="sessionId"
-          reference="sessions"
-          title="sessions"
-        >
+        <ReferenceField source="session" reference="sessions" title="sessions">
           <TextField source="id" />
         </ReferenceField>
-        <ReferenceField source="userId" reference="users" title="users">
+        <ReferenceField source="user" reference="users" title="users">
           <TextField source="username" />
         </ReferenceField>
         <NumberField source="seat.row"></NumberField>
@@ -41,10 +37,10 @@ export const TicketEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceInput source="sessionId" reference="sessions">
+        <ReferenceInput source="session" reference="sessions">
           <SelectInput optionText="id" />
         </ReferenceInput>
-        <ReferenceInput source="userId" reference="users">
+        <ReferenceInput source="user" reference="users">
           <SelectInput optionText="username" />
         </ReferenceInput>
         <NumberInput source="seat.row"></NumberInput>
@@ -57,10 +53,10 @@ export const TicketEdit = (props: any) => {
 export const TicketCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
-      <ReferenceInput source="sessionId" reference="sessions">
+      <ReferenceInput source="session" reference="sessions">
         <SelectInput optionText="id" />
       </ReferenceInput>
-      <ReferenceInput source="userId" reference="users">
+      <ReferenceInput source="user" reference="users">
         <SelectInput optionText="username" />
       </ReferenceInput>
       <NumberInput source="seat.row"></NumberInput>

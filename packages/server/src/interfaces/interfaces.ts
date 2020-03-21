@@ -2,8 +2,8 @@ import { UserStatuses } from "../types/types";
 import { Schema, Document } from "mongoose";
 
 interface ITicket extends Document {
-  sessionId: Schema.Types.ObjectId;
-  userId: Schema.Types.ObjectId;
+  session: Schema.Types.ObjectId;
+  user: Schema.Types.ObjectId;
   seat: {
     row: number;
     seatNumber: number;
@@ -16,15 +16,15 @@ interface IGenre extends Document {
 }
 
 interface ISession extends Document {
-  filmId: string;
+  film: string;
   dateTime: string;
   price: number;
-  hallId: string;
+  hall: string;
 }
 
 interface IFilm extends Document {
   name: string;
-  genreIds: Schema.Types.ObjectId[];
+  genres: Schema.Types.ObjectId[];
   duration: number;
   trailerLink: string;
   ratings: {
@@ -52,7 +52,7 @@ interface IUser extends Document {
 
 interface IComment extends Document {
   content: string;
-  filmId: Schema.Types.ObjectId;
+  film: Schema.Types.ObjectId;
 }
 
 interface ITranslation extends Document {

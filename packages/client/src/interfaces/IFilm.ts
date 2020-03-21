@@ -1,7 +1,7 @@
 import { IGenre } from "./IGenre";
 
 export interface IFilm {
-  genres: string[];
+  genres: IGenre[];
   name: string;
   duration: number;
   ratings: {

@@ -10,6 +10,12 @@ import { translationValidation } from "./validation/translationValidation";
 const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
+  const films = await models.Film.find();
+
+  return res.set("X-Total-Count", `${films.length}`).json(films);
+});
+
+router.get("/parced", async (req: Request, res: Response) => {
   const films = await getFilmsForClient();
 
   return res.set("X-Total-Count", `${films.length}`).json(films);

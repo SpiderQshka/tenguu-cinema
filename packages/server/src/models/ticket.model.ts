@@ -2,12 +2,12 @@ import { Schema, model } from "mongoose";
 import { ITicket } from "../interfaces/interfaces";
 
 const ticketScheme: Schema<ITicket> = new Schema({
-  sessionId: {
+  session: {
     type: Schema.Types.ObjectId,
     ref: "Session",
     required: true
   },
-  userId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true

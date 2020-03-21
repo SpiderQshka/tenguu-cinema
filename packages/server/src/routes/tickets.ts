@@ -11,9 +11,15 @@ import { getTicketsForClient } from "../db/getDataForClient";
 const router: Router = Router();
 
 router.get("/", authenticate, async (req: Request, res: Response) => {
-  const tickets = await getTicketsForClient();
+  const tickets = await models.Ticket.find();
 
   res.set("X-Total-Count", `${tickets.length}`).json(tickets);
+});
+
+router.get("/parced", async (req: Request, res: Response) => {
+  const tickets = await getTicketsForClient();
+
+  return res.set("X-Total-Count", `${tickets.length}`).json(tickets);
 });
 
 router.post("/", authenticate, async (req: Request, res: Response) => {
@@ -23,8 +29,8 @@ router.post("/", authenticate, async (req: Request, res: Response) => {
       if (error) return res.status(code).json(error);
 
       const ticket = new models.Ticket({
-        sessionId: ticketData.sessionId,
-        userId: ticketData.userId,
+        session: ticketData.session,
+        user: ticketData.user,
         seat: ticketData.seat,
         status: ticketData.status as TicketStatuses
       });
@@ -38,13 +44,13 @@ router.post("/", authenticate, async (req: Request, res: Response) => {
     if (error) return res.status(code).json(error);
 
     const ticket = new models.Ticket({
-      sessionId: req.body.sessionId,
-      userId: req.body.userId,
+      session: req.body.session,
+      user: req.body.user,
       seat: req.body.seat,
       status: req.body.status as TicketStatuses
     });
     const addedTicket = await ticket.save();
-    return res.json([addedTicket]);
+    return [addedTicket];
   }
 });
 

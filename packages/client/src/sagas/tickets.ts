@@ -22,7 +22,7 @@ export function* watchBuyTicketRequest() {
 
 export function* fetchTicketsInfo() {
   yield put(fetchTicketsPending());
-  const data = yield call(() => getData("api/tickets"));
+  const data = yield call(() => getData("api/tickets/parced"));
   if (data.error) yield put(fetchTicketsError(data.error));
   else yield put(fetchTicketsSuccess(data.body));
 }
@@ -32,7 +32,6 @@ export function* buyTicketSaga({ payload }: any) {
   if (data.error) yield put(buyTicketError(data.error));
   else {
     for (let i = 0; i < data.body.length; i++) {
-      yield put(addTicketToUser(data.body[i]));
       yield put(buyTicket(data.body[i]));
     }
   }

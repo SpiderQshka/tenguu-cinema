@@ -11,6 +11,7 @@ export const BUY_TICKET = "BUY_TICKET";
 export const BUY_TICKET_ERROR = "BUY_TICKET_ERROR";
 export const DELETE_TICKET_REQUEST = "DELETE_TICKET_REQUEST";
 export const DELETE_TICKET = "DELETE_TICKET";
+export const CHANGE_TICKETS_FOR_BUYING = "CHANGE_TICKETS_FOR_BUYING";
 
 // Action creators
 
@@ -85,6 +86,15 @@ export const deleteTicket = (id: any) => {
     type: DELETE_TICKET,
     payload: {
       ticketForDeleteId: id
+    }
+  };
+};
+
+export const changeTicketsForBuying = (amount: number) => {
+  return {
+    type: CHANGE_TICKETS_FOR_BUYING,
+    payload: {
+      ticketsForBuyingAmount: amount
     }
   };
 };

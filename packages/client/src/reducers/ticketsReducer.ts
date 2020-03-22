@@ -4,7 +4,8 @@ import {
   FETCH_TICKETS_SUCCESS,
   BUY_TICKET,
   BUY_TICKET_ERROR,
-  DELETE_TICKET
+  DELETE_TICKET,
+  CHANGE_TICKETS_FOR_BUYING
 } from "actions/tickets";
 import { ITicket, ITicketsPayload, ITicketsAction } from "interfaces/ITicket";
 
@@ -56,6 +57,13 @@ export const ticketsReducer = (
         data: state.data.filter(
           ticket => ticket.id !== action.payload.ticketForDeleteId
         ),
+        pending: false
+      };
+    case CHANGE_TICKETS_FOR_BUYING:
+      return {
+        ...state,
+        error: null,
+        ticketsForBuyingAmount: action.payload.ticketsForBuyingAmount,
         pending: false
       };
     default:

@@ -4,7 +4,6 @@ import { IState } from "interfaces/IState";
 const filmsSelector = (state: IState) => state.films.data;
 const filmsPayloadSelector = (state: IState) => state.films;
 const sessionsPayloadSelector = (state: IState) => state.sessions;
-const ticketsSelector = (state: IState) => state.tickets;
 const currentUserAndTicketsSelector = (state: IState) => {
   return { user: state.users.currentUser, tickets: state.tickets.data };
 };

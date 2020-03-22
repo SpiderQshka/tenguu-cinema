@@ -3,14 +3,14 @@ import { adminPageTokenFetch } from "APIServices/CRUD";
 
 export const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
 
-const convertFileToBase64 = (file: any) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+// const convertFileToBase64 = (file: any) =>
+//   new Promise((resolve, reject) => {
+//     const reader = new FileReader();
+//     reader.readAsDataURL(file);
 
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-  });
+//     reader.onload = () => resolve(reader.result);
+//     reader.onerror = reject;
+//   });
 
 export const myDataProvider = {
   ...dataProvider

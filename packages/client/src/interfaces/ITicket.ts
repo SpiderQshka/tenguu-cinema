@@ -19,7 +19,8 @@ export type ITicketsActionTypes =
   | "FETCH_TICKETS_REQUEST"
   | "BUY_TICKET"
   | "BUY_TICKET_ERROR"
-  | "DELETE_TICKET";
+  | "DELETE_TICKET"
+  | "CHANGE_TICKETS_FOR_BUYING";
 
 export interface ITicketsPayload {
   data: ITicket[];
@@ -29,6 +30,7 @@ export interface ITicketsPayload {
   } | null;
   pending: boolean;
   ticketForDeleteId?: string;
+  ticketsForBuyingAmount?: number;
 }
 export interface ITicketsAction {
   type: ITicketsActionTypes;

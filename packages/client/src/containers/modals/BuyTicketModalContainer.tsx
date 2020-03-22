@@ -4,7 +4,7 @@ import {
   closeBuyTicketModalRequest,
   closeBuyTicketModal
 } from "actions/modals";
-import { buyTicketRequest } from "actions/tickets";
+import { buyTicketRequest, changeTicketsForBuying } from "actions/tickets";
 import {
   activeForBuyingFilmSelector,
   activeForBuyingSessionSelector
@@ -34,7 +34,9 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(closeBuyTicketModal());
     },
     changeActiveSession: (id: string) =>
-      dispatch(changeActiveSessionForBuying(id))
+      dispatch(changeActiveSessionForBuying(id)),
+    changeTicketsForBuying: (amount: number) =>
+      dispatch(changeTicketsForBuying(amount))
   };
 };
 

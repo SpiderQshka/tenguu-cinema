@@ -12,11 +12,8 @@ import {
   DateInput,
   NumberInput,
   ReferenceInput,
-  ReferenceArrayField,
   SelectInput,
-  ReferenceField,
-  ReferenceArrayInput,
-  ChipField
+  ReferenceField
 } from "react-admin";
 
 export const SessionList = (props: any) => {
@@ -59,14 +56,14 @@ export const SessionCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceArrayInput source="film" reference="films">
-          <SelectInput optionText="id" />
-        </ReferenceArrayInput>
+        <ReferenceInput source="film" reference="films">
+          <SelectInput optionText="name" />
+        </ReferenceInput>
         <DateInput source="dateTime" />
         <NumberInput source="price" />
-        <ReferenceArrayInput source="hall" reference="halls">
-          <SelectInput source="name" />
-        </ReferenceArrayInput>
+        <ReferenceInput source="genre" reference="genres">
+          <SelectInput optionText="name" />
+        </ReferenceInput>
       </SimpleForm>
     </Create>
   );

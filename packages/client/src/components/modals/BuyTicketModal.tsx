@@ -9,7 +9,8 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  Badge
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { ISession } from "interfaces/ISession";
@@ -29,9 +30,17 @@ interface IBuyTicketModal {
   changeActiveSession: (id: string) => void;
   closeModalRequest: () => void;
   closeModal: () => void;
+  changeTicketsForBuying: (tickets: number) => void;
 }
 
 export const BuyTicketModal = (props: IBuyTicketModal) => {
+  const handleActiveTicketsChange = (e: any) => {
+    const forms = document.forms as any;
+    const ticketsAmount = [...forms.buyTicketModalForm.elements].filter(
+      (el: HTMLInputElement, i: number) => el.checked
+    ).length;
+    props.changeTicketsForBuying(ticketsAmount);
+  };
   const handleSessionChange = (e: any) => {
     props.changeActiveSession(e.target.value as string);
   };
@@ -53,7 +62,11 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
             ticket.session === props.currentSession.id
         );
         return (
-          <label className={styles.seatLabel} key={`${i}-${j}`}>
+          <label
+            className={styles.seatLabel}
+            key={`${i}-${j}`}
+            onClick={handleActiveTicketsChange}
+          >
             <input
               type="checkbox"
               name="seat"
@@ -80,7 +93,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
             defaultMessage="Choose a seat"
           />
         </Typography>
-        {elements}
+        <form name="buyTicketModalForm">{elements}</form>
       </div>
     );
   };
@@ -204,19 +217,28 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
           props.sessions.some(
             session => session.film.id === props.currentFilm.id
           ) && (
-            <Button
-              type="submit"
-              form="form"
-              value="Submit"
-              autoFocus
+            <Badge
+              badgeContent={
+                props.tickets.ticketsForBuyingAmount
+                  ? props.tickets.ticketsForBuyingAmount
+                  : 0
+              }
               color="primary"
-              className={styles.submitBtn}
             >
-              <FormattedMessage
-                id="homepage.modal.submit"
-                defaultMessage="Submit"
-              />
-            </Button>
+              <Button
+                type="submit"
+                form="form"
+                value="Submit"
+                autoFocus
+                color="primary"
+                className={styles.submitBtn}
+              >
+                <FormattedMessage
+                  id="homepage.modal.submit"
+                  defaultMessage="Submit"
+                />
+              </Button>
+            </Badge>
           )}
 
         <Button

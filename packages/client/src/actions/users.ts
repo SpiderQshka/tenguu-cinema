@@ -1,5 +1,4 @@
 import { IUser, IUserPayload } from "interfaces/IUser";
-import { ITicket } from "interfaces/ITicket";
 
 // Actions
 

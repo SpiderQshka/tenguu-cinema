@@ -1,6 +1,11 @@
 import React from "react";
 import { IconButton } from "@material-ui/core/";
 import styles from "./coming-soon.module.sass";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronRight,
+  faChevronLeft
+} from "@fortawesome/free-solid-svg-icons";
 
 export interface IArrowProps {
   onClick(event: React.MouseEvent<HTMLElement, MouseEvent>): void;
@@ -12,7 +17,7 @@ export function ArrowNext(props: IArrowProps) {
       onClick={props.onClick}
       className={`${styles["arrow-block"]} ${styles["arrow-next"]}`}
     >
-      <i className={`fas fa-chevron-right ${styles.icon}`}></i>
+      <FontAwesomeIcon icon={faChevronRight} className={styles.icon} />
     </IconButton>
   );
 }
@@ -23,7 +28,7 @@ export function ArrowPrev(props: IArrowProps) {
       onClick={props.onClick}
       className={`${styles["arrow-block"]} ${styles["arrow-prev"]}`}
     >
-      <i className={`fas fa-chevron-left ${styles.icon}`}></i>
+      <FontAwesomeIcon icon={faChevronLeft} className={styles.icon} />
     </IconButton>
   );
 }

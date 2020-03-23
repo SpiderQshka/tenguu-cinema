@@ -12,6 +12,8 @@ import { IHeader } from ".";
 import { FormattedMessage } from "react-intl";
 import { Switch } from "@material-ui/core";
 import { config } from "config";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 
 export function MenuComponent(props: IHeader) {
   const history = useHistory();
@@ -31,10 +33,10 @@ export function MenuComponent(props: IHeader) {
     <>
       <div className={styles["menu-block"]}>
         <IconButton className={styles["menu-btn"]}>
-          <i className="fas fa-search"></i>
+          <FontAwesomeIcon icon={faSearch} />
         </IconButton>
         <IconButton className={styles["menu-btn"]} onClick={handleClick}>
-          <i className="fas fa-bars"></i>
+          <FontAwesomeIcon icon={faBars} />
         </IconButton>
         <Menu
           onClose={handleClose}
@@ -69,9 +71,10 @@ export function MenuComponent(props: IHeader) {
                       alt={userData.username}
                     />
                   ) : (
-                    <i
-                      className={`far fa-user ${styles["photo-placeholder"]}`}
-                    ></i>
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      className={styles["photo-placeholder"]}
+                    />
                   )}
                 </div>
               </MenuItem>

@@ -5,6 +5,8 @@ import { Typography, Button } from "@material-ui/core/";
 import { IFilm } from "interfaces/IFilm";
 import styles from "./film-carousel.module.sass";
 import { FormattedMessage } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 export interface ISlide {
   film: IFilm;
@@ -43,7 +45,10 @@ export function Slide(props: ISlide) {
               <Button
                 className={styles["slide-btn"]}
                 startIcon={
-                  <i className={`fas fa-play ${styles["button-icon"]}`}></i>
+                  <FontAwesomeIcon
+                    icon={faPlay}
+                    className={styles["button-icon"]}
+                  />
                 }
                 onClick={() =>
                   props.watchTrailer ? props.watchTrailer(props.film.id) : {}
@@ -57,9 +62,10 @@ export function Slide(props: ISlide) {
               <Button
                 className={styles["slide-btn"]}
                 startIcon={
-                  <i
-                    className={`fas fa-shopping-cart ${styles["button-icon"]}`}
-                  ></i>
+                  <FontAwesomeIcon
+                    icon={faShoppingCart}
+                    className={styles["button-icon"]}
+                  />
                 }
                 onClick={() => buyTicket(film.id)}
               >

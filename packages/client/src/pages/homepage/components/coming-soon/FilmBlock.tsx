@@ -3,6 +3,8 @@ import styles from "./coming-soon.module.sass";
 import { IFilm } from "interfaces/IFilm";
 import { Typography, Chip, Fab } from "@material-ui/core/";
 import { FormattedMessage } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 export interface IFilmBlock {
   film: IFilm;
@@ -38,7 +40,7 @@ export const FilmBlock = (props: IFilmBlock) => {
           </Typography>
           <div>
             <Chip
-              icon={<i className={`far fa-clock ${styles.icon}`}></i>}
+              icon={<FontAwesomeIcon icon={faClock} className={styles.icon} />}
               label={
                 <Typography variant="overline" className={styles.date}>
                   {film.releaseDate

@@ -6,6 +6,8 @@ import styles from "./coming-soon.module.sass";
 import { IFilm } from "interfaces/IFilm";
 import { FormattedMessage } from "react-intl";
 import { Typography } from "@material-ui/core/";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 export interface IComingSoonProps {
   data: IFilm[];
@@ -29,7 +31,10 @@ export function ComingSoon(props: IComingSoonProps) {
       />
       {!films.length ? (
         <>
-          <i className={`far fa-clock ${styles.filmsNotFoundIcon}`}></i>
+          <FontAwesomeIcon
+            icon={faClock}
+            className={styles.filmsNotFoundIcon}
+          />
           <Typography variant="h5" className={styles.filmsNotFoundText}>
             <FormattedMessage
               id="homepage.comingSoon.filmsNotFound"

@@ -12,6 +12,8 @@ import {
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { FormattedMessage } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 function encodeImageFileAsURL(photo: any, cb: Function) {
   const reader = new FileReader();
@@ -54,7 +56,10 @@ export const SignUpModal = (props: any) => {
       <DialogContent dividers>
         {props.users.error ? (
           <Typography variant="overline" className={styles.errorMsg}>
-            <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+            <FontAwesomeIcon
+              icon={faExclamationCircle}
+              className={styles.errorIcon}
+            />
             {props.users.error.message}
           </Typography>
         ) : null}

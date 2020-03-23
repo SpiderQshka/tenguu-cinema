@@ -6,6 +6,8 @@ import { Typography, Fab } from "@material-ui/core/";
 import styles from "./film-card.module.sass";
 import { ISession } from "interfaces/ISession";
 import { FormattedMessage, FormattedDate } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 export interface IFilmCard {
   item: IFilm;
@@ -41,7 +43,7 @@ export function FilmCard(props: IFilmCard) {
             props.watchTrailer ? props.watchTrailer(props.item.id) : {}
           }
         >
-          <i className={`fas fa-play ${styles["button-icon"]}`}></i>
+          <FontAwesomeIcon icon={faPlay} className={styles["button-icon"]} />
           <FormattedMessage
             id="homepage.button.watchTrailer"
             defaultMessage="Watch trailer"
@@ -56,7 +58,10 @@ export function FilmCard(props: IFilmCard) {
             props.buyTicket ? props.buyTicket(props.item.id) : {}
           }
         >
-          <i className={`fas fa-shopping-cart ${styles["button-icon"]}`}></i>
+          <FontAwesomeIcon
+            icon={faShoppingCart}
+            className={styles["button-icon"]}
+          />
           <FormattedMessage
             id="homepage.button.buyTicket"
             defaultMessage="Buy ticket"

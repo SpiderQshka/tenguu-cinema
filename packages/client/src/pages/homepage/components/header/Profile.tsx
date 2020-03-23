@@ -8,6 +8,8 @@ import WatchTrailerModal from "containers/modals/WatchTrailerModalContailner";
 import { Button, Typography, Badge } from "@material-ui/core/";
 import { IHeader } from ".";
 import { FormattedMessage } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export function Profile(props: IHeader) {
   const {
@@ -43,9 +45,10 @@ export function Profile(props: IHeader) {
                     alt={userData.username}
                   />
                 ) : (
-                  <i
-                    className={`far fa-user ${styles["photo-placeholder"]}`}
-                  ></i>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className={styles["photo-placeholder"]}
+                  />
                 )}
               </div>
             </div>

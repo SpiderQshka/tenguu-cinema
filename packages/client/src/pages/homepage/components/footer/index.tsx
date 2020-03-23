@@ -43,7 +43,6 @@ export const Footer = () => {
               </li>
               <li className={styles.menuItem}>
                 <Button href="#map">
-                  {" "}
                   <FormattedMessage
                     id="homepage.footer.button.map"
                     defaultMessage="Where are we?"

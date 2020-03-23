@@ -5,6 +5,8 @@ import { CarouselComponent } from "./Carousel";
 import { IFilm } from "interfaces/IFilm";
 import { FormattedMessage } from "react-intl";
 import { Typography } from "@material-ui/core/";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 export interface INowPlayingProps {
   data: IFilm[];
@@ -25,7 +27,10 @@ export function NowPlaying(props: INowPlayingProps) {
       />
       {!props.data.length ? (
         <>
-          <i className={`far fa-clock ${styles.filmsNotFoundIcon}`}></i>
+          <FontAwesomeIcon
+            icon={faClock}
+            className={styles.filmsNotFoundIcon}
+          />
           <Typography variant="h5" className={styles.filmsNotFoundText}>
             <FormattedMessage
               id="homepage.nowPlaying.filmsNotFound"

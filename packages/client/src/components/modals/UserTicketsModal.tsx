@@ -18,6 +18,8 @@ import { ITicket } from "interfaces/ITicket";
 import { ISession } from "interfaces/ISession";
 import { IUser } from "interfaces/IUser";
 import { Typography } from "@material-ui/core/";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTicketAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 export interface IUserTicketsModal {
   isModalOpen: boolean;
@@ -55,9 +57,10 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
                 return (
                   <ListItem>
                     <ListItemAvatar>
-                      <i
-                        className={`fas fa-ticket-alt ${styles.ticketIcon}`}
-                      ></i>
+                      <FontAwesomeIcon
+                        icon={faTicketAlt}
+                        className={styles.ticketIcon}
+                      />
                     </ListItemAvatar>
                     <ListItemText
                       className={styles.userTicket}
@@ -127,9 +130,10 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
                         aria-label="delete"
                         onClick={() => props.deleteTicket(ticket.id)}
                       >
-                        <i
-                          className={`fas fa-trash-alt ${styles.deleteTicketIcon}`}
-                        ></i>
+                        <FontAwesomeIcon
+                          icon={faTrashAlt}
+                          className={styles.deleteTicketIcon}
+                        />
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>

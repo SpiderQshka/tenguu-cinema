@@ -18,6 +18,8 @@ import { IFilm } from "interfaces/IFilm";
 import { IHall } from "interfaces/IHall";
 import { ITicketsPayload } from "interfaces/ITicket";
 import { FormattedMessage, FormattedDate, FormattedTime } from "react-intl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 interface IBuyTicketModal {
   currentFilm: IFilm;
@@ -154,7 +156,10 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
       <DialogContent dividers>
         {(props.tickets.error || !areSessionsExists) && (
           <Typography variant="overline" className={styles.errorMsg}>
-            <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+            <FontAwesomeIcon
+              icon={faExclamationCircle}
+              className={styles.errorIcon}
+            />
             {!areSessionsExists ? (
               <FormattedMessage
                 id="homepage.modal.buyTicket.noSessionsError"

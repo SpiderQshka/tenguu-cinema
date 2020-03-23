@@ -60,27 +60,56 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
                       ></i>
                     </ListItemAvatar>
                     <ListItemText
+                      className={styles.userTicket}
                       primary={
-                        <>
-                          "<FormattedMessage id={currentSession.film.name} />
-                          ";{" "}
-                          <FormattedMessage
-                            id="homepage.modal.userTicketsModal.hall"
-                            defaultMessage="Hall"
-                          />{" "}
-                          "<FormattedMessage id={currentSession.hall.name} />
-                          ",{" "}
-                          <FormattedMessage
-                            id="homepage.modal.userTicketsModal.row"
-                            defaultMessage="Row"
-                          />{" "}
-                          {ticket.seat.row},{" "}
-                          <FormattedMessage
-                            id="homepage.modal.userTicketsModal.seatNumber"
-                            defaultMessage="Seat"
-                          />{" "}
-                          {ticket.seat.seatNumber}
-                        </>
+                        <div className={styles.ticketDataContainer}>
+                          <div className={styles.ticketDataItem}>
+                            <Typography variant="h6">
+                              <FormattedMessage id="homepage.modal.userTicketsModal.film" />
+                              :
+                            </Typography>
+                            <FormattedMessage id={currentSession.film.name} />
+                          </div>
+                          <div className={styles.ticketDataItem}>
+                            <Typography variant="h6">
+                              <FormattedMessage
+                                id="homepage.modal.userTicketsModal.hall"
+                                defaultMessage="Hall"
+                              />
+                              :
+                            </Typography>
+                            <FormattedMessage id={currentSession.hall.name} />
+                          </div>
+                          <div className={styles.ticketDataItem}>
+                            <Typography variant="h6">
+                              <FormattedMessage
+                                id="homepage.modal.userTicketsModal.seat"
+                                defaultMessage="Seat"
+                              />
+                              :
+                            </Typography>
+                            <FormattedMessage
+                              id="homepage.modal.userTicketsModal.row"
+                              defaultMessage="Row"
+                            />{" "}
+                            {ticket.seat.row},{" "}
+                            <FormattedMessage
+                              id="homepage.modal.userTicketsModal.seatNumber"
+                              defaultMessage="Seat"
+                            />{" "}
+                            {ticket.seat.seatNumber}
+                          </div>
+                          <div className={styles.ticketDataItem}>
+                            <Typography variant="h6">
+                              <FormattedMessage
+                                id="homepage.modal.userTicketsModal.ticketCost"
+                                defaultMessage="Cost"
+                              />
+                              :
+                            </Typography>
+                            {currentSession.price}$
+                          </div>
+                        </div>
                       }
                       secondary={
                         <FormattedDate

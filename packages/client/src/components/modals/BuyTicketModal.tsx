@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -30,16 +30,17 @@ interface IBuyTicketModal {
   changeActiveSession: (id: string) => void;
   closeModalRequest: () => void;
   closeModal: () => void;
-  changeTicketsForBuying: (tickets: number) => void;
+  // changeTicketsForBuying: (tickets: number) => void;
 }
 
 export const BuyTicketModal = (props: IBuyTicketModal) => {
+  const [ticketsForBuyingAmount, handleChangeTicketsForBuying] = useState(0);
   const handleActiveTicketsChange = (e: any) => {
     const forms = document.forms as any;
-    const ticketsAmount = [...forms.buyTicketModalForm.elements].filter(
-      (el: HTMLInputElement, i: number) => el.checked
+    const ticketsAmount = [...forms.form.elements].filter(
+      (el: HTMLInputElement) => el.name === "seat" && el.checked
     ).length;
-    props.changeTicketsForBuying(ticketsAmount);
+    handleChangeTicketsForBuying(ticketsAmount);
   };
   const handleSessionChange = (e: any) => {
     props.changeActiveSession(e.target.value as string);
@@ -93,7 +94,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
             defaultMessage="Choose a seat"
           />
         </Typography>
-        <form name="buyTicketModalForm">{elements}</form>
+        {elements}
       </div>
     );
   };
@@ -106,6 +107,8 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
     object.user = window.localStorage.getItem("userId");
     object.seat = [];
     formData.forEach((value: any, key) => {
+      console.log(value, key);
+
       if (key === "seat") {
         object[key] = [
           ...object[key],
@@ -208,6 +211,18 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
                     props.currentSession.hall.numberOfRows,
                     props.currentSession.hall.seatsOnRow
                   )}
+                {!!ticketsForBuyingAmount && (
+                  <Typography
+                    variant="h5"
+                    className={styles.costOfTicketsHeader}
+                  >
+                    <FormattedMessage
+                      id="homepage.modal.buyTicket.costOfTickets"
+                      defaultMessage="Cost: "
+                    />
+                    {ticketsForBuyingAmount * props.currentSession.price}$
+                  </Typography>
+                )}
               </FormControl>
             </form>
           )}
@@ -217,14 +232,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
           props.sessions.some(
             session => session.film.id === props.currentFilm.id
           ) && (
-            <Badge
-              badgeContent={
-                props.tickets.ticketsForBuyingAmount
-                  ? props.tickets.ticketsForBuyingAmount
-                  : 0
-              }
-              color="primary"
-            >
+            <Badge badgeContent={ticketsForBuyingAmount} color="primary">
               <Button
                 type="submit"
                 form="form"

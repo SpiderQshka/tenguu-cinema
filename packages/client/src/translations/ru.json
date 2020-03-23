@@ -38,8 +38,12 @@
   "homepage.modal.buyTicket.title": "Купить билет на фильм",
   "homepage.modal.buyTicket.date": "Выберите сеанс",
   "homepage.modal.buyTicket.noSessionsError": "Ой, похоже на этот фильм ещё нет сеансов",
+  "homepage.modal.buyTicket.costOfTickets": "Общая цена билетов: ",
   "homepage.modal.userTicketsModal.row": "ряд",
   "homepage.modal.userTicketsModal.seatNumber": "место",
   "homepage.modal.userTicketsModal.hall": "Зал",
-  "homepage.modal.userTicketsModal.noTicketsWarning": "У вас ещё нет билетов. Возмите!"
+  "homepage.modal.userTicketsModal.noTicketsWarning": "У вас ещё нет билетов. Возмите!",
+  "homepage.modal.userTicketsModal.ticketCost": "Цена",
+  "homepage.modal.userTicketsModal.film": "Фильм",
+  "homepage.modal.userTicketsModal.seat": "Место"
 }

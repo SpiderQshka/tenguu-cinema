@@ -99,7 +99,6 @@ export function MenuComponent(props: IHeader) {
                       : 0
                   }
                   color="primary"
-                  showZero
                 >
                   <Typography variant="body1" className={styles["text"]}>
                     <FormattedMessage

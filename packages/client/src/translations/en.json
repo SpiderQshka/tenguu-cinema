@@ -37,8 +37,12 @@
   "homepage.modal.buyTicket.title": "Buy ticket on film",
   "homepage.modal.buyTicket.date": "Session date",
   "homepage.modal.buyTicket.noSessionsError": "Whops, film doesn't have any sessions yet",
+  "homepage.modal.buyTicket.costOfTickets": "Summary cost of tickets: ",
   "homepage.modal.userTicketsModal.row": "row №",
   "homepage.modal.userTicketsModal.seatNumber": "seat №",
   "homepage.modal.userTicketsModal.hall": "Hall",
-  "homepage.modal.userTicketsModal.noTicketsWarning": "You don't have any tickets yet. Buy one!"
+  "homepage.modal.userTicketsModal.noTicketsWarning": "You don't have any tickets yet. Buy one!",
+  "homepage.modal.userTicketsModal.ticketCost": "Cost",
+  "homepage.modal.userTicketsModal.film": "Film name",
+  "homepage.modal.userTicketsModal.seat": "Seat"
 }

@@ -17,20 +17,17 @@ const initialState: IFilmPayload = {
 export const filmsReducer = (state = initialState, action: IFilmAction) => {
   switch (action.type) {
     case FETCH_FILMS_PENDING:
-      console.log("Pending");
       return {
         ...state,
         pending: true
       };
     case FETCH_FILMS_SUCCESS:
-      console.log("Success", action);
       return {
         ...state,
         data: action.payload.data,
         pending: false
       };
     case FETCH_FILMS_ERROR:
-      console.log(`Error`, action.payload.error);
       return {
         ...state,
         error: action.payload.error,

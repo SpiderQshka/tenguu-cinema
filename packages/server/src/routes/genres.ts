@@ -34,10 +34,6 @@ router.post(
     delete req.body.ru;
     delete req.body.en;
 
-    console.log(
-      newTranslation._id.toHexString(),
-      typeof newTranslation._id.toHexString()
-    );
     const { error, code } = await genreValidation({
       ...req.body,
       name: newTranslation._id.toHexString()

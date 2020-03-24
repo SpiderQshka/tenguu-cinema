@@ -14,20 +14,17 @@ const initialState = {
 export const genresReducer = (state = initialState, action: IGenresAction) => {
   switch (action.type) {
     case FETCH_GENRES_PENDING:
-      console.log("Pending");
       return {
         ...state,
         pending: true
       };
     case FETCH_GENRES_SUCCESS:
-      console.log("Success");
       return {
         ...state,
         data: action.payload.data,
         pending: false
       };
     case FETCH_GENRES_ERROR:
-      console.log("Error");
       return {
         ...state,
         error: action.payload.error,

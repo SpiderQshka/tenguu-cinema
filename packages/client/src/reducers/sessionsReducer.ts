@@ -22,20 +22,17 @@ export const sessionsReducer = (
 ) => {
   switch (action.type) {
     case FETCH_SESSIONS_PENDING:
-      console.log("Pending");
       return {
         ...state,
         pending: true
       };
     case FETCH_SESSIONS_SUCCESS:
-      console.log("Success");
       return {
         ...state,
         data: action.payload.data,
         pending: false
       };
     case FETCH_SESSIONS_ERROR:
-      console.log("Error");
       return {
         ...state,
         error: action.payload.error,

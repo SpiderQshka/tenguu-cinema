@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./footer.module.sass";
-import { Button, Typography, TextField, Input } from "@material-ui/core/";
+import { Button, Typography, TextField } from "@material-ui/core/";
 import { FormattedMessage } from "react-intl";
 
 export const Footer = () => {
@@ -84,22 +84,44 @@ export const Footer = () => {
               className={styles.footerForm}
               onSubmit={e => e.preventDefault()}
             >
-              <Input
+              <TextField
                 type="text"
                 name="name"
-                placeholder="Name"
+                label={
+                  <FormattedMessage
+                    id="homepage.footer.name"
+                    defaultMessage="Name"
+                  />
+                }
                 required
                 fullWidth
               />
-              <Input
+              <TextField
                 type="email"
                 name="email"
-                placeholder="Email"
+                label={
+                  <FormattedMessage
+                    id="homepage.footer.email"
+                    defaultMessage="Email"
+                  />
+                }
                 required
                 fullWidth
               />
 
-              <TextField placeholder="Message" multiline fullWidth />
+              <TextField
+                type="text"
+                label={
+                  <FormattedMessage
+                    id="homepage.footer.message"
+                    defaultMessage="Message"
+                  />
+                }
+                name="message"
+                required
+                multiline
+                fullWidth
+              />
             </form>
             <Button
               variant="contained"

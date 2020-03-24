@@ -8,6 +8,7 @@ import halls from "./halls";
 import sessions from "./sessions";
 import auth from "./auth";
 import translations from "./translations";
+import email from "./email";
 export default {
   films,
   notFound,
@@ -18,5 +19,6 @@ export default {
   halls,
   sessions,
   auth,
-  translations
+  translations,
+  email
 };

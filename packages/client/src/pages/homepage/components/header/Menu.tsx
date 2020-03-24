@@ -6,7 +6,8 @@ import {
   Menu,
   MenuItem,
   Typography,
-  Badge
+  Badge,
+  TextField
 } from "@material-ui/core/";
 import { IHeader } from ".";
 import { FormattedMessage } from "react-intl";
@@ -14,10 +15,13 @@ import { Switch } from "@material-ui/core";
 import { config } from "config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 export function MenuComponent(props: IHeader) {
   const history = useHistory();
   const [ticketsBtn, setTicketsBtn] = useState(null);
+  const [isSearchBarOpen, openSearchBarHandler] = useState(false);
+  const [searchData, searchDataHandler] = useState([]);
 
   const {
     users: { currentUser: userData }
@@ -32,7 +36,26 @@ export function MenuComponent(props: IHeader) {
   return (
     <>
       <div className={styles["menu-block"]}>
-        <IconButton className={styles["menu-btn"]}>
+        {isSearchBarOpen && (
+          <Autocomplete
+            id="combo-box-demo"
+            options={["!"]}
+            getOptionLabel={option => option}
+            style={{ width: 300 }}
+            renderInput={params => (
+              <TextField
+                {...params}
+                label="Combo box"
+                variant="outlined"
+                className={styles.searchBarInput}
+              />
+            )}
+          />
+        )}
+        <IconButton
+          className={styles["menu-btn"]}
+          onClick={() => openSearchBarHandler(!isSearchBarOpen)}
+        >
           <FontAwesomeIcon icon={faSearch} />
         </IconButton>
         <IconButton className={styles["menu-btn"]} onClick={handleClick}>

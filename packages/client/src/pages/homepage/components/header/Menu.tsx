@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { useHistory } from "react-router-dom";
 import styles from "./header.module.sass";
 import {
@@ -10,7 +10,7 @@ import {
   TextField
 } from "@material-ui/core/";
 import { IHeader } from ".";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Switch } from "@material-ui/core";
 import { config } from "config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,8 +21,7 @@ export function MenuComponent(props: IHeader) {
   const history = useHistory();
   const [ticketsBtn, setTicketsBtn] = useState(null);
   const [isSearchBarOpen, openSearchBarHandler] = useState(false);
-  const [searchData, searchDataHandler] = useState([]);
-
+  const intl = useIntl();
   const {
     users: { currentUser: userData }
   } = props;
@@ -36,22 +35,28 @@ export function MenuComponent(props: IHeader) {
   return (
     <>
       <div className={styles["menu-block"]}>
-        {isSearchBarOpen && (
-          <Autocomplete
-            id="combo-box-demo"
-            options={["!"]}
-            getOptionLabel={option => option}
-            style={{ width: 300 }}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label="Combo box"
-                variant="outlined"
-                className={styles.searchBarInput}
-              />
-            )}
-          />
-        )}
+        <Autocomplete
+          className={`${styles.searchBarContainer} ${isSearchBarOpen &&
+            styles.activeSearchBar}`}
+          options={props.films}
+          onChange={(e: ChangeEvent<{}>, value: any) =>
+            value && props.buyTicket(value.id)
+          }
+          getOptionLabel={option => intl.formatMessage({ id: option.name })}
+          renderOption={option => (
+            <Typography variant="overline">
+              {intl.formatMessage({ id: option.name })}
+            </Typography>
+          )}
+          renderInput={params => (
+            <TextField
+              {...params}
+              variant="outlined"
+              className={styles.searchBarInput}
+            />
+          )}
+        />
+
         <IconButton
           className={styles["menu-btn"]}
           onClick={() => openSearchBarHandler(!isSearchBarOpen)}

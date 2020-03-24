@@ -6,17 +6,20 @@ import { userLogoutRequest } from "actions/users";
 import {
   openRegModal,
   openLoginModal,
-  openUserTicketModal
+  openUserTicketModal,
+  openBuyTicketModal
 } from "actions/modals";
 import { changeLang } from "actions/lang";
 import { currentTicketsSelector } from "selectors";
+import { changeActiveFilmForBuying } from "actions/films";
 
 const mapStateToProps = (state: IState) => {
   return {
     users: state.users,
     currentUserTickets: currentTicketsSelector(state),
     modals: state.modals,
-    lang: state.lang.currentLang
+    lang: state.lang.currentLang,
+    films: state.films.data
   };
 };
 
@@ -26,7 +29,11 @@ const mapDispatchToProps = (dispatch: any) => {
     openRegisterModal: () => dispatch(openRegModal()),
     openLoginModal: () => dispatch(openLoginModal()),
     openUserTicketsModal: () => dispatch(openUserTicketModal()),
-    changeLang: (lang: string) => dispatch(changeLang(lang))
+    changeLang: (lang: string) => dispatch(changeLang(lang)),
+    buyTicket: (filmId: string) => {
+      dispatch(changeActiveFilmForBuying(filmId));
+      dispatch(openBuyTicketModal());
+    }
   };
 };
 

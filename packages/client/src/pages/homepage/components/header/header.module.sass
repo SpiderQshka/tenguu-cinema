@@ -93,8 +93,23 @@ $photo-size: 40px
                     color: $primary-color
             .menu-block
                 display: flex
-                .searchBarInput
-                    background-color: rgba(0,0,0,0.3)
+                .searchBarContainer
+                    width: 0
+                    z-index: 0
+                    opacity: 0
+                    margin: 0
+                    transition: all .7s
+                    label
+                        color: $primary-color
+                    fieldset
+                        border-color: $primary-shade-color
+                    button, input
+                        color: $accent-color
+                .activeSearchBar
+                    width: 200px 
+                    z-index: 1
+                    opacity: 1
+                    margin: 0 $default-margin
                 .menu-btn
                     color: $primary-color !important
                     opacity: .5

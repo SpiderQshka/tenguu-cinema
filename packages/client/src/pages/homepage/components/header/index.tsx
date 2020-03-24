@@ -6,17 +6,20 @@ import styles from "./header.module.sass";
 import { IUserPayload } from "interfaces/IUser";
 import { IModalsPayload } from "interfaces/IModal";
 import { ITicket } from "interfaces/ITicket";
+import { IFilm } from "interfaces/IFilm";
 
 export interface IHeader {
   users: IUserPayload;
   currentUserTickets: ITicket[];
   modals: IModalsPayload;
   lang: string;
+  films: IFilm[];
   logout: () => void;
   openRegisterModal: () => void;
   openLoginModal: () => void;
   openUserTicketsModal: () => void;
   changeLang: (lang: string) => void;
+  buyTicket: (filmId: string) => void;
 }
 
 export function Header(props: IHeader) {

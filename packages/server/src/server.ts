@@ -22,7 +22,7 @@ app.use("/api/tickets", routes.tickets);
 app.use("/api/halls", routes.halls);
 app.use("/api/sessions", routes.sessions);
 app.use("/api/translations", routes.translations);
-app.use("/api/email", routes.email);
+// app.use("/api/email", routes.email);
 app.use("*", routes.notFound);
 
 export { app };

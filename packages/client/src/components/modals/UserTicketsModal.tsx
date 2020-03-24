@@ -13,7 +13,7 @@ import {
   IconButton
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
-import { FormattedMessage, FormattedDate } from "react-intl";
+import { FormattedMessage, FormattedDate, useIntl } from "react-intl";
 import { ITicket } from "interfaces/ITicket";
 import { ISession } from "interfaces/ISession";
 import { IUser } from "interfaces/IUser";
@@ -31,6 +31,7 @@ export interface IUserTicketsModal {
 }
 
 export const UserTicketsModal = (props: IUserTicketsModal) => {
+  const intl = useIntl();
   return (
     <Dialog onClose={props.closeModal} open={props.isModalOpen} scroll="body">
       <DialogTitle>
@@ -91,16 +92,11 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
                               />
                               :
                             </Typography>
-                            <FormattedMessage
-                              id="homepage.modal.userTicketsModal.row"
-                              defaultMessage="Row"
-                            />{" "}
-                            {ticket.seat.row},{" "}
-                            <FormattedMessage
-                              id="homepage.modal.userTicketsModal.seatNumber"
-                              defaultMessage="Seat"
-                            />{" "}
-                            {ticket.seat.seatNumber}
+                            {`${intl.formatMessage({
+                              id: "homepage.modal.userTicketsModal.row"
+                            })} ${ticket.seat.row}, ${intl.formatMessage({
+                              id: "homepage.modal.userTicketsModal.seatNumber"
+                            })} ${ticket.seat.seatNumber}`}
                           </div>
                           <div className={styles.ticketDataItem}>
                             <Typography variant="h6">

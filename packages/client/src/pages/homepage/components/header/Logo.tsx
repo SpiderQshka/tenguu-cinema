@@ -4,9 +4,7 @@ import { faFilm } from "@fortawesome/free-solid-svg-icons";
 import styles from "./header.module.sass";
 import { Typography } from "@material-ui/core";
 
-export interface ILogoProps {}
-
-export function Logo(props: ILogoProps) {
+export function Logo() {
   return (
     <div className={styles["logo-block"]}>
       <FontAwesomeIcon icon={faFilm} className={styles["logo-image"]} />

@@ -25,7 +25,6 @@ $photo-size: 40px
             padding: $extra-large-padding $large-padding
             color: $primary-color
             background: $accent-color
-            background: $accent-gradient
             .logo-name
                 line-height: 1rem
                 font-size: $default-font-size
@@ -44,6 +43,7 @@ $photo-size: 40px
         .content-block
             display: flex
             align-items: center
+            justify-content: center
             .vertical-line
                 display: inline-block
                 height: $default-font-size
@@ -99,6 +99,7 @@ $photo-size: 40px
                     opacity: 0
                     margin: 0
                     transition: all .7s
+                    pointer-events: none
                     label
                         color: $primary-color
                     fieldset
@@ -106,10 +107,11 @@ $photo-size: 40px
                     button, input
                         color: $accent-color
                 .activeSearchBar
-                    width: 200px 
+                    width: 100%
                     z-index: 1
                     opacity: 1
                     margin: 0 $default-margin
+                    pointer-events: all
                 .menu-btn
                     color: $primary-color !important
                     opacity: .5

@@ -58,12 +58,15 @@ export function MenuComponent(props: IHeader) {
         />
 
         <IconButton
-          className={styles["menu-btn"]}
+          className={`${styles["menu-btn"]} ${styles["search-btn"]}`}
           onClick={() => openSearchBarHandler(!isSearchBarOpen)}
         >
           <FontAwesomeIcon icon={faSearch} />
         </IconButton>
-        <IconButton className={styles["menu-btn"]} onClick={handleClick}>
+        <IconButton
+          className={`${styles["menu-btn"]} ${styles["tabs-btn"]}`}
+          onClick={handleClick}
+        >
           <FontAwesomeIcon icon={faBars} />
         </IconButton>
         <Menu

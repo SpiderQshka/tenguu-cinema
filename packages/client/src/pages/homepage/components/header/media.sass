@@ -3,16 +3,32 @@
         display: none
     .menuItem.menuUserBlock, .menuItem.menuTicketsBlock
         display: block !important
+    .content-block
+        justify-content: end !important
+        flex-grow: 1
+        .menu-block
+            flex-grow: 1
+            .searchBarContainer
+                flex-grow: 1
 
 @media all and (max-width: 400px)
+
     .header
         flex-direction: column
         align-items: center
+        .logo-block
+            background-color: rgba(0,0,0,0) !important
         .content-block
             align-self: stretch
         .menu-block
-            position: absolute
             display: flex
             width: 100%
             justify-content: space-between
-            top: 35px
+            .searchBarContainer
+                order: 1
+            .search-btn
+                order: 0
+            .tabs-btn
+                order: 2
+    .menuItem
+        width: 100vw !important

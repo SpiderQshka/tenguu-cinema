@@ -11,7 +11,6 @@ const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
   const sessions = await models.Session.find();
-
   res.set("X-Total-Count", `${sessions.length}`).json(sessions);
 });
 

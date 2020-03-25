@@ -17,7 +17,7 @@
 .hallScheme
     margin: 0 auto
     .hallSchemeHeader
-        margin-bottom: $default-margin
+        margin-bottom: $extra-large-margin
     .row
         padding: 0 $large-padding
         position: relative
@@ -25,9 +25,17 @@
         .rowNumber
             position: absolute
             left: 0
-            top: 0
-            font-size: $default-font-size
+            top: 3px
+            font-size: $small-font-size
             line-height: 1.4
+        .seatLabel
+            position: relative
+            .seatNumber
+                position: absolute
+                top: -22px
+                left: 5px
+                font-size: $small-font-size
+                line-height: 1.4
 .seatInput
     box-sizing: border-box
     appearance: none

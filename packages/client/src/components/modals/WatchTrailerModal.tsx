@@ -19,9 +19,14 @@ export const WatchTrailerModal = (props: any) => {
     >
       <DialogTitle>
         <FormattedMessage
-          id="homepage.button.watchTrailer"
+          id="homepage.modal.watchTrailer.header"
           defaultMessage="Watch trailer"
+        />{" "}
+        "
+        <FormattedMessage
+          id={props.film ? props.film.name : "homepage.header.profile.loading"}
         />
+        "
       </DialogTitle>
       <DialogContent dividers>
         <iframe

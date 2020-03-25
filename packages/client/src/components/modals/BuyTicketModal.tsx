@@ -70,6 +70,11 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
             key={`${i}-${j}`}
             onClick={handleActiveTicketsChange}
           >
+            {!i && (
+              <Typography variant="overline" className={styles.seatNumber}>
+                {j + 1}
+              </Typography>
+            )}
             <input
               type="checkbox"
               name="seat"
@@ -216,7 +221,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
                     props.currentSession.hall.numberOfRows,
                     props.currentSession.hall.seatsOnRow
                   )}
-                {!!ticketsForBuyingAmount && (
+                {!!ticketsForBuyingAmount && props.currentSession && (
                   <Typography
                     variant="overline"
                     className={styles.costOfTicketsHeader}
@@ -258,6 +263,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
           onClick={() => {
             props.closeModal();
             props.changeActiveSession("");
+            handleChangeTicketsForBuying(0);
           }}
           color="secondary"
           className={styles.closeModalBtn}

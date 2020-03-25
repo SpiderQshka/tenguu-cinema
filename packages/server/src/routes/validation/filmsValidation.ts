@@ -9,8 +9,7 @@ export const filmValidation = async (
 ): Promise<{ error: string | null; code: number }> => {
   const schema = Joi.object({
     name: Joi.string().required(),
-    genres: Joi.array().optional(),
-    genreIds: Joi.array()
+    genres: Joi.array()
       .items(
         Joi.string()
           .pattern(_IDREGEXP)

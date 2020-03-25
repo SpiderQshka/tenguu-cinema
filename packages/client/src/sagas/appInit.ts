@@ -5,5 +5,5 @@ import { fetchCurrentUserRequest } from "actions/users";
 import { fetchPageRequest } from "actions/page";
 
 export function* fetchAppInfo() {
-  yield all([put(fetchCurrentUserRequest()), put(fetchPageRequest())]);
+  yield all([put(fetchPageRequest()), put(fetchCurrentUserRequest())]);
 }

@@ -17,7 +17,11 @@ router.get(
   async (req: Request, res: Response) => {
     const users = await getUsersForClient();
 
-    return res.set("X-Total-Count", `${users.length}`).json(users);
+    return res
+      .set("X-Total-Count", `${users.length}`)
+      .header("Access-Control-Allow-Origin", "*")
+      .header("Access-Control-Allow-Headers", "origin, content-type, accept")
+      .json(users);
   }
 );
 

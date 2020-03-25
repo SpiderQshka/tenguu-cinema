@@ -48,5 +48,6 @@
   "homepage.modal.userTicketsModal.noTicketsWarning": "У вас ещё нет билетов. Возмите!",
   "homepage.modal.userTicketsModal.ticketCost": "Цена",
   "homepage.modal.userTicketsModal.film": "Фильм",
-  "homepage.modal.userTicketsModal.seat": "Место"
+  "homepage.modal.userTicketsModal.seat": "Место",
+  "homepage.modal.watchTrailer.header": "Смотреть трейлер фильма"
 }

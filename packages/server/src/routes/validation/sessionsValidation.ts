@@ -7,18 +7,16 @@ export const sessionValidation = async (
   data: ISession
 ): Promise<{ error: string | null; code: number }> => {
   const schema = Joi.object({
-    filmId: Joi.string()
+    film: Joi.string()
       .pattern(_IDREGEXP)
       .required(),
     dateTime: Joi.date().required(),
     price: Joi.number()
       .min(0)
       .required(),
-    hallId: Joi.string()
+    hall: Joi.string()
       .pattern(_IDREGEXP)
-      .required(),
-    hall: Joi.object(),
-    film: Joi.object()
+      .required()
   });
 
   const { error = null } = schema.validate(data);

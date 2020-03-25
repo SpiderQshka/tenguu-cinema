@@ -47,5 +47,6 @@
   "homepage.modal.userTicketsModal.noTicketsWarning": "You don't have any tickets yet. Buy one!",
   "homepage.modal.userTicketsModal.ticketCost": "Cost",
   "homepage.modal.userTicketsModal.film": "Film name",
-  "homepage.modal.userTicketsModal.seat": "Seat"
+  "homepage.modal.userTicketsModal.seat": "Seat",
+  "homepage.modal.watchTrailer.header": "Watch trailer of the film"
 }

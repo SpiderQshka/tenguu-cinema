@@ -44,7 +44,7 @@ export const SessionEdit = (props: any) => {
         </ReferenceInput>
         <DateInput source="dateTime" />
         <NumberInput source="price" />
-        <ReferenceInput source="genre" reference="genres">
+        <ReferenceInput source="hall" reference="halls">
           <SelectInput optionText="name" />
         </ReferenceInput>
       </SimpleForm>
@@ -61,7 +61,7 @@ export const SessionCreate = (props: any) => {
         </ReferenceInput>
         <DateInput source="dateTime" />
         <NumberInput source="price" />
-        <ReferenceInput source="genre" reference="genres">
+        <ReferenceInput source="hall" reference="halls">
           <SelectInput optionText="name" />
         </ReferenceInput>
       </SimpleForm>

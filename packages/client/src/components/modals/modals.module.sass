@@ -2,9 +2,9 @@
 
 .form
     display: flex
-    align-items: center
-    justify-content: center
     flex-direction: column
+    .select
+        max-width: 200px
     .input
         margin-bottom: $small-margin
 .errorMsg
@@ -15,12 +15,11 @@
         margin-right: $default-margin
 
 .hallScheme
-    margin: $default-margin 0
+    margin: 0 auto
     .hallSchemeHeader
-        text-align: center
         margin-bottom: $default-margin
     .row
-        padding-left: $large-padding
+        padding: 0 $large-padding
         position: relative
         display: flex
         .rowNumber
@@ -61,7 +60,7 @@
     color: red
 
 .costOfTicketsHeader
-    text-align: center
+    font-size: $large-font-size !important
 
 .userTicket
     .ticketDataContainer

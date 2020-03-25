@@ -180,7 +180,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
               className={styles.form}
               onSubmit={submitHandler}
             >
-              <FormControl fullWidth required>
+              <FormControl className={styles.select} required>
                 <InputLabel htmlFor="session">
                   <FormattedMessage
                     id="homepage.modal.buyTicket.date"
@@ -218,7 +218,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
                   )}
                 {!!ticketsForBuyingAmount && (
                   <Typography
-                    variant="h5"
+                    variant="overline"
                     className={styles.costOfTicketsHeader}
                   >
                     <FormattedMessage

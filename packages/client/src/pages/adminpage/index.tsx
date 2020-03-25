@@ -27,9 +27,9 @@ export const AdminPage = (props: { lang: string }) => {
   } as any;
 
   return (
-    <Provider store={createAdminStore({ dataProvider, history })}>
+    <Provider store={createAdminStore({ myDataProvider, history })}>
       <Admin
-        dataProvider={dataProvider}
+        dataProvider={myDataProvider}
         history={history}
         title={props.lang === "ru" ? "Админ панель" : "My admin"}
         i18nProvider={polyglotI18nProvider(() => messages[props.lang])}

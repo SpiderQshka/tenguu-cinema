@@ -1,5 +1,5 @@
 @import 'config'
-@import "./media"
+@import "./media.module"
 
 $logo-icon-font-size: 40px
 $photo-size: 40px
@@ -95,23 +95,23 @@ $photo-size: 40px
                 display: flex
                 .searchBarContainer
                     width: 0
+                    margin: 0
                     z-index: 0
                     opacity: 0
-                    margin: 0
                     transition: all .7s
                     pointer-events: none
-                    label
+                    &.activeSearchBar
+                        width: 15vw
+                        z-index: 1
+                        opacity: 1
+                        margin: 0 $default-margin
+                        pointer-events: all
+                    label,input
                         color: $primary-color
                     fieldset
                         border-color: $primary-shade-color
-                    button, input
+                    button
                         color: $accent-color
-                .activeSearchBar
-                    width: 100%
-                    z-index: 1
-                    opacity: 1
-                    margin: 0 $default-margin
-                    pointer-events: all
                 .menu-btn
                     color: $primary-color !important
                     opacity: .5

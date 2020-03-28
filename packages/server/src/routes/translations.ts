@@ -12,11 +12,13 @@ router.get("/", async (req: Request, res: Response) => {
   res.set("X-Total-Count", `${translations.length}`).json(translations);
 });
 
-router.get("/:genreId", async (req: Request, res: Response) => {
-  if (!doesIdMatchesFormat(req.params.genreId))
+router.get("/:translationId", async (req: Request, res: Response) => {
+  if (!doesIdMatchesFormat(req.params.translationId))
     return res.json("Wrong query format");
 
-  const translation = await models.Translation.findById(req.params.genreId);
+  const translation = await models.Translation.findById(
+    req.params.translationId
+  );
 
   if (!translation) return res.status(404).json("Not found");
   return res.json(translation);

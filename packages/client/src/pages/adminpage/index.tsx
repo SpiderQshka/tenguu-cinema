@@ -1,6 +1,6 @@
 import React from "react";
 import { createHashHistory } from "history";
-import { Admin, Resource } from "react-admin";
+import { Admin, Resource, useSetLocale, useLocale } from "react-admin";
 import { Provider } from "react-redux";
 import createAdminStore from "createAdminStore";
 import { HallList, HallEdit, HallCreate } from "./lists/HallList";
@@ -13,71 +13,78 @@ import polyglotI18nProvider from "ra-i18n-polyglot";
 import russianMessages from "ra-language-russian";
 import englishMessages from "ra-language-english";
 import { TranslationList } from "./lists/TranslationList";
-import jsonServerProvider from "ra-data-json-server";
-import { adminPageTokenFetch } from "APIServices/CRUD";
 import { myDataProvider } from "./imageDataProvider";
-
-const dataProvider = jsonServerProvider("/api", adminPageTokenFetch);
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 const history = createHashHistory({ hashType: "noslash" });
 
+const messages = {
+  ru: russianMessages,
+  en: englishMessages
+} as any;
+
 export const AdminPage = (props: { lang: string }) => {
-  const messages = {
-    ru: russianMessages,
-    en: englishMessages
-  } as any;
+  // const setLocale = useSetLocale();
+  // setLocale("en");
+  const locale = useLocale();
+  console.log(locale);
 
   return (
-    <Provider
-      store={createAdminStore({
-        dataProvider: Object.assign(myDataProvider),
-        history
-      })}
-    >
-      <Admin
-        dataProvider={Object.assign(myDataProvider)}
-        history={history}
-        title={props.lang === "ru" ? "Админ панель" : "My admin"}
-        i18nProvider={polyglotI18nProvider(() => messages[props.lang])}
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Provider
+        store={createAdminStore({
+          dataProvider: Object.assign(myDataProvider),
+          history
+        })}
       >
-        <Resource
-          name="halls"
-          list={HallList}
-          edit={HallEdit}
-          create={HallCreate}
-        />
-        <Resource
-          name="sessions"
-          list={SessionList}
-          edit={SessionEdit}
-          create={SessionCreate}
-        />
-        <Resource
-          name="films"
-          list={FilmList}
-          edit={FilmEdit}
-          create={FilmCreate}
-        />
-        <Resource
-          name="users"
-          list={UserList}
-          edit={UserEdit}
-          create={UserCreate}
-        />
-        <Resource
-          name="genres"
-          list={GenreList}
-          edit={GenreEdit}
-          create={GenreCreate}
-        />
-        <Resource
-          name="tickets"
-          list={TicketList}
-          edit={TicketEdit}
-          create={TicketCreate}
-        />
-        <Resource name="translations" list={TranslationList} />
-      </Admin>
-    </Provider>
+        <Admin
+          dataProvider={Object.assign(myDataProvider)}
+          history={history}
+          i18nProvider={polyglotI18nProvider(
+            locale => messages[locale],
+            props.lang
+          )}
+        >
+          <Resource
+            name="halls"
+            list={HallList}
+            edit={HallEdit}
+            create={HallCreate}
+          />
+          <Resource
+            name="sessions"
+            list={SessionList}
+            edit={SessionEdit}
+            create={SessionCreate}
+          />
+          <Resource
+            name="films"
+            list={FilmList}
+            edit={FilmEdit}
+            create={FilmCreate}
+          />
+          <Resource
+            name="users"
+            list={UserList}
+            edit={UserEdit}
+            create={UserCreate}
+          />
+          <Resource
+            name="genres"
+            list={GenreList}
+            edit={GenreEdit}
+            create={GenreCreate}
+          />
+          <Resource
+            name="tickets"
+            list={TicketList}
+            edit={TicketEdit}
+            create={TicketCreate}
+          />
+          <Resource name="translations" list={TranslationList} />
+        </Admin>
+      </Provider>
+    </MuiPickersUtilsProvider>
   );
 };

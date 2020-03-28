@@ -21,15 +21,3 @@ export const TranslationList = (props: any) => {
     </List>
   );
 };
-
-export const TranslationEdit = (props: any) => {
-  return (
-    <Edit {...props}>
-      <SimpleForm>
-        <TextInput disabled source="id" />
-        <TextField source="ru" />
-        <TextField source="en" />
-      </SimpleForm>
-    </Edit>
-  );
-};

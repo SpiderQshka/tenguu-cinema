@@ -73,11 +73,11 @@ router.get("/:filmId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.filmId))
     return res.json("Wrong query format");
 
-  const film = await getFilmsForClient({ _id: req.params.filmId });
+  const film = await await models.Film.findById(req.params.filmId);
 
-  if (!film[0]) return res.status(404).json("Not found");
+  if (!film) return res.status(404).json("Not found");
 
-  return res.json(film[0]);
+  return res.json(film);
 });
 
 router.put(

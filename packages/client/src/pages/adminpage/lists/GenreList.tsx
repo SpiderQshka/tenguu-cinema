@@ -14,7 +14,7 @@ import {
 
 export const GenreList = (props: any) => {
   const locale = useLocale();
-  console.log(props);
+  console.log(locale);
 
   return (
     <List {...props}>

@@ -24,36 +24,85 @@ import {
   ReferenceArrayField,
   ReferenceField,
   ImageInput,
-  ImageField
+  ImageField,
+  ReferenceInput,
+  useQuery
 } from "react-admin";
+import { Chip } from "@material-ui/core";
 import RichTextInput from "ra-input-rich-text";
+import styles from "../styles.module.sass";
+
+const FilmName = ({ record }: any) => {
+  const { data, error } = useQuery({
+    type: "getOne",
+    resource: "translations",
+    payload: { id: record.name }
+  });
+
+  if (!data || error) return null;
+
+  const names: string[] = [];
+  for (let key in data) {
+    if (key !== "id") names.push(`${key}: ${data[key]}`);
+  }
+  return (
+    <ul>
+      {names.map(name => (
+        <li className={styles.filmNameListItem}>
+          <Chip label={name} />
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const GenreName = ({ record }: any) => {
+  const { data, error } = useQuery({
+    type: "getOne",
+    resource: "translations",
+    payload: { id: record.name }
+  });
+
+  if (!data || error) return null;
+
+  const names: string[] = [];
+  for (let key in data) {
+    if (key !== "id") names.push(`${key}: ${data[key]}`);
+  }
+  return <Chip label={names.reduce((prev, curr) => `${prev}; \n${curr}`)} />;
+};
+
+const Description = ({ record }: any) => {
+  const { data, error } = useQuery({
+    type: "getOne",
+    resource: "translations",
+    payload: { id: record.description }
+  });
+
+  if (!data || error) return null;
+
+  const descriptions: string[] = [];
+  for (let key in data) {
+    if (key !== "id") descriptions.push(`${key}:\n ${data[key]}`);
+  }
+  return (
+    <ul>
+      {descriptions.map(desc => (
+        <li className={styles.descriptionListItem}>{desc}</li>
+      ))}
+    </ul>
+  );
+};
 
 export const FilmList = (props: any) => {
   return (
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <ReferenceField
-          source="name"
-          label="ru"
-          reference="translations"
-          link={false}
-        >
-          <TextField source="ru" />
-        </ReferenceField>
-        <ReferenceField
-          source="name"
-          label="en"
-          reference="translations"
-          link={false}
-        >
-          <TextField source="en" />
-        </ReferenceField>
+        <FilmName label="Name" />
         <ReferenceArrayField reference="genres" source="genres">
           <SingleFieldList>
-            <ReferenceField source="name" reference="translations" link={false}>
-              <ChipField source="ru" />
-            </ReferenceField>
+            <GenreName />
           </SingleFieldList>
         </ReferenceArrayField>
         <NumberField source="duration" />
@@ -65,22 +114,7 @@ export const FilmList = (props: any) => {
           </SingleFieldList>
         </ArrayField>
         <DateField source="releaseDate" />
-        <ReferenceField
-          source="description"
-          label="description (ru)"
-          reference="translations"
-          link={false}
-        >
-          <RichTextField source="ru" />
-        </ReferenceField>
-        <ReferenceField
-          source="description"
-          label="description (en)"
-          reference="translations"
-          link={false}
-        >
-          <RichTextField source="en" />
-        </ReferenceField>
+        <Description label="Description" />
         <EditButton />
       </Datagrid>
     </List>
@@ -91,7 +125,10 @@ export const FilmEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="nameRu" label="Name (ru)" />
+        <ReferenceInput reference="translations" source="name">
+          <TextInput source="en" optionText="ru" />
+        </ReferenceInput>
+
         <TextInput source="nameEn" label="Name (en)" />
         <ReferenceArrayInput source="genres" reference="genres">
           <SelectArrayInput optionText="name" />

@@ -41,10 +41,10 @@ router.get("/:sessionId", async (req: Request, res: Response) => {
   if (!doesIdMatchesFormat(req.params.sessionId))
     return res.json("Wrong query format");
 
-  const session = await getSessionsForClient();
+  const session = await models.Session.findById(req.params.sessionId);
 
-  if (!session[0]) return res.status(404).json("Not found");
-  else return res.json(session[0]);
+  if (!session) return res.status(404).json("Not found");
+  return res.json(session);
 });
 
 router.put(
@@ -57,7 +57,7 @@ router.put(
     if (!doesIdMatchesFormat(req.params.sessionId))
       return res.json("Wrong query format");
 
-    const { error, code } = await sessionValidation(req.body);
+    const { error, code } = await sessionValidation(req.body, false);
     if (error) return res.status(code).json(error);
 
     const updatedSession = await models.Session.findByIdAndUpdate(

@@ -4,20 +4,28 @@ import { models } from "../../models/index";
 import { _IDREGEXP } from "../../keys/keys";
 
 export const sessionValidation = async (
-  data: ISession
+  data: ISession,
+  areFieldsRequired = true
 ): Promise<{ error: string | null; code: number }> => {
-  const schema = Joi.object({
-    film: Joi.string()
-      .pattern(_IDREGEXP)
-      .required(),
-    dateTime: Joi.date().required(),
-    price: Joi.number()
-      .min(0)
-      .required(),
-    hall: Joi.string()
-      .pattern(_IDREGEXP)
-      .required()
-  });
+  const schema = areFieldsRequired
+    ? Joi.object({
+        film: Joi.string()
+          .pattern(_IDREGEXP)
+          .required(),
+        dateTime: Joi.date().required(),
+        price: Joi.number()
+          .min(0)
+          .required(),
+        hall: Joi.string()
+          .pattern(_IDREGEXP)
+          .required()
+      })
+    : Joi.object({
+        film: Joi.string().pattern(_IDREGEXP),
+        dateTime: Joi.date(),
+        price: Joi.number().min(0),
+        hall: Joi.string().pattern(_IDREGEXP)
+      });
 
   const { error = null } = schema.validate(data);
   if (error) return { error: error.details[0].message, code: 400 };
@@ -59,8 +67,6 @@ export const sessionValidation = async (
   };
 
   const result = await isTimeForSessionFree();
-
-  // console.log("Time for session:", result);
 
   if (!result)
     return {

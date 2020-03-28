@@ -8,9 +8,6 @@ import {
   SimpleForm,
   Create,
   EmailField,
-  ReferenceArrayField,
-  SingleFieldList,
-  ChipField,
   TextInput,
   SelectInput,
   PasswordInput
@@ -25,11 +22,6 @@ export const UserList = (props: any) => {
         <EmailField source="email" />
         <TextField source="username" />
         <TextField source="photo" />
-        <ReferenceArrayField source="ticketIds" reference="tickets">
-          <SingleFieldList>
-            <ChipField source="id" />
-          </SingleFieldList>
-        </ReferenceArrayField>
         <EditButton />
       </Datagrid>
     </List>

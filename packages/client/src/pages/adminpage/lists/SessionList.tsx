@@ -13,8 +13,54 @@ import {
   NumberInput,
   ReferenceInput,
   SelectInput,
-  ReferenceField
+  ReferenceField,
+  useQuery
 } from "react-admin";
+import { DateTimeInput } from "react-admin-date-inputs2";
+
+const FilmName = ({ record }: any) => {
+  const { data, error } = useQuery({
+    type: "getOne",
+    resource: "translations",
+    payload: { id: record.name }
+  });
+
+  if (!data || error) return null;
+
+  const names: string[] = [];
+  for (let key in data) {
+    if (key !== "id") names.push(`${key} - ${data[key]}`);
+  }
+  return (
+    <ul>
+      {names.map(name => (
+        <li>{name}</li>
+      ))}
+    </ul>
+  );
+};
+
+const HallName = ({ record }: any) => {
+  const { data, error } = useQuery({
+    type: "getOne",
+    resource: "translations",
+    payload: { id: record.name }
+  });
+
+  if (!data || error) return null;
+
+  const names: string[] = [];
+  for (let key in data) {
+    if (key !== "id") names.push(`${key} - ${data[key]}`);
+  }
+  return (
+    <ul>
+      {names.map(name => (
+        <li>{name}</li>
+      ))}
+    </ul>
+  );
+};
 
 export const SessionList = (props: any) => {
   return (
@@ -22,12 +68,12 @@ export const SessionList = (props: any) => {
       <Datagrid>
         <TextField source="id" />
         <ReferenceField source="film" reference="films" title="film">
-          <TextField source="name" />
+          <FilmName />
         </ReferenceField>
         <DateField source="dateTime" showTime />
         <NumberField source="price" />
         <ReferenceField source="hall" reference="halls" title="hall">
-          <TextField source="name" />
+          <HallName />
         </ReferenceField>
         <EditButton />
       </Datagrid>
@@ -42,7 +88,15 @@ export const SessionEdit = (props: any) => {
         <ReferenceInput source="film" reference="films">
           <SelectInput optionText="name" />
         </ReferenceInput>
-        <DateInput source="dateTime" />
+        <DateTimeInput
+          source="dateTime"
+          label="Date and time"
+          options={{
+            format: "dd/mm/yyyy, HH:mm:ss",
+            ampm: false,
+            clearable: true
+          }}
+        />
         <NumberInput source="price" />
         <ReferenceInput source="hall" reference="halls">
           <SelectInput optionText="name" />

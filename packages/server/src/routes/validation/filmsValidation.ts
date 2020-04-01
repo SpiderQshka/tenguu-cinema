@@ -19,7 +19,7 @@ export const filmValidation = async (
           )
           .required(),
         duration: Joi.number()
-          .min(60)
+          .min(15)
           .required(),
         trailerLink: Joi.string().required(),
         ratings: Joi.array().items(

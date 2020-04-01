@@ -10,22 +10,56 @@ import {
   Create,
   TextInput,
   NumberInput,
-  ReferenceField
+  ReferenceField,
+  useLocale,
+  useQuery
 } from "react-admin";
 
+const NameInput = (props: any) => {
+  const locale = useLocale();
+  const { data, error } = useQuery({
+    type: "getOne",
+    resource: "translations",
+    payload: { id: props.record.name }
+  });
+
+  if (!data || error) return null;
+
+  const label =
+    props.lang === "ru"
+      ? locale === "en"
+        ? "Name, ru"
+        : "Название, русск."
+      : locale === "en"
+      ? "Name, en"
+      : "Название, англ.";
+
+  return (
+    <TextInput {...props} source="ru" label={label} value={data[props.lang]} />
+  );
+};
+
 export const HallList = (props: any) => {
+  const locale = useLocale();
   return (
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <ReferenceField source="name" label="ru" reference="translations">
-          <TextField source="ru" />
+        <ReferenceField
+          source="name"
+          label={locale === "en" ? "Name" : "Название"}
+          reference="translations"
+        >
+          <TextField source={locale} />
         </ReferenceField>
-        <ReferenceField source="name" label="en" reference="translations">
-          <TextField source="en" />
-        </ReferenceField>
-        <NumberField source="numberOfRows" />
-        <NumberField source="seatsOnRow" />
+        <NumberField
+          source="numberOfRows"
+          label={locale === "en" ? "Number of rows" : "Кол-во рядов"}
+        />
+        <NumberField
+          source="seatsOnRow"
+          label={locale === "en" ? "Seats on row" : "Мест в ряду"}
+        />
         <EditButton />
       </Datagrid>
     </List>
@@ -33,25 +67,41 @@ export const HallList = (props: any) => {
 };
 
 export const HallEdit = (props: any) => {
+  const locale = useLocale();
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="ru" label="Name (ru)" />
-        <TextInput source="en" label="Name (en)" />
-        <NumberInput source="numberOfRows" />
-        <NumberInput source="seatsOnRow" />
+        <NameInput lang="ru" />
+        <NameInput lang="en" />
+        <NumberInput
+          source="numberOfRows"
+          label={locale === "en" ? "Number of rows" : "Кол-во рядов"}
+        />
+        <NumberInput
+          source="seatsOnRow"
+          label={locale === "en" ? "Seats on row" : "Мест в ряду"}
+        />
       </SimpleForm>
     </Edit>
   );
 };
 
-export const HallCreate = (props: any) => (
-  <Create {...props}>
-    <SimpleForm>
-      <TextInput source="ru" label="Name (ru)" />
-      <TextInput source="en" label="Name (en)" />
-      <NumberInput source="numberOfRows" />
-      <NumberInput source="seatsOnRow" />
-    </SimpleForm>
-  </Create>
-);
+export const HallCreate = (props: any) => {
+  const locale = useLocale();
+  return (
+    <Create {...props}>
+      <SimpleForm>
+        <NameInput lang="ru" />
+        <NameInput lang="en" />
+        <NumberInput
+          source="numberOfRows"
+          label={locale === "en" ? "Number of rows" : "Кол-во рядов"}
+        />
+        <NumberInput
+          source="seatsOnRow"
+          label={locale === "en" ? "Seats on row" : "Мест в ряду"}
+        />
+      </SimpleForm>
+    </Create>
+  );
+};

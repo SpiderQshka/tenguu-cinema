@@ -1,6 +1,6 @@
 import React from "react";
 import { createHashHistory } from "history";
-import { Admin, Resource, useSetLocale, useLocale } from "react-admin";
+import { Admin, Resource } from "react-admin";
 import { Provider } from "react-redux";
 import createAdminStore from "createAdminStore";
 import { HallList, HallEdit, HallCreate } from "./lists/HallList";
@@ -16,22 +16,59 @@ import { TranslationList } from "./lists/TranslationList";
 import { myDataProvider } from "./imageDataProvider";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-
+import enLocale from "date-fns/locale/en-US";
+import ruLocale from "date-fns/locale/ru";
 const history = createHashHistory({ hashType: "noslash" });
 
+const localeMap = {
+  en: enLocale,
+  ru: ruLocale
+} as any;
+
 const messages = {
-  ru: russianMessages,
+  ru: {
+    ...russianMessages,
+    ra: {
+      ...russianMessages.ra,
+      page: {
+        ...russianMessages.ra.page,
+        empty: "Ох, здесь ещё ничего нет",
+        invite: "Впрочем, можно это исправить"
+      }
+    },
+    resources: {
+      halls: {
+        name: "Зал |||| Залы"
+      },
+      sessions: {
+        name: "Сеанс |||| Сеансы"
+      },
+      films: {
+        name: "Фильм |||| Фильмы"
+      },
+      users: {
+        name: "Пользователь |||| Пользователи"
+      },
+      genres: {
+        name: "Жанр |||| Жанры"
+      },
+      tickets: {
+        name: "Билет |||| Билеты"
+      },
+      translations: {
+        name: "Перевод |||| Переводы"
+      }
+    }
+  },
   en: englishMessages
 } as any;
 
 export const AdminPage = (props: { lang: string }) => {
-  // const setLocale = useSetLocale();
-  // setLocale("en");
-  const locale = useLocale();
-  console.log(locale);
-
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <MuiPickersUtilsProvider
+      utils={DateFnsUtils}
+      locale={localeMap[props.lang]}
+    >
       <Provider
         store={createAdminStore({
           dataProvider: Object.assign(myDataProvider),
@@ -42,7 +79,7 @@ export const AdminPage = (props: { lang: string }) => {
           dataProvider={Object.assign(myDataProvider)}
           history={history}
           i18nProvider={polyglotI18nProvider(
-            locale => messages[locale],
+            () => messages[props.lang],
             props.lang
           )}
         >

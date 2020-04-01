@@ -72,7 +72,13 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
                               <FormattedMessage id="homepage.modal.userTicketsModal.film" />
                               :
                             </Typography>
-                            <FormattedMessage id={currentSession.film.name} />
+                            <FormattedMessage
+                              id={
+                                currentSession.film
+                                  ? currentSession.film.name
+                                  : ""
+                              }
+                            />
                           </div>
                           <div className={styles.ticketDataItem}>
                             <Typography variant="h6">
@@ -82,7 +88,13 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
                               />
                               :
                             </Typography>
-                            <FormattedMessage id={currentSession.hall.name} />
+                            <FormattedMessage
+                              id={
+                                currentSession.hall
+                                  ? currentSession.hall.name
+                                  : ""
+                              }
+                            />
                           </div>
                           <div className={styles.ticketDataItem}>
                             <Typography variant="h6">

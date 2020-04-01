@@ -9,16 +9,60 @@ import {
   SimpleForm,
   Create,
   DateField,
-  DateInput,
   NumberInput,
   ReferenceInput,
   SelectInput,
   ReferenceField,
-  useQuery
+  useQuery,
+  useLocale
 } from "react-admin";
 import { DateTimeInput } from "react-admin-date-inputs2";
 
+const HallInput = (props: any) => {
+  const locale = useLocale() as "ru" | "en";
+  const { data, error } = useQuery({
+    type: "getMany",
+    resource: "translations",
+    payload: { ids: props.choices.map((choice: any) => choice.name) }
+  });
+
+  if (!data || error) return null;
+
+  const choices = data
+    .map((obj: { ru: string; en: string; id: string }) => {
+      const result = props.choices.filter(
+        (choice: { name: string; id: string }) => choice.name === obj.id
+      );
+      return result[0] ? { name: obj[locale], id: result[0].id } : null;
+    })
+    .filter((el: any) => el);
+
+  return <SelectInput {...props} choices={choices} />;
+};
+
+const FilmInput = (props: any) => {
+  const locale = useLocale() as "ru" | "en";
+  const { data, error } = useQuery({
+    type: "getMany",
+    resource: "translations",
+    payload: { ids: props.choices.map((choice: any) => choice.name) }
+  });
+
+  if (!data || error) return null;
+
+  const choices = data
+    .map((obj: { ru: string; en: string; id: string }) => {
+      const result = props.choices.filter(
+        (choice: { name: string; id: string }) => choice.name === obj.id
+      );
+      return result[0] ? { name: obj[locale], id: result[0].id } : null;
+    })
+    .filter((el: any) => el);
+
+  return <SelectInput {...props} choices={choices} />;
+};
 const FilmName = ({ record }: any) => {
+  const locale = useLocale();
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
@@ -27,20 +71,11 @@ const FilmName = ({ record }: any) => {
 
   if (!data || error) return null;
 
-  const names: string[] = [];
-  for (let key in data) {
-    if (key !== "id") names.push(`${key} - ${data[key]}`);
-  }
-  return (
-    <ul>
-      {names.map(name => (
-        <li>{name}</li>
-      ))}
-    </ul>
-  );
+  return <p>{data[locale] ? data[locale] : "I18n error."}</p>;
 };
 
 const HallName = ({ record }: any) => {
+  const locale = useLocale();
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
@@ -49,30 +84,36 @@ const HallName = ({ record }: any) => {
 
   if (!data || error) return null;
 
-  const names: string[] = [];
-  for (let key in data) {
-    if (key !== "id") names.push(`${key} - ${data[key]}`);
-  }
-  return (
-    <ul>
-      {names.map(name => (
-        <li>{name}</li>
-      ))}
-    </ul>
-  );
+  return <p>{data[locale] ? data[locale] : "I18n error."}</p>;
 };
 
 export const SessionList = (props: any) => {
+  const locale = useLocale();
   return (
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <ReferenceField source="film" reference="films" title="film">
+        <ReferenceField
+          source="film"
+          reference="films"
+          label={locale === "en" ? "Film" : "Фильм"}
+        >
           <FilmName />
         </ReferenceField>
-        <DateField source="dateTime" showTime />
-        <NumberField source="price" />
-        <ReferenceField source="hall" reference="halls" title="hall">
+        <DateField
+          source="dateTime"
+          showTime
+          label={locale === "en" ? "Date & time" : "Дата & время"}
+        />
+        <NumberField
+          source="price"
+          label={locale === "en" ? "Price" : "Цена"}
+        />
+        <ReferenceField
+          source="hall"
+          reference="halls"
+          label={locale === "en" ? "Hall" : "Зал"}
+        >
           <HallName />
         </ReferenceField>
         <EditButton />
@@ -82,24 +123,36 @@ export const SessionList = (props: any) => {
 };
 
 export const SessionEdit = (props: any) => {
+  const locale = useLocale();
   return (
     <Edit {...props}>
       <SimpleForm>
-        <ReferenceInput source="film" reference="films">
-          <SelectInput optionText="name" />
+        <ReferenceInput
+          source="film"
+          reference="films"
+          label={locale === "en" ? "Film" : "Фильм"}
+        >
+          <FilmInput />
         </ReferenceInput>
         <DateTimeInput
           source="dateTime"
-          label="Date and time"
+          label={locale === "en" ? "Date & time" : "Дата & время"}
           options={{
             format: "dd/mm/yyyy, HH:mm:ss",
             ampm: false,
             clearable: true
           }}
         />
-        <NumberInput source="price" />
-        <ReferenceInput source="hall" reference="halls">
-          <SelectInput optionText="name" />
+        <NumberInput
+          source="price"
+          label={locale === "en" ? "Price" : "Цена"}
+        />
+        <ReferenceInput
+          source="hall"
+          reference="halls"
+          label={locale === "en" ? "Hall" : "Зал"}
+        >
+          <HallInput />
         </ReferenceInput>
       </SimpleForm>
     </Edit>
@@ -107,16 +160,36 @@ export const SessionEdit = (props: any) => {
 };
 
 export const SessionCreate = (props: any) => {
+  const locale = useLocale();
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput source="film" reference="films">
-          <SelectInput optionText="name" />
+        <ReferenceInput
+          source="film"
+          reference="films"
+          label={locale === "en" ? "Film" : "Фильм"}
+        >
+          <FilmInput />
         </ReferenceInput>
-        <DateInput source="dateTime" />
-        <NumberInput source="price" />
-        <ReferenceInput source="hall" reference="halls">
-          <SelectInput optionText="name" />
+        <DateTimeInput
+          source="dateTime"
+          label={locale === "en" ? "Date & time" : "Дата & время"}
+          options={{
+            format: "dd/mm/yyyy, HH:mm:ss",
+            ampm: false,
+            clearable: true
+          }}
+        />
+        <NumberInput
+          source="price"
+          label={locale === "en" ? "Price" : "Цена"}
+        />
+        <ReferenceInput
+          source="hall"
+          reference="halls"
+          label={locale === "en" ? "Hall" : "Зал"}
+        >
+          <HallInput />
         </ReferenceInput>
       </SimpleForm>
     </Create>

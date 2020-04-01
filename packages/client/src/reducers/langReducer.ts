@@ -2,7 +2,7 @@ import { CHANGE_LANG, FETCH_TRANSLATIONS_SUCCESS } from "actions/lang";
 import { ILangPayload } from "interfaces/ILang";
 
 const initialState = {
-  currentLang: "ru",
+  currentLang: window.localStorage.getItem("lang") || "ru",
   translations: {} as any
 };
 

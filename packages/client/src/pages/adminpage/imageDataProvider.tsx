@@ -61,7 +61,7 @@ export const myDataProvider = {
         : dataProvider.create(resource, params);
     }
 
-    return convertFileToBase64(params.data.filmImage.rawFile).then(result =>
+    return convertFileToBase64(params.data.filmImage).then(result =>
       dataProvider.create(resource, {
         ...params,
         data: {

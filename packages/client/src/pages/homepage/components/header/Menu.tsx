@@ -151,6 +151,10 @@ export function MenuComponent(props: IHeader) {
                   checked={props.lang === "ru"}
                   color="primary"
                   onChange={() => {
+                    window.localStorage.setItem(
+                      "lang",
+                      props.lang === "ru" ? "en" : "ru"
+                    );
                     props.changeLang(props.lang === "ru" ? "en" : "ru");
                   }}
                 />

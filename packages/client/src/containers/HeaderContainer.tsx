@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 
 import { Header } from "pages/homepage/components/header";
 import { IState } from "interfaces/IState";
@@ -38,5 +38,7 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type HeaderProps = ConnectedProps<typeof connector>;
 
 export default connector(Header);

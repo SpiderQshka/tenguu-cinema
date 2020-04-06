@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { IState } from "interfaces/IState";
 import { closeUserTicketModal } from "actions/modals";
 import { UserTicketsModal } from "components/modals/UserTicketsModal";
@@ -25,5 +25,7 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type UserTicketsModalProps = ConnectedProps<typeof connector>;
 
 export default connector(UserTicketsModal);

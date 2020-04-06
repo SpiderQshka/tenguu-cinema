@@ -9,15 +9,15 @@ import {
   Badge,
   TextField
 } from "@material-ui/core/";
-import { IHeader } from ".";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Switch } from "@material-ui/core";
 import { config } from "config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { HeaderProps } from "containers/HeaderContainer";
 
-export function MenuComponent(props: IHeader) {
+export function MenuComponent(props: HeaderProps) {
   const history = useHistory();
   const [ticketsBtn, setTicketsBtn] = useState(null);
   const [isSearchBarOpen, openSearchBarHandler] = useState(false);

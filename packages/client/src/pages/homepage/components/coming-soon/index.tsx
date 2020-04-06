@@ -3,19 +3,13 @@ import { SectionTitle } from "components/section-title";
 import { FilmBlock } from "./FilmBlock";
 import { Carousel } from "./Carousel";
 import styles from "./coming-soon.module.sass";
-import { IFilm } from "interfaces/IFilm";
 import { FormattedMessage } from "react-intl";
 import { Typography } from "@material-ui/core/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { ComingSoonProps } from "containers/ComingSoonContainer";
 
-export interface IComingSoonProps {
-  data: IFilm[];
-  buyTicket: (filmId: string) => void;
-  lang: string;
-}
-
-export function ComingSoon(props: IComingSoonProps) {
+export function ComingSoon(props: ComingSoonProps) {
   const { data: films } = props;
   const [filmIndex, handleFilmIndexChange] = useState(0);
   return (
@@ -44,11 +38,7 @@ export function ComingSoon(props: IComingSoonProps) {
         </>
       ) : (
         <>
-          <FilmBlock
-            film={films[filmIndex]}
-            buyTicket={props.buyTicket}
-            lang={props.lang}
-          />
+          <FilmBlock film={films[filmIndex]} buyTicket={props.buyTicket} />
           <Carousel {...props} handler={handleFilmIndexChange} />
         </>
       )}

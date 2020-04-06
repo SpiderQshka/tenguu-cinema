@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 
 import { FilmCard } from "components/film-card";
 import { IState } from "interfaces/IState";
@@ -9,7 +9,7 @@ import {
 } from "actions/films";
 
 const mapStateToProps = (state: IState) => {
-  return { films: state.films, lang: state.lang.currentLang };
+  return { films: state.films };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -25,5 +25,7 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type FilmCardProps = ConnectedProps<typeof connector>;
 
 export default connector(FilmCard);

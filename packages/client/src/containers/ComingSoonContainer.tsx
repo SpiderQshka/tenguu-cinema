@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 
 import { ComingSoon } from "pages/homepage/components/coming-soon";
 
@@ -9,8 +9,7 @@ import { openBuyTicketModal } from "actions/modals";
 
 const mapStateToProps = (state: IState) => {
   return {
-    data: comingSoonFilmsSelector(state).data,
-    lang: state.lang.currentLang
+    data: comingSoonFilmsSelector(state).data
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
@@ -22,5 +21,7 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type ComingSoonProps = ConnectedProps<typeof connector>;
 
 export default connector(ComingSoon);

@@ -3,26 +3,10 @@ import { Logo } from "./Logo";
 import { MenuComponent } from "./Menu";
 import { Profile } from "./Profile";
 import styles from "./header.module.sass";
-import { IUserPayload } from "interfaces/IUser";
-import { IModalsPayload } from "interfaces/IModal";
-import { ITicket } from "interfaces/ITicket";
-import { IFilm } from "interfaces/IFilm";
 
-export interface IHeader {
-  users: IUserPayload;
-  currentUserTickets: ITicket[];
-  modals: IModalsPayload;
-  lang: string;
-  films: IFilm[];
-  logout: () => void;
-  openRegisterModal: () => void;
-  openLoginModal: () => void;
-  openUserTicketsModal: () => void;
-  changeLang: (lang: string) => void;
-  buyTicket: (filmId: string) => void;
-}
+import { HeaderProps } from "containers/HeaderContainer";
 
-export function Header(props: IHeader) {
+export function Header(props: HeaderProps) {
   return (
     <section className={styles["header-container"]} id="home">
       <header className={styles["header"]}>

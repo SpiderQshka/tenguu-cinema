@@ -14,7 +14,9 @@ const mapStateToProps = (state: IState) => state;
 
 const connector = connect(mapStateToProps);
 
-const IntlProviderContainer = (props: ConnectedProps<typeof connector>) => {
+export type IntlProviderProps = ConnectedProps<typeof connector>;
+
+const IntlProviderContainer = (props: IntlProviderProps) => {
   const lang = props.lang.currentLang;
   const dbMessages = props.lang.translations;
   return (

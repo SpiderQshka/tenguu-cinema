@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { IState } from "interfaces/IState";
 import { closeWatchTrailerModal } from "actions/modals";
 import { activeForShowTrailerFilmSelector } from "selectors";
@@ -19,5 +19,7 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type WatchTrailerModalProps = ConnectedProps<typeof connector>;
 
 export default connector(WatchTrailerModal);

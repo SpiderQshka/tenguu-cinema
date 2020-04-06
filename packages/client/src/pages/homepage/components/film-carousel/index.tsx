@@ -6,16 +6,9 @@ import { ArrowNext, ArrowPrev } from "./Controls";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./film-carousel.module.sass";
+import { FilmCarouselProps } from "containers/FilmCarouselContainer";
 
-import { IFilmPayload } from "interfaces/IFilm";
-
-export interface IFilmCarousel {
-  films: IFilmPayload;
-  buyTicket: (id: string) => void;
-  watchTrailer: (id: string) => void;
-}
-
-export default function FilmCarousel(props: IFilmCarousel) {
+export default function FilmCarousel(props: FilmCarouselProps) {
   const {
     films: { data: films, pending },
     buyTicket

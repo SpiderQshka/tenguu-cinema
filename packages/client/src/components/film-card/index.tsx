@@ -14,13 +14,11 @@ export interface IFilmCard {
   pending?: boolean;
   buyTicket?: (filmId: string) => void;
   watchTrailer?: (filmId: string) => void;
-  lang: string;
 }
 
 export interface ISessionCard {
   item: ISession;
   pending?: boolean;
-  lang: string;
 }
 
 export function FilmCard(props: IFilmCard) {

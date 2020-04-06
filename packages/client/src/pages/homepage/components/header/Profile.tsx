@@ -6,12 +6,12 @@ import BuyTicketModal from "containers/modals/BuyTicketModalContainer";
 import UserTicketsModal from "containers/modals/UserTicketsModalContainer";
 import WatchTrailerModal from "containers/modals/WatchTrailerModalContailner";
 import { Button, Typography, Badge } from "@material-ui/core/";
-import { IHeader } from ".";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { HeaderProps } from "containers/HeaderContainer";
 
-export function Profile(props: IHeader) {
+export function Profile(props: HeaderProps) {
   const {
     users: { currentUser: userData, currentUserPending: pending },
     currentUserTickets

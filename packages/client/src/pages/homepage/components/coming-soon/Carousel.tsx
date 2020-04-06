@@ -8,9 +8,14 @@ import "slick-carousel/slick/slick-theme.css";
 import styles from "./coming-soon.module.sass";
 import CarouselSlick, { LazyLoadTypes } from "react-slick";
 import { IFilm } from "interfaces/IFilm";
+import { ComingSoonProps } from "containers/ComingSoonContainer";
 
-export function Carousel(props: any) {
-  const { data: films, pending, handler } = props;
+export interface ICarouselProps extends ComingSoonProps {
+  handler: (n: number) => void;
+}
+
+export function Carousel(props: ICarouselProps) {
+  const { data: films, handler } = props;
   const settings = {
     dots: false,
     lazyLoad: "progressive" as LazyLoadTypes,
@@ -48,14 +53,7 @@ export function Carousel(props: any) {
   return (
     <CarouselSlick {...settings} className={styles["slick-slider"]}>
       {films.map((film: IFilm) => {
-        return (
-          <ComingSoonFilmCard
-            item={film}
-            key={film.id}
-            pending={pending}
-            lang={props.lang}
-          />
-        );
+        return <ComingSoonFilmCard item={film} key={film.id} />;
       })}
     </CarouselSlick>
   );

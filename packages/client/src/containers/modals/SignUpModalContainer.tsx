@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 
 import { SignUpModal } from "components/modals/SignUpModal";
 import { IState } from "interfaces/IState";
@@ -23,5 +23,7 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type SignUpModalProps = ConnectedProps<typeof connector>;
 
 export default connector(SignUpModal);

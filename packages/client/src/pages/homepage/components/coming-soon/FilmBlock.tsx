@@ -9,7 +9,6 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 export interface IFilmBlock {
   film: IFilm;
   buyTicket: (filmId: string) => void;
-  lang: string;
 }
 
 export const FilmBlock = (props: IFilmBlock) => {

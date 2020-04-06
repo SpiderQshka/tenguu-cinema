@@ -16,13 +16,13 @@ import { TranslationList } from "./lists/TranslationList";
 import { myDataProvider } from "./imageDataProvider";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import enLocale from "date-fns/locale/en-US";
-import ruLocale from "date-fns/locale/ru";
+import enDateLocale from "date-fns/locale/en-US";
+import ruDateLocale from "date-fns/locale/ru";
 const history = createHashHistory({ hashType: "noslash" });
 
-const localeMap = {
-  en: enLocale,
-  ru: ruLocale
+const localeDateMap = {
+  en: enDateLocale,
+  ru: ruDateLocale
 } as any;
 
 const messages = {
@@ -63,11 +63,12 @@ const messages = {
   en: englishMessages
 } as any;
 
-export const AdminPage = (props: { lang: string }) => {
+export const AdminPage = () => {
+  const currentLanguage = window.localStorage.getItem("lang") || "en";
   return (
     <MuiPickersUtilsProvider
       utils={DateFnsUtils}
-      locale={localeMap[props.lang]}
+      locale={localeDateMap[currentLanguage]}
     >
       <Provider
         store={createAdminStore({
@@ -79,8 +80,8 @@ export const AdminPage = (props: { lang: string }) => {
           dataProvider={Object.assign(myDataProvider)}
           history={history}
           i18nProvider={polyglotI18nProvider(
-            () => messages[props.lang],
-            props.lang
+            () => messages[currentLanguage],
+            currentLanguage
           )}
         >
           <Resource

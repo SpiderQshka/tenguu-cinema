@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { IState } from "interfaces/IState";
 import {
   closeBuyTicketModalRequest,
@@ -35,11 +35,11 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     changeActiveSession: (id: string) =>
       dispatch(changeActiveSessionForBuying(id))
-    // changeTicketsForBuying: (amount: number) =>
-    //   dispatch(changeTicketsForBuying(amount))
   };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type BuyTicketModalProps = ConnectedProps<typeof connector>;
 
 export default connector(BuyTicketModal);

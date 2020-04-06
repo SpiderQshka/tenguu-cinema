@@ -1,19 +1,13 @@
 import React from "react";
-
 import { ArrowNext, ArrowPrev } from "./CarouselControls";
 import FilmCardContainer from "containers/FilmCardContainer";
 import Carousel, { LazyLoadTypes } from "react-slick";
 import styles from "./nowPlaying.module.sass";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { IFilm } from "interfaces/IFilm";
+import { NowPlayingProps } from "containers/NowPlayingContainer";
 
-export interface ICarouselComponent {
-  data: IFilm[];
-  lang: string;
-}
-
-export function CarouselComponent(props: ICarouselComponent) {
+export function CarouselComponent(props: NowPlayingProps) {
   const { data: films } = props;
   const settings = {
     dots: false,

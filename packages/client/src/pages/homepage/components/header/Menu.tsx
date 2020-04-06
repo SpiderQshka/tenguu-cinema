@@ -7,7 +7,7 @@ import {
   MenuItem,
   Typography,
   Badge,
-  TextField
+  TextField,
 } from "@material-ui/core/";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Switch } from "@material-ui/core";
@@ -23,7 +23,7 @@ export function MenuComponent(props: HeaderProps) {
   const [isSearchBarOpen, openSearchBarHandler] = useState(false);
   const intl = useIntl();
   const {
-    users: { currentUser: userData }
+    users: { currentUser: userData },
   } = props;
 
   const handleClick = (event: any) => {
@@ -33,148 +33,146 @@ export function MenuComponent(props: HeaderProps) {
     setTicketsBtn(null);
   };
   return (
-    <>
-      <div className={styles["menu-block"]}>
-        <Autocomplete
-          className={`${styles.searchBarContainer} ${isSearchBarOpen &&
-            styles.activeSearchBar}`}
-          options={props.films}
-          onChange={(e: ChangeEvent<{}>, value: any) =>
-            value && props.buyTicket(value.id)
-          }
-          getOptionLabel={option => intl.formatMessage({ id: option.name })}
-          renderOption={option => (
-            <Typography variant="overline">
-              {intl.formatMessage({ id: option.name })}
-            </Typography>
-          )}
-          renderInput={params => (
-            <TextField
-              {...params}
-              variant="outlined"
-              className={styles.searchBarInput}
-            />
-          )}
-        />
+    <div className={styles["menu-block"]} id="menuBlock">
+      <Autocomplete
+        className={`${styles.searchBarContainer} ${isSearchBarOpen &&
+          styles.activeSearchBar}`}
+        options={props.films}
+        onChange={(e: ChangeEvent<{}>, value: any) =>
+          value && props.buyTicket(value.id)
+        }
+        getOptionLabel={(option) => intl.formatMessage({ id: option.name })}
+        renderOption={(option) => (
+          <Typography variant="overline">
+            {intl.formatMessage({ id: option.name })}
+          </Typography>
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="outlined"
+            className={styles.searchBarInput}
+          />
+        )}
+        id="searchbar"
+      />
 
-        <IconButton
-          className={`${styles["menu-btn"]} ${styles["search-btn"]}`}
-          onClick={() => openSearchBarHandler(!isSearchBarOpen)}
-        >
-          <FontAwesomeIcon icon={faSearch} />
-        </IconButton>
-        <IconButton
-          className={`${styles["menu-btn"]} ${styles["tabs-btn"]}`}
-          onClick={handleClick}
-        >
-          <FontAwesomeIcon icon={faBars} />
-        </IconButton>
-        <Menu
-          onClose={handleClose}
-          getContentAnchorEl={null}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          transformOrigin={{ vertical: "top", horizontal: "center" }}
-          id="simple-menu"
-          anchorEl={ticketsBtn}
-          keepMounted
-          open={Boolean(ticketsBtn)}
-        >
-          {userData.id && (
-            <>
-              <MenuItem
-                className={`${styles.menuItem} ${styles.menuUserBlock}`}
-              >
-                <Typography variant="body1" className={styles["user_name"]}>
-                  {props.users.currentUserPending ? (
-                    <FormattedMessage
-                      id="homepage.header.profile.loading"
-                      defaultMessage="Loading"
-                    />
-                  ) : (
-                    userData.username
-                  )}
-                </Typography>
-                <div className={styles["user_photo-block"]}>
-                  {userData.photo ? (
-                    <img
-                      className={styles.photo}
-                      src={config.baseUrl + userData.photo}
-                      alt={userData.username}
-                    />
-                  ) : (
-                    <FontAwesomeIcon
-                      icon={faUser}
-                      className={styles["photo-placeholder"]}
-                    />
-                  )}
-                </div>
-              </MenuItem>
-              {userData.status === "admin" && (
-                <MenuItem
-                  onClick={() => history.push("/admin")}
-                  className={styles.menuItem}
-                >
+      <IconButton
+        className={`${styles["menu-btn"]} ${styles["search-btn"]}`}
+        onClick={() => openSearchBarHandler(!isSearchBarOpen)}
+        id="openSearchbarBtn"
+      >
+        <FontAwesomeIcon icon={faSearch} />
+      </IconButton>
+      <IconButton
+        className={`${styles["menu-btn"]} ${styles["tabs-btn"]}`}
+        onClick={handleClick}
+        id="openMenuBtn"
+      >
+        <FontAwesomeIcon icon={faBars} />
+      </IconButton>
+      <Menu
+        onClose={handleClose}
+        getContentAnchorEl={null}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        transformOrigin={{ vertical: "top", horizontal: "center" }}
+        id="simple-menu"
+        anchorEl={ticketsBtn}
+        keepMounted
+        open={Boolean(ticketsBtn)}
+      >
+        {userData.id && (
+          <>
+            <MenuItem className={`${styles.menuItem} ${styles.menuUserBlock}`}>
+              <Typography variant="body1" className={styles["user_name"]}>
+                {props.users.currentUserPending ? (
                   <FormattedMessage
-                    id="homepage.header.menu.admin"
-                    defaultMessage="Admin"
+                    id="homepage.header.profile.loading"
+                    defaultMessage="Loading"
                   />
-                </MenuItem>
-              )}
+                ) : (
+                  userData.username
+                )}
+              </Typography>
+              <div className={styles["user_photo-block"]}>
+                {userData.photo ? (
+                  <img
+                    className={styles.photo}
+                    src={config.baseUrl + userData.photo}
+                    alt={userData.username}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className={styles["photo-placeholder"]}
+                  />
+                )}
+              </div>
+            </MenuItem>
+            {userData.status === "admin" && (
               <MenuItem
-                className={`${styles.menuItem} ${styles.menuTicketsBlock}`}
-                onClick={props.openUserTicketsModal}
-              >
-                <Badge
-                  className={styles.badge}
-                  badgeContent={
-                    !props.users.currentUserPending &&
-                    props.currentUserTickets[0]
-                      ? props.currentUserTickets.length
-                      : 0
-                  }
-                  color="primary"
-                >
-                  <Typography variant="body1" className={styles["text"]}>
-                    <FormattedMessage
-                      id="homepage.header.profile.tickets"
-                      defaultMessage="My Tickets"
-                    />
-                  </Typography>
-                </Badge>
-              </MenuItem>
-              <MenuItem className={styles.menuItem}>
-                <FormattedMessage
-                  id="homepage.header.menu.changeLang"
-                  defaultMessage="Change lang"
-                />
-                <Switch
-                  checked={props.lang === "ru"}
-                  color="primary"
-                  onChange={() => {
-                    window.localStorage.setItem(
-                      "lang",
-                      props.lang === "ru" ? "en" : "ru"
-                    );
-                    props.changeLang(props.lang === "ru" ? "en" : "ru");
-                  }}
-                />
-              </MenuItem>
-              <MenuItem
+                onClick={() => history.push("/admin")}
                 className={styles.menuItem}
-                onClick={() => {
-                  props.logout();
-                  handleClose();
-                }}
               >
                 <FormattedMessage
-                  id="homepage.header.menu.logOut"
-                  defaultMessage="Log Out"
+                  id="homepage.header.menu.admin"
+                  defaultMessage="Admin"
                 />
               </MenuItem>
-            </>
-          )}
-        </Menu>
-      </div>
-    </>
+            )}
+            <MenuItem
+              className={`${styles.menuItem} ${styles.menuTicketsBlock}`}
+              onClick={props.openUserTicketsModal}
+            >
+              <Badge
+                className={styles.badge}
+                badgeContent={
+                  !props.users.currentUserPending && props.currentUserTickets[0]
+                    ? props.currentUserTickets.length
+                    : 0
+                }
+                color="primary"
+              >
+                <Typography variant="body1" className={styles["text"]}>
+                  <FormattedMessage
+                    id="homepage.header.profile.tickets"
+                    defaultMessage="My Tickets"
+                  />
+                </Typography>
+              </Badge>
+            </MenuItem>
+            <MenuItem className={styles.menuItem}>
+              <FormattedMessage
+                id="homepage.header.menu.changeLang"
+                defaultMessage="Change lang"
+              />
+              <Switch
+                checked={props.lang === "ru"}
+                color="primary"
+                onChange={() => {
+                  window.localStorage.setItem(
+                    "lang",
+                    props.lang === "ru" ? "en" : "ru"
+                  );
+                  props.changeLang(props.lang === "ru" ? "en" : "ru");
+                }}
+              />
+            </MenuItem>
+            <MenuItem
+              className={styles.menuItem}
+              onClick={() => {
+                props.logout();
+                handleClose();
+              }}
+            >
+              <FormattedMessage
+                id="homepage.header.menu.logOut"
+                defaultMessage="Log Out"
+              />
+            </MenuItem>
+          </>
+        )}
+      </Menu>
+    </div>
   );
 }

@@ -1,5 +1,9 @@
 import React from "react";
-
+import SignUpModal from "containers/modals/SignUpModalContainer";
+import SignInModal from "containers/modals/SignInModalContainer";
+import BuyTicketModal from "containers/modals/BuyTicketModalContainer";
+import UserTicketsModal from "containers/modals/UserTicketsModalContainer";
+import WatchTrailerModal from "containers/modals/WatchTrailerModalContailner";
 import FilmCarousel from "containers/FilmCarouselContainer";
 import NowPlaying from "containers/NowPlayingContainer";
 import ComingSoon from "containers/ComingSoonContainer";
@@ -18,6 +22,11 @@ export function Homepage() {
       <OurSkills />
       <MapComponent />
       <Footer />
+      <SignUpModal />
+      <SignInModal />
+      <BuyTicketModal />
+      <UserTicketsModal />
+      <WatchTrailerModal />
     </>
   );
 }

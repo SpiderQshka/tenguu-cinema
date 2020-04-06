@@ -4,6 +4,8 @@ import { Header } from "pages/homepage/components/header";
 import { shallow, mount, render } from "enzyme";
 import { IUser } from "interfaces/IUser";
 import { Logo } from "pages/homepage/components/header/Logo";
+import { Profile } from "pages/homepage/components/header/Profile";
+import { MenuComponent } from "pages/homepage/components/header/Menu";
 
 export const renderHeader = () => {
   const props = {
@@ -18,7 +20,7 @@ export const renderHeader = () => {
       isLoginModalOpen: false,
       isBuyTicketModalOpen: false,
       isUserTicketsModalOpen: false,
-      isWatchTrailerModalOpen: false
+      isWatchTrailerModalOpen: false,
     },
     openLoginModal: jest.fn(),
     openRegisterModal: jest.fn(),
@@ -26,16 +28,33 @@ export const renderHeader = () => {
     users: {
       currentUser: {} as IUser,
       error: null,
-      currentUserPending: true
-    }
+      currentUserPending: true,
+    },
   } as HeaderProps;
   const enzymeWrapper = shallow(<Header {...props} />);
-  return enzymeWrapper;
+  return { enzymeWrapper, props };
 };
 
-describe("Header component", () => {
+describe("Header", () => {
   it("Renders self and subcomponents", () => {
-    const enzymeWrapper = renderHeader();
+    const { enzymeWrapper, props } = renderHeader();
     expect(enzymeWrapper.find("section").children()).toHaveLength(1);
+    expect(
+      enzymeWrapper
+        .find("header")
+        .shallow()
+        .containsAnyMatchingElements([<Logo />])
+    ).toBe(true);
+    expect(
+      enzymeWrapper
+        .find("header")
+        .shallow()
+        .find("div")
+        .shallow()
+        .containsAnyMatchingElements([
+          <Profile {...props} />,
+          <MenuComponent {...props} />,
+        ])
+    ).toBe(true);
   });
 });

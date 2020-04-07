@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { models } from "../models/index";
 import {
   registerValidation,
-  loginValidation
+  loginValidation,
 } from "./validation/authValidation";
 const router: Router = Router();
 
@@ -15,7 +15,7 @@ router.post("/register", async (req: Request, res: Response) => {
     username: req.body.username,
     password: await models.User.hashPassword(req.body.password),
     email: req.body.email,
-    photo: req.body.photo
+    photo: req.body.photo,
   });
   const newUser = await user.save();
 

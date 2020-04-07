@@ -15,8 +15,8 @@ export const registerUser = async (json: JSON): Promise<IPostUser> => {
     ...data,
     body: {
       ...data.body,
-      authToken: data.headers.get("auth-token")
-    }
+      authToken: data.headers.get("auth-token"),
+    },
   };
 };
 
@@ -26,19 +26,19 @@ export const loginUser = async (json: JSON): Promise<IPostUser> => {
     ...data,
     body: {
       ...data.body,
-      authToken: data.headers.get("auth-token")
-    }
+      authToken: data.headers.get("auth-token"),
+    },
   };
 };
 
 export const getUserInfo = async (): Promise<IGetUser> => {
   const userId = window.localStorage.getItem("userId") || "";
-  const data = await getData(`api/users/${userId}`, [401]);
+  const data = await getData(`api/users/parced/${userId}`, [401]);
   return {
     ...data,
     body: {
       ...data.body,
-      authToken: data.headers.get("auth-token")
-    }
+      authToken: data.headers.get("auth-token"),
+    },
   };
 };

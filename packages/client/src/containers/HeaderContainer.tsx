@@ -7,7 +7,7 @@ import {
   openRegModal,
   openLoginModal,
   openUserTicketModal,
-  openBuyTicketModal
+  openBuyTicketModal,
 } from "actions/modals";
 import { changeLang } from "actions/lang";
 import { currentTicketsSelector } from "selectors";
@@ -19,7 +19,7 @@ const mapStateToProps = (state: IState) => {
     currentUserTickets: currentTicketsSelector(state),
     modals: state.modals,
     lang: state.lang.currentLang,
-    films: state.films.data
+    films: state.films.data,
   };
 };
 
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch: any) => {
     buyTicket: (filmId: string) => {
       dispatch(changeActiveFilmForBuying(filmId));
       dispatch(openBuyTicketModal());
-    }
+    },
   };
 };
 

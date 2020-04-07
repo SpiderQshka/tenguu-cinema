@@ -14,7 +14,7 @@ import {
   USER_REG_REQUEST,
   userRegister,
   userRegisterError,
-  userLoginError
+  userLoginError,
 } from "actions/users";
 
 export function* watchFetchUserInfo() {
@@ -41,7 +41,8 @@ export function* fetchUserInfo() {
 }
 
 export function* userLogoutSaga() {
-  window.localStorage.clear();
+  window.localStorage.removeItem("userId");
+  window.localStorage.removeItem("auth-token");
   yield put(userLogout());
 }
 

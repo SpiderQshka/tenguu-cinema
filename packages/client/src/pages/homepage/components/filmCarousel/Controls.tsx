@@ -1,10 +1,10 @@
 import React from "react";
 import { IconButton } from "@material-ui/core/";
-import styles from "./film-carousel.module.sass";
+import styles from "./filmCarousel.module.sass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronRight,
-  faChevronLeft
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 export interface IArrowProps {

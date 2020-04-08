@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from "react-redux";
 
-import { ComingSoon } from "pages/homepage/components/coming-soon";
+import { ComingSoon } from "pages/homepage/components/comingSoon";
 
 import { IState } from "interfaces/IState";
 import { comingSoonFilmsSelector } from "selectors";
@@ -9,7 +9,7 @@ import { openBuyTicketModal } from "actions/modals";
 
 const mapStateToProps = (state: IState) => {
   return {
-    data: comingSoonFilmsSelector(state).data
+    data: comingSoonFilmsSelector(state).data,
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch: any) => {
     buyTicket: (filmId: string) => {
       dispatch(changeActiveFilmForBuying(filmId));
       dispatch(openBuyTicketModal());
-    }
+    },
   };
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);

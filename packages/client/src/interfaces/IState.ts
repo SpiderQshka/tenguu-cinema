@@ -6,6 +6,7 @@ import { ITicketsPayload } from "./ITicket";
 import { IMainPagePayload, IAdminPagePayload } from "./IPages";
 import { IModalsPayload } from "./IModal";
 import { ILangPayload } from "./ILang";
+import { IMessagePayload } from "./IMessage";
 
 export type IPayloads =
   | IUserPayload
@@ -26,4 +27,5 @@ export interface IState {
   modals: IModalsPayload;
   halls: IHallPayload;
   tickets: ITicketsPayload;
+  message: IMessagePayload;
 }

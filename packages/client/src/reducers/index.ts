@@ -8,6 +8,7 @@ import { hallsReducer } from "./hallsReducer";
 import { ticketsReducer } from "./ticketsReducer";
 import { langReducer } from "./langReducer";
 import { AdminPageReducer } from "./adminPageReducer";
+import { messageReducer } from "./messageReducer";
 
 export const allReducers = combineReducers({
   lang: langReducer,
@@ -17,6 +18,7 @@ export const allReducers = combineReducers({
   halls: hallsReducer,
   tickets: ticketsReducer,
   modals: modalsReducer,
+  message: messageReducer,
   mainPage: pageReducer,
-  adminPage: AdminPageReducer
+  adminPage: AdminPageReducer,
 });

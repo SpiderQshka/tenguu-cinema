@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionTitle } from "components/section-title";
+import { SectionTitle } from "components/sectionTitle";
 import styles from "./nowPlaying.module.sass";
 import { CarouselComponent } from "./Carousel";
 import { FormattedMessage } from "react-intl";

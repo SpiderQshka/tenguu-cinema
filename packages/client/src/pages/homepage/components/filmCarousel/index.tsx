@@ -5,13 +5,13 @@ import { ArrowNext, ArrowPrev } from "./Controls";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styles from "./film-carousel.module.sass";
+import styles from "./filmCarousel.module.sass";
 import { FilmCarouselProps } from "containers/FilmCarouselContainer";
 
-export default function FilmCarousel(props: FilmCarouselProps) {
+export function FilmCarousel(props: FilmCarouselProps) {
   const {
     films: { data: films, pending },
-    buyTicket
+    buyTicket,
   } = props;
   const settings = {
     dots: false,
@@ -28,14 +28,14 @@ export default function FilmCarousel(props: FilmCarouselProps) {
         breakpoint: 1000,
         settings: {
           infinite: true,
-          arrows: false
-        }
-      }
-    ]
+          arrows: false,
+        },
+      },
+    ],
   };
   return (
     <Carousel className={styles["film-carousel"]} {...settings}>
-      {films.map(film => {
+      {films.map((film) => {
         return (
           <Slide
             film={film}

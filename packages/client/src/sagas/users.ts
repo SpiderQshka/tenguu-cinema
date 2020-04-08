@@ -16,6 +16,7 @@ import {
   userRegisterError,
   userLoginError,
 } from "actions/users";
+import { showMessage } from "actions/messages";
 
 export function* watchFetchUserInfo() {
   yield takeEvery(FETCH_USER_REQUEST, fetchUserInfo);
@@ -43,6 +44,7 @@ export function* fetchUserInfo() {
 export function* userLogoutSaga() {
   window.localStorage.removeItem("userId");
   window.localStorage.removeItem("auth-token");
+  yield put(showMessage({ name: "logout" }));
   yield put(userLogout());
 }
 

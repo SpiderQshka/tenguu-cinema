@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionTitle } from "components/section-title";
+import { SectionTitle } from "components/sectionTitle";
 import styles from "./our-skills.module.sass";
 import { Typography } from "@material-ui/core/";
 import { FormattedMessage } from "react-intl";

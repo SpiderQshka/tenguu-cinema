@@ -10,8 +10,9 @@ import {
   buyTicketError,
   buyTicket,
   DELETE_TICKET_REQUEST,
-  deleteTicket
+  deleteTicket,
 } from "actions/tickets";
+import { showMessage } from "actions/messages";
 
 export function* watchFetchTicketsInfo() {
   yield takeEvery(FETCH_TICKETS_REQUEST, fetchTicketsInfo);
@@ -34,16 +35,21 @@ export function* fetchTicketsInfo() {
 
 export function* buyTicketSaga({ payload }: any) {
   const data = yield call(() => postData("api/tickets", payload.data));
-  if (data.error) yield put(buyTicketError(data.error));
-  else {
+  if (data.error) {
+    yield put(buyTicketError(data.error));
+    yield put(showMessage({ name: "buyTicketError" }));
+  } else {
     for (let i = 0; i < data.body.length; i++) {
       yield put(buyTicket(data.body[i]));
     }
+    yield put(showMessage({ name: "buyTicketSuccess" }));
   }
 }
 
 export function* deleteTicketSaga({ payload }: any) {
   const data = yield call(() => deleteData("api/tickets", payload.id));
-  if (!data.error) yield put(deleteTicket(payload.id));
-  else yield put(buyTicketError(data.error));
+  if (!data.error) {
+    yield put(deleteTicket(payload.id));
+    yield put(showMessage({ name: "deleteTicketSuccess" }));
+  } else yield put(showMessage({ name: "deleteTicketError" }));
 }

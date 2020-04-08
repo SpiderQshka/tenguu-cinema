@@ -48,5 +48,10 @@
   "homepage.modal.userTicketsModal.ticketCost": "Cost",
   "homepage.modal.userTicketsModal.film": "Film name",
   "homepage.modal.userTicketsModal.seat": "Seat",
-  "homepage.modal.watchTrailer.header": "Watch trailer of the film"
+  "homepage.modal.watchTrailer.header": "Watch trailer of the film",
+  "homepage.messages.logout": "Logged out",
+  "homepage.messages.buyTicketSuccess": "Ticket(s) bought and added to your tickets!",
+  "homepage.messages.buyTicketError": "Error occured while buying ticket",
+  "homepage.messages.deleteTicketSuccess": "Deleted!",
+  "homepage.messages.deleteTicketError": "Error occured while deleting ticket"
 }

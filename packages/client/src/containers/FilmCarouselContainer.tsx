@@ -1,11 +1,11 @@
 import { connect, ConnectedProps } from "react-redux";
 
-import Carousel from "pages/homepage/components/film-carousel";
+import { FilmCarousel } from "pages/homepage/components/filmCarousel";
 import { IState } from "interfaces/IState";
 import { openBuyTicketModal, openWatchTrailerModal } from "actions/modals";
 import {
   changeActiveFilmForBuying,
-  changeActiveFilmForShowTrailer
+  changeActiveFilmForShowTrailer,
 } from "actions/films";
 
 const mapStateToProps = (state: IState) => {
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch: any) => {
     watchTrailer: (filmId: string) => {
       dispatch(changeActiveFilmForShowTrailer(filmId));
       dispatch(openWatchTrailerModal());
-    }
+    },
   };
 };
 
@@ -29,4 +29,4 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export type FilmCarouselProps = ConnectedProps<typeof connector>;
 
-export default connector(Carousel);
+export default connector(FilmCarousel);

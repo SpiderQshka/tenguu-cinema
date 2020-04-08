@@ -1,11 +1,11 @@
 import { connect, ConnectedProps } from "react-redux";
 
-import { FilmCard } from "components/film-card";
+import { FilmCard } from "components/filmCard";
 import { IState } from "interfaces/IState";
 import { openBuyTicketModal, openWatchTrailerModal } from "actions/modals";
 import {
   changeActiveFilmForBuying,
-  changeActiveFilmForShowTrailer
+  changeActiveFilmForShowTrailer,
 } from "actions/films";
 
 const mapStateToProps = (state: IState) => {
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch: any) => {
     watchTrailer: (filmId: string) => {
       dispatch(changeActiveFilmForShowTrailer(filmId));
       dispatch(openWatchTrailerModal());
-    }
+    },
   };
 };
 

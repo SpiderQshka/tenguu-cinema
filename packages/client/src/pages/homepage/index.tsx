@@ -7,10 +7,11 @@ import WatchTrailerModal from "containers/modals/WatchTrailerModalContailner";
 import FilmCarousel from "containers/FilmCarouselContainer";
 import NowPlaying from "containers/NowPlayingContainer";
 import ComingSoon from "containers/ComingSoonContainer";
-import { OurSkills } from "pages/homepage/components/our-skills";
+import { OurSkills } from "pages/homepage/components/ourSkills";
 import { Footer } from "pages/homepage/components/footer";
 import { MapComponent } from "pages/homepage/components/map";
 import Header from "containers/HeaderContainer";
+import Message from "containers/MessageContainer";
 
 export function Homepage() {
   return (
@@ -22,11 +23,14 @@ export function Homepage() {
       <OurSkills />
       <MapComponent />
       <Footer />
-      <SignUpModal />
-      <SignInModal />
-      <BuyTicketModal />
-      <UserTicketsModal />
-      <WatchTrailerModal />
+      <>
+        <SignUpModal />
+        <SignInModal />
+        <BuyTicketModal />
+        <UserTicketsModal />
+        <WatchTrailerModal />
+      </>
+      <Message />
     </>
   );
 }

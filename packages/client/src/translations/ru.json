@@ -49,5 +49,10 @@
   "homepage.modal.userTicketsModal.ticketCost": "Цена",
   "homepage.modal.userTicketsModal.film": "Фильм",
   "homepage.modal.userTicketsModal.seat": "Место",
-  "homepage.modal.watchTrailer.header": "Смотреть трейлер фильма"
+  "homepage.modal.watchTrailer.header": "Смотреть трейлер фильма",
+  "homepage.messages.logout": "Вы вышли",
+  "homepage.messages.buyTicketSuccess": "Билет(ы) теперь ваш(и)!",
+  "homepage.messages.buyTicketError": "Ошибка при покупке билета!",
+  "homepage.messages.deleteTicketSuccess": "Билет удалён!",
+  "homepage.messages.deleteTicketError": "Ошибка при удалении билета!"
 }

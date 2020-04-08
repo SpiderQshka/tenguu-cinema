@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ArrowNext, ArrowPrev } from "./Controls";
-import { ComingSoonFilmCard } from "components/film-card/index";
+import { ComingSoonFilmCard } from "components/filmCard/index";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -31,24 +31,24 @@ export function Carousel(props: ICarouselProps) {
       {
         breakpoint: 1400,
         settings: {
-          slidesToShow: 2
-        }
+          slidesToShow: 2,
+        },
       },
       {
         breakpoint: 1000,
         settings: {
-          slidesToShow: 1
-        }
+          slidesToShow: 1,
+        },
       },
       {
         breakpoint: 700,
         settings: {
           centerMode: false,
           slidesToShow: 1,
-          arrows: false
-        }
-      }
-    ]
+          arrows: false,
+        },
+      },
+    ],
   };
   return (
     <CarouselSlick {...settings} className={styles["slick-slider"]}>

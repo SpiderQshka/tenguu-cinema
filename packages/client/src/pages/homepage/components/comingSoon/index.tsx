@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SectionTitle } from "components/section-title";
+import { SectionTitle } from "components/sectionTitle";
 import { FilmBlock } from "./FilmBlock";
 import { Carousel } from "./Carousel";
 import styles from "./coming-soon.module.sass";

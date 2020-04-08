@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core/";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Switch } from "@material-ui/core";
-import { config } from "config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";

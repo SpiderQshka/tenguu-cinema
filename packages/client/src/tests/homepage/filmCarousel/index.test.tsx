@@ -1,6 +1,6 @@
 import React from "react";
-import { HeaderProps } from "containers/HeaderContainer";
-import { Header } from "pages/homepage/components/header";
+import { FilmCarouselProps } from "containers/FilmCarouselContainer";
+import { FilmCarousel } from "pages/homepage/components/filmCarousel";
 import { shallow } from "enzyme";
 import { IUser } from "interfaces/IUser";
 import { Logo } from "pages/homepage/components/header/Logo";

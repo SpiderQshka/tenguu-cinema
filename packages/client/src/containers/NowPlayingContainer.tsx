@@ -1,12 +1,12 @@
 import { connect, ConnectedProps } from "react-redux";
 
-import { NowPlaying } from "pages/homepage/components/now-playing/";
+import { NowPlaying } from "pages/homepage/components/nowPlaying";
 import { IState } from "interfaces/IState";
 import { nowPlayingFilmsSelector } from "selectors";
 
 const mapStateToProps = (state: IState) => {
   return {
-    data: nowPlayingFilmsSelector(state).data
+    data: nowPlayingFilmsSelector(state).data,
   };
 };
 

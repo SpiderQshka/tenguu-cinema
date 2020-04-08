@@ -1,0 +1,22 @@
+export interface IMessage {
+  name: MessagesNames;
+  // message: string;
+  // status: "warning" | "success" | "error" | "default";
+}
+
+export type MessagesNames =
+  | "logout"
+  | "buyTicketSuccess"
+  | "buyTicketError"
+  | "deleteTicketSuccess"
+  | "deleteTicketError";
+
+export type IMessageActionTypes = "SHOW_MESSAGE" | "HIDE_MESSAGE";
+
+export interface IMessagePayload {
+  messageForShow: null | IMessage;
+}
+export interface IMessageAction {
+  type: IMessageActionTypes;
+  payload: IMessagePayload;
+}

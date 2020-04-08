@@ -3,7 +3,7 @@ import { Loader } from "components/loader";
 import { Progressbar } from "./Progressbar";
 import { Typography, Button } from "@material-ui/core/";
 import { IFilm } from "interfaces/IFilm";
-import styles from "./film-carousel.module.sass";
+import styles from "./filmCarousel.module.sass";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +21,7 @@ export function Slide(props: ISlide) {
     <div
       className={styles["slide-wrapper"]}
       style={{
-        backgroundImage: `url(${film.filmImage})`
+        backgroundImage: `url(${film.filmImage})`,
       }}
     >
       {pending ? (
@@ -30,7 +30,7 @@ export function Slide(props: ISlide) {
         <div className={styles["slide"]}>
           <div className={styles["slide-content"]}>
             <ul className={styles["genres"]}>
-              {film.genres.map(genre => (
+              {film.genres.map((genre) => (
                 <li className={styles["genre"]} key={genre.id}>
                   <Typography variant="overline">
                     <FormattedMessage id={genre.name} />
@@ -78,7 +78,7 @@ export function Slide(props: ISlide) {
           </div>
           {film.ratings && (
             <ul className={styles["slide-ratings"]}>
-              {film.ratings.map(rating => {
+              {film.ratings.map((rating) => {
                 return (
                   <li className={styles["rating-element"]} key={rating._id}>
                     <Typography variant="h2" className={styles["rater-name"]}>

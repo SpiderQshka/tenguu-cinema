@@ -1,10 +1,5 @@
 import { HIDE_MESSAGE, SHOW_MESSAGE } from "actions/messages";
-import {
-  IMessage,
-  IMessageActionTypes,
-  IMessagePayload,
-  IMessageAction,
-} from "interfaces/IMessage";
+import { IMessagePayload, IMessageAction } from "interfaces/IMessage";
 
 const initialState: IMessagePayload = {
   messageForShow: null,

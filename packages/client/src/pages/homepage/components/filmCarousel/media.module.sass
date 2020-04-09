@@ -1,7 +1,10 @@
-@media all and ( max-width: 1400px )
+@media all and ( max-width: 1250px )
     .slide-wrapper
         .slide
-            max-width: 100% 
+            .slide-content
+                margin-left: $extra-large-margin
+            .slide-ratings
+                margin-right: $extra-large-margin
 
 @media all and ( max-width: 900px )
     .slide-wrapper
@@ -9,7 +12,6 @@
             flex-direction: column
             justify-content: flex-end
             align-items: flex-start
-            padding: 0 $large-padding $large-padding
             .slide-content
                 align-self: stretch
                 order: 1
@@ -19,7 +21,6 @@
                 
 @media all and ( max-width: 500px )
     .film-name
-        font-size: $extra-large-font-size !important
         margin: $large-margin 0
     .buttons
         display: flex
@@ -27,6 +28,5 @@
         align-items: flex-start
         justify-content: center
         .slide-btn
-            font-size: $small-font-size !important
             &:first-of-type
                 margin-bottom: $default-margin

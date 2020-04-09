@@ -1,7 +1,5 @@
 export interface IMessage {
   name: MessagesNames;
-  // message: string;
-  // status: "warning" | "success" | "error" | "default";
 }
 
 export type MessagesNames =

@@ -5,7 +5,6 @@ import { MenuComponent } from "pages/homepage/components/header/Menu";
 import { mount } from "enzyme";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import { createMount } from "@material-ui/core/test-utils";
 
 const mockStore = configureStore();
 

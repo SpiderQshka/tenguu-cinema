@@ -6,7 +6,7 @@ import { nowPlayingFilmsSelector } from "selectors";
 
 const mapStateToProps = (state: IState) => {
   return {
-    data: nowPlayingFilmsSelector(state).data,
+    films: nowPlayingFilmsSelector(state).data,
   };
 };
 

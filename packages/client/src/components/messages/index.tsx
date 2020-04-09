@@ -1,8 +1,6 @@
 import React from "react";
 import { Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { MessageProps } from "containers/MessageContainer";
 import { useIntl } from "react-intl";
 

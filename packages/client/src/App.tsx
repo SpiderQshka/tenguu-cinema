@@ -12,12 +12,12 @@ const theme = createMuiTheme({
     primary: {
       main: orange[500],
       light: grey[50],
-      contrastText: grey[50]
+      contrastText: grey[50],
     },
     secondary: {
-      main: grey[900]
-    }
-  }
+      main: grey[900],
+    },
+  },
 });
 
 const App: React.FC = () => (

@@ -9,6 +9,6 @@ const renderHomepage = () => {
 describe("Homepage component", () => {
   it("Renders self and subcomponents", () => {
     const enzymeWrapper = renderHomepage();
-    expect(enzymeWrapper.children()).toHaveLength(12);
+    expect(enzymeWrapper.children()).toHaveLength(13);
   });
 });

@@ -1,45 +1,42 @@
 import React from "react";
 import { IFilm } from "interfaces/IFilm";
 import StarRatings from "react-star-ratings";
-import { Loader } from "components/loader";
 import { Typography, Fab } from "@material-ui/core/";
-import styles from "./film-card.module.sass";
+import styles from "./filmCard.module.sass";
 import { ISession } from "interfaces/ISession";
 import { FormattedMessage, FormattedDate } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { FilmCardProps } from "containers/FilmCardContainer";
 
-export interface IFilmCard {
+export interface IFilmCard extends FilmCardProps {
   item: IFilm;
-  pending?: boolean;
-  buyTicket?: (filmId: string) => void;
-  watchTrailer?: (filmId: string) => void;
 }
 
 export interface ISessionCard {
   item: ISession;
-  pending?: boolean;
+}
+
+export interface IComingSoonCard {
+  item: IFilm;
 }
 
 export function FilmCard(props: IFilmCard) {
-  const { item: film, pending } = props;
-  if (pending) return <Loader />;
+  const { item: film } = props;
   return (
     <div
       className={styles["card"]}
       style={{
-        backgroundImage: `url(${film.filmImage})`
+        backgroundImage: `url(${film.filmImage})`,
       }}
     >
-      <div className={`scale-transition ${styles["buttons"]}`}>
+      <div className={`${styles["buttons"]}`}>
         <Fab
-          className={styles["slide-btn"]}
+          className={`${styles["slide-btn"]} watchTrailerBtn`}
           variant="extended"
           color="primary"
           size="large"
-          onClick={() =>
-            props.watchTrailer ? props.watchTrailer(props.item.id) : {}
-          }
+          onClick={() => props.watchTrailer(props.item.id)}
         >
           <FontAwesomeIcon icon={faPlay} className={styles["button-icon"]} />
           <FormattedMessage
@@ -48,13 +45,11 @@ export function FilmCard(props: IFilmCard) {
           />
         </Fab>
         <Fab
-          className={styles["slide-btn"]}
+          className={`${styles["slide-btn"]} buyTicketBtn`}
           variant="extended"
           color="secondary"
           size="large"
-          onClick={() =>
-            props.buyTicket ? props.buyTicket(props.item.id) : {}
-          }
+          onClick={() => props.buyTicket(props.item.id)}
         >
           <FontAwesomeIcon
             icon={faShoppingCart}
@@ -68,11 +63,11 @@ export function FilmCard(props: IFilmCard) {
       </div>
       <div className={`${styles["info-block"]}`}>
         <div className={styles["rating"]}>
-          {film.ratings[0] && (
+          {film.ratings && film.ratings.length && (
             <StarRatings
               rating={
                 film.ratings
-                  .map(rating => rating.ratingValue)
+                  .map((rating) => rating.ratingValue)
                   .reduce((prev, curr) => prev + curr, 0) /
                 film.ratings.length /
                 2
@@ -85,21 +80,20 @@ export function FilmCard(props: IFilmCard) {
           )}
         </div>
         <Typography variant="h3" className={styles["film-name"]}>
-          <FormattedMessage id={film.name} />
+          <FormattedMessage id={film.name} defaultMessage="Film not found" />
         </Typography>
       </div>
     </div>
   );
 }
 
-export function ComingSoonFilmCard(props: IFilmCard) {
-  const { item: film, pending } = props;
-  if (pending) return <Loader />;
+export function ComingSoonFilmCard(props: IComingSoonCard) {
+  const { item: film } = props;
   return (
     <div
       className={`${styles.card} ${styles.sessionCard}`}
       style={{
-        backgroundImage: `url(${film.filmImage})`
+        backgroundImage: `url(${film.filmImage})`,
       }}
     >
       <div className={`${styles["info-block"]}`}>
@@ -108,7 +102,7 @@ export function ComingSoonFilmCard(props: IFilmCard) {
             <StarRatings
               rating={
                 film.ratings
-                  .map(rating => rating.ratingValue)
+                  .map((rating) => rating.ratingValue)
                   .reduce((prev, curr) => prev + curr, 0) /
                 film.ratings.length /
                 2

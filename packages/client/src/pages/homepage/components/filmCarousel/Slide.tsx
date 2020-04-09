@@ -16,7 +16,7 @@ export interface ISlide {
 }
 
 export function Slide(props: ISlide) {
-  const { film, pending, buyTicket } = props;
+  const { film, pending, buyTicket, watchTrailer } = props;
   return (
     <div
       className={styles["slide-wrapper"]}
@@ -30,29 +30,35 @@ export function Slide(props: ISlide) {
         <div className={styles["slide"]}>
           <div className={styles["slide-content"]}>
             <ul className={styles["genres"]}>
-              {film.genres.map((genre) => (
-                <li className={styles["genre"]} key={genre.id}>
-                  <Typography variant="overline">
-                    <FormattedMessage id={genre.name} />
-                  </Typography>
-                </li>
-              ))}
+              {film.genres &&
+                !!film.genres.length &&
+                film.genres.map((genre) => (
+                  <li className={styles["genre"]} key={genre.id}>
+                    <Typography variant="overline">
+                      <FormattedMessage
+                        id={genre.name}
+                        defaultMessage="Genre not found"
+                      />
+                    </Typography>
+                  </li>
+                ))}
             </ul>
             <Typography variant="h1" className={styles["film-name"]}>
-              <FormattedMessage id={film.name} />
+              <FormattedMessage
+                id={film.name}
+                defaultMessage="Film name not found"
+              />
             </Typography>
             <div className={styles["buttons"]}>
               <Button
-                className={styles["slide-btn"]}
+                className={`${styles["slide-btn"]} watchTrailerBtn`}
                 startIcon={
                   <FontAwesomeIcon
                     icon={faPlay}
                     className={styles["button-icon"]}
                   />
                 }
-                onClick={() =>
-                  props.watchTrailer ? props.watchTrailer(props.film.id) : {}
-                }
+                onClick={() => watchTrailer(props.film.id)}
               >
                 <FormattedMessage
                   id="homepage.button.watchTrailer"
@@ -60,7 +66,7 @@ export function Slide(props: ISlide) {
                 />
               </Button>
               <Button
-                className={styles["slide-btn"]}
+                className={`${styles["slide-btn"]} buyTicketBtn`}
                 startIcon={
                   <FontAwesomeIcon
                     icon={faShoppingCart}
@@ -76,7 +82,7 @@ export function Slide(props: ISlide) {
               </Button>
             </div>
           </div>
-          {film.ratings && (
+          {film.ratings && film.ratings.length && (
             <ul className={styles["slide-ratings"]}>
               {film.ratings.map((rating) => {
                 return (

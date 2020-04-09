@@ -20,11 +20,10 @@ import {
   NumberInput,
   ReferenceArrayInput,
   SelectArrayInput,
-  ReferenceArrayField,
   useLocale,
   ImageInput,
   ImageField,
-  useQuery
+  useQuery,
 } from "react-admin";
 import { Chip } from "@material-ui/core";
 import RichTextInput from "ra-input-rich-text";
@@ -34,7 +33,7 @@ const NameInput = (props: any) => {
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
-    payload: { id: props.record.name }
+    payload: { id: props.record.name },
   });
 
   if (!data || error) return null;
@@ -64,7 +63,7 @@ const GenreInput = (props: any) => {
   const { data, error } = useQuery({
     type: "getMany",
     resource: "translations",
-    payload: { ids: props.choices.map((choice: any) => choice.name) }
+    payload: { ids: props.choices.map((choice: any) => choice.name) },
   });
 
   if (!data || error) return null;
@@ -96,7 +95,7 @@ const DescriptionInput = (props: any) => {
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
-    payload: { id: props.record.description }
+    payload: { id: props.record.description },
   });
 
   if (!data || error) return null;
@@ -126,7 +125,7 @@ const FilmName = ({ record }: any) => {
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
-    payload: { id: record.name }
+    payload: { id: record.name },
   });
 
   if (!data || error) return null;
@@ -139,7 +138,7 @@ const GenreName = (props: any) => {
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
-    payload: { id: props.record }
+    payload: { id: props.record },
   });
 
   if (!data || error) return null;
@@ -152,7 +151,7 @@ const Description = ({ record }: any) => {
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
-    payload: { id: record.description }
+    payload: { id: record.description },
   });
 
   if (!data || error) return null;

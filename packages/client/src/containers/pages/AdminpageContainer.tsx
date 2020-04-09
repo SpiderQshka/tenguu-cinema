@@ -3,23 +3,25 @@ import { connect, ConnectedProps } from "react-redux";
 import { IState } from "interfaces/IState";
 import { PageLoader } from "components/loader";
 import { AdminPage } from "pages/adminpage";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 const mapStateToProps = (state: IState) => {
   return {
     pending: state.users.currentUserPending,
-    isAdmin: state.users.currentUser.status === "admin"
+    isAdmin: state.users.currentUser.status === "admin",
   };
 };
 
-const AdminpageContainer = (props: AdminpageProps) =>
-  props.pending ? (
+const AdminpageContainer = (props: AdminpageProps) => {
+  const history = useHistory();
+  return props.pending ? (
     <PageLoader />
   ) : props.isAdmin ? (
-    <AdminPage />
+    <AdminPage history={history} />
   ) : (
     <Redirect to="/" />
   );
+};
 
 const connector = connect(mapStateToProps);
 

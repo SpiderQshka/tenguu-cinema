@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { NowPlayingProps } from "containers/NowPlayingContainer";
 
 export function CarouselComponent(props: NowPlayingProps) {
-  const { data: films } = props;
+  const { films } = props;
   const settings = {
     dots: false,
     lazyLoad: "progressive" as LazyLoadTypes,
@@ -23,27 +23,27 @@ export function CarouselComponent(props: NowPlayingProps) {
       {
         breakpoint: 1400,
         settings: {
-          slidesToShow: 2
-        }
+          slidesToShow: 2,
+        },
       },
       {
         breakpoint: 1000,
         settings: {
-          slidesToShow: 1
-        }
+          slidesToShow: 1,
+        },
       },
       {
         breakpoint: 700,
         settings: {
           slidesToShow: 1,
-          arrows: false
-        }
-      }
-    ]
+          arrows: false,
+        },
+      },
+    ],
   };
   return (
     <Carousel {...settings} className={styles["slick-slider"]}>
-      {films.map(film => {
+      {films.map((film) => {
         return <FilmCardContainer item={film} key={film.id} />;
       })}
     </Carousel>

@@ -1,60 +1,171 @@
 import React from "react";
-import { FilmCarouselProps } from "containers/FilmCarouselContainer";
 import { FilmCarousel } from "pages/homepage/components/filmCarousel";
-import { shallow } from "enzyme";
-import { IUser } from "interfaces/IUser";
-import { Logo } from "pages/homepage/components/header/Logo";
-import { Profile } from "pages/homepage/components/header/Profile";
-import { MenuComponent } from "pages/homepage/components/header/Menu";
+import { mount } from "enzyme";
+import configureStore from "redux-mock-store";
+import { IFilmPayload } from "interfaces/IFilm";
+import { Provider } from "react-redux";
+import { IntlProvider } from "react-intl";
 
-export const renderHeader = () => {
+const mockStore = configureStore();
+
+export const renderFilmCarousel = (params?: any) => {
   const props = {
+    films: {} as IFilmPayload,
     buyTicket: jest.fn(),
-    changeLang: jest.fn(),
-    currentUserTickets: [],
-    films: [],
-    lang: "en",
-    logout: jest.fn(),
-    modals: {
-      isRegModalOpen: false,
-      isLoginModalOpen: false,
-      isBuyTicketModalOpen: false,
-      isUserTicketsModalOpen: false,
-      isWatchTrailerModalOpen: false,
-    },
-    openLoginModal: jest.fn(),
-    openRegisterModal: jest.fn(),
-    openUserTicketsModal: jest.fn(),
-    users: {
-      currentUser: {} as IUser,
-      error: null,
-      currentUserPending: true,
-    },
-  } as HeaderProps;
-  const enzymeWrapper = shallow(<Header {...props} />);
+    watchTrailer: jest.fn(),
+    ...params,
+  };
+  const store = mockStore({});
+  const enzymeWrapper = mount(
+    <Provider store={store}>
+      <IntlProvider locale="en">
+        <FilmCarousel {...props} />
+      </IntlProvider>
+    </Provider>
+  );
   return { enzymeWrapper, props };
 };
 
-describe("Header", () => {
-  it("Renders self and subcomponents", () => {
-    const { enzymeWrapper, props } = renderHeader();
-    expect(enzymeWrapper.find("section").children()).toHaveLength(1);
-    expect(
-      enzymeWrapper
-        .find("header")
-        .shallow()
-        .containsAnyMatchingElements([<Logo />])
-    ).toBe(true);
-    expect(
-      enzymeWrapper
-        .find("header")
-        .shallow()
-        .find("div")
-        .shallow()
-        .containsAnyMatchingElements([
-          <Profile {...props} />,
-          <MenuComponent {...props} />,
-        ])
-    ).toBe(true);
+describe("Film Carousel", () => {
+  it("Renders self and slides", () => {
+    let { enzymeWrapper } = renderFilmCarousel({
+      films: {
+        data: [],
+      },
+    });
+    expect(enzymeWrapper.find(".film-carousel").hostNodes()).toHaveLength(1);
+    expect(enzymeWrapper.find(".slide-wrapper").hostNodes()).toHaveLength(0);
+    enzymeWrapper = renderFilmCarousel({
+      films: {
+        data: [
+          {
+            name: 1,
+            id: 1,
+            genres: [
+              { name: 1, id: 1 },
+              { name: 2, id: 1 },
+            ],
+          },
+          {
+            name: 2,
+            id: 2,
+            genres: [
+              { name: 3, id: 3 },
+              { name: 4, id: 4 },
+            ],
+          },
+        ],
+        pending: false,
+      },
+    }).enzymeWrapper;
+    expect(enzymeWrapper.find(".slick-slide").hostNodes()).toHaveLength(2);
+  });
+  it("Renders genres on slide", () => {
+    let { enzymeWrapper } = renderFilmCarousel({
+      films: {
+        data: [
+          {
+            name: 1,
+            id: 1,
+            genres: [
+              { name: 1, id: 1 },
+              { name: 2, id: 1 },
+            ],
+          },
+        ],
+      },
+    });
+    expect(enzymeWrapper.find(".genre").hostNodes()).toHaveLength(2);
+    enzymeWrapper = renderFilmCarousel({
+      films: {
+        data: [
+          {
+            name: 1,
+            id: 1,
+            genres: [],
+          },
+        ],
+      },
+    }).enzymeWrapper;
+    expect(enzymeWrapper.find(".genre").hostNodes()).toHaveLength(0);
+  });
+  it("Renders ratings on slide", () => {
+    let { enzymeWrapper } = renderFilmCarousel({
+      films: {
+        data: [
+          {
+            name: 1,
+            id: 1,
+            ratings: [
+              {
+                raterName: "1",
+                raterValue: 1,
+              },
+            ],
+          },
+        ],
+      },
+    });
+
+    expect(enzymeWrapper.find(".rating-element").hostNodes()).toHaveLength(1);
+
+    enzymeWrapper = renderFilmCarousel({
+      films: {
+        data: [
+          {
+            name: 1,
+            id: 1,
+          },
+        ],
+      },
+    }).enzymeWrapper;
+
+    expect(enzymeWrapper.find(".rating-element").hostNodes()).toHaveLength(0);
+  });
+  it("Calls watchTrailer function after watchTrailerBtn click", () => {
+    let { enzymeWrapper, props } = renderFilmCarousel({
+      films: {
+        data: [
+          {
+            name: 1,
+            id: 1,
+            genres: [
+              { name: 1, id: 1 },
+              { name: 2, id: 1 },
+            ],
+          },
+        ],
+      },
+    });
+
+    enzymeWrapper
+      .find(".watchTrailerBtn")
+      .hostNodes()
+      .simulate("click");
+
+    expect(props.watchTrailer.mock.calls.length).toBe(1);
+  });
+  it("Calls buyTicket function after buyTicketBtn click", () => {
+    let { enzymeWrapper, props } = renderFilmCarousel({
+      films: {
+        data: [
+          {
+            name: 1,
+            id: 1,
+            genres: [
+              { name: 1, id: 1 },
+              { name: 2, id: 1 },
+            ],
+          },
+        ],
+      },
+    });
+
+    enzymeWrapper
+      .find(".buyTicketBtn")
+      .hostNodes()
+      .simulate("click");
+
+    expect(props.buyTicket.mock.calls.length).toBe(1);
   });
 });

@@ -22,12 +22,14 @@ export type IFilmActionTypes =
   | "FETCH_FILMS_ERROR"
   | "FETCH_FILMS_REQUEST"
   | "CHANGE_ACTIVE_FILM_FOR_BUYING"
-  | "CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER";
+  | "CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER"
+  | "TOGGLE_FILM_DESCRIPTION";
 
 export interface IFilmPayload {
   data: IFilm[];
   error: { code: number; message: string } | null;
   pending: boolean;
+  isFilmDescriptionOpen: boolean;
   activeFilmForBuyingId?: string;
   activeFilmForShowTrailerId?: string;
 }

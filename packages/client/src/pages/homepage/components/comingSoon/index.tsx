@@ -10,7 +10,7 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { ComingSoonProps } from "containers/ComingSoonContainer";
 
 export function ComingSoon(props: ComingSoonProps) {
-  const { data: films } = props;
+  const { films, buyTicket, toggleDescription, isDescriptionOpen } = props;
   const [filmIndex, handleFilmIndexChange] = useState(0);
   return (
     <section className={styles["coming-soon"]} id="coming-soon">
@@ -23,7 +23,7 @@ export function ComingSoon(props: ComingSoonProps) {
           />
         }
       />
-      {!films.length ? (
+      {!films || !films.length ? (
         <>
           <FontAwesomeIcon
             icon={faClock}
@@ -38,7 +38,12 @@ export function ComingSoon(props: ComingSoonProps) {
         </>
       ) : (
         <>
-          <FilmBlock film={films[filmIndex]} buyTicket={props.buyTicket} />
+          <FilmBlock
+            film={films[filmIndex]}
+            buyTicket={buyTicket}
+            toggleDescription={toggleDescription}
+            isDescriptionOpen={isDescriptionOpen}
+          />
           <Carousel {...props} handler={handleFilmIndexChange} />
         </>
       )}

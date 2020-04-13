@@ -6,46 +6,45 @@
     .footer
         max-width: $content-width
         margin: 0 auto
-        .footerContent
-            display: flex
-            flex-wrap: wrap
-            justify-content: space-between
-            color: $primary-color
-            .header
-                text-transform: uppercase
-                text-align: left
-                margin-bottom: $large-margin
-            .line
-                width: 100px
-                height: 1px
-                margin-bottom: $large-margin
-                background-color: red
-            .menuBlock
-                flex-grow: 0
-                padding: $extra-large-padding
-                .menuList
-                    .menuItem
-                        & *
-                            text-align: left
-                            padding-left: 0
-                            color: $primary-color
-            .addressInfoBlock
-                padding: $extra-large-padding
-                .addressData
-                    line-height: 2
-                    margin-bottom: $large-margin
-            .leaveMsgBlock
-                display: flex
-                flex-direction: column
-                padding: $extra-large-padding
-                .footerForm
-                    max-width: 300px
-                    input, textarea, label
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+        color: $primary-color
+        .header
+            text-transform: uppercase
+            text-align: left
+            margin-bottom: $large-margin
+        .line
+            width: 100px
+            height: 1px
+            margin-bottom: $large-margin
+            background-color: red
+        .menuBlock
+            flex-grow: 0
+            padding: $extra-large-padding
+            .menuList
+                .menuItem
+                    & *
+                        text-align: left
+                        padding-left: 0
                         color: $primary-color
-                        &:placeholder
-                            color: $primary-color
-
-                .footerBtn
-                    align-self: end
-                    margin-top: $default-margin
+        .addressInfoBlock
+            padding: $extra-large-padding
+            .addressData
+                line-height: 2
+                margin-bottom: $large-margin
+        .leaveMsgBlock
+            display: flex
+            flex-direction: column
+            padding: $extra-large-padding
+            .footerForm
+                max-width: 300px
+                input, textarea, label
                     color: $primary-color
+                    &:placeholder
+                        color: $primary-color
+
+            .footerBtn
+                align-self: end
+                margin-top: $default-margin
+                color: $primary-color

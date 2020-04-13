@@ -8,7 +8,7 @@ import {
   Typography,
   FormControl,
   InputLabel,
-  Input
+  Input,
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { FormattedMessage } from "react-intl";

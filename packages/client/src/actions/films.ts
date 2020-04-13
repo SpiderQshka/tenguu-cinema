@@ -8,12 +8,13 @@ export const FETCH_FILMS_REQUEST = "FETCH_FILMS_REQUEST";
 export const CHANGE_ACTIVE_FILM_FOR_BUYING = "CHANGE_ACTIVE_FILM_FOR_BUYING";
 export const CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER =
   "CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER";
+export const TOGGLE_FILM_DESCRIPTION = "TOGGLE_FILM_DESCRIPTION";
 
 // Action creators
 
 export const fetchFilmsPending = () => {
   return {
-    type: FETCH_FILMS_PENDING
+    type: FETCH_FILMS_PENDING,
   };
 };
 
@@ -21,8 +22,8 @@ export const fetchFilmsSuccess = (data: IFilm[]) => {
   return {
     type: FETCH_FILMS_SUCCESS,
     payload: {
-      data
-    } as IFilmPayload
+      data,
+    } as IFilmPayload,
   };
 };
 
@@ -30,14 +31,14 @@ export const fetchFilmsError = (error: any) => {
   return {
     type: FETCH_FILMS_ERROR,
     payload: {
-      error
-    } as IFilmPayload
+      error,
+    } as IFilmPayload,
   };
 };
 
 export const fetchFilmsRequest = () => {
   return {
-    type: FETCH_FILMS_REQUEST
+    type: FETCH_FILMS_REQUEST,
   };
 };
 
@@ -45,8 +46,8 @@ export const changeActiveFilmForBuying = (activeFilmForBuyingId: string) => {
   return {
     type: CHANGE_ACTIVE_FILM_FOR_BUYING,
     payload: {
-      activeFilmForBuyingId
-    }
+      activeFilmForBuyingId,
+    },
   };
 };
 
@@ -56,7 +57,13 @@ export const changeActiveFilmForShowTrailer = (
   return {
     type: CHANGE_ACTIVE_FILM_FOR_SHOW_TRAILER,
     payload: {
-      activeFilmForShowTrailerId
-    }
+      activeFilmForShowTrailerId,
+    },
+  };
+};
+
+export const toggleFilmDescription = () => {
+  return {
+    type: TOGGLE_FILM_DESCRIPTION,
   };
 };

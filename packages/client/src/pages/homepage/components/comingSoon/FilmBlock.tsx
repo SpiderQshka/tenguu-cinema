@@ -1,18 +1,39 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./coming-soon.module.sass";
 import { IFilm } from "interfaces/IFilm";
 import { Typography, Chip, Fab } from "@material-ui/core/";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, FormattedDate, useIntl } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClock,
+  faShoppingCart,
+  faEllipsisH,
+} from "@fortawesome/free-solid-svg-icons";
+
+const descriptionSizeWhileIsNotOpen: number = 50;
 
 export interface IFilmBlock {
   film: IFilm;
+  isDescriptionOpen: boolean;
   buyTicket: (filmId: string) => void;
+  toggleDescription: () => void;
 }
 
 export const FilmBlock = (props: IFilmBlock) => {
-  const { film } = props;
+  const { film, buyTicket, isDescriptionOpen, toggleDescription } = props;
+  const intl = useIntl();
+  const descTextContainerRef = useRef(null);
+  const descTextRef = useRef(null);
+  const handleDescSizeChange = () => {
+    const descTextContainer = descTextContainerRef.current as any;
+    const descText = descTextRef.current as any;
+    if (isDescriptionOpen) {
+      descTextContainer.style.height = "70px";
+    } else {
+      descTextContainer.style.height = `${descText.offsetHeight +
+        descText.scrollHeight}px`;
+    }
+  };
   return (
     <div className={styles.filmBlock}>
       <div className={styles.filmInfo}>
@@ -25,15 +46,18 @@ export const FilmBlock = (props: IFilmBlock) => {
         </div>
 
         <div className={styles.basicInfoBlock}>
-          <ul className={styles.genres}>
-            {film.genres.map(genre => (
-              <li className={styles.genre} key={genre.id}>
-                <Typography variant="overline">
-                  <FormattedMessage id={genre.name} />
-                </Typography>
-              </li>
-            ))}
-          </ul>
+          {film.genres && (
+            <ul className={styles.genres}>
+              {film.genres.map((genre) => (
+                <li className={styles.genre} key={genre.id}>
+                  <Typography variant="overline">
+                    <FormattedMessage id={genre.name} />
+                  </Typography>
+                </li>
+              ))}
+            </ul>
+          )}
+
           <Typography variant="h3" className={styles.filmName}>
             <FormattedMessage id={film.name} />
           </Typography>
@@ -41,73 +65,121 @@ export const FilmBlock = (props: IFilmBlock) => {
             <Chip
               icon={<FontAwesomeIcon icon={faClock} className={styles.icon} />}
               label={
-                <Typography variant="overline" className={styles.date}>
-                  {film.releaseDate
-                    ? new Date(film.releaseDate).toLocaleDateString()
-                    : "Date not found"}
-                </Typography>
+                <FormattedDate
+                  value={
+                    film.releaseDate
+                      ? new Date(film.releaseDate)
+                      : new Date(Date.now())
+                  }
+                  year="numeric"
+                  month="long"
+                  day="2-digit"
+                  hour12={true}
+                />
               }
               color="secondary"
             />
           </div>
         </div>
         <div className={styles.descriptionAndRatingsBlock}>
-          <div className={styles.filmPhotoBlock}>
-            <img src={film.filmImage} alt="..." className={styles.filmPhoto} />
-          </div>
+          {film.filmImage && (
+            <div
+              className={styles.filmPhotoBlock}
+              style={{ backgroundImage: `url(${film.filmImage})` }}
+            ></div>
+          )}
+
           <div className={styles.descriptionBlock}>
-            <Typography variant="body1" className={styles.descriptionText}>
-              {props.film.description ? (
-                <FormattedMessage id={props.film.description} />
-              ) : (
-                <FormattedMessage
-                  id="homepage.comingSoon.filmDescription"
-                  defaultMessage="Description isn't provided."
-                />
-              )}
-            </Typography>
+            <div
+              className={`${styles.descriptionTextContainer} ${
+                isDescriptionOpen
+                  ? styles.descriptionOpen
+                  : styles.descriptionClose
+              }`}
+              ref={descTextContainerRef}
+            >
+              <Typography
+                variant="body1"
+                className={`${styles.descriptionText}`}
+              >
+                {film.description ? (
+                  <span ref={descTextRef}>
+                    {intl.formatMessage({ id: film.description })}
+                  </span>
+                ) : (
+                  //intl.formatMessage({ id: film.description })
+                  <FormattedMessage
+                    id="homepage.comingSoon.filmDescription"
+                    defaultMessage="Description isn't provided."
+                  />
+                )}
+              </Typography>
+            </div>
             <div className={styles.descriptionButtons}>
               <Fab
-                className={styles.filmButton}
+                className={`${styles.filmButton} ${styles.preOrderBtn}`}
                 variant="extended"
                 color="primary"
                 size="large"
-                onClick={() => props.buyTicket(props.film.id)}
+                onClick={() => buyTicket(props.film.id)}
               >
-                <i className={`fas fa-shopping-cart ${styles.buttonIcon}`}></i>
+                <FontAwesomeIcon
+                  icon={faShoppingCart}
+                  className={styles.buttonIcon}
+                />
                 <FormattedMessage
                   id="homepage.button.preOrder"
                   defaultMessage="Pre order"
                 />
               </Fab>
-              <Fab
-                className={styles.filmButton}
-                variant="extended"
-                color="secondary"
-                size="large"
-              >
-                <i className={`fas fa-ellipsis-h ${styles.buttonIcon}`}></i>
-                <FormattedMessage
-                  id="homepage.button.readMore"
-                  defaultMessage="Read more"
-                />
-              </Fab>
+              {film.description &&
+                intl.formatMessage({ id: film.description }).length >
+                  descriptionSizeWhileIsNotOpen && (
+                  <Fab
+                    className={`${styles.filmButton} ${styles.toggleDescriptionBtn}`}
+                    variant="extended"
+                    color="secondary"
+                    size="large"
+                    onClick={() => {
+                      toggleDescription();
+                      handleDescSizeChange();
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faEllipsisH}
+                      className={styles.buttonIcon}
+                    />
+                    {isDescriptionOpen ? (
+                      <FormattedMessage
+                        id="homepage.button.hide"
+                        defaultMessage="Hide"
+                      />
+                    ) : (
+                      <FormattedMessage
+                        id="homepage.button.showMore"
+                        defaultMessage="Show more"
+                      />
+                    )}
+                  </Fab>
+                )}
             </div>
           </div>
+
           <div className={styles.ratingsBlock}>
-            {film.ratings.map(rating => (
-              <div className={styles.ratingElement} key={rating._id}>
-                <Typography variant="overline" className={styles.ratingText}>
-                  {rating.ratingValue} - {rating.raterName}
-                </Typography>
-                <div className={styles.ratingValueContainer}>
-                  <div
-                    className={styles.ratingValue}
-                    style={{ width: `${rating.ratingValue * 10}%` }}
-                  ></div>
+            {film.ratings &&
+              film.ratings.map((rating) => (
+                <div className={styles.ratingElement} key={rating._id}>
+                  <Typography variant="overline" className={styles.ratingText}>
+                    {rating.ratingValue} - {rating.raterName}
+                  </Typography>
+                  <div className={styles.ratingValueContainer}>
+                    <div
+                      className={styles.ratingValue}
+                      style={{ width: `${rating.ratingValue * 10}%` }}
+                    ></div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>

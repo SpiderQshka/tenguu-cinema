@@ -8,7 +8,7 @@ import { FilmCard } from "components/filmCard";
 
 const mockStore = configureStore();
 
-export const renderFilmCard = (params?: any) => {
+export const render = (params?: any) => {
   const props = {
     item: {} as IFilm,
     buyTicket: jest.fn(),
@@ -28,13 +28,33 @@ export const renderFilmCard = (params?: any) => {
 
 describe("Film card", () => {
   it("Renders self", () => {
-    let { enzymeWrapper } = renderFilmCard({
+    let { enzymeWrapper } = render({
       item: { name: "1", id: 1 },
     });
     expect(enzymeWrapper.find(".card").hostNodes()).toHaveLength(1);
   });
+  it("Renders ratings (if provided)", () => {
+    let { enzymeWrapper } = render({
+      item: {
+        name: "1",
+        id: "1",
+        genres: [],
+      },
+    });
+    expect(enzymeWrapper.find(".rating").hostNodes()).toHaveLength(0);
+
+    enzymeWrapper = render({
+      item: {
+        name: "1",
+        id: "1",
+        genres: [],
+        ratings: [],
+      },
+    }).enzymeWrapper;
+    expect(enzymeWrapper.find(".rating").hostNodes()).toHaveLength(0);
+  });
   it("Calls watchTrailer function after watchTrailerBtn click", () => {
-    let { enzymeWrapper, props } = renderFilmCard({
+    let { enzymeWrapper, props } = render({
       item: {
         name: 1,
         id: 1,
@@ -53,7 +73,7 @@ describe("Film card", () => {
     expect(props.watchTrailer.mock.calls.length).toBe(1);
   });
   it("Calls buyTicket function after buyTicketBtn click", () => {
-    let { enzymeWrapper, props } = renderFilmCard({
+    let { enzymeWrapper, props } = render({
       item: {
         name: 1,
         id: 1,

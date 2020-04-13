@@ -62,23 +62,25 @@ export function FilmCard(props: IFilmCard) {
         </Fab>
       </div>
       <div className={`${styles["info-block"]}`}>
-        <div className={styles["rating"]}>
-          {film.ratings && film.ratings.length && (
-            <StarRatings
-              rating={
-                film.ratings
-                  .map((rating) => rating.ratingValue)
-                  .reduce((prev, curr) => prev + curr, 0) /
-                film.ratings.length /
-                2
-              }
-              starRatedColor={"orange"}
-              starEmptyColor={"white"}
-              starDimension={"30px"}
-              starSpacing={"4px"}
-            />
-          )}
-        </div>
+        {film.ratings && film.ratings[0] && (
+          <div className={styles["rating"]}>
+            {
+              <StarRatings
+                rating={
+                  film.ratings
+                    .map((rating) => rating.ratingValue)
+                    .reduce((prev, curr) => prev + curr, 0) /
+                  film.ratings.length /
+                  2
+                }
+                starRatedColor={"orange"}
+                starEmptyColor={"white"}
+                starDimension={"30px"}
+                starSpacing={"4px"}
+              />
+            }
+          </div>
+        )}
         <Typography variant="h3" className={styles["film-name"]}>
           <FormattedMessage id={film.name} defaultMessage="Film not found" />
         </Typography>
@@ -93,33 +95,43 @@ export function ComingSoonFilmCard(props: IComingSoonCard) {
     <div
       className={`${styles.card} ${styles.sessionCard}`}
       style={{
-        backgroundImage: `url(${film.filmImage})`,
+        backgroundImage: `url(${film && film.filmImage})`,
       }}
     >
       <div className={`${styles["info-block"]}`}>
-        <div className={styles["rating"]}>
-          {film.ratings[0] && (
-            <StarRatings
-              rating={
-                film.ratings
-                  .map((rating) => rating.ratingValue)
-                  .reduce((prev, curr) => prev + curr, 0) /
-                film.ratings.length /
-                2
-              }
-              starRatedColor={"orange"}
-              starEmptyColor={"white"}
-              starDimension={"30px"}
-              starSpacing={"4px"}
-            />
-          )}
-        </div>
+        {film.ratings && film.ratings[0] && (
+          <div className={styles["rating"]}>
+            {
+              <StarRatings
+                rating={
+                  film.ratings
+                    .map((rating) => rating.ratingValue)
+                    .reduce((prev, curr) => prev + curr, 0) /
+                  film.ratings.length /
+                  2
+                }
+                starRatedColor={"orange"}
+                starEmptyColor={"white"}
+                starDimension={"30px"}
+                starSpacing={"4px"}
+              />
+            }
+          </div>
+        )}
+
         <Typography variant="h3" className={styles["film-name"]}>
-          <FormattedMessage id={film.name} />
+          <FormattedMessage
+            id={film.name}
+            defaultMessage="Film name not found"
+          />
         </Typography>
         <Typography variant="overline" className={styles.date}>
           <FormattedDate
-            value={new Date(film.releaseDate)}
+            value={
+              film.releaseDate
+                ? new Date(film.releaseDate)
+                : new Date(Date.now())
+            }
             year="numeric"
             month="long"
             day="2-digit"

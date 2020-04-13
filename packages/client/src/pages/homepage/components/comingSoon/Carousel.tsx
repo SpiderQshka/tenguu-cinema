@@ -15,7 +15,7 @@ export interface ICarouselProps extends ComingSoonProps {
 }
 
 export function Carousel(props: ICarouselProps) {
-  const { data: films, handler } = props;
+  const { films, handler } = props;
   const settings = {
     dots: false,
     lazyLoad: "progressive" as LazyLoadTypes,
@@ -31,21 +31,16 @@ export function Carousel(props: ICarouselProps) {
     responsive: [
       {
         breakpoint: 1400,
-        settings: {
-          //slidesToShow: 2,
-        },
+        settings: {},
       },
       {
         breakpoint: 1000,
-        settings: {
-          //  slidesToShow: 1,
-        },
+        settings: {},
       },
       {
         breakpoint: 700,
         settings: {
           centerMode: false,
-          //slidesToShow: 1,
           arrows: false,
         },
       },

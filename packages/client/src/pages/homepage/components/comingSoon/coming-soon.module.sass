@@ -63,17 +63,26 @@
             .filmPhotoBlock
                 align-self: stretch
                 order: 1
-                .filmPhoto
-                    //max-height: 200px
+                flex-shrink: 0
+                flex-basis: 300px
+                background: no-repeat center/cover $secondary-color
             .descriptionBlock
                 display: flex
                 flex-direction: column
                 justify-content: space-between
                 margin: 0 45px
                 order: 2
-                .descriptionText
-                    line-height: 1.7
+                .descriptionOpen
+                    box-shadow: none
+                .descriptionClose
+                    box-shadow: inset 0px -141px 17px -125px $secondary-color
+                .descriptionTextContainer
+                    overflow: hidden
+                    transition: all .7s
                     margin-bottom: $extra-large-margin
+                    height: 70px
+                    .descriptionText
+                        line-height: 1.7
                 .descriptionButtons
                     .filmButton
                         color: $primary-color

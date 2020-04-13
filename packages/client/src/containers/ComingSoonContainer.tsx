@@ -4,12 +4,16 @@ import { ComingSoon } from "pages/homepage/components/comingSoon";
 
 import { IState } from "interfaces/IState";
 import { comingSoonFilmsSelector } from "selectors";
-import { changeActiveFilmForBuying } from "actions/films";
+import {
+  changeActiveFilmForBuying,
+  toggleFilmDescription,
+} from "actions/films";
 import { openBuyTicketModal } from "actions/modals";
 
 const mapStateToProps = (state: IState) => {
   return {
-    data: comingSoonFilmsSelector(state).data,
+    films: comingSoonFilmsSelector(state).data,
+    isDescriptionOpen: state.films.isFilmDescriptionOpen,
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
@@ -17,6 +21,9 @@ const mapDispatchToProps = (dispatch: any) => {
     buyTicket: (filmId: string) => {
       dispatch(changeActiveFilmForBuying(filmId));
       dispatch(openBuyTicketModal());
+    },
+    toggleDescription: () => {
+      dispatch(toggleFilmDescription());
     },
   };
 };

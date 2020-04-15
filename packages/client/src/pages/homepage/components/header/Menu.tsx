@@ -18,6 +18,12 @@ import { HeaderProps } from "containers/HeaderContainer";
 
 export function MenuComponent(props: HeaderProps) {
   const history = useHistory();
+  if (window.location.hash)
+    window.history.pushState(
+      "",
+      document.title,
+      window.location.pathname + window.location.search
+    );
   const [ticketsBtn, setTicketsBtn] = useState(null);
   const [isSearchBarOpen, openSearchBarHandler] = useState(false);
   const intl = useIntl();

@@ -12,7 +12,9 @@ import {
   NumberInput,
   ReferenceField,
   useLocale,
-  useQuery
+  useQuery,
+  required,
+  minLength
 } from "react-admin";
 
 const NameInput = (props: any) => {
@@ -35,7 +37,12 @@ const NameInput = (props: any) => {
       : "Название, англ.";
 
   return (
-    <TextInput {...props} source="ru" label={label} value={data[props.lang]} />
+    <TextInput
+      {...props}
+      source={props.lang}
+      label={label}
+      value={data[props.lang]}
+    />
   );
 };
 
@@ -76,10 +83,12 @@ export const HallEdit = (props: any) => {
         <NumberInput
           source="numberOfRows"
           label={locale === "en" ? "Number of rows" : "Кол-во рядов"}
+          min={1}
         />
         <NumberInput
           source="seatsOnRow"
           label={locale === "en" ? "Seats on row" : "Мест в ряду"}
+          min={1}
         />
       </SimpleForm>
     </Edit>

@@ -22,7 +22,7 @@ const history = createHashHistory({ hashType: "noslash" });
 
 const localeDateMap = {
   en: enDateLocale,
-  ru: ruDateLocale,
+  ru: ruDateLocale
 } as any;
 
 const messages = {
@@ -33,34 +33,34 @@ const messages = {
       page: {
         ...russianMessages.ra.page,
         empty: "Ох, здесь ещё ничего нет",
-        invite: "Впрочем, можно это исправить",
-      },
+        invite: "Впрочем, можно это исправить"
+      }
     },
     resources: {
       halls: {
-        name: "Зал |||| Залы",
+        name: "Зал |||| Залы"
       },
       sessions: {
-        name: "Сеанс |||| Сеансы",
+        name: "Сеанс |||| Сеансы"
       },
       films: {
-        name: "Фильм |||| Фильмы",
+        name: "Фильм |||| Фильмы"
       },
       users: {
-        name: "Пользователь |||| Пользователи",
+        name: "Пользователь |||| Пользователи"
       },
       genres: {
-        name: "Жанр |||| Жанры",
+        name: "Жанр |||| Жанры"
       },
       tickets: {
-        name: "Билет |||| Билеты",
+        name: "Билет |||| Билеты"
       },
       translations: {
-        name: "Перевод |||| Переводы",
-      },
-    },
+        name: "Перевод |||| Переводы"
+      }
+    }
   },
-  en: englishMessages,
+  en: englishMessages
 } as any;
 
 export const AdminPage = (props: any) => {
@@ -73,10 +73,11 @@ export const AdminPage = (props: any) => {
       <Provider
         store={createAdminStore({
           dataProvider: Object.assign(myDataProvider),
-          history,
+          history
         })}
       >
         <Admin
+          loginPage={false}
           dataProvider={Object.assign(myDataProvider)}
           authProvider={{
             logout: () => {
@@ -86,7 +87,7 @@ export const AdminPage = (props: any) => {
             login: () => Promise.resolve(),
             checkAuth: () => Promise.resolve(),
             checkError: () => Promise.resolve(),
-            getPermissions: () => Promise.resolve(),
+            getPermissions: () => Promise.resolve()
           }}
           history={history}
           i18nProvider={polyglotI18nProvider(

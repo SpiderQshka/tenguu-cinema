@@ -7,7 +7,7 @@ import {
   MenuItem,
   Typography,
   Badge,
-  TextField,
+  TextField
 } from "@material-ui/core/";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Switch } from "@material-ui/core";
@@ -22,7 +22,7 @@ export function MenuComponent(props: HeaderProps) {
   const [isSearchBarOpen, openSearchBarHandler] = useState(false);
   const intl = useIntl();
   const {
-    users: { currentUser: userData },
+    users: { currentUser: userData }
   } = props;
 
   const handleClick = (event: any) => {
@@ -40,13 +40,13 @@ export function MenuComponent(props: HeaderProps) {
         onChange={(e: ChangeEvent<{}>, value: any) =>
           value && props.buyTicket(value.id)
         }
-        getOptionLabel={(option) => intl.formatMessage({ id: option.name })}
-        renderOption={(option) => (
+        getOptionLabel={option => intl.formatMessage({ id: option.name })}
+        renderOption={option => (
           <Typography variant="overline">
             {intl.formatMessage({ id: option.name })}
           </Typography>
         )}
-        renderInput={(params) => (
+        renderInput={params => (
           <TextField
             {...params}
             variant="outlined"
@@ -81,7 +81,10 @@ export function MenuComponent(props: HeaderProps) {
         id="menu"
       >
         {userData.id && [
-          <MenuItem className={`${styles.menuItem} ${styles.menuUserBlock}`}>
+          <MenuItem
+            key={1}
+            className={`${styles.menuItem} ${styles.menuUserBlock}`}
+          >
             <Typography variant="body1" className={styles["user_name"]}>
               {props.users.currentUserPending ? (
                 <FormattedMessage
@@ -109,6 +112,7 @@ export function MenuComponent(props: HeaderProps) {
           </MenuItem>,
           userData.status === "admin" && (
             <MenuItem
+              key={2}
               onClick={() => history.push("/admin")}
               className={styles.menuItem}
               id="adminPanelTab"
@@ -120,6 +124,7 @@ export function MenuComponent(props: HeaderProps) {
             </MenuItem>
           ),
           <MenuItem
+            key={3}
             className={`${styles.menuItem} ${styles.menuTicketsBlock}`}
             onClick={() => {
               props.openUserTicketsModal();
@@ -143,7 +148,7 @@ export function MenuComponent(props: HeaderProps) {
               </Typography>
             </Badge>
           </MenuItem>,
-          <MenuItem className={styles.menuItem}>
+          <MenuItem key={4} className={styles.menuItem}>
             <FormattedMessage
               id="homepage.header.menu.changeLang"
               defaultMessage="Change lang"
@@ -162,6 +167,7 @@ export function MenuComponent(props: HeaderProps) {
             />
           </MenuItem>,
           <MenuItem
+            key={5}
             className={styles.menuItem}
             onClick={() => {
               props.logout();
@@ -173,7 +179,7 @@ export function MenuComponent(props: HeaderProps) {
               id="homepage.header.menu.logOut"
               defaultMessage="Log Out"
             />
-          </MenuItem>,
+          </MenuItem>
         ]}
       </Menu>
     </div>

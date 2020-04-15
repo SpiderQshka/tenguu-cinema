@@ -4,6 +4,7 @@ import { IState } from "interfaces/IState";
 import { PageLoader } from "components/loader";
 import ErrorpageContainer from "./ErrorpageContainer";
 import { Homepage } from "pages/homepage";
+import { ErrorBoundary } from "components/errorBoundary";
 
 const mapStateToProps = (state: IState) => {
   return {
@@ -18,7 +19,9 @@ const HomepageContainer = (props: HomepageProps) =>
   ) : props.error ? (
     <ErrorpageContainer />
   ) : (
-    <Homepage />
+    <ErrorBoundary>
+      <Homepage />
+    </ErrorBoundary>
   );
 
 const connector = connect(mapStateToProps);

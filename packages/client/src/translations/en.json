@@ -1,5 +1,6 @@
 {
-  "errorpage.message": "Whops, something went wrong",
+  "errorpage.message": "Whops, something went wrong{linebreak}Сontact technical support",
+  "errorpage.uimessage": "Whops, something went wrong{linebreak}Try to reload the page.",
   "homepage.header.menu.admin": "Admin Panel",
   "homepage.header.menu.changeLang": "Change language",
   "homepage.header.menu.logOut": "Log Out",

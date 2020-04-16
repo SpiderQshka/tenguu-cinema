@@ -16,7 +16,6 @@ app.use(passport.session());
 app.use("/api/auth", routes.auth);
 app.use("/api/films", routes.films);
 app.use("/api/genres", routes.genres);
-app.use("/api/comments", routes.comments);
 app.use("/api/users", routes.users);
 app.use("/api/tickets", routes.tickets);
 app.use("/api/halls", routes.halls);

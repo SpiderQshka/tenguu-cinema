@@ -13,12 +13,12 @@ export const validation = {
     maxSeatsOnRowNumber: 50,
   },
   genre: {
-    minNameSize: 5,
+    minNameSize: 3,
     maxNameSize: 20,
   },
   film: {
-    minNameSize: 5,
-    maxNameSize: 20,
+    minNameSize: 3,
+    maxNameSize: 50,
     minDuration: 10,
     maxDuration: 200,
   },

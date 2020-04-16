@@ -126,8 +126,7 @@ const DescriptionInput = (props: any) => {
       label={label}
       toolbar={[]}
       source={`desc${props.lang === "en" ? "En" : "Ru"}`}
-      placeholder={data[locale]}
-      defaultValue={data[locale]}
+      defaultValue={data[props.lang]}
     />
   );
 };
@@ -155,7 +154,12 @@ const GenreName = (props: any) => {
 
   if (!data || error) return null;
 
-  return <Chip label={data[locale] ? data[locale] : "I18n error."} />;
+  return (
+    <Chip
+      style={{ marginRight: "5px", marginBottom: "5px" }}
+      label={data[locale] ? data[locale] : "I18n error."}
+    />
+  );
 };
 
 const Description = ({ record }: any) => {
@@ -225,9 +229,8 @@ export const FilmList = (props: any) => {
 
 export const FilmEdit = (props: any) => {
   const locale = useLocale();
-
   return (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
       <SimpleForm>
         <NameInput lang="en" />
         <NameInput lang="ru" />
@@ -266,6 +269,7 @@ export const FilmEdit = (props: any) => {
             <NumberInput
               source="ratingValue"
               label={locale === "en" ? "Rating" : "Рейтинг"}
+              validate={[minValue(0), maxValue(10)]}
             />
           </SimpleFormIterator>
         </ArrayInput>
@@ -333,6 +337,7 @@ export const FilmCreate = (props: any) => {
             <NumberInput
               source="ratingValue"
               label={locale === "en" ? "Rating" : "Рейтинг"}
+              validate={[minValue(0), maxValue(10)]}
             />
           </SimpleFormIterator>
         </ArrayInput>

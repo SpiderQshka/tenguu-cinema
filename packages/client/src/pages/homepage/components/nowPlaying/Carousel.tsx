@@ -14,7 +14,7 @@ export function CarouselComponent(props: NowPlayingProps) {
     lazyLoad: "progressive" as LazyLoadTypes,
     infinite: true,
     slidesToShow:
-      films.length > 5 ? 5 : films.length === 1 ? 1 : films.length - 1,
+      films.length > 3 ? 3 : films.length === 1 ? 1 : films.length - 1,
     slidesToScroll: 1,
     nextArrow: <ArrowNext onClick={() => {}} />,
     prevArrow: <ArrowPrev onClick={() => {}} />,

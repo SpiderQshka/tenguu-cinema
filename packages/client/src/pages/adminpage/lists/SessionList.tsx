@@ -126,7 +126,7 @@ export const SessionList = (props: any) => {
 export const SessionEdit = (props: any) => {
   const locale = useLocale();
   return (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
       <SimpleForm>
         <ReferenceInput
           source="film"

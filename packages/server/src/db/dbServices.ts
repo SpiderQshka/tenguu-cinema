@@ -2,19 +2,19 @@ import mongoose, { Mongoose } from "mongoose";
 import { models } from "../models/index";
 import {
   IGenre,
-  IComment,
   ITicket,
   ISession,
   IFilm,
   IUser,
-  IHall
+  IHall,
+  ITranslation,
 } from "../interfaces/interfaces";
 
 export const connectDb = async (url: string): Promise<Mongoose> => {
   return await mongoose.connect(url, {
     useNewUrlParser: true,
     useFindAndModify: false,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   });
 };
 
@@ -32,18 +32,18 @@ export const clearCollection = async (
   }
 };
 
+export const deleteTranslation = async (options: {
+  _id: string;
+}): Promise<ITranslation | null> => {
+  return await models.Translation.findOneAndDelete(options);
+};
+
 export const deleteGenre = async (options: {
   _id: string;
 }): Promise<IGenre | null> => {
+  const genreForDelete = await models.Genre.findById(options._id);
+  await deleteTranslation({ _id: genreForDelete ? genreForDelete?.name : "" });
   return await models.Genre.findOneAndDelete(options);
-};
-
-export const deleteComment = async (options: {
-  filmId?: string;
-  _id?: string;
-}): Promise<IComment | null | void> => {
-  if (options._id) return await models.Comment.findOneAndDelete(options);
-  await models.Comment.deleteMany(options);
 };
 
 export const deleteTicket = async (options: {
@@ -65,7 +65,7 @@ export const deleteSession = async (options: {
     return await models.Session.findOneAndDelete({ _id: options._id });
   } else {
     const sessionsForDelete = await models.Session.find(options);
-    sessionsForDelete.forEach(async session => {
+    sessionsForDelete.forEach(async (session) => {
       await deleteTicket({ sessionId: session._id });
     });
     await models.Session.deleteMany(options);
@@ -78,13 +78,15 @@ export const deleteFilm = async (options: {
 }): Promise<IFilm | null | void> => {
   if (options._id) {
     await deleteSession({ filmId: options._id });
-    await deleteComment({ filmId: options._id });
+    const filmForDelete = await models.Film.findById(options._id);
+    await deleteTranslation({ _id: filmForDelete ? filmForDelete?.name : "" });
     return await models.Film.findOneAndDelete({ _id: options._id });
   } else {
     const filmsForDelete = await models.Film.find(options);
-    filmsForDelete.forEach(async film => {
+    filmsForDelete.forEach(async (film) => {
+      await deleteTranslation({ _id: film ? film?.name : "" });
+      await deleteTranslation({ _id: film ? film?.description : "" });
       await deleteSession({ filmId: film._id });
-      await deleteComment({ filmId: options._id });
     });
     await models.Session.deleteMany(options);
   }
@@ -101,5 +103,7 @@ export const deleteHall = async (options: {
   _id: string;
 }): Promise<IHall | null> => {
   await deleteSession({ hallId: options._id });
+  const hallForDelete = await models.Hall.findById(options._id);
+  await deleteTranslation({ _id: hallForDelete ? hallForDelete?.name : "" });
   return await models.Hall.findOneAndDelete({ _id: options._id });
 };

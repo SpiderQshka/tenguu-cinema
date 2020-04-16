@@ -7,13 +7,14 @@ import { TicketStatuses } from "../types/types";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { getTicketsForClient } from "../db/getDataForClient";
+import { deleteTicket } from "../db/dbServices";
 
 const router: Router = Router();
 
 router.get("/", authenticate, async (req: Request, res: Response) => {
   const tickets = await models.Ticket.find();
 
-  res.set("X-Total-Count", `${tickets.length}`).json(tickets);
+  return res.set("X-Total-Count", `${tickets.length}`).json(tickets);
 });
 
 router.get("/parced", async (req: Request, res: Response) => {
@@ -50,7 +51,7 @@ router.post("/", authenticate, async (req: Request, res: Response) => {
       status: req.body.status as TicketStatuses,
     });
     const addedTicket = await ticket.save();
-    return [addedTicket];
+    return res.json(addedTicket);
   }
 });
 
@@ -97,9 +98,7 @@ router.delete(
     const ticketForDelete = await models.Ticket.findById(req.params.ticketId);
     if (!ticketForDelete) return res.status(404).json("Not found");
 
-    const deletedTicket = await models.Ticket.findByIdAndDelete(
-      req.params.ticketId
-    );
+    const deletedTicket = await deleteTicket({ _id: req.params.ticketId });
 
     return res.json(deletedTicket);
   }

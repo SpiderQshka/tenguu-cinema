@@ -85,7 +85,7 @@ export const HallList = (props: any) => {
 export const HallEdit = (props: any) => {
   const locale = useLocale();
   return (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
       <SimpleForm>
         <NameInput lang="ru" />
         <NameInput lang="en" />

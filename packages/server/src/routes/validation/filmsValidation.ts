@@ -21,19 +21,19 @@ export const filmValidation = async (
         duration: Joi.number()
           .min(15)
           .required(),
-        trailerLink: Joi.string().required(),
+        trailerLink: Joi.string(),
         ratings: Joi.array().items(
           Joi.object({
             ratingValue: Joi.number()
               .min(0)
               .max(10)
               .required(),
-            raterName: Joi.string().required()
+            raterName: Joi.string().required(),
           }).optional()
         ),
         filmImage: Joi.string().optional(),
         releaseDate: Joi.date().required(),
-        description: Joi.string().required()
+        description: Joi.string().required(),
       })
     : Joi.object({
         name: Joi.string().optional(),
@@ -54,12 +54,12 @@ export const filmValidation = async (
               .min(0)
               .max(10)
               .required(),
-            raterName: Joi.string().required()
+            raterName: Joi.string().required(),
           }).optional()
         ),
         filmImage: Joi.string().optional(),
         releaseDate: Joi.date().optional(),
-        description: Joi.string().optional()
+        description: Joi.string().optional(),
       });
 
   const { error = null } = schema.validate(data);
@@ -69,13 +69,13 @@ export const filmValidation = async (
     genreIdsArray: Schema.Types.ObjectId[]
   ) => {
     const promises = genreIdsArray.map(
-      async genreId => await models.Genre.findById(genreId.toString())
+      async (genreId) => await models.Genre.findById(genreId.toString())
     );
     return await Promise.all(promises);
   };
 
-  doesFilmGenresExists(data.genres).then(genres => {
-    if (!genres.every(genre => !!genre))
+  doesFilmGenresExists(data.genres).then((genres) => {
+    if (!genres.every((genre) => !!genre))
       return { error: "Genre not found", code: 404 };
   });
   return { error: null, code: 200 };

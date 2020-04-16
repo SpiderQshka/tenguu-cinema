@@ -54,7 +54,7 @@ export const TicketList = (props: any) => {
 export const TicketEdit = (props: any) => {
   const locale = useLocale();
   return (
-    <Edit {...props} undoable={false}>
+    <Edit {...props} undoable={false} redirect="list">
       <SimpleForm>
         <ReferenceInput
           source="session"

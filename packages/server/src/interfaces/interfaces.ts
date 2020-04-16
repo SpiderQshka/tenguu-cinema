@@ -1,4 +1,3 @@
-import { UserStatuses } from "../types/types";
 import { Schema, Document } from "mongoose";
 
 interface ITicket extends Document {
@@ -8,7 +7,6 @@ interface ITicket extends Document {
     row: number;
     seatNumber: number;
   };
-  status: UserStatuses;
 }
 
 interface IGenre extends Document {
@@ -50,23 +48,9 @@ interface IUser extends Document {
   photo: string;
 }
 
-interface IComment extends Document {
-  content: string;
-  film: Schema.Types.ObjectId;
-}
-
 interface ITranslation extends Document {
   ru: string;
   en: string;
 }
 
-export {
-  ITicket,
-  IGenre,
-  ISession,
-  IFilm,
-  IHall,
-  IUser,
-  IComment,
-  ITranslation
-};
+export { ITicket, IGenre, ISession, IFilm, IHall, IUser, ITranslation };

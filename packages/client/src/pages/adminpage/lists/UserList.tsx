@@ -48,7 +48,7 @@ export const UserList = (props: any) => {
 export const UserEdit = (props: any) => {
   const locale = useLocale();
   return (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
       <SimpleForm>
         <SelectInput
           source="status"

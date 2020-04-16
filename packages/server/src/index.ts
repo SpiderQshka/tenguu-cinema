@@ -10,5 +10,5 @@ app.listen(PORT, async () => {
       console.log("Db connected");
       addAdmin();
     })
-    .catch(e => console.error("DB connection failed", e));
+    .catch((e) => console.error("DB connection failed", e));
 });

@@ -5,47 +5,46 @@ const filmScheme: Schema<IFilm> = new Schema({
   name: {
     type: Schema.Types.ObjectId,
     ref: "Translation",
-    required: true
+    required: true,
   },
   genres: [
     {
       type: Schema.Types.ObjectId,
       ref: "Genre",
-      required: true
-    }
+      required: true,
+    },
   ],
   duration: {
     type: Number,
-    required: true
+    required: true,
   },
   trailerLink: {
     type: String,
-    required: true
   },
   ratings: [
     {
       ratingValue: {
         type: Number,
-        required: true
+        required: true,
       },
       raterName: {
         type: String,
-        required: true
-      }
-    }
+        required: true,
+      },
+    },
   ],
   filmImage: {
-    type: String
+    type: String,
   },
   releaseDate: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: Schema.Types.ObjectId,
     ref: "translation",
-    required: true
-  }
+    required: true,
+  },
 });
 
 filmScheme.set("toJSON", {
@@ -53,7 +52,7 @@ filmScheme.set("toJSON", {
     ret.id = ret._id;
     delete ret._id;
     delete ret.__v;
-  }
+  },
 });
 
 export default model<IFilm>("Film", filmScheme);

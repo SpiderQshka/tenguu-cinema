@@ -39,9 +39,14 @@ export function* buyTicketSaga({ payload }: any) {
     yield put(buyTicketError(data.error));
     yield put(showMessage({ name: "buyTicketError" }));
   } else {
-    for (let i = 0; i < data.body.length; i++) {
-      yield put(buyTicket(data.body[i]));
+    if (Array.isArray(data.body)) {
+      for (let i = 0; i < data.body.length; i++) {
+        yield put(buyTicket(data.body[i]));
+      }
+    } else {
+      yield put(buyTicket(data.body));
     }
+
     yield put(showMessage({ name: "buyTicketSuccess" }));
   }
 }

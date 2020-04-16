@@ -73,7 +73,7 @@ export const GenreList = (props: any) => {
 
 export const GenreEdit = (props: any) => {
   return (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
       <SimpleForm>
         <NameInput lang="ru" />
         <NameInput lang="en" />

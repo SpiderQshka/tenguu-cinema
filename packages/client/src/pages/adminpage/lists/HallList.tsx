@@ -14,15 +14,19 @@ import {
   useLocale,
   useQuery,
   required,
-  minLength
+  minLength,
+  maxLength,
+  minValue,
+  maxValue,
 } from "react-admin";
+import { validation } from "../config";
 
 const NameInput = (props: any) => {
   const locale = useLocale();
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
-    payload: { id: props.record.name }
+    payload: { id: props.record.name },
   });
 
   if (!data || error) return null;
@@ -41,6 +45,11 @@ const NameInput = (props: any) => {
       {...props}
       source={props.lang}
       label={label}
+      validate={[
+        required(),
+        minLength(validation.hall.minNameSize),
+        maxLength(validation.hall.maxNameSize),
+      ]}
       value={data[props.lang]}
     />
   );
@@ -83,12 +92,20 @@ export const HallEdit = (props: any) => {
         <NumberInput
           source="numberOfRows"
           label={locale === "en" ? "Number of rows" : "Кол-во рядов"}
-          min={1}
+          validate={[
+            required(),
+            minValue(validation.hall.minRowsNumber),
+            maxValue(validation.hall.maxRowsNumber),
+          ]}
         />
         <NumberInput
           source="seatsOnRow"
           label={locale === "en" ? "Seats on row" : "Мест в ряду"}
-          min={1}
+          validate={[
+            required(),
+            minValue(validation.hall.minSeatsOnRowNumber),
+            maxValue(validation.hall.maxSeatsOnRowNumber),
+          ]}
         />
       </SimpleForm>
     </Edit>
@@ -105,10 +122,20 @@ export const HallCreate = (props: any) => {
         <NumberInput
           source="numberOfRows"
           label={locale === "en" ? "Number of rows" : "Кол-во рядов"}
+          validate={[
+            required(),
+            minValue(validation.hall.minRowsNumber),
+            maxValue(validation.hall.maxRowsNumber),
+          ]}
         />
         <NumberInput
           source="seatsOnRow"
           label={locale === "en" ? "Seats on row" : "Мест в ряду"}
+          validate={[
+            required(),
+            minValue(validation.hall.minSeatsOnRowNumber),
+            maxValue(validation.hall.maxSeatsOnRowNumber),
+          ]}
         />
       </SimpleForm>
     </Create>

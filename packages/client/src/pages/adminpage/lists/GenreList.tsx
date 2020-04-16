@@ -10,15 +10,19 @@ import {
   TextInput,
   ReferenceField,
   useLocale,
-  useQuery
+  useQuery,
+  required,
+  minLength,
+  maxLength,
 } from "react-admin";
+import { validation } from "../config";
 
 const NameInput = (props: any) => {
   const locale = useLocale();
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
-    payload: { id: props.record.name }
+    payload: { id: props.record.name },
   });
 
   if (!data || error) return null;
@@ -35,8 +39,13 @@ const NameInput = (props: any) => {
   return (
     <TextInput
       {...props}
-      source="ru"
+      source={props.lang}
       label={label}
+      validate={[
+        required(),
+        minLength(validation.genre.minNameSize),
+        maxLength(validation.genre.maxNameSize),
+      ]}
       defaultValue={data[props.lang]}
     />
   );
@@ -78,14 +87,8 @@ export const GenreCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <TextInput
-          source="en"
-          label={locale === "en" ? "Name, en" : "Название, англ."}
-        />
-        <TextInput
-          source="ru"
-          label={locale === "en" ? "Name, ru" : "Название, русск."}
-        />
+        <NameInput lang="ru" />
+        <NameInput lang="en" />
       </SimpleForm>
     </Create>
   );

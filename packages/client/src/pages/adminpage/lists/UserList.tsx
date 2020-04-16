@@ -11,8 +11,14 @@ import {
   TextInput,
   SelectInput,
   PasswordInput,
-  useLocale
+  useLocale,
+  ImageField,
+  minLength,
+  maxLength,
+  required,
+  email,
 } from "react-admin";
+import { validation } from "../config";
 
 export const UserList = (props: any) => {
   const locale = useLocale();
@@ -32,7 +38,7 @@ export const UserList = (props: any) => {
           source="username"
           label={locale === "en" ? "Username" : "Имя пользователя"}
         />
-        <TextField source="photo" label={locale === "en" ? "Photo" : "Фото"} />
+        <ImageField source="photo" label={locale === "en" ? "Photo" : "Фото"} />
         <EditButton />
       </Datagrid>
     </List>
@@ -44,19 +50,26 @@ export const UserEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput
+        <SelectInput
           source="status"
           label={locale === "en" ? "Status" : "Статус"}
-        />
-        <SelectInput
-          source="email"
-          label={locale === "en" ? "Email" : "Адрес эл. почты"}
           choices={[
             { id: "default", name: "Default" },
-            { id: "manager", name: "Manager" }
+            { id: "manager", name: "Manager" },
           ]}
+          validate={[required()]}
         />
         <TextInput
+          source="email"
+          label={locale === "en" ? "Email" : "Адрес эл. почты"}
+          validate={[required(), email()]}
+        />
+        <TextInput
+          validate={[
+            required(),
+            minLength(validation.user.minNameSize),
+            maxLength(validation.user.maxNameSize),
+          ]}
           source="username"
           label={locale === "en" ? "Username" : "Имя пользователя"}
         />
@@ -70,23 +83,31 @@ export const UserCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <TextInput
+        <SelectInput
           source="status"
           label={locale === "en" ? "Status" : "Статус"}
-        />
-        <SelectInput
-          source="email"
-          label={locale === "en" ? "Email" : "Адрес эл. почты"}
           choices={[
             { id: "default", name: "Default" },
-            { id: "manager", name: "Manager" }
+            { id: "manager", name: "Manager" },
           ]}
+          validate={[required()]}
         />
         <TextInput
+          source="email"
+          label={locale === "en" ? "Email" : "Адрес эл. почты"}
+          validate={[required(), email()]}
+        />
+        <TextInput
+          validate={[
+            required(),
+            minLength(validation.user.minNameSize),
+            maxLength(validation.user.maxNameSize),
+          ]}
           source="username"
           label={locale === "en" ? "Username" : "Имя пользователя"}
         />
         <PasswordInput
+          validate={[required()]}
           source="password"
           label={locale === "en" ? "Password" : "Пароль"}
         />

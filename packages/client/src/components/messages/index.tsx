@@ -3,8 +3,7 @@ import { Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { MessageProps } from "containers/MessageContainer";
 import { useIntl } from "react-intl";
-
-const TIME_BEFORE_MESSAGE_CLOSING = 4000;
+import { config } from "config";
 
 export const Message = (props: MessageProps) => {
   const intl = useIntl();
@@ -17,7 +16,7 @@ export const Message = (props: MessageProps) => {
             horizontal: "center",
           }}
           open={true}
-          autoHideDuration={TIME_BEFORE_MESSAGE_CLOSING}
+          autoHideDuration={config.timeBeforeMessageClosing}
           onClose={() => props.hideMessage()}
         >
           <Alert variant="filled" severity="warning">
@@ -36,7 +35,7 @@ export const Message = (props: MessageProps) => {
             horizontal: "center",
           }}
           open={true}
-          autoHideDuration={4000}
+          autoHideDuration={config.timeBeforeMessageClosing}
           onClose={() => props.hideMessage()}
         >
           <Alert severity="success">
@@ -55,7 +54,7 @@ export const Message = (props: MessageProps) => {
             horizontal: "center",
           }}
           open={true}
-          autoHideDuration={4000}
+          autoHideDuration={config.timeBeforeMessageClosing}
           onClose={() => props.hideMessage()}
         >
           <Alert severity="error" variant="filled">
@@ -74,7 +73,7 @@ export const Message = (props: MessageProps) => {
             horizontal: "center",
           }}
           open={true}
-          autoHideDuration={6000}
+          autoHideDuration={config.timeBeforeMessageClosing}
           onClose={() => props.hideMessage()}
         >
           <Alert variant="filled" severity="warning">
@@ -93,13 +92,51 @@ export const Message = (props: MessageProps) => {
             horizontal: "center",
           }}
           open={true}
-          autoHideDuration={6000}
+          autoHideDuration={config.timeBeforeMessageClosing}
           onClose={() => props.hideMessage()}
         >
           <Alert variant="filled" severity="error">
             {intl.formatMessage({
               id: "homepage.messages.deleteTicketError",
               defaultMessage: "Error",
+            })}
+          </Alert>
+        </Snackbar>
+      );
+    case "login":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          autoHideDuration={config.timeBeforeMessageClosing}
+          onClose={() => props.hideMessage()}
+        >
+          <Alert variant="filled" severity="success">
+            {intl.formatMessage({
+              id: "homepage.messages.login",
+              defaultMessage: "Logged in",
+            })}
+          </Alert>
+        </Snackbar>
+      );
+    case "register":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          autoHideDuration={config.timeBeforeMessageClosing}
+          onClose={() => props.hideMessage()}
+        >
+          <Alert variant="filled" severity="success">
+            {intl.formatMessage({
+              id: "homepage.messages.register",
+              defaultMessage: "Regisered!",
             })}
           </Alert>
         </Snackbar>

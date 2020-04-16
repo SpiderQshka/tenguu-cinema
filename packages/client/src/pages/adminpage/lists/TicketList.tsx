@@ -12,7 +12,9 @@ import {
   SelectInput,
   ReferenceField,
   NumberField,
-  useLocale
+  useLocale,
+  required,
+  minValue,
 } from "react-admin";
 
 export const TicketList = (props: any) => {
@@ -52,16 +54,18 @@ export const TicketList = (props: any) => {
 export const TicketEdit = (props: any) => {
   const locale = useLocale();
   return (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
       <SimpleForm>
         <ReferenceInput
           source="session"
+          validate={[required()]}
           reference="sessions"
           label={locale === "en" ? "Session" : "Сеанс"}
         >
           <SelectInput optionText="id" />
         </ReferenceInput>
         <ReferenceInput
+          validate={[required()]}
           source="user"
           reference="users"
           label={locale === "en" ? "User" : "Пользователь"}
@@ -69,10 +73,12 @@ export const TicketEdit = (props: any) => {
           <SelectInput optionText="username" />
         </ReferenceInput>
         <NumberInput
+          validate={[required(), minValue(1)]}
           source="seat.row"
           label={locale === "en" ? "Row" : "Ряд"}
         ></NumberInput>
         <NumberInput
+          validate={[required(), minValue(1)]}
           source="seat.seatNumber"
           label={locale === "en" ? "Seat number" : "Место"}
         ></NumberInput>
@@ -88,12 +94,14 @@ export const TicketCreate = (props: any) => {
       <SimpleForm>
         <ReferenceInput
           source="session"
+          validate={[required()]}
           reference="sessions"
           label={locale === "en" ? "Session" : "Сеанс"}
         >
           <SelectInput optionText="id" />
         </ReferenceInput>
         <ReferenceInput
+          validate={[required()]}
           source="user"
           reference="users"
           label={locale === "en" ? "User" : "Пользователь"}
@@ -101,10 +109,12 @@ export const TicketCreate = (props: any) => {
           <SelectInput optionText="username" />
         </ReferenceInput>
         <NumberInput
+          validate={[required(), minValue(1)]}
           source="seat.row"
           label={locale === "en" ? "Row" : "Ряд"}
         ></NumberInput>
         <NumberInput
+          validate={[required(), minValue(1)]}
           source="seat.seatNumber"
           label={locale === "en" ? "Seat number" : "Место"}
         ></NumberInput>

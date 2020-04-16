@@ -8,7 +8,7 @@ import {
   Typography,
   FormControl,
   InputLabel,
-  Input
+  Input,
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { FormattedMessage } from "react-intl";
@@ -33,13 +33,14 @@ export const SignUpModal = (props: any) => {
     formData.forEach((value, key) => {
       object[key] = value;
     });
-
-    encodeImageFileAsURL(object.photo, async (result: any) => {
-      object.photo = result;
-      const json = JSON.stringify(object);
-      await props.registerUser(json);
-      props.closeRegisterModalRequest();
-    });
+    if (object.photo) {
+      encodeImageFileAsURL(object.photo, async (result: any) => {
+        object.photo = result;
+      });
+    }
+    const json = JSON.stringify(object);
+    await props.registerUser(json);
+    props.closeRegisterModalRequest();
   };
   return (
     <Dialog
@@ -111,7 +112,7 @@ export const SignUpModal = (props: any) => {
               className={styles.input}
             />
           </FormControl>
-          <FormControl required>
+          <FormControl>
             <InputLabel htmlFor="photo">
               <FormattedMessage
                 id="homepage.modal.image"

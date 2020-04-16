@@ -15,6 +15,8 @@ const registerValidation = async (
       .email()
       .required(),
     photo: Joi.string()
+      .empty("")
+      .default(""),
   });
 
   const { error = null } = schema.validate(data);
@@ -36,7 +38,7 @@ const loginValidation = async (
       .required(),
     password: Joi.string()
       .min(6)
-      .required()
+      .required(),
   });
 
   const { error = null } = schema.validate(data);

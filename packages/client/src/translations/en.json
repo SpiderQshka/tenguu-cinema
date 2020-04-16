@@ -55,5 +55,7 @@
   "homepage.messages.buyTicketSuccess": "Ticket(s) bought and added to your tickets!",
   "homepage.messages.buyTicketError": "Error occured while buying ticket",
   "homepage.messages.deleteTicketSuccess": "Deleted!",
-  "homepage.messages.deleteTicketError": "Error occured while deleting ticket"
+  "homepage.messages.deleteTicketError": "Error occured while deleting ticket",
+  "homepage.messages.login": "Logged in!",
+  "homepage.messages.register": "Registered!"
 }

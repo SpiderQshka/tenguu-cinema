@@ -7,7 +7,9 @@ export type MessagesNames =
   | "buyTicketSuccess"
   | "buyTicketError"
   | "deleteTicketSuccess"
-  | "deleteTicketError";
+  | "deleteTicketError"
+  | "login"
+  | "register";
 
 export type IMessageActionTypes = "SHOW_MESSAGE" | "HIDE_MESSAGE";
 

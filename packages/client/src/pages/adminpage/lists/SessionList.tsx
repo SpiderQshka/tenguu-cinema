@@ -14,7 +14,8 @@ import {
   SelectInput,
   ReferenceField,
   useQuery,
-  useLocale
+  useLocale,
+  required,
 } from "react-admin";
 import { DateTimeInput } from "react-admin-date-inputs2";
 
@@ -23,7 +24,7 @@ const HallInput = (props: any) => {
   const { data, error } = useQuery({
     type: "getMany",
     resource: "translations",
-    payload: { ids: props.choices.map((choice: any) => choice.name) }
+    payload: { ids: props.choices.map((choice: any) => choice.name) },
   });
 
   if (!data || error) return null;
@@ -37,7 +38,7 @@ const HallInput = (props: any) => {
     })
     .filter((el: any) => el);
 
-  return <SelectInput {...props} choices={choices} />;
+  return <SelectInput validate={[required()]} {...props} choices={choices} />;
 };
 
 const FilmInput = (props: any) => {
@@ -45,7 +46,7 @@ const FilmInput = (props: any) => {
   const { data, error } = useQuery({
     type: "getMany",
     resource: "translations",
-    payload: { ids: props.choices.map((choice: any) => choice.name) }
+    payload: { ids: props.choices.map((choice: any) => choice.name) },
   });
 
   if (!data || error) return null;
@@ -59,14 +60,14 @@ const FilmInput = (props: any) => {
     })
     .filter((el: any) => el);
 
-  return <SelectInput {...props} choices={choices} />;
+  return <SelectInput validate={[required()]} {...props} choices={choices} />;
 };
 const FilmName = ({ record }: any) => {
   const locale = useLocale();
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
-    payload: { id: record.name }
+    payload: { id: record.name },
   });
 
   if (!data || error) return null;
@@ -79,7 +80,7 @@ const HallName = ({ record }: any) => {
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
-    payload: { id: record.name }
+    payload: { id: record.name },
   });
 
   if (!data || error) return null;
@@ -135,15 +136,17 @@ export const SessionEdit = (props: any) => {
           <FilmInput />
         </ReferenceInput>
         <DateTimeInput
+          validate={[required()]}
           source="dateTime"
           label={locale === "en" ? "Date & time" : "Дата & время"}
           options={{
             format: "dd/mm/yyyy, HH:mm:ss",
             ampm: false,
-            clearable: true
+            clearable: true,
           }}
         />
         <NumberInput
+          validate={[required()]}
           source="price"
           label={locale === "en" ? "Price" : "Цена"}
         />
@@ -172,15 +175,17 @@ export const SessionCreate = (props: any) => {
           <FilmInput />
         </ReferenceInput>
         <DateTimeInput
+          validate={[required()]}
           source="dateTime"
           label={locale === "en" ? "Date & time" : "Дата & время"}
           options={{
             format: "dd/mm/yyyy, HH:mm:ss",
             ampm: false,
-            clearable: true
+            clearable: true,
           }}
         />
         <NumberInput
+          validate={[required()]}
           source="price"
           label={locale === "en" ? "Price" : "Цена"}
         />

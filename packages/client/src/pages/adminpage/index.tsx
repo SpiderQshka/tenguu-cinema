@@ -10,61 +10,31 @@ import { SessionList, SessionEdit, SessionCreate } from "./lists/SessionList";
 import { TicketEdit, TicketCreate, TicketList } from "./lists/TicketList";
 import { UserList, UserCreate, UserEdit } from "./lists/UserList";
 import polyglotI18nProvider from "ra-i18n-polyglot";
-import russianMessages from "ra-language-russian";
-import englishMessages from "ra-language-english";
 import { TranslationList } from "./lists/TranslationList";
 import { myDataProvider } from "./imageDataProvider";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import enDateLocale from "date-fns/locale/en-US";
 import ruDateLocale from "date-fns/locale/ru";
+import { messages, currentLanguage } from "./config";
 const history = createHashHistory({ hashType: "noslash" });
 
 const localeDateMap = {
   en: enDateLocale,
-  ru: ruDateLocale
-} as any;
-
-const messages = {
-  ru: {
-    ...russianMessages,
-    ra: {
-      ...russianMessages.ra,
-      page: {
-        ...russianMessages.ra.page,
-        empty: "Ох, здесь ещё ничего нет",
-        invite: "Впрочем, можно это исправить"
-      }
-    },
-    resources: {
-      halls: {
-        name: "Зал |||| Залы"
-      },
-      sessions: {
-        name: "Сеанс |||| Сеансы"
-      },
-      films: {
-        name: "Фильм |||| Фильмы"
-      },
-      users: {
-        name: "Пользователь |||| Пользователи"
-      },
-      genres: {
-        name: "Жанр |||| Жанры"
-      },
-      tickets: {
-        name: "Билет |||| Билеты"
-      },
-      translations: {
-        name: "Перевод |||| Переводы"
-      }
-    }
-  },
-  en: englishMessages
+  ru: ruDateLocale,
 } as any;
 
 export const AdminPage = (props: any) => {
-  const currentLanguage = window.localStorage.getItem("lang") || "en";
+  const authProvider = {
+    logout: () => {
+      props.history.push("/");
+      return Promise.resolve();
+    },
+    login: () => Promise.resolve(),
+    checkAuth: () => Promise.resolve(),
+    checkError: () => Promise.resolve(),
+    getPermissions: () => Promise.resolve(),
+  };
   return (
     <MuiPickersUtilsProvider
       utils={DateFnsUtils}
@@ -73,22 +43,13 @@ export const AdminPage = (props: any) => {
       <Provider
         store={createAdminStore({
           dataProvider: Object.assign(myDataProvider),
-          history
+          history,
         })}
       >
         <Admin
           loginPage={false}
           dataProvider={Object.assign(myDataProvider)}
-          authProvider={{
-            logout: () => {
-              props.history.push("/");
-              return Promise.resolve();
-            },
-            login: () => Promise.resolve(),
-            checkAuth: () => Promise.resolve(),
-            checkError: () => Promise.resolve(),
-            getPermissions: () => Promise.resolve()
-          }}
+          authProvider={authProvider}
           history={history}
           i18nProvider={polyglotI18nProvider(
             () => messages[currentLanguage],

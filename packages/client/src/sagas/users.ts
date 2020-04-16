@@ -57,6 +57,7 @@ export function* userLoginSaga({ payload }: any) {
     window.localStorage.setItem("auth-token", userData.body.authToken);
 
     yield put(userLogin(userData.body.authToken, userData.body.id));
+    yield put(showMessage({ name: "login" }));
     yield put(fetchCurrentUserRequest());
   }
 }
@@ -70,6 +71,7 @@ export function* userRegisterSaga({ payload }: any) {
     window.localStorage.setItem("auth-token", userData.body.authToken);
 
     yield put(userRegister(userData.body.authToken, userData.body.id));
+    yield put(showMessage({ name: "register" }));
     yield put(fetchCurrentUserRequest());
   }
 }

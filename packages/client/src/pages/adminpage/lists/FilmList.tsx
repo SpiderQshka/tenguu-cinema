@@ -24,7 +24,13 @@ import {
   ImageInput,
   ImageField,
   useQuery,
+  required,
+  minLength,
+  maxLength,
+  minValue,
+  maxValue,
 } from "react-admin";
+import { validation } from "../config";
 import { Chip } from "@material-ui/core";
 import RichTextInput from "ra-input-rich-text";
 
@@ -46,11 +52,15 @@ const NameInput = (props: any) => {
       : locale === "en"
       ? "Name, en"
       : "Название, англ.";
-  console.log(data, props);
 
   return (
     <TextInput
       {...props}
+      validate={[
+        required(),
+        minLength(validation.film.minNameSize),
+        maxLength(validation.film.maxNameSize),
+      ]}
       label={label}
       initialValue={data[props.lang]}
       source={`name${props.lang === "en" ? "En" : "Ru"}`}
@@ -84,6 +94,7 @@ const GenreInput = (props: any) => {
       {...props}
       label={label}
       choices={choices}
+      validate={[required()]}
       optionText="name"
     />
   );
@@ -114,8 +125,9 @@ const DescriptionInput = (props: any) => {
       {...props}
       label={label}
       toolbar={[]}
-      placeholder={data[locale] ? data[locale] : "I18n error."}
-      defaultValue={data[locale] ? data[locale] : "I18n error."}
+      source={`desc${props.lang === "en" ? "En" : "Ru"}`}
+      placeholder={data[locale]}
+      defaultValue={data[locale]}
     />
   );
 };
@@ -129,7 +141,7 @@ const FilmName = ({ record }: any) => {
   });
 
   if (!data || error) return null;
-  return <Chip label={data[locale] ? data[locale] : "I18n error."} />;
+  return <p>{data[locale] ? data[locale] : "I18n error."}</p>;
 };
 
 const GenreName = (props: any) => {
@@ -156,7 +168,11 @@ const Description = ({ record }: any) => {
 
   if (!data || error) return null;
 
-  return <p>{data[locale] ? data[locale] : "I18n error."}</p>;
+  return (
+    <p style={{ minWidth: "300px" }}>
+      {data[locale] ? data[locale] : "I18n error."}
+    </p>
+  );
 };
 
 export const FilmList = (props: any) => {
@@ -227,6 +243,11 @@ export const FilmEdit = (props: any) => {
           label={
             locale === "en" ? "Duration, minutes" : "Длительность, в минутах"
           }
+          validate={[
+            required(),
+            minValue(validation.film.minDuration),
+            maxValue(validation.film.maxDuration),
+          ]}
         />
         <TextInput
           source="trailerLink"
@@ -252,6 +273,7 @@ export const FilmEdit = (props: any) => {
           source="filmImage"
           accept="image/*"
           multiple={false}
+          validate={[required()]}
           label={locale === "en" ? "Image" : "Картинка"}
         >
           <ImageField source="src" title="title" />
@@ -259,6 +281,7 @@ export const FilmEdit = (props: any) => {
 
         <DateInput
           source="releaseDate"
+          validate={[required()]}
           label={locale === "en" ? "Release date" : "Дата выхода"}
         />
         <DescriptionInput lang="en" />
@@ -273,14 +296,8 @@ export const FilmCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <TextInput
-          label={locale === "en" ? "Name, en" : "Название, англ."}
-          source="nameEn"
-        />
-        <TextInput
-          label={locale === "en" ? "Name, ru" : "Название, русск."}
-          source="nameRu"
-        />
+        <NameInput lang="en" />
+        <NameInput lang="ru" />
         <ReferenceArrayInput
           source="genres"
           reference="genres"
@@ -293,6 +310,11 @@ export const FilmCreate = (props: any) => {
           label={
             locale === "en" ? "Duration, minutes" : "Длительность, в минутах"
           }
+          validate={[
+            required(),
+            minValue(validation.film.minDuration),
+            maxValue(validation.film.maxDuration),
+          ]}
         />
         <TextInput
           source="trailerLink"
@@ -318,6 +340,7 @@ export const FilmCreate = (props: any) => {
           source="filmImage"
           accept="image/*"
           multiple={false}
+          validate={[required()]}
           label={locale === "en" ? "Image" : "Картинка"}
         >
           <ImageField source="src" title="title" />
@@ -325,18 +348,11 @@ export const FilmCreate = (props: any) => {
 
         <DateInput
           source="releaseDate"
+          validate={[required()]}
           label={locale === "en" ? "Release date" : "Дата выхода"}
         />
-        <RichTextInput
-          source="descRu"
-          toolbar={[]}
-          label={locale === "en" ? "Description, ru" : "Описание, русск."}
-        />
-        <RichTextInput
-          source="descEn"
-          toolbar={[]}
-          label={locale === "en" ? "Description, en" : "Описание, англ."}
-        />
+        <DescriptionInput lang="en" />
+        <DescriptionInput lang="ru" />
       </SimpleForm>
     </Create>
   );

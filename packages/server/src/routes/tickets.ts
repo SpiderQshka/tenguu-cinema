@@ -32,7 +32,7 @@ router.post("/", authenticate, async (req: Request, res: Response) => {
         session: ticketData.session,
         user: ticketData.user,
         seat: ticketData.seat,
-        status: ticketData.status as TicketStatuses
+        status: ticketData.status as TicketStatuses,
       });
       return await ticket.save();
     });
@@ -47,7 +47,7 @@ router.post("/", authenticate, async (req: Request, res: Response) => {
       session: req.body.session,
       user: req.body.user,
       seat: req.body.seat,
-      status: req.body.status as TicketStatuses
+      status: req.body.status as TicketStatuses,
     });
     const addedTicket = await ticket.save();
     return [addedTicket];

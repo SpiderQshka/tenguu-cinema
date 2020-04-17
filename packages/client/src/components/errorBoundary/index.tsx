@@ -1,5 +1,5 @@
 import React from "react";
-import { PageUIError } from "pages/errorpage/index";
+import { PageUIError } from "pages/errorpage";
 
 interface IProps {}
 

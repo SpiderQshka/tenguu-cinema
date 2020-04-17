@@ -54,7 +54,6 @@ export function Profile(props: HeaderProps) {
                   : 0
               }
               color="primary"
-              showZero
             >
               <Button
                 onClick={props.openUserTicketsModal}

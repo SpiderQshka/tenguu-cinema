@@ -27,13 +27,7 @@ export function CarouselComponent(props: NowPlayingProps) {
         },
       },
       {
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-      {
-        breakpoint: 700,
+        breakpoint: 800,
         settings: {
           slidesToShow: 1,
           arrows: false,

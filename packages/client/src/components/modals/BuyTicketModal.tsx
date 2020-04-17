@@ -10,7 +10,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Badge
+  Badge,
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { ISession } from "interfaces/ISession";
@@ -32,7 +32,6 @@ interface IBuyTicketModal {
   changeActiveSession: (id: string) => void;
   closeModalRequest: () => void;
   closeModal: () => void;
-  // changeTicketsForBuying: (tickets: number) => void;
 }
 
 export const BuyTicketModal = (props: IBuyTicketModal) => {
@@ -59,7 +58,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
     const elements = result.map((row, i) => {
       const result = row.map((el, j) => {
         const isSeatTaken = props.tickets.data.some(
-          ticket =>
+          (ticket) =>
             ticket.seat.row === i + 1 &&
             ticket.seat.seatNumber === j + 1 &&
             ticket.session === props.currentSession.id
@@ -121,8 +120,8 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
           ...object[key],
           {
             row: +value.slice(0, value.indexOf("-")) + 1,
-            seatNumber: +value.slice(value.indexOf("-") + 1) + 1
-          }
+            seatNumber: +value.slice(value.indexOf("-") + 1) + 1,
+          },
         ];
       } else object[key] = value;
     });
@@ -140,9 +139,9 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
   };
   const areSessionsExists =
     props.currentFilm &&
-    props.sessions.some(session => session.film.id === props.currentFilm.id);
+    props.sessions.some((session) => session.film.id === props.currentFilm.id);
   return (
-    <Dialog fullScreen scroll="body" open={props.isBuyTicketModalOpen}>
+    <Dialog fullScreen open={props.isBuyTicketModalOpen}>
       <DialogTitle>
         <FormattedMessage
           id="homepage.modal.buyTicket.title"
@@ -177,7 +176,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
         )}
         {props.currentFilm &&
           props.sessions.some(
-            session => session.film.id === props.currentFilm.id
+            (session) => session.film.id === props.currentFilm.id
           ) && (
             <form
               name="form"
@@ -200,8 +199,10 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
                   onChange={handleSessionChange}
                 >
                   {props.sessions
-                    .filter(session => session.film.id === props.currentFilm.id)
-                    .map(session => (
+                    .filter(
+                      (session) => session.film.id === props.currentFilm.id
+                    )
+                    .map((session) => (
                       <MenuItem value={session.id} key={session.id}>
                         <FormattedDate
                           value={new Date(session.dateTime)}
@@ -240,7 +241,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
       <DialogActions>
         {props.currentFilm &&
           props.sessions.some(
-            session => session.film.id === props.currentFilm.id
+            (session) => session.film.id === props.currentFilm.id
           ) && (
             <Badge badgeContent={ticketsForBuyingAmount} color="primary">
               <Button

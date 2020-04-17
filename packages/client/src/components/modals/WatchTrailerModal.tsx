@@ -4,7 +4,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button
+  Button,
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { FormattedMessage } from "react-intl";
@@ -29,11 +29,13 @@ export const WatchTrailerModal = (props: any) => {
         "
       </DialogTitle>
       <DialogContent dividers>
-        <iframe
-          className={styles.filmTrailer}
-          title="Trailer"
-          src={props.film && props.film.trailerLink}
-        ></iframe>
+        {props.film && props.film.trailerLink && (
+          <iframe
+            className={styles.filmTrailer}
+            title="Trailer"
+            src={props.film.trailerLink}
+          ></iframe>
+        )}
       </DialogContent>
       <DialogActions>
         <Button

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import styles from "./coming-soon.module.sass";
 import { IFilm } from "interfaces/IFilm";
 import { Typography, Chip, Fab } from "@material-ui/core/";
@@ -24,11 +24,21 @@ export const FilmBlock = (props: IFilmBlock) => {
   const intl = useIntl();
   const descTextContainerRef = useRef(null);
   const descTextRef = useRef(null);
+  useEffect(() => {
+    if (isDescriptionOpen) {
+      const descTextContainer = descTextContainerRef.current as any;
+      const descText = descTextRef.current as any;
+      descTextContainer.style.height = `${descText.offsetHeight +
+        descText.scrollHeight}px`;
+    }
+  }, [film]);
   const handleDescSizeChange = () => {
     const descTextContainer = descTextContainerRef.current as any;
     const descText = descTextRef.current as any;
     if (isDescriptionOpen) {
-      descTextContainer.style.height = "70px";
+      descTextContainer.style.height = `${
+        descText.offsetHeight > 50 ? 50 : 50
+      }px`;
     } else {
       descTextContainer.style.height = `${descText.offsetHeight +
         descText.scrollHeight}px`;
@@ -62,23 +72,27 @@ export const FilmBlock = (props: IFilmBlock) => {
             <FormattedMessage id={film.name} />
           </Typography>
           <div>
-            <Chip
-              icon={<FontAwesomeIcon icon={faClock} className={styles.icon} />}
-              label={
-                <FormattedDate
-                  value={
-                    film.releaseDate
-                      ? new Date(film.releaseDate)
-                      : new Date(Date.now())
-                  }
-                  year="numeric"
-                  month="long"
-                  day="2-digit"
-                  hour12={true}
-                />
-              }
-              color="secondary"
-            />
+            {film.releaseDate && (
+              <Chip
+                icon={
+                  <FontAwesomeIcon icon={faClock} className={styles.icon} />
+                }
+                label={
+                  <FormattedDate
+                    value={
+                      film.releaseDate
+                        ? new Date(film.releaseDate)
+                        : new Date(Date.now())
+                    }
+                    year="numeric"
+                    month="long"
+                    day="2-digit"
+                    hour12={true}
+                  />
+                }
+                color="secondary"
+              />
+            )}
           </div>
         </div>
         <div className={styles.descriptionAndRatingsBlock}>
@@ -110,7 +124,6 @@ export const FilmBlock = (props: IFilmBlock) => {
                     {intl.formatMessage({ id: film.description })}
                   </span>
                 ) : (
-                  //intl.formatMessage({ id: film.description })
                   <FormattedMessage
                     id="homepage.comingSoon.filmDescription"
                     defaultMessage="Description isn't provided."

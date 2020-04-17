@@ -42,7 +42,10 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
       </DialogTitle>
       <DialogContent dividers>
         {!props.tickets[0] ? (
-          <Typography variant="h6" className={styles.noTicketsWarningText}>
+          <Typography
+            variant="overline"
+            className={styles.noTicketsWarningText}
+          >
             <FormattedMessage
               id="homepage.modal.userTicketsModal.noTicketsWarning"
               defaultMessage="No tickets"

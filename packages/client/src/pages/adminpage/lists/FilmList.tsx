@@ -77,13 +77,12 @@ const GenreInput = (props: any) => {
   });
 
   if (!data || error) return null;
-
   const choices = data
     .map((obj: { ru: string; en: string; id: string }) => {
       const result = props.choices.filter(
         (choice: { name: string; id: string }) => choice.name === obj.id
       );
-      return result[0] ? { name: obj[locale], id: obj.id } : null;
+      return result[0] ? { name: obj[locale], id: result[0].id } : null;
     })
     .filter((el: any) => el);
 

@@ -18,15 +18,15 @@ export function OurSkills() {
       />
       <div className={styles.content}>
         <div className={styles.element}>
-          <Typography variant="h3" className={styles.elementHeader}>
+          <Typography variant="h4" className={styles.elementHeader}>
             <FormattedMessage
-              id="homepage.ourSkills.skillName"
+              id="homepage.ourSkills.skillName1"
               defaultMessage="IMAX@"
             />
           </Typography>
           <Typography variant="body1" className={styles.elementMessage}>
             <FormattedMessage
-              id="homepage.ourSkills.skillMessage"
+              id="homepage.ourSkills.skillMessage1"
               defaultMessage="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere
             vero ipsam a cumque saepe eius repellendus consequuntur dolorum ut.
             Nihil?"
@@ -34,15 +34,15 @@ export function OurSkills() {
           </Typography>
         </div>
         <div className={styles.element}>
-          <Typography variant="h3" className={styles.elementHeader}>
+          <Typography variant="h4" className={styles.elementHeader}>
             <FormattedMessage
-              id="homepage.ourSkills.skillName"
+              id="homepage.ourSkills.skillName2"
               defaultMessage="IMAX@"
             />
           </Typography>
           <Typography variant="body1" className={styles.elementMessage}>
             <FormattedMessage
-              id="homepage.ourSkills.skillMessage"
+              id="homepage.ourSkills.skillMessage2"
               defaultMessage="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere
             vero ipsam a cumque saepe eius repellendus consequuntur dolorum ut.
             Nihil?"
@@ -50,15 +50,15 @@ export function OurSkills() {
           </Typography>
         </div>
         <div className={styles.element}>
-          <Typography variant="h3" className={styles.elementHeader}>
+          <Typography variant="h4" className={styles.elementHeader}>
             <FormattedMessage
-              id="homepage.ourSkills.skillName"
+              id="homepage.ourSkills.skillName3"
               defaultMessage="IMAX@"
             />
           </Typography>
           <Typography variant="body1" className={styles.elementMessage}>
             <FormattedMessage
-              id="homepage.ourSkills.skillMessage"
+              id="homepage.ourSkills.skillMessage3"
               defaultMessage="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere
             vero ipsam a cumque saepe eius repellendus consequuntur dolorum ut.
             Nihil?"
@@ -66,15 +66,15 @@ export function OurSkills() {
           </Typography>
         </div>
         <div className={styles.element}>
-          <Typography variant="h3" className={styles.elementHeader}>
+          <Typography variant="h4" className={styles.elementHeader}>
             <FormattedMessage
-              id="homepage.ourSkills.skillName"
+              id="homepage.ourSkills.skillName4"
               defaultMessage="IMAX@"
             />
           </Typography>
           <Typography variant="body1" className={styles.elementMessage}>
             <FormattedMessage
-              id="homepage.ourSkills.skillMessage"
+              id="homepage.ourSkills.skillMessage4"
               defaultMessage="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere
             vero ipsam a cumque saepe eius repellendus consequuntur dolorum ut.
             Nihil?"
@@ -82,15 +82,15 @@ export function OurSkills() {
           </Typography>
         </div>
         <div className={styles.element}>
-          <Typography variant="h3" className={styles.elementHeader}>
+          <Typography variant="h4" className={styles.elementHeader}>
             <FormattedMessage
-              id="homepage.ourSkills.skillName"
+              id="homepage.ourSkills.skillName5"
               defaultMessage="IMAX@"
             />
           </Typography>
           <Typography variant="body1" className={styles.elementMessage}>
             <FormattedMessage
-              id="homepage.ourSkills.skillMessage"
+              id="homepage.ourSkills.skillMessage5"
               defaultMessage="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere
             vero ipsam a cumque saepe eius repellendus consequuntur dolorum ut.
             Nihil?"
@@ -98,15 +98,15 @@ export function OurSkills() {
           </Typography>
         </div>
         <div className={styles.element}>
-          <Typography variant="h3" className={styles.elementHeader}>
+          <Typography variant="h4" className={styles.elementHeader}>
             <FormattedMessage
-              id="homepage.ourSkills.skillName"
+              id="homepage.ourSkills.skillName6"
               defaultMessage="IMAX@"
             />
           </Typography>
           <Typography variant="body1" className={styles.elementMessage}>
             <FormattedMessage
-              id="homepage.ourSkills.skillMessage"
+              id="homepage.ourSkills.skillMessage6"
               defaultMessage="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere
             vero ipsam a cumque saepe eius repellendus consequuntur dolorum ut.
             Nihil?"

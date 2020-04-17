@@ -28,20 +28,20 @@ router.post(
   async (req: Request, res: Response) => {
     const { error: e, code: c } = await translationValidation({
       ru: req.body.descRu,
-      en: req.body.descEn
+      en: req.body.descEn,
     });
     const { error: er, code: co } = await translationValidation({
       ru: req.body.nameRu,
-      en: req.body.nameEn
+      en: req.body.nameEn,
     });
     if (e || er) return res.status(c || co).json(e || er);
     const nameTranslation = new models.Translation({
       ru: req.body.nameRu,
-      en: req.body.nameEn
+      en: req.body.nameEn,
     });
     const descTranslation = new models.Translation({
       ru: req.body.descRu,
-      en: req.body.descEn
+      en: req.body.descEn,
     });
     const newDescTranslation = await descTranslation.save();
     const newNameTranslation = await nameTranslation.save();
@@ -54,14 +54,14 @@ router.post(
     const { error, code } = await filmValidation({
       ...req.body,
       name: newNameTranslation._id.toHexString(),
-      description: newDescTranslation._id.toHexString()
+      description: newDescTranslation._id.toHexString(),
     });
     if (error) return res.status(code).json(error);
 
     const film = new models.Film({
       ...req.body,
       name: newNameTranslation._id.toHexString(),
-      description: newDescTranslation._id.toHexString()
+      description: newDescTranslation._id.toHexString(),
     });
     const newFilm = await film.save();
 
@@ -96,12 +96,12 @@ router.put(
 
     await models.Translation.findByIdAndUpdate(film?.name, {
       ru: req.body.nameRu ? req.body.nameRu : nameTranslation?.ru,
-      en: req.body.nameEn ? req.body.nameEn : nameTranslation?.en
+      en: req.body.nameEn ? req.body.nameEn : nameTranslation?.en,
     });
 
     await models.Translation.findByIdAndUpdate(film?.description, {
       ru: req.body.descRu ? req.body.descRu : descTranslation?.ru,
-      en: req.body.descEn ? req.body.descEn : descTranslation?.en
+      en: req.body.descEn ? req.body.descEn : descTranslation?.en,
     });
 
     delete req.body.nameRu;
@@ -110,12 +110,12 @@ router.put(
     delete req.body.descEn;
 
     const { error, code } = await filmValidation({
-      ...req.body
+      ...req.body,
     });
     if (error) return res.status(code).json(error);
 
     const updatedFilm = await models.Film.findByIdAndUpdate(req.params.filmId, {
-      ...req.body
+      ...req.body,
     });
 
     if (!updatedFilm) return res.status(404).json("Film not found");

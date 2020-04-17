@@ -21,7 +21,7 @@ export function Carousel(props: ICarouselProps) {
     lazyLoad: "progressive" as LazyLoadTypes,
     infinite: true,
     slidesToShow:
-      films.length > 5 ? 5 : films.length - 1 ? films.length - 1 : 1,
+      films.length > 3 ? 3 : films.length - 1 ? films.length - 1 : 1,
     slidesToScroll: 1,
     nextArrow: <ArrowNext onClick={() => {}} />,
     prevArrow: <ArrowPrev onClick={() => {}} />,
@@ -35,13 +35,15 @@ export function Carousel(props: ICarouselProps) {
       },
       {
         breakpoint: 1000,
-        settings: {},
+        // centerMode: false,
+        settings: { slidesToShow: 2 },
       },
       {
-        breakpoint: 700,
+        breakpoint: 800,
         settings: {
-          centerMode: false,
+          // centerMode: false,
           arrows: false,
+          slidesToShow: 1,
         },
       },
     ],

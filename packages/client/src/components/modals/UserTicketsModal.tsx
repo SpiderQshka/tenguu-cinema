@@ -10,7 +10,7 @@ import {
   ListItemAvatar,
   ListItemText,
   ListItemSecondaryAction,
-  IconButton
+  IconButton,
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { FormattedMessage, FormattedDate, useIntl } from "react-intl";
@@ -51,7 +51,7 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
         ) : (
           <List>
             {props.tickets &&
-              props.tickets.map(ticket => {
+              props.tickets.map((ticket) => {
                 const currentSession = props.sessions.filter(
                   (session: ISession) => ticket.session === session.id
                 )[0];
@@ -105,9 +105,9 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
                               :
                             </Typography>
                             {`${intl.formatMessage({
-                              id: "homepage.modal.userTicketsModal.row"
+                              id: "homepage.modal.userTicketsModal.row",
                             })} ${ticket.seat.row}, ${intl.formatMessage({
-                              id: "homepage.modal.userTicketsModal.seatNumber"
+                              id: "homepage.modal.userTicketsModal.seatNumber",
                             })} ${ticket.seat.seatNumber}`}
                           </div>
                           <div className={styles.ticketDataItem}>

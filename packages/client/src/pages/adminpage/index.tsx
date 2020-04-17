@@ -16,7 +16,8 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import enDateLocale from "date-fns/locale/en-US";
 import ruDateLocale from "date-fns/locale/ru";
-import { messages, currentLanguage } from "./config";
+import { messages } from "./config";
+import { config } from "config";
 const history = createHashHistory({ hashType: "noslash" });
 
 const localeDateMap = {
@@ -25,6 +26,7 @@ const localeDateMap = {
 } as any;
 
 export const AdminPage = (props: any) => {
+  const currentLanguage = window.localStorage.getItem("lang") || "en";
   const authProvider = {
     logout: () => {
       props.history.push("/");
@@ -47,6 +49,7 @@ export const AdminPage = (props: any) => {
         })}
       >
         <Admin
+          theme={config.theme}
           loginPage={false}
           dataProvider={Object.assign(myDataProvider)}
           authProvider={authProvider}

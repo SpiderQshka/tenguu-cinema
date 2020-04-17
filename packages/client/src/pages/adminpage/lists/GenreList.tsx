@@ -83,7 +83,6 @@ export const GenreEdit = (props: any) => {
 };
 
 export const GenreCreate = (props: any) => {
-  const locale = useLocale();
   return (
     <Create {...props}>
       <SimpleForm>

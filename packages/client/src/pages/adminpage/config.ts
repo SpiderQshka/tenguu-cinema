@@ -1,8 +1,6 @@
 import russianMessages from "ra-language-russian";
 import englishMessages from "ra-language-english";
 
-export const currentLanguage = window.localStorage.getItem("lang") || "en";
-
 export const validation = {
   hall: {
     minNameSize: 5,

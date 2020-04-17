@@ -14,8 +14,9 @@ import styles from "./modals.module.sass";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { SignInModalProps } from "containers/modals/SignInModalContainer";
 
-export const SignInModal = (props: any) => {
+export const SignInModal = (props: SignInModalProps) => {
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);

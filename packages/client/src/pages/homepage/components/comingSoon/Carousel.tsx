@@ -9,6 +9,7 @@ import styles from "./coming-soon.module.sass";
 import CarouselSlick, { LazyLoadTypes } from "react-slick";
 import { IFilm } from "interfaces/IFilm";
 import { ComingSoonProps } from "containers/ComingSoonContainer";
+import { CenterLoader } from "components/loader";
 
 export interface ICarouselProps extends ComingSoonProps {
   handler: (n: number) => void;
@@ -21,7 +22,11 @@ export function Carousel(props: ICarouselProps) {
     lazyLoad: "progressive" as LazyLoadTypes,
     infinite: true,
     slidesToShow:
-      films.length > 3 ? 3 : films.length - 1 ? films.length - 1 : 1,
+      films.data.length > 3
+        ? 3
+        : films.data.length - 1
+        ? films.data.length - 1
+        : 1,
     slidesToScroll: 1,
     nextArrow: <ArrowNext onClick={() => {}} />,
     prevArrow: <ArrowPrev onClick={() => {}} />,
@@ -35,13 +40,11 @@ export function Carousel(props: ICarouselProps) {
       },
       {
         breakpoint: 1000,
-        // centerMode: false,
         settings: { slidesToShow: 2 },
       },
       {
         breakpoint: 800,
         settings: {
-          // centerMode: false,
           arrows: false,
           slidesToShow: 1,
         },
@@ -50,9 +53,13 @@ export function Carousel(props: ICarouselProps) {
   };
   return (
     <CarouselSlick {...settings} className={styles["slick-slider"]}>
-      {films.map((film: IFilm) => {
-        return <ComingSoonFilmCard item={film} key={film.id} />;
-      })}
+      {films.pending ? (
+        <CenterLoader />
+      ) : (
+        films.data.map((film: IFilm) => {
+          return <ComingSoonFilmCard item={film} key={film.id} />;
+        })
+      )}
     </CarouselSlick>
   );
 }

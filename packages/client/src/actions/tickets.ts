@@ -17,13 +17,13 @@ export const CHANGE_TICKETS_FOR_BUYING = "CHANGE_TICKETS_FOR_BUYING";
 
 export const fetchTicketsRequest = () => {
   return {
-    type: FETCH_TICKETS_REQUEST
+    type: FETCH_TICKETS_REQUEST,
   };
 };
 
 export const fetchTicketsPending = () => {
   return {
-    type: FETCH_TICKETS_PENDING
+    type: FETCH_TICKETS_PENDING,
   };
 };
 
@@ -31,8 +31,8 @@ export const fetchTicketsSuccess = (tickets: ITicket[]) => {
   return {
     type: FETCH_TICKETS_SUCCESS,
     payload: {
-      data: tickets
-    }
+      data: tickets,
+    },
   };
 };
 
@@ -40,17 +40,17 @@ export const fetchTicketsError = (error: Error) => {
   return {
     type: FETCH_TICKETS_ERROR,
     payload: {
-      error
-    }
+      error,
+    },
   };
 };
 
-export const buyTicketRequest = (data: JSON) => {
+export const buyTicketRequest = (data: string) => {
   return {
     type: BUY_TICKET_REQUEST,
     payload: {
-      data
-    }
+      data,
+    },
   };
 };
 
@@ -58,8 +58,8 @@ export const buyTicket = (data: any) => {
   return {
     type: BUY_TICKET,
     payload: {
-      data
-    }
+      data,
+    },
   };
 };
 
@@ -67,8 +67,8 @@ export const buyTicketError = (error: Error) => {
   return {
     type: BUY_TICKET_ERROR,
     payload: {
-      error
-    }
+      error,
+    },
   };
 };
 
@@ -76,8 +76,8 @@ export const deleteTicketRequest = (id: any) => {
   return {
     type: DELETE_TICKET_REQUEST,
     payload: {
-      id
-    }
+      id,
+    },
   };
 };
 
@@ -85,8 +85,8 @@ export const deleteTicket = (id: any) => {
   return {
     type: DELETE_TICKET,
     payload: {
-      ticketForDeleteId: id
-    }
+      ticketForDeleteId: id,
+    },
   };
 };
 
@@ -94,7 +94,7 @@ export const changeTicketsForBuying = (amount: number) => {
   return {
     type: CHANGE_TICKETS_FOR_BUYING,
     payload: {
-      ticketsForBuyingAmount: amount
-    }
+      ticketsForBuyingAmount: amount,
+    },
   };
 };

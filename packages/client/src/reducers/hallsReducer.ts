@@ -1,15 +1,15 @@
 import {
   FETCH_HALLS_ERROR,
   FETCH_HALLS_PENDING,
-  FETCH_HALLS_SUCCESS
+  FETCH_HALLS_SUCCESS,
 } from "../actions/halls";
 
 import { IHall, IHallAction } from "interfaces/IHall";
 
 const initialState = {
-  pending: false,
+  pending: true,
   data: [] as IHall[],
-  error: null
+  error: null,
 };
 
 export const hallsReducer = (state = initialState, action: IHallAction) => {
@@ -17,19 +17,19 @@ export const hallsReducer = (state = initialState, action: IHallAction) => {
     case FETCH_HALLS_PENDING:
       return {
         ...state,
-        pending: true
+        pending: true,
       };
     case FETCH_HALLS_SUCCESS:
       return {
         ...state,
         data: action.payload.data,
-        pending: false
+        pending: false,
       };
     case FETCH_HALLS_ERROR:
       return {
         ...state,
         error: action.payload.error,
-        pending: false
+        pending: false,
       };
     default:
       return state;

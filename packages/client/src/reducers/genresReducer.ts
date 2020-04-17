@@ -1,14 +1,14 @@
 import {
   FETCH_GENRES_ERROR,
   FETCH_GENRES_PENDING,
-  FETCH_GENRES_SUCCESS
+  FETCH_GENRES_SUCCESS,
 } from "actions/genres";
 import { IGenre, IGenresAction } from "interfaces/IGenre";
 
 const initialState = {
-  pending: false,
+  pending: true,
   data: [] as IGenre[],
-  error: null
+  error: null,
 };
 
 export const genresReducer = (state = initialState, action: IGenresAction) => {
@@ -16,19 +16,19 @@ export const genresReducer = (state = initialState, action: IGenresAction) => {
     case FETCH_GENRES_PENDING:
       return {
         ...state,
-        pending: true
+        pending: true,
       };
     case FETCH_GENRES_SUCCESS:
       return {
         ...state,
         data: action.payload.data,
-        pending: false
+        pending: false,
       };
     case FETCH_GENRES_ERROR:
       return {
         ...state,
         error: action.payload.error,
-        pending: false
+        pending: false,
       };
     default:
       return state;

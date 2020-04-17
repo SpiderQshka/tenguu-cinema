@@ -8,8 +8,9 @@ import {
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { FormattedMessage } from "react-intl";
+import { WatchTrailerModalProps } from "containers/modals/WatchTrailerModalContailner";
 
-export const WatchTrailerModal = (props: any) => {
+export const WatchTrailerModal = (props: WatchTrailerModalProps) => {
   return (
     <Dialog
       fullScreen

@@ -13,28 +13,13 @@ import {
   Badge,
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
-import { ISession } from "interfaces/ISession";
-import { IFilm } from "interfaces/IFilm";
-import { IHall } from "interfaces/IHall";
-import { ITicketsPayload } from "interfaces/ITicket";
 import { FormattedMessage, FormattedDate, FormattedTime } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { BuyTicketModalProps } from "containers/modals/BuyTicketModalContainer";
+import { CenterLoader } from "components/loader";
 
-interface IBuyTicketModal {
-  currentFilm: IFilm;
-  currentSession: ISession;
-  isBuyTicketModalOpen: boolean;
-  sessions: ISession[];
-  halls: IHall[];
-  tickets: ITicketsPayload;
-  buyTicket: (data: any) => void;
-  changeActiveSession: (id: string) => void;
-  closeModalRequest: () => void;
-  closeModal: () => void;
-}
-
-export const BuyTicketModal = (props: IBuyTicketModal) => {
+export const BuyTicketModal = (props: BuyTicketModalProps) => {
   const [ticketsForBuyingAmount, handleChangeTicketsForBuying] = useState(0);
   const handleActiveTicketsChange = (e: any) => {
     const forms = document.forms as any;
@@ -139,7 +124,9 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
   };
   const areSessionsExists =
     props.currentFilm &&
-    props.sessions.some((session) => session.film.id === props.currentFilm.id);
+    props.sessions.data.some(
+      (session) => session.film.id === props.currentFilm.id
+    );
   return (
     <Dialog fullScreen open={props.isBuyTicketModalOpen}>
       <DialogTitle>
@@ -158,24 +145,28 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
         "
       </DialogTitle>
       <DialogContent dividers>
-        {(props.tickets.error || !areSessionsExists) && (
-          <Typography variant="overline" className={styles.errorMsg}>
-            <FontAwesomeIcon
-              icon={faExclamationCircle}
-              className={styles.errorIcon}
-            />
-            {!areSessionsExists ? (
-              <FormattedMessage
-                id="homepage.modal.buyTicket.noSessionsError"
-                defaultMessage="Whops, film doesn't have any sessions yet"
+        {props.tickets.pending || props.sessions.pending ? (
+          <CenterLoader />
+        ) : (
+          (props.tickets.error || !areSessionsExists) && (
+            <Typography variant="overline" className={styles.errorMsg}>
+              <FontAwesomeIcon
+                icon={faExclamationCircle}
+                className={styles.errorIcon}
               />
-            ) : (
-              props.tickets.error?.message
-            )}
-          </Typography>
+              {!areSessionsExists ? (
+                <FormattedMessage
+                  id="homepage.modal.buyTicket.noSessionsError"
+                  defaultMessage="Whops, film doesn't have any sessions yet"
+                />
+              ) : (
+                props.tickets.error?.message
+              )}
+            </Typography>
+          )
         )}
         {props.currentFilm &&
-          props.sessions.some(
+          props.sessions.data.some(
             (session) => session.film.id === props.currentFilm.id
           ) && (
             <form
@@ -198,7 +189,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
                   className={styles.input}
                   onChange={handleSessionChange}
                 >
-                  {props.sessions
+                  {props.sessions.data
                     .filter(
                       (session) => session.film.id === props.currentFilm.id
                     )
@@ -240,7 +231,7 @@ export const BuyTicketModal = (props: IBuyTicketModal) => {
       </DialogContent>
       <DialogActions>
         {props.currentFilm &&
-          props.sessions.some(
+          props.sessions.data.some(
             (session) => session.film.id === props.currentFilm.id
           ) && (
             <Badge badgeContent={ticketsForBuyingAmount} color="primary">

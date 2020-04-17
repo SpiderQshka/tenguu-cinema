@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./filmCarousel.module.sass";
 import { FilmCarouselProps } from "containers/FilmCarouselContainer";
+import { CenterLoader, PageLoader } from "components/loader";
 
 export function FilmCarousel(props: FilmCarouselProps) {
   const {
@@ -34,7 +35,9 @@ export function FilmCarousel(props: FilmCarouselProps) {
   };
   return (
     <Carousel className={styles["film-carousel"]} {...settings}>
-      {films.length &&
+      {props.films.pending ? (
+        <PageLoader />
+      ) : (
         films.map((film) => (
           <Slide
             film={film}
@@ -43,7 +46,8 @@ export function FilmCarousel(props: FilmCarouselProps) {
             buyTicket={buyTicket}
             watchTrailer={props.watchTrailer}
           />
-        ))}
+        ))
+      )}
     </Carousel>
   );
 }

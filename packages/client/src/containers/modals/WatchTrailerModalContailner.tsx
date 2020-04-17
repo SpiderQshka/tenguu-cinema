@@ -7,14 +7,14 @@ import { WatchTrailerModal } from "components/modals/WatchTrailerModal";
 const mapStateToProps = (state: IState) => {
   return {
     isModalOpen: state.modals.isWatchTrailerModalOpen,
-    film: activeForShowTrailerFilmSelector(state)
+    film: activeForShowTrailerFilmSelector(state),
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
     closeModal: () => {
       dispatch(closeWatchTrailerModal());
-    }
+    },
   };
 };
 

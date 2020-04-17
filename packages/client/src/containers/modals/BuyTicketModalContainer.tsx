@@ -2,12 +2,12 @@ import { connect, ConnectedProps } from "react-redux";
 import { IState } from "interfaces/IState";
 import {
   closeBuyTicketModalRequest,
-  closeBuyTicketModal
+  closeBuyTicketModal,
 } from "actions/modals";
 import { buyTicketRequest } from "actions/tickets";
 import {
   activeForBuyingFilmSelector,
-  activeForBuyingSessionSelector
+  activeForBuyingSessionSelector,
 } from "selectors";
 import { BuyTicketModal } from "components/modals/BuyTicketModal";
 import { changeActiveSessionForBuying } from "actions/sessions";
@@ -17,14 +17,14 @@ const mapStateToProps = (state: IState) => {
     currentFilm: activeForBuyingFilmSelector(state),
     currentSession: activeForBuyingSessionSelector(state),
     isBuyTicketModalOpen: state.modals.isBuyTicketModalOpen,
-    sessions: state.sessions.data,
-    halls: state.halls.data,
-    tickets: state.tickets
+    sessions: state.sessions,
+    halls: state.halls,
+    tickets: state.tickets,
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    buyTicket: (data: JSON) => {
+    buyTicket: (data: string) => {
       dispatch(buyTicketRequest(data));
     },
     closeModalRequest: () => {
@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(closeBuyTicketModal());
     },
     changeActiveSession: (id: string) =>
-      dispatch(changeActiveSessionForBuying(id))
+      dispatch(changeActiveSessionForBuying(id)),
   };
 };
 

@@ -10,7 +10,9 @@ const mapStateToProps = (state: IState) => {
     isModalOpen: state.modals.isUserTicketsModalOpen,
     sessions: state.sessions.data,
     tickets: currentTicketsSelector(state),
-    user: state.users.currentUser
+    user: state.users.currentUser,
+    sessionsPending: state.sessions.pending,
+    ticketsPending: state.tickets.pending,
   };
 };
 const mapDispatchToProps = (dispatch: any) => {
@@ -20,7 +22,7 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     deleteTicket: (id: string) => {
       dispatch(deleteTicketRequest(id));
-    }
+    },
   };
 };
 

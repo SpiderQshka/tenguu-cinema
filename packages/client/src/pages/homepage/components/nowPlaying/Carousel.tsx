@@ -6,6 +6,7 @@ import styles from "./nowPlaying.module.sass";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { NowPlayingProps } from "containers/NowPlayingContainer";
+import { CenterLoader } from "components/loader";
 
 export function CarouselComponent(props: NowPlayingProps) {
   const { films } = props;
@@ -14,7 +15,11 @@ export function CarouselComponent(props: NowPlayingProps) {
     lazyLoad: "progressive" as LazyLoadTypes,
     infinite: true,
     slidesToShow:
-      films.length > 3 ? 3 : films.length === 1 ? 1 : films.length - 1,
+      films.data.length > 3
+        ? 3
+        : films.data.length === 1
+        ? 1
+        : films.data.length - 1,
     slidesToScroll: 1,
     nextArrow: <ArrowNext onClick={() => {}} />,
     prevArrow: <ArrowPrev onClick={() => {}} />,
@@ -37,9 +42,13 @@ export function CarouselComponent(props: NowPlayingProps) {
   };
   return (
     <Carousel {...settings} className={styles["slick-slider"]}>
-      {films.map((film) => {
-        return <FilmCardContainer item={film} key={film.id} />;
-      })}
+      {films.pending ? (
+        <CenterLoader />
+      ) : (
+        films.data.map((film) => {
+          return <FilmCardContainer item={film} key={film.id} />;
+        })
+      )}
     </Carousel>
   );
 }

@@ -12,7 +12,7 @@ import { openBuyTicketModal } from "actions/modals";
 
 const mapStateToProps = (state: IState) => {
   return {
-    films: comingSoonFilmsSelector(state).data,
+    films: comingSoonFilmsSelector(state),
     isDescriptionOpen: state.films.isFilmDescriptionOpen,
   };
 };

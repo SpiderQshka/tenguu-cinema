@@ -10,7 +10,7 @@ import {
 import { IFilmAction, IFilm, IFilmPayload } from "interfaces/IFilm";
 
 const initialState: IFilmPayload = {
-  pending: false,
+  pending: true,
   data: [] as IFilm[],
   error: null,
   isFilmDescriptionOpen: false,

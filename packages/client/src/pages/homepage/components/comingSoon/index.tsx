@@ -8,6 +8,7 @@ import { Typography } from "@material-ui/core/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { ComingSoonProps } from "containers/ComingSoonContainer";
+import { PageLoader } from "components/loader";
 
 export function ComingSoon(props: ComingSoonProps) {
   const { films, buyTicket, toggleDescription, isDescriptionOpen } = props;
@@ -23,7 +24,7 @@ export function ComingSoon(props: ComingSoonProps) {
           />
         }
       />
-      {!films || !films.length ? (
+      {!films.pending && !films.data.length ? (
         <>
           <FontAwesomeIcon
             icon={faClock}
@@ -36,10 +37,12 @@ export function ComingSoon(props: ComingSoonProps) {
             />
           </Typography>
         </>
+      ) : props.films.pending ? (
+        <PageLoader />
       ) : (
         <>
           <FilmBlock
-            film={films[filmIndex]}
+            film={films.data[filmIndex]}
             buyTicket={buyTicket}
             toggleDescription={toggleDescription}
             isDescriptionOpen={isDescriptionOpen}

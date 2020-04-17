@@ -47,13 +47,15 @@ export const FilmBlock = (props: IFilmBlock) => {
   return (
     <div className={styles.filmBlock}>
       <div className={styles.filmInfo}>
-        <div className={styles.trailerContainer}>
-          <iframe
-            className={styles.filmTrailer}
-            title="Trailer"
-            src={film.trailerLink}
-          ></iframe>
-        </div>
+        {film.trailerLink && (
+          <div className={styles.trailerContainer}>
+            <iframe
+              className={styles.filmTrailer}
+              title="Trailer"
+              src={film.trailerLink}
+            ></iframe>
+          </div>
+        )}
 
         <div className={styles.basicInfoBlock}>
           {film.genres && (

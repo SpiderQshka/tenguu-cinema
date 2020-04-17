@@ -7,11 +7,11 @@ import { IState } from "interfaces/IState";
 import { closeLoginModal, closeLoginModalRequest } from "actions/modals";
 
 const mapStateToProps = (state: IState) => {
-  return { users: state.users, modals: state.modals };
+  return { modals: state.modals, users: state.users };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    loginUser: (data: JSON) => {
+    loginUser: (data: string) => {
       dispatch(userLoginRequest(data));
     },
     closeLoginModalRequest: () => {
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     closeLoginModal: () => {
       dispatch(closeLoginModal());
-    }
+    },
   };
 };
 

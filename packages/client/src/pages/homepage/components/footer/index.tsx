@@ -4,6 +4,8 @@ import { Button, Typography, TextField } from "@material-ui/core/";
 import { FormattedMessage } from "react-intl";
 import emailjs from "emailjs-com";
 import { FooterProps } from "containers/FooterContainer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
 
 export const Footer = (props: FooterProps) => {
   const handleEmail = (e: FormEvent) => {
@@ -84,10 +86,12 @@ export const Footer = (props: FooterProps) => {
             />
           </Typography>
           <Typography variant="subtitle1" className={styles.mail}>
+            <FontAwesomeIcon icon={faEnvelope} className={styles.icon} />{" "}
             admin@gmail.com
           </Typography>
           <Typography variant="overline" className={styles.tel}>
-            +1 23 456 78 90
+            <FontAwesomeIcon icon={faPhoneAlt} className={styles.icon} /> +1 23
+            456 78 90
           </Typography>
         </div>
         <div className={styles.leaveMsgBlock}>

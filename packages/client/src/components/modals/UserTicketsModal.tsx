@@ -20,18 +20,13 @@ import { IUser } from "interfaces/IUser";
 import { Typography } from "@material-ui/core/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTicketAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { UserTicketsModalProps } from "containers/modals/UserTicketsModalContainer";
+import { CenterLoader } from "components/loader";
 
-export interface IUserTicketsModal {
-  isModalOpen: boolean;
-  sessions: ISession[];
-  tickets: ITicket[];
-  user: IUser;
-  closeModal: () => void;
-  deleteTicket: (id: string) => void;
-}
-
-export const UserTicketsModal = (props: IUserTicketsModal) => {
+export const UserTicketsModal = (props: UserTicketsModalProps) => {
   const intl = useIntl();
+  const areTicketsPending = props.ticketsPending;
+  const areSessionsPending = props.sessionsPending;
   return (
     <Dialog onClose={props.closeModal} open={props.isModalOpen} scroll="body">
       <DialogTitle>
@@ -41,7 +36,9 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
         />
       </DialogTitle>
       <DialogContent dividers>
-        {!props.tickets[0] ? (
+        {areTicketsPending ? (
+          <CenterLoader />
+        ) : !props.tickets.length ? (
           <Typography
             variant="overline"
             className={styles.noTicketsWarningText}
@@ -53,7 +50,10 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
           </Typography>
         ) : (
           <List>
-            {props.tickets &&
+            {areSessionsPending ? (
+              <CenterLoader />
+            ) : (
+              props.tickets &&
               props.tickets.map((ticket) => {
                 const currentSession = props.sessions.filter(
                   (session: ISession) => ticket.session === session.id
@@ -149,7 +149,8 @@ export const UserTicketsModal = (props: IUserTicketsModal) => {
                     </ListItemSecondaryAction>
                   </ListItem>
                 );
-              })}
+              })
+            )}
           </List>
         )}
       </DialogContent>

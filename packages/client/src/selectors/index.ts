@@ -1,9 +1,8 @@
 import { createSelector } from "reselect";
 import { IState } from "interfaces/IState";
 
-const filmsSelector = (state: IState) => state.films.data;
-const filmsPayloadSelector = (state: IState) => state.films;
-const sessionsPayloadSelector = (state: IState) => state.sessions;
+const filmsSelector = (state: IState) => state.films;
+const sessionsSelector = (state: IState) => state.sessions;
 const currentUserAndTicketsSelector = (state: IState) => {
   return { user: state.users.currentUser, tickets: state.tickets.data };
 };
@@ -12,9 +11,11 @@ export const comingSoonFilmsSelector = createSelector(
   filmsSelector,
   (films) => {
     return {
-      data: films.filter(
+      data: films.data.filter(
         (film) => new Date(film.releaseDate).getTime() > Date.now()
       ),
+      pending: films.pending,
+      error: films.error,
     };
   }
 );
@@ -23,15 +24,17 @@ export const nowPlayingFilmsSelector = createSelector(
   filmsSelector,
   (films) => {
     return {
-      data: films.filter(
+      data: films.data.filter(
         (film) => new Date(film.releaseDate).getTime() <= Date.now()
       ),
+      pending: films.pending,
+      error: films.error,
     };
   }
 );
 
 export const activeForBuyingFilmSelector = createSelector(
-  filmsPayloadSelector,
+  filmsSelector,
   (films) => {
     return (
       films.data.filter((film) => film.id === films.activeFilmForBuyingId)[0] ||
@@ -41,7 +44,7 @@ export const activeForBuyingFilmSelector = createSelector(
 );
 
 export const activeForBuyingSessionSelector = createSelector(
-  sessionsPayloadSelector,
+  sessionsSelector,
   (sessions) => {
     return (
       sessions.data.filter(
@@ -52,7 +55,7 @@ export const activeForBuyingSessionSelector = createSelector(
 );
 
 export const activeForShowTrailerFilmSelector = createSelector(
-  filmsPayloadSelector,
+  filmsSelector,
   (films) => {
     return (
       films.data.filter(

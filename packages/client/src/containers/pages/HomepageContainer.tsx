@@ -9,14 +9,12 @@ import { ErrorBoundary } from "components/errorBoundary";
 const mapStateToProps = (state: IState) => {
   return {
     pending: state.mainPage.pending,
-    error: state.mainPage.error
+    error: state.mainPage.error,
   };
 };
 
 const HomepageContainer = (props: HomepageProps) =>
-  props.pending ? (
-    <PageLoader />
-  ) : props.error ? (
+  props.error ? (
     <ErrorpageContainer />
   ) : (
     <ErrorBoundary>

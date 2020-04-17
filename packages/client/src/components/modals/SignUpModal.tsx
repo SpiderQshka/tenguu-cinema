@@ -14,6 +14,7 @@ import styles from "./modals.module.sass";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { SignUpModalProps } from "containers/modals/SignUpModalContainer";
 
 function encodeImageFileAsURL(photo: any, cb: Function) {
   const reader = new FileReader();
@@ -23,7 +24,7 @@ function encodeImageFileAsURL(photo: any, cb: Function) {
   };
 }
 
-export const SignUpModal = (props: any) => {
+export const SignUpModal = (props: SignUpModalProps) => {
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
 

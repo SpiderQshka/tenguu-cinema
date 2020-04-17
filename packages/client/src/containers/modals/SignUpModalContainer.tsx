@@ -6,11 +6,11 @@ import { userRegisterRequest } from "actions/users";
 import { closeRegModalRequest, closeRegModal } from "actions/modals";
 
 const mapStateToProps = (state: IState) => {
-  return { users: state.users, modals: state.modals };
+  return { modals: state.modals, users: state.users };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    registerUser: (data: JSON) => {
+    registerUser: (data: string) => {
       dispatch(userRegisterRequest(data));
     },
     closeRegisterModalRequest: () => {
@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch: any) => {
     },
     closeRegisterModal: () => {
       dispatch(closeRegModal());
-    }
+    },
   };
 };
 

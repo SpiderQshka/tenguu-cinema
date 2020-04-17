@@ -8,7 +8,7 @@ import FilmCarousel from "containers/FilmCarouselContainer";
 import NowPlaying from "containers/NowPlayingContainer";
 import ComingSoon from "containers/ComingSoonContainer";
 import { OurSkills } from "pages/homepage/components/ourSkills";
-import { Footer } from "pages/homepage/components/footer";
+import Footer from "containers/FooterContainer";
 import { MapComponent } from "pages/homepage/components/map";
 import Header from "containers/HeaderContainer";
 import Message from "containers/MessageContainer";

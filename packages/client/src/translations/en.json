@@ -67,5 +67,8 @@
   "homepage.messages.deleteTicketSuccess": "Deleted!",
   "homepage.messages.deleteTicketError": "Error occured while deleting ticket",
   "homepage.messages.login": "Logged in!",
-  "homepage.messages.register": "Registered!"
+  "homepage.messages.register": "Registered!",
+  "homepage.message.sendMessagePending": "Sending...",
+  "homepage.message.sendMessageSuccess": "Sended successfully!",
+  "homepage.message.sendMessageError": "Error occured!"
 }

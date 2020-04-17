@@ -1,9 +1,31 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import styles from "./footer.module.sass";
 import { Button, Typography, TextField } from "@material-ui/core/";
 import { FormattedMessage } from "react-intl";
+import emailjs from "emailjs-com";
+import { FooterProps } from "containers/FooterContainer";
 
-export const Footer = () => {
+export const Footer = (props: FooterProps) => {
+  const handleEmail = (e: FormEvent) => {
+    e.preventDefault();
+    const form = document.forms[0] as any;
+    const formData = {
+      message: form.elements.message.value,
+      userEmail: form.elements.userEmail.value,
+      username: form.elements.username.value,
+    };
+
+    props.sendMessageRequest();
+    emailjs
+      .send(
+        "default_service",
+        "feedback",
+        formData,
+        "user_PT80SEaw3PHEOR3ymyCJl"
+      )
+      .then(() => props.sendMessageSuccess())
+      .catch(() => props.sendMessageError());
+  };
   return (
     <section className={styles.footerContainer}>
       <footer className={styles.footer}>
@@ -65,7 +87,7 @@ export const Footer = () => {
             admin@gmail.com
           </Typography>
           <Typography variant="overline" className={styles.tel}>
-            1234567890
+            +1 23 456 78 90
           </Typography>
         </div>
         <div className={styles.leaveMsgBlock}>
@@ -78,11 +100,12 @@ export const Footer = () => {
           <div className={styles.line}></div>
           <form
             className={styles.footerForm}
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleEmail}
+            name="feedbackForm"
           >
             <TextField
               type="text"
-              name="name"
+              name="username"
               label={
                 <FormattedMessage
                   id="homepage.footer.name"
@@ -94,7 +117,7 @@ export const Footer = () => {
             />
             <TextField
               type="email"
-              name="email"
+              name="userEmail"
               label={
                 <FormattedMessage
                   id="homepage.footer.email"
@@ -118,18 +141,18 @@ export const Footer = () => {
               multiline
               fullWidth
             />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={styles.footerBtn}
+            >
+              <FormattedMessage
+                id="homepage.footer.button.sendMessage"
+                defaultMessage="Send to us"
+              />
+            </Button>
           </form>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            className={styles.footerBtn}
-          >
-            <FormattedMessage
-              id="homepage.footer.button.sendMessage"
-              defaultMessage="Send to us"
-            />
-          </Button>
         </div>
         <div className={styles.footerCopyrightBlock}></div>
       </footer>

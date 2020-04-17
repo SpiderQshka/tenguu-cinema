@@ -9,7 +9,10 @@ export type MessagesNames =
   | "deleteTicketSuccess"
   | "deleteTicketError"
   | "login"
-  | "register";
+  | "register"
+  | "sendMessagePending"
+  | "sendMessageSuccess"
+  | "sendMessageError";
 
 export type IMessageActionTypes = "SHOW_MESSAGE" | "HIDE_MESSAGE";
 

@@ -38,7 +38,8 @@
             flex-direction: column
             padding: $extra-large-padding
             .footerForm
-                max-width: 300px
+                display: flex
+                flex-direction: column
                 input, textarea, label
                     color: $primary-color
                     &:placeholder
@@ -46,5 +47,6 @@
 
             .footerBtn
                 align-self: end
-                margin-top: $default-margin
+                margin-top: $large-margin
                 color: $primary-color
+@import "media.module"

@@ -141,6 +141,63 @@ export const Message = (props: MessageProps) => {
           </Alert>
         </Snackbar>
       );
+    case "sendMessagePending":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          autoHideDuration={config.timeBeforeMessageClosing}
+          onClose={() => props.hideMessage()}
+        >
+          <Alert variant="filled" severity="warning">
+            {intl.formatMessage({
+              id: "homepage.messages.sendMessagePending",
+              defaultMessage: "Sending...",
+            })}
+          </Alert>
+        </Snackbar>
+      );
+    case "sendMessageSuccess":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          autoHideDuration={config.timeBeforeMessageClosing}
+          onClose={() => props.hideMessage()}
+        >
+          <Alert variant="filled" severity="success">
+            {intl.formatMessage({
+              id: "homepage.messages.sendMessageSuccess",
+              defaultMessage: "Sended!",
+            })}
+          </Alert>
+        </Snackbar>
+      );
+    case "sendMessageError":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          autoHideDuration={config.timeBeforeMessageClosing}
+          onClose={() => props.hideMessage()}
+        >
+          <Alert variant="filled" severity="error">
+            {intl.formatMessage({
+              id: "homepage.messages.sendMessageError",
+              defaultMessage: "Error occured!",
+            })}
+          </Alert>
+        </Snackbar>
+      );
     default:
       return <></>;
   }

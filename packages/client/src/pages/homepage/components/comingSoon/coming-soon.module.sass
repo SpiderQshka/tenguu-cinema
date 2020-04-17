@@ -72,15 +72,23 @@
                 justify-content: space-between
                 margin: 0 45px
                 order: 2
-                .descriptionOpen
-                    box-shadow: none
-                .descriptionClose
-                    box-shadow: inset 0px -141px 17px -125px $secondary-color
                 .descriptionTextContainer
+                    position: relative
                     overflow: hidden
                     transition: all .7s
                     margin-bottom: $extra-large-margin
                     height: 70px
+                    .textOverlay
+                        position: absolute
+                        width: 100%
+                        height: 100%
+                        top: 0
+                        left: 0
+                        transition: all .7s
+                    .descriptionOpen
+                        box-shadow: none
+                    .descriptionClose
+                        box-shadow: inset 0px -170px 25px -160px $secondary-color
                     .descriptionText
                         line-height: 1.7
                 .descriptionButtons

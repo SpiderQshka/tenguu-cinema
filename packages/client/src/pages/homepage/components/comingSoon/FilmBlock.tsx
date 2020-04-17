@@ -91,13 +91,16 @@ export const FilmBlock = (props: IFilmBlock) => {
 
           <div className={styles.descriptionBlock}>
             <div
-              className={`${styles.descriptionTextContainer} ${
-                isDescriptionOpen
-                  ? styles.descriptionOpen
-                  : styles.descriptionClose
-              }`}
+              className={`${styles.descriptionTextContainer}`}
               ref={descTextContainerRef}
             >
+              <div
+                className={`${styles.textOverlay} ${
+                  isDescriptionOpen
+                    ? styles.descriptionOpen
+                    : styles.descriptionClose
+                }`}
+              ></div>
               <Typography
                 variant="body1"
                 className={`${styles.descriptionText}`}

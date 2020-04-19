@@ -3,7 +3,10 @@ import { connect, ConnectedProps } from "react-redux";
 import { ComingSoon } from "pages/homepage/components/comingSoon";
 
 import { IState } from "interfaces/IState";
-import { comingSoonFilmsSelector } from "selectors";
+import {
+  comingSoonFilmsSelector,
+  isUserAuthentificateSelector,
+} from "selectors";
 import {
   changeActiveFilmForBuying,
   toggleFilmDescription,
@@ -14,6 +17,7 @@ const mapStateToProps = (state: IState) => {
   return {
     films: comingSoonFilmsSelector(state),
     isDescriptionOpen: state.films.isFilmDescriptionOpen,
+    isUserAuthentificate: isUserAuthentificateSelector(state),
   };
 };
 const mapDispatchToProps = (dispatch: any) => {

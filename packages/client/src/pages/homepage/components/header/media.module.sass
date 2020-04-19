@@ -6,12 +6,23 @@
     .menuItem.menuTicketsBlock
         display: block !important
     .content-block
-        justify-content: end !important
+        justify-content: end
         flex-grow: 1
         .menu-block
             flex-grow: 1
             .searchBarContainer
                 flex-grow: 1
+
+@media all and ( max-width: 650px )
+    .content-block
+        .unauth
+            .regAndLogBtns
+                height: 100%
+                flex-direction: column
+                justify-content: center  !important
+                button:last-child
+                    margin-left: 0 !important
+                    margin-top: $default-margin
 
 @media all and (max-width: 400px)
 

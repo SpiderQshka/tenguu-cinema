@@ -34,6 +34,7 @@ export function* fetchTicketsInfo() {
 }
 
 export function* buyTicketSaga({ payload }: any) {
+  yield put(showMessage({ name: "buyTicketPending" }));
   const data = yield call(() => postData("api/tickets", payload.data));
   if (data.error) {
     yield put(buyTicketError(data.error));
@@ -52,6 +53,7 @@ export function* buyTicketSaga({ payload }: any) {
 }
 
 export function* deleteTicketSaga({ payload }: any) {
+  yield put(showMessage({ name: "deleteTicketPending" }));
   const data = yield call(() => deleteData("api/tickets", payload.id));
   if (!data.error) {
     yield put(deleteTicket(payload.id));

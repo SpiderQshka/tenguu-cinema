@@ -7,6 +7,13 @@ const currentUserAndTicketsSelector = (state: IState) => {
   return { user: state.users.currentUser, tickets: state.tickets.data };
 };
 
+export const isUserAuthentificateSelector = (state: IState) =>
+  !state.users.currentUserPending &&
+  !state.users.error &&
+  !!state.users.currentUser &&
+  !!state.users.currentUser.id &&
+  !!state.users.currentUser.id.length;
+
 export const comingSoonFilmsSelector = createSelector(
   filmsSelector,
   (films) => {

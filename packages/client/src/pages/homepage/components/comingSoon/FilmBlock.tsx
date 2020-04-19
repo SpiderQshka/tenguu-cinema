@@ -17,6 +17,7 @@ export interface IFilmBlock {
   isDescriptionOpen: boolean;
   buyTicket: (filmId: string) => void;
   toggleDescription: () => void;
+  isAuthentificate: boolean;
 }
 
 export const FilmBlock = (props: IFilmBlock) => {
@@ -134,22 +135,25 @@ export const FilmBlock = (props: IFilmBlock) => {
               </Typography>
             </div>
             <div className={styles.descriptionButtons}>
-              <Fab
-                className={`${styles.filmButton} ${styles.preOrderBtn}`}
-                variant="extended"
-                color="primary"
-                size="large"
-                onClick={() => buyTicket(props.film.id)}
-              >
-                <FontAwesomeIcon
-                  icon={faShoppingCart}
-                  className={styles.buttonIcon}
-                />
-                <FormattedMessage
-                  id="homepage.button.preOrder"
-                  defaultMessage="Pre order"
-                />
-              </Fab>
+              {props.isAuthentificate && (
+                <Fab
+                  className={`${styles.filmButton} ${styles.preOrderBtn}`}
+                  variant="extended"
+                  color="primary"
+                  size="large"
+                  onClick={() => buyTicket(props.film.id)}
+                >
+                  <FontAwesomeIcon
+                    icon={faShoppingCart}
+                    className={styles.buttonIcon}
+                  />
+                  <FormattedMessage
+                    id="homepage.button.preOrder"
+                    defaultMessage="Pre order"
+                  />
+                </Fab>
+              )}
+
               {film.description &&
                 intl.formatMessage({ id: film.description }).length >
                   descriptionSizeWhileIsNotOpen && (

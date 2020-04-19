@@ -13,6 +13,7 @@ export interface ISlide {
   pending: boolean;
   buyTicket: (id: string) => void;
   watchTrailer: (id: string) => void;
+  isAuthentificate: boolean;
 }
 
 export function Slide(props: ISlide) {
@@ -65,21 +66,23 @@ export function Slide(props: ISlide) {
                   defaultMessage="Watch trailer"
                 />
               </Button>
-              <Button
-                className={`${styles["slide-btn"]} buyTicketBtn`}
-                startIcon={
-                  <FontAwesomeIcon
-                    icon={faShoppingCart}
-                    className={styles["button-icon"]}
+              {props.isAuthentificate && (
+                <Button
+                  className={`${styles["slide-btn"]} buyTicketBtn`}
+                  startIcon={
+                    <FontAwesomeIcon
+                      icon={faShoppingCart}
+                      className={styles["button-icon"]}
+                    />
+                  }
+                  onClick={() => buyTicket(film.id)}
+                >
+                  <FormattedMessage
+                    id="homepage.button.buyTicket"
+                    defaultMessage="Buy ticket"
                   />
-                }
-                onClick={() => buyTicket(film.id)}
-              >
-                <FormattedMessage
-                  id="homepage.button.buyTicket"
-                  defaultMessage="Buy ticket"
-                />
-              </Button>
+                </Button>
+              )}
             </div>
           </div>
           {film.ratings && film.ratings.length && (

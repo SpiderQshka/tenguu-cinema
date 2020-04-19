@@ -18,14 +18,26 @@ export const Message = (props: MessageProps) => {
           open={true}
           autoHideDuration={config.timeBeforeMessageClosing}
           onClose={() => props.hideMessage()}
-        >
-          <Alert variant="filled" severity="warning">
-            {intl.formatMessage({
-              id: "homepage.messages.logout",
-              defaultMessage: "Logged out",
-            })}
-          </Alert>
-        </Snackbar>
+          message={intl.formatMessage({
+            id: "homepage.messages.logout",
+            defaultMessage: "Logged out",
+          })}
+        ></Snackbar>
+      );
+    case "buyTicketPending":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          onClose={() => props.hideMessage()}
+          message={intl.formatMessage({
+            id: "homepage.messages.buyTicketPending",
+            defaultMessage: "Sending request..",
+          })}
+        ></Snackbar>
       );
     case "buyTicketSuccess":
       return (
@@ -60,10 +72,25 @@ export const Message = (props: MessageProps) => {
           <Alert severity="error" variant="filled">
             {intl.formatMessage({
               id: "homepage.messages.buyTicketError",
-              defaultMessage: "Ticket(s) bought",
+              defaultMessage: "Error!",
             })}
           </Alert>
         </Snackbar>
+      );
+    case "deleteTicketPending":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          onClose={() => props.hideMessage()}
+          message={intl.formatMessage({
+            id: "homepage.messages.deleteTicketPending",
+            defaultMessage: "Sending request...",
+          })}
+        ></Snackbar>
       );
     case "deleteTicketSuccess":
       return (
@@ -76,7 +103,7 @@ export const Message = (props: MessageProps) => {
           autoHideDuration={config.timeBeforeMessageClosing}
           onClose={() => props.hideMessage()}
         >
-          <Alert variant="filled" severity="warning">
+          <Alert variant="filled" severity="success">
             {intl.formatMessage({
               id: "homepage.messages.deleteTicketSuccess",
               defaultMessage: "Deleted",
@@ -103,7 +130,41 @@ export const Message = (props: MessageProps) => {
           </Alert>
         </Snackbar>
       );
-    case "login":
+    case "loginPending":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          onClose={() => props.hideMessage()}
+          message={intl.formatMessage({
+            id: "homepage.messages.loginPending",
+            defaultMessage: "Sending request...",
+          })}
+        ></Snackbar>
+      );
+    case "loginError":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          autoHideDuration={config.timeBeforeMessageClosing}
+          onClose={() => props.hideMessage()}
+        >
+          <Alert variant="filled" severity="error">
+            {intl.formatMessage({
+              id: "homepage.messages.loginError",
+              defaultMessage: "Error!",
+            })}
+          </Alert>
+        </Snackbar>
+      );
+    case "loginSuccess":
       return (
         <Snackbar
           anchorOrigin={{
@@ -122,7 +183,41 @@ export const Message = (props: MessageProps) => {
           </Alert>
         </Snackbar>
       );
-    case "register":
+    case "registerPending":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          onClose={() => props.hideMessage()}
+          message={intl.formatMessage({
+            id: "homepage.messages.registerPending",
+            defaultMessage: "Sending request...",
+          })}
+        ></Snackbar>
+      );
+    case "registerError":
+      return (
+        <Snackbar
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          open={true}
+          autoHideDuration={config.timeBeforeMessageClosing}
+          onClose={() => props.hideMessage()}
+        >
+          <Alert variant="filled" severity="error">
+            {intl.formatMessage({
+              id: "homepage.messages.registerError",
+              defaultMessage: "Error!",
+            })}
+          </Alert>
+        </Snackbar>
+      );
+    case "registerSuccess":
       return (
         <Snackbar
           anchorOrigin={{
@@ -149,7 +244,6 @@ export const Message = (props: MessageProps) => {
             horizontal: "center",
           }}
           open={true}
-          autoHideDuration={config.timeBeforeMessageClosing}
           onClose={() => props.hideMessage()}
         >
           <Alert variant="filled" severity="warning">

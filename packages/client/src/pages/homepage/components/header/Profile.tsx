@@ -84,10 +84,11 @@ export function Profile(props: HeaderProps) {
               />
             </Typography>
           ) : (
-            <>
+            <div className={styles.regAndLogBtns}>
               <Button
                 variant="contained"
                 color="primary"
+                className={styles.registerBtn}
                 onClick={props.openRegisterModal}
               >
                 <FormattedMessage
@@ -95,13 +96,16 @@ export function Profile(props: HeaderProps) {
                   defaultMessage="Sign Up"
                 />
               </Button>
-              <Button onClick={props.openLoginModal}>
+              <Button
+                className={styles.loginBtn}
+                onClick={props.openLoginModal}
+              >
                 <FormattedMessage
                   id="homepage.header.profile.signIn"
                   defaultMessage="Sign In"
                 />
               </Button>
-            </>
+            </div>
           )}
         </div>
       )}

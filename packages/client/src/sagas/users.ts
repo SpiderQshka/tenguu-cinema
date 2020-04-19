@@ -49,29 +49,35 @@ export function* userLogoutSaga() {
 }
 
 export function* userLoginSaga({ payload }: any) {
+  yield put(showMessage({ name: "loginPending" }));
   const userData = yield call(() => loginUser(payload));
 
-  if (userData.error) yield put(userLoginError(userData.error));
-  else {
+  if (userData.error) {
+    yield put(userLoginError(userData.error));
+    yield put(showMessage({ name: "loginError" }));
+  } else {
     window.localStorage.setItem("userId", userData.body.id);
     window.localStorage.setItem("auth-token", userData.body.authToken);
 
     yield put(userLogin(userData.body.authToken, userData.body.id));
-    yield put(showMessage({ name: "login" }));
+    yield put(showMessage({ name: "loginSuccess" }));
     yield put(fetchCurrentUserRequest());
   }
 }
 
 export function* userRegisterSaga({ payload }: any) {
+  yield put(showMessage({ name: "registerPending" }));
   const userData = yield call(() => registerUser(payload));
 
-  if (userData.error) yield put(userRegisterError(userData.error));
-  else {
+  if (userData.error) {
+    yield put(userRegisterError(userData.error));
+    yield put(showMessage({ name: "registerError" }));
+  } else {
     window.localStorage.setItem("userId", userData.body.id);
     window.localStorage.setItem("auth-token", userData.body.authToken);
 
     yield put(userRegister(userData.body.authToken, userData.body.id));
-    yield put(showMessage({ name: "register" }));
+    yield put(showMessage({ name: "registerSuccess" }));
     yield put(fetchCurrentUserRequest());
   }
 }

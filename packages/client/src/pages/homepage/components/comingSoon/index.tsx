@@ -46,6 +46,7 @@ export function ComingSoon(props: ComingSoonProps) {
             buyTicket={buyTicket}
             toggleDescription={toggleDescription}
             isDescriptionOpen={isDescriptionOpen}
+            isAuthentificate={props.isUserAuthentificate}
           />
           <Carousel {...props} handler={handleFilmIndexChange} />
         </>

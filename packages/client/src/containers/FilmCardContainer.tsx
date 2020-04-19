@@ -7,9 +7,13 @@ import {
   changeActiveFilmForBuying,
   changeActiveFilmForShowTrailer,
 } from "actions/films";
+import { isUserAuthentificateSelector } from "selectors";
 
 const mapStateToProps = (state: IState) => {
-  return { films: state.films };
+  return {
+    films: state.films,
+    isUserAuthentificate: isUserAuthentificateSelector(state),
+  };
 };
 const mapDispatchToProps = (dispatch: any) => {
   return {

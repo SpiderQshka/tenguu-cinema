@@ -10,7 +10,7 @@ const mockStore = configureStore();
 
 export const render = (params?: any) => {
   const props = {
-    films: [] as IFilm[],
+    films: { data: [] as IFilm[], pending: false },
     buyTicket: jest.fn(),
     ...params,
   };
@@ -39,18 +39,21 @@ describe("Coming soon", () => {
     expect(enzymeWrapper.find(".slick-slider").hostNodes()).toHaveLength(0);
 
     enzymeWrapper = render({
-      films: [
-        {
-          name: "1",
-          id: "1",
-          genres: [],
-        },
-        {
-          name: "1",
-          id: "1",
-          genres: [],
-        },
-      ],
+      films: {
+        data: [
+          {
+            name: "1",
+            id: "1",
+            genres: [],
+          },
+          {
+            name: "1",
+            id: "1",
+            genres: [],
+          },
+        ],
+        pending: false,
+      },
     }).enzymeWrapper;
     expect(enzymeWrapper.find(".filmsNotFoundText").hostNodes()).toHaveLength(
       0

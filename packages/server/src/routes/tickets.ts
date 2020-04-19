@@ -25,6 +25,7 @@ router.get("/parced", async (req: Request, res: Response) => {
 
 router.post("/", authenticate, async (req: Request, res: Response) => {
   if (Array.isArray(req.body)) {
+    if (!req.body.length) return res.status(404).json("Tickets not found");
     const promises = req.body.map(async (ticketData: any) => {
       const { error, code } = await ticketValidation(ticketData);
       if (error) return res.status(code).json(error);

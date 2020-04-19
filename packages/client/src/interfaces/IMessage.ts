@@ -4,12 +4,18 @@ export interface IMessage {
 
 export type MessagesNames =
   | "logout"
+  | "buyTicketPending"
   | "buyTicketSuccess"
   | "buyTicketError"
+  | "deleteTicketPending"
   | "deleteTicketSuccess"
   | "deleteTicketError"
-  | "login"
-  | "register"
+  | "loginPending"
+  | "loginError"
+  | "loginSuccess"
+  | "registerPending"
+  | "registerError"
+  | "registerSuccess"
   | "sendMessagePending"
   | "sendMessageSuccess"
   | "sendMessageError";

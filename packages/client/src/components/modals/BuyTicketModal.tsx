@@ -13,7 +13,12 @@ import {
   Badge,
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
-import { FormattedMessage, FormattedDate, FormattedTime } from "react-intl";
+import {
+  FormattedMessage,
+  FormattedDate,
+  FormattedTime,
+  useIntl,
+} from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { BuyTicketModalProps } from "containers/modals/BuyTicketModalContainer";
@@ -21,6 +26,7 @@ import { CenterLoader } from "components/loader";
 
 export const BuyTicketModal = (props: BuyTicketModalProps) => {
   const [ticketsForBuyingAmount, handleChangeTicketsForBuying] = useState(0);
+  const intl = useIntl();
   const handleActiveTicketsChange = (e: any) => {
     const forms = document.forms as any;
     const ticketsAmount = [...forms.form.elements].filter(
@@ -98,8 +104,6 @@ export const BuyTicketModal = (props: BuyTicketModalProps) => {
     object.user = window.localStorage.getItem("userId");
     object.seat = [];
     formData.forEach((value: any, key) => {
-      console.log(value, key);
-
       if (key === "seat") {
         object[key] = [
           ...object[key],
@@ -127,22 +131,20 @@ export const BuyTicketModal = (props: BuyTicketModalProps) => {
     props.sessions.data.some(
       (session) => session.film.id === props.currentFilm.id
     );
+  console.log(props);
+
   return (
     <Dialog fullScreen open={props.isBuyTicketModalOpen}>
       <DialogTitle>
-        <FormattedMessage
-          id="homepage.modal.buyTicket.title"
-          defaultMessage="Buy ticket"
-        />{" "}
-        "
-        <FormattedMessage
-          id={
-            props.currentFilm
-              ? props.currentFilm.name
-              : "homepage.header.profile.loading"
-          }
-        />
-        "
+        {`${intl.formatMessage({
+          id: "homepage.modal.buyTicket.title",
+          defaultMessage: "Buy ticket",
+        })} "${intl.formatMessage({
+          id: props.currentFilm
+            ? props.currentFilm.name
+            : "homepage.header.profile.loading",
+          defaultMessage: "Oops",
+        })}"`}
       </DialogTitle>
       <DialogContent dividers>
         {props.tickets.pending || props.sessions.pending ? (

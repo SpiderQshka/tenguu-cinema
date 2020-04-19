@@ -9,9 +9,9 @@ import { NowPlaying } from "pages/homepage/components/nowPlaying";
 
 const mockStore = configureStore();
 
-export const renderNowPlaying = (params?: any) => {
+export const render = (params?: any) => {
   const props = {
-    films: [] as IFilm[],
+    films: { data: [] as IFilm[], pending: false },
     ...params,
   } as NowPlayingProps;
   const store = mockStore({});
@@ -25,27 +25,51 @@ export const renderNowPlaying = (params?: any) => {
   return { enzymeWrapper, props };
 };
 
-describe("Film Carousel", () => {
+describe("'Now playing' section", () => {
   it("Renders self", () => {
-    let { enzymeWrapper } = renderNowPlaying({
-      films: [],
+    let { enzymeWrapper } = render({
+      films: {
+        data: [
+          {
+            name: 1,
+            id: 1,
+            genres: [
+              { name: 1, id: 1 },
+              { name: 2, id: 1 },
+            ],
+          },
+          {
+            name: 2,
+            id: 2,
+            genres: [
+              { name: 3, id: 3 },
+              { name: 4, id: 4 },
+            ],
+            pending: false,
+          },
+        ],
+        pending: false,
+      },
     });
     expect(enzymeWrapper.find(".now-playing").hostNodes()).toHaveLength(1);
   });
   it("Renders films if provided, otherwise doesn't", () => {
-    let { enzymeWrapper } = renderNowPlaying({
-      films: [],
+    let { enzymeWrapper } = render({
+      films: { data: [], pending: false },
     });
     expect(enzymeWrapper.find(".filmsNotFoundText").hostNodes()).toHaveLength(
       1
     );
     expect(enzymeWrapper.find(".slick-slider").hostNodes()).toHaveLength(0);
 
-    enzymeWrapper = renderNowPlaying({
-      films: [
-        { name: "1", id: 1 },
-        { name: "2", id: 2 },
-      ],
+    enzymeWrapper = render({
+      films: {
+        data: [
+          { name: "1", id: 1 },
+          { name: "2", id: 2 },
+        ],
+        pending: false,
+      },
     }).enzymeWrapper;
     expect(enzymeWrapper.find(".filmsNotFoundText").hostNodes()).toHaveLength(
       0

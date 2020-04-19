@@ -13,7 +13,9 @@ export function Header(props: HeaderProps) {
         <Logo />
         <div className={styles["content-block"]}>
           <Profile {...props} />
-          {props.users.currentUser.id && <MenuComponent {...props} />}
+          {props.users.currentUser && props.users.currentUser.id && (
+            <MenuComponent {...props} />
+          )}
         </div>
       </header>
     </section>

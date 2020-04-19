@@ -4,7 +4,7 @@ import styles from "./loader.module.sass";
 import { CircularProgress } from "@material-ui/core/";
 
 export const Loader = () => {
-  return <CircularProgress />;
+  return <CircularProgress className={styles.loader} />;
 };
 
 export const PageLoader = () => {

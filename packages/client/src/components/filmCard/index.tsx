@@ -3,7 +3,6 @@ import { IFilm } from "interfaces/IFilm";
 import StarRatings from "react-star-ratings";
 import { Typography, Fab } from "@material-ui/core/";
 import styles from "./filmCard.module.sass";
-import { ISession } from "interfaces/ISession";
 import { FormattedMessage, FormattedDate } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
@@ -11,10 +10,6 @@ import { FilmCardProps } from "containers/FilmCardContainer";
 
 export interface IFilmCard extends FilmCardProps {
   item: IFilm;
-}
-
-export interface ISessionCard {
-  item: ISession;
 }
 
 export interface IComingSoonCard {
@@ -44,22 +39,24 @@ export function FilmCard(props: IFilmCard) {
             defaultMessage="Watch trailer"
           />
         </Fab>
-        <Fab
-          className={`${styles["slide-btn"]} buyTicketBtn`}
-          variant="extended"
-          color="secondary"
-          size="large"
-          onClick={() => props.buyTicket(props.item.id)}
-        >
-          <FontAwesomeIcon
-            icon={faShoppingCart}
-            className={styles["button-icon"]}
-          />
-          <FormattedMessage
-            id="homepage.button.buyTicket"
-            defaultMessage="Buy ticket"
-          />
-        </Fab>
+        {props.isUserAuthentificate && (
+          <Fab
+            className={`${styles["slide-btn"]} buyTicketBtn`}
+            variant="extended"
+            color="secondary"
+            size="large"
+            onClick={() => props.buyTicket(props.item.id)}
+          >
+            <FontAwesomeIcon
+              icon={faShoppingCart}
+              className={styles["button-icon"]}
+            />
+            <FormattedMessage
+              id="homepage.button.buyTicket"
+              defaultMessage="Buy ticket"
+            />
+          </Fab>
+        )}
       </div>
       <div className={`${styles["info-block"]}`}>
         {film.ratings && film.ratings[0] && (

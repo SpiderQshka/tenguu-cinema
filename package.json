@@ -23,7 +23,7 @@
   },
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
-    "heroku-postbuild": "cd client && yarn build"
+    "heroku-postbuild": "cd packages/client && yarn build"
   },
   "husky": {
     "hooks": {

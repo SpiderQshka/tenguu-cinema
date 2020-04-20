@@ -22,7 +22,7 @@ export const tokenFetch = async (
   else headers = { "auth-token": token };
   return await fetch(url, {
     ...options,
-    headers
+    headers,
   });
 };
 
@@ -45,7 +45,7 @@ const fetchJson = async (url: string, options: any) => {
   const requestHeaders =
     options.headers ||
     new Headers({
-      Accept: "application/json"
+      Accept: "application/json",
     });
   if (
     !requestHeaders.has("Content-Type") &&
@@ -56,7 +56,7 @@ const fetchJson = async (url: string, options: any) => {
 
   const response = await fetch(url, {
     ...options,
-    headers: requestHeaders
+    headers: requestHeaders,
   });
 
   const text = await response.text();
@@ -64,7 +64,7 @@ const fetchJson = async (url: string, options: any) => {
     status: response.status,
     statusText: response.statusText,
     headers: response.headers,
-    body: text
+    body: text,
   };
   let status = o.status,
     statusText = o.statusText,
@@ -77,13 +77,15 @@ const fetchJson = async (url: string, options: any) => {
     json = response.json();
   }
   if (status < 200 || status >= 300) {
+    console.log(response);
+
     return Promise.reject(new HttpError(json || statusText, status, json));
   }
   return Promise.resolve({
     status,
     headers,
     body,
-    json
+    json,
   });
 };
 
@@ -109,30 +111,30 @@ export const getData = async (
         body: {},
         error: {
           message: await response.json(),
-          code: response.status
+          code: response.status,
         },
-        headers: response.headers
+        headers: response.headers,
       };
     } catch (e) {
       return {
         body: {},
         error: {
           message: response.statusText,
-          code: response.status
+          code: response.status,
         },
-        headers: response.headers
+        headers: response.headers,
       };
     }
   }
   try {
     return {
       body: await response.json(),
-      headers: response.headers
+      headers: response.headers,
     };
   } catch (e) {
     return {
       body: response,
-      headers: response.headers
+      headers: response.headers,
     };
   }
 };
@@ -146,7 +148,7 @@ export const postData = async (
   const response: Response = await tokenFetch(url, {
     method: "POST",
     body: json,
-    headers
+    headers,
   });
 
   if (!(response.status < 400 || ignoreCodes.includes(response.status))) {
@@ -155,30 +157,30 @@ export const postData = async (
         body: {},
         error: {
           message: await response.json(),
-          code: response.status
+          code: response.status,
         },
-        headers: response.headers
+        headers: response.headers,
       };
     } catch (e) {
       return {
         body: {},
         error: {
           message: response.statusText,
-          code: response.status
+          code: response.status,
         },
-        headers: response.headers
+        headers: response.headers,
       };
     }
   }
   try {
     return {
       body: await response.json(),
-      headers: response.headers
+      headers: response.headers,
     };
   } catch (e) {
     return {
       body: response,
-      headers: response.headers
+      headers: response.headers,
     };
   }
 };
@@ -192,7 +194,7 @@ export const putData = async (
   const response: Response = await tokenFetch(url, {
     method: "PUT",
     body: formData,
-    headers
+    headers,
   });
 
   if (!(response.status < 400 || ignoreCodes.includes(response.status))) {
@@ -201,30 +203,30 @@ export const putData = async (
         body: {},
         error: {
           message: await response.json(),
-          code: response.status
+          code: response.status,
         },
-        headers: response.headers
+        headers: response.headers,
       };
     } catch (e) {
       return {
         body: {},
         error: {
           message: response.statusText,
-          code: response.status
+          code: response.status,
         },
-        headers: response.headers
+        headers: response.headers,
       };
     }
   }
   try {
     return {
       body: await response.json(),
-      headers: response.headers
+      headers: response.headers,
     };
   } catch (e) {
     return {
       body: response,
-      headers: response.headers
+      headers: response.headers,
     };
   }
 };
@@ -237,7 +239,7 @@ export const deleteData = async (
 ): Promise<IPostData> => {
   const response: Response = await tokenFetch(`${url}/${id}`, {
     method: "DELETE",
-    headers
+    headers,
   });
 
   if (!(response.status < 400 || ignoreCodes.includes(response.status))) {
@@ -246,30 +248,30 @@ export const deleteData = async (
         body: {},
         error: {
           message: await response.json(),
-          code: response.status
+          code: response.status,
         },
-        headers: response.headers
+        headers: response.headers,
       };
     } catch (e) {
       return {
         body: {},
         error: {
           message: response.statusText,
-          code: response.status
+          code: response.status,
         },
-        headers: response.headers
+        headers: response.headers,
       };
     }
   }
   try {
     return {
       body: await response.json(),
-      headers: response.headers
+      headers: response.headers,
     };
   } catch (e) {
     return {
       body: response,
-      headers: response.headers
+      headers: response.headers,
     };
   }
 };

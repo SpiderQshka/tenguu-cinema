@@ -18,7 +18,6 @@ import {
 import { validation } from "../config";
 
 const NameInput = (props: any) => {
-  const locale = useLocale();
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
@@ -27,20 +26,10 @@ const NameInput = (props: any) => {
 
   if (!data || error) return null;
 
-  const label =
-    props.lang === "ru"
-      ? locale === "en"
-        ? "Name, ru"
-        : "Название, русск."
-      : locale === "en"
-      ? "Name, en"
-      : "Название, англ.";
-
   return (
     <TextInput
       {...props}
       source={props.lang}
-      label={label}
       validate={[
         required(),
         minLength(validation.genre.minNameSize),
@@ -57,12 +46,7 @@ export const GenreList = (props: any) => {
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <ReferenceField
-          source="name"
-          label={locale === "en" ? "Name" : "Название"}
-          reference="translations"
-          linkType={false}
-        >
+        <ReferenceField source="name" reference="translations" linkType={false}>
           <TextField source={locale} />
         </ReferenceField>
         <EditButton />

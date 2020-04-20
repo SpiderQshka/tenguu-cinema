@@ -89,32 +89,16 @@ const HallName = ({ record }: any) => {
 };
 
 export const SessionList = (props: any) => {
-  const locale = useLocale();
   return (
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <ReferenceField
-          source="film"
-          reference="films"
-          label={locale === "en" ? "Film" : "Фильм"}
-        >
+        <ReferenceField source="film" reference="films">
           <FilmName />
         </ReferenceField>
-        <DateField
-          source="dateTime"
-          showTime
-          label={locale === "en" ? "Date & time" : "Дата & время"}
-        />
-        <NumberField
-          source="price"
-          label={locale === "en" ? "Price" : "Цена"}
-        />
-        <ReferenceField
-          source="hall"
-          reference="halls"
-          label={locale === "en" ? "Hall" : "Зал"}
-        >
+        <DateField source="dateTime" showTime />
+        <NumberField source="price" />
+        <ReferenceField source="hall" reference="halls">
           <HallName />
         </ReferenceField>
         <EditButton />
@@ -124,37 +108,23 @@ export const SessionList = (props: any) => {
 };
 
 export const SessionEdit = (props: any) => {
-  const locale = useLocale();
   return (
     <Edit {...props} undoable={false}>
       <SimpleForm>
-        <ReferenceInput
-          source="film"
-          reference="films"
-          label={locale === "en" ? "Film" : "Фильм"}
-        >
+        <ReferenceInput source="film" reference="films">
           <FilmInput />
         </ReferenceInput>
         <DateTimeInput
           validate={[required()]}
           source="dateTime"
-          label={locale === "en" ? "Date & time" : "Дата & время"}
           options={{
             format: "dd/mm/yyyy, HH:mm:ss",
             ampm: false,
             clearable: true,
           }}
         />
-        <NumberInput
-          validate={[required()]}
-          source="price"
-          label={locale === "en" ? "Price" : "Цена"}
-        />
-        <ReferenceInput
-          source="hall"
-          reference="halls"
-          label={locale === "en" ? "Hall" : "Зал"}
-        >
+        <NumberInput validate={[required()]} source="price" />
+        <ReferenceInput source="hall" reference="halls">
           <HallInput />
         </ReferenceInput>
       </SimpleForm>
@@ -163,37 +133,23 @@ export const SessionEdit = (props: any) => {
 };
 
 export const SessionCreate = (props: any) => {
-  const locale = useLocale();
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="film"
-          reference="films"
-          label={locale === "en" ? "Film" : "Фильм"}
-        >
+        <ReferenceInput source="film" reference="films">
           <FilmInput />
         </ReferenceInput>
         <DateTimeInput
           validate={[required()]}
           source="dateTime"
-          label={locale === "en" ? "Date & time" : "Дата & время"}
           options={{
             format: "dd/mm/yyyy, HH:mm:ss",
             ampm: false,
             clearable: true,
           }}
         />
-        <NumberInput
-          validate={[required()]}
-          source="price"
-          label={locale === "en" ? "Price" : "Цена"}
-        />
-        <ReferenceInput
-          source="hall"
-          reference="halls"
-          label={locale === "en" ? "Hall" : "Зал"}
-        >
+        <NumberInput validate={[required()]} source="price" />
+        <ReferenceInput source="hall" reference="halls">
           <HallInput />
         </ReferenceInput>
       </SimpleForm>

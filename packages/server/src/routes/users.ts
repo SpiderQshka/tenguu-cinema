@@ -5,7 +5,6 @@ import { IUser } from "../interfaces/interfaces";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
-import { requireAdmin } from "../helpers/requireAdmin";
 import { getUsersForClient } from "../db/getDataForClient";
 import { deleteUser } from "../db/dbServices";
 
@@ -17,7 +16,6 @@ router.get(
   requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const users = await getUsersForClient();
-
     return res
       .set("X-Total-Count", `${users.length}`)
       .header("Access-Control-Allow-Origin", "*")
@@ -62,10 +60,20 @@ router.get(
 router.post(
   "/",
   authenticate,
-  requireAdmin,
+  requireManagerOrAdmin,
   async (req: Request, res: Response) => {
+    const author = req.user as any;
+
     const { error, code } = await userValidation(req.body);
     if (error) return res.status(code).json(error);
+
+    if (
+      author.status !== "admin" &&
+      (req.body.status === "manager" || req.body.status === "admin")
+    )
+      return res
+        .status(403)
+        .json("Access denied. You can't create managers or admin");
 
     const user = new models.User({
       username: req.body.username,
@@ -85,11 +93,25 @@ router.put(
   requireManagerOrAdmin,
   async (req: Request, res: Response) => {
     const user: IUser = req.body;
+    const author = req.user as any;
 
     if (!doesIdMatchesFormat(req.params.userId))
       return res.json("Wrong query format");
 
-    const { error, code } = await userValidation(req.body);
+    if (
+      (author.status === "manager" &&
+        author._id.toString() === req.params.userId &&
+        user.status === "admin") ||
+      (author._id.toString() !== req.params.userId &&
+        (user.status === "admin" || user.status === "manager"))
+    )
+      return res
+        .status(403)
+        .json(
+          "Access denied. You can't change managers or admin or change default users on managers "
+        );
+
+    const { error, code } = await userValidation(user, author._id.toString());
     if (error) return res.status(code).json(error);
 
     const updatedUser = await models.User.findByIdAndUpdate(
@@ -107,8 +129,22 @@ router.delete(
   authenticate,
   requireManagerOrAdmin,
   async (req: Request, res: Response) => {
+    const author = req.user as any;
     if (!doesIdMatchesFormat(req.params.userId))
       return res.json("Wrong query format");
+
+    if (author._id.toString() === req.params.userId)
+      return res.status(403).json("You can't delete yourself");
+
+    const userForDelete = await models.User.findById(req.params.userId);
+
+    if (
+      author.status !== "admin" &&
+      (userForDelete?.status === "manager" || userForDelete?.status === "admin")
+    )
+      return res
+        .status(403)
+        .json("Access denied. You can't delete admin or managers");
 
     const deletedUser = await deleteUser({ _id: req.params.userId });
 

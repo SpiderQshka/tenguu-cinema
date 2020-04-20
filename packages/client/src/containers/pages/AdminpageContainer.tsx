@@ -8,7 +8,9 @@ import { Redirect, useHistory } from "react-router-dom";
 const mapStateToProps = (state: IState) => {
   return {
     pending: state.users.currentUserPending,
-    isAdmin: state.users.currentUser.status === "admin",
+    isAdminOrManager:
+      state.users.currentUser.status === "admin" ||
+      state.users.currentUser.status === "manager",
   };
 };
 
@@ -16,7 +18,7 @@ const AdminpageContainer = (props: AdminpageProps) => {
   const history = useHistory();
   return props.pending ? (
     <PageLoader />
-  ) : props.isAdmin ? (
+  ) : props.isAdminOrManager ? (
     <AdminPage history={history} />
   ) : (
     <Redirect to="/" />

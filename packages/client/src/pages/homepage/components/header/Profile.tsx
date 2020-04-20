@@ -13,7 +13,7 @@ export function Profile(props: HeaderProps) {
   } = props;
   return (
     <>
-      {props.isAuthentificate ? (
+      {userData.id ? (
         <div className={`${styles["profile-block"]}`} id="profileBlock">
           <div className={`${styles["user-block"]}`} id="userBlock">
             <Typography variant="overline" className={styles["user_name"]}>
@@ -28,12 +28,10 @@ export function Profile(props: HeaderProps) {
             </Typography>
             <div className={styles["user_photo-block"]} id="userPhotoBlock">
               {userData.photo ? (
-                <img
+                <div
                   className={styles.photo}
-                  src={userData.photo}
-                  alt={userData.username}
-                  id="userPhoto"
-                />
+                  style={{ backgroundImage: `url(${userData.photo})` }}
+                ></div>
               ) : (
                 <FontAwesomeIcon
                   icon={faUser}

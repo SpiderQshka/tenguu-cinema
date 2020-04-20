@@ -35,7 +35,6 @@ import { Chip } from "@material-ui/core";
 import RichTextInput from "ra-input-rich-text";
 
 const NameInput = (props: any) => {
-  const locale = useLocale();
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
@@ -43,15 +42,6 @@ const NameInput = (props: any) => {
   });
 
   if (!data || error) return null;
-
-  const label =
-    props.lang === "ru"
-      ? locale === "en"
-        ? "Name, ru"
-        : "Название, русск."
-      : locale === "en"
-      ? "Name, en"
-      : "Название, англ.";
 
   return (
     <TextInput
@@ -61,7 +51,6 @@ const NameInput = (props: any) => {
         minLength(validation.film.minNameSize),
         maxLength(validation.film.maxNameSize),
       ]}
-      label={label}
       initialValue={data[props.lang]}
       source={`name${props.lang === "en" ? "En" : "Ru"}`}
     />
@@ -86,12 +75,9 @@ const GenreInput = (props: any) => {
     })
     .filter((el: any) => el);
 
-  const label = locale === "en" ? "Genres" : "Жанры";
-
   return (
     <SelectArrayInput
       {...props}
-      label={label}
       choices={choices}
       validate={[required()]}
       optionText="name"
@@ -100,8 +86,6 @@ const GenreInput = (props: any) => {
 };
 
 const DescriptionInput = (props: any) => {
-  const locale = useLocale() as "ru" | "en";
-
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
@@ -110,19 +94,9 @@ const DescriptionInput = (props: any) => {
 
   if (!data || error) return null;
 
-  const label =
-    props.lang === "ru"
-      ? locale === "en"
-        ? "Description, ru"
-        : "Описание, русск."
-      : locale === "en"
-      ? "Description, en"
-      : "Описание, англ.";
-
   return (
     <RichTextInput
       {...props}
-      label={label}
       toolbar={[]}
       source={`desc${props.lang === "en" ? "En" : "Ru"}`}
       defaultValue={data[props.lang]}
@@ -179,47 +153,26 @@ const Description = ({ record }: any) => {
 };
 
 export const FilmList = (props: any) => {
-  const locale = useLocale();
   return (
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <FilmName label={locale === "en" ? "Name" : "Название"} />
-        <ArrayField
-          reference="genres"
-          source="genres"
-          label={locale === "en" ? "Genres" : "Жанры"}
-        >
+        <FilmName />
+        <ArrayField reference="genres" source="genres">
           <SingleFieldList>
             <GenreName />
           </SingleFieldList>
         </ArrayField>
-        <NumberField
-          source="duration"
-          label={locale === "en" ? "Duration" : "Длительность"}
-        />
-        <UrlField
-          source="trailerLink"
-          label={locale === "en" ? "Trailer link" : "Ссылка на трейлер"}
-        />
-        <ImageField
-          source="filmImage"
-          label={locale === "en" ? "Image" : "Картинка"}
-        />
-        <ArrayField
-          source="ratings"
-          link={false}
-          label={locale === "en" ? "Ratings" : "Оценки"}
-        >
+        <NumberField source="duration" />
+        <UrlField source="trailerLink" />
+        <ImageField source="filmImage" />
+        <ArrayField source="ratings" link={false}>
           <SingleFieldList>
             <ChipField source="ratingValue" />
           </SingleFieldList>
         </ArrayField>
-        <DateField
-          source="releaseDate"
-          label={locale === "en" ? "Release date" : "Дата выхода"}
-        />
-        <Description label={locale === "en" ? "Description" : "Описание"} />
+        <DateField source="releaseDate" />
+        <Description />
         <EditButton />
       </Datagrid>
     </List>
@@ -227,47 +180,29 @@ export const FilmList = (props: any) => {
 };
 
 export const FilmEdit = (props: any) => {
-  const locale = useLocale();
   return (
     <Edit {...props} undoable={false}>
       <SimpleForm>
         <NameInput lang="en" />
         <NameInput lang="ru" />
-        <ReferenceArrayInput
-          source="genres"
-          reference="genres"
-          label={locale === "en" ? "Genres" : "Жанры"}
-        >
+        <ReferenceArrayInput source="genres" reference="genres">
           <GenreInput />
         </ReferenceArrayInput>
         <NumberInput
           source="duration"
-          label={
-            locale === "en" ? "Duration, minutes" : "Длительность, в минутах"
-          }
           validate={[
             required(),
             minValue(validation.film.minDuration),
             maxValue(validation.film.maxDuration),
           ]}
         />
-        <TextInput
-          source="trailerLink"
-          label={locale === "en" ? "Trailer link" : "Ссылка на трейлер"}
-        />
+        <TextInput source="trailerLink" />
 
-        <ArrayInput
-          source="ratings"
-          label={locale === "en" ? "Ratings" : "Оценки"}
-        >
+        <ArrayInput source="ratings">
           <SimpleFormIterator>
-            <TextInput
-              source="raterName"
-              label={locale === "en" ? "Rater" : "Автор"}
-            />
+            <TextInput source="raterName" />
             <NumberInput
               source="ratingValue"
-              label={locale === "en" ? "Rating" : "Рейтинг"}
               validate={[minValue(0), maxValue(10)]}
             />
           </SimpleFormIterator>
@@ -277,16 +212,11 @@ export const FilmEdit = (props: any) => {
           accept="image/*"
           multiple={false}
           validate={[required()]}
-          label={locale === "en" ? "Image" : "Картинка"}
         >
           <ImageField source="src" title="title" />
         </ImageInput>
 
-        <DateInput
-          source="releaseDate"
-          validate={[required()]}
-          label={locale === "en" ? "Release date" : "Дата выхода"}
-        />
+        <DateInput source="releaseDate" validate={[required()]} />
         <DescriptionInput lang="en" />
         <DescriptionInput lang="ru" />
       </SimpleForm>
@@ -295,47 +225,29 @@ export const FilmEdit = (props: any) => {
 };
 
 export const FilmCreate = (props: any) => {
-  const locale = useLocale();
   return (
     <Create {...props}>
       <SimpleForm>
         <NameInput lang="en" />
         <NameInput lang="ru" />
-        <ReferenceArrayInput
-          source="genres"
-          reference="genres"
-          label={locale === "en" ? "Genres" : "Жанры"}
-        >
+        <ReferenceArrayInput source="genres" reference="genres">
           <GenreInput />
         </ReferenceArrayInput>
         <NumberInput
           source="duration"
-          label={
-            locale === "en" ? "Duration, minutes" : "Длительность, в минутах"
-          }
           validate={[
             required(),
             minValue(validation.film.minDuration),
             maxValue(validation.film.maxDuration),
           ]}
         />
-        <TextInput
-          source="trailerLink"
-          label={locale === "en" ? "Trailer link" : "Ссылка на трейлер"}
-        />
+        <TextInput source="trailerLink" />
 
-        <ArrayInput
-          source="ratings"
-          label={locale === "en" ? "Ratings" : "Оценки"}
-        >
+        <ArrayInput source="ratings">
           <SimpleFormIterator>
-            <TextInput
-              source="raterName"
-              label={locale === "en" ? "Rater" : "Автор"}
-            />
+            <TextInput source="raterName" />
             <NumberInput
               source="ratingValue"
-              label={locale === "en" ? "Rating" : "Рейтинг"}
               validate={[minValue(0), maxValue(10)]}
             />
           </SimpleFormIterator>
@@ -345,16 +257,11 @@ export const FilmCreate = (props: any) => {
           accept="image/*"
           multiple={false}
           validate={[required()]}
-          label={locale === "en" ? "Image" : "Картинка"}
         >
           <ImageField source="src" title="title" />
         </ImageInput>
 
-        <DateInput
-          source="releaseDate"
-          validate={[required()]}
-          label={locale === "en" ? "Release date" : "Дата выхода"}
-        />
+        <DateInput source="releaseDate" validate={[required()]} />
         <DescriptionInput lang="en" />
         <DescriptionInput lang="ru" />
       </SimpleForm>

@@ -22,7 +22,6 @@ import {
 import { validation } from "../config";
 
 const NameInput = (props: any) => {
-  const locale = useLocale();
   const { data, error } = useQuery({
     type: "getOne",
     resource: "translations",
@@ -31,20 +30,10 @@ const NameInput = (props: any) => {
 
   if (!data || error) return null;
 
-  const label =
-    props.lang === "ru"
-      ? locale === "en"
-        ? "Name, ru"
-        : "Название, русск."
-      : locale === "en"
-      ? "Name, en"
-      : "Название, англ.";
-
   return (
     <TextInput
       {...props}
       source={props.lang}
-      label={label}
       validate={[
         required(),
         minLength(validation.hall.minNameSize),
@@ -61,21 +50,11 @@ export const HallList = (props: any) => {
     <List {...props}>
       <Datagrid>
         <TextField source="id" />
-        <ReferenceField
-          source="name"
-          label={locale === "en" ? "Name" : "Название"}
-          reference="translations"
-        >
+        <ReferenceField source="name" reference="translations">
           <TextField source={locale} />
         </ReferenceField>
-        <NumberField
-          source="numberOfRows"
-          label={locale === "en" ? "Number of rows" : "Кол-во рядов"}
-        />
-        <NumberField
-          source="seatsOnRow"
-          label={locale === "en" ? "Seats on row" : "Мест в ряду"}
-        />
+        <NumberField source="numberOfRows" />
+        <NumberField source="seatsOnRow" />
         <EditButton />
       </Datagrid>
     </List>
@@ -83,7 +62,6 @@ export const HallList = (props: any) => {
 };
 
 export const HallEdit = (props: any) => {
-  const locale = useLocale();
   return (
     <Edit {...props} undoable={false}>
       <SimpleForm>
@@ -91,7 +69,6 @@ export const HallEdit = (props: any) => {
         <NameInput lang="en" />
         <NumberInput
           source="numberOfRows"
-          label={locale === "en" ? "Number of rows" : "Кол-во рядов"}
           validate={[
             required(),
             minValue(validation.hall.minRowsNumber),
@@ -100,7 +77,6 @@ export const HallEdit = (props: any) => {
         />
         <NumberInput
           source="seatsOnRow"
-          label={locale === "en" ? "Seats on row" : "Мест в ряду"}
           validate={[
             required(),
             minValue(validation.hall.minSeatsOnRowNumber),
@@ -113,7 +89,6 @@ export const HallEdit = (props: any) => {
 };
 
 export const HallCreate = (props: any) => {
-  const locale = useLocale();
   return (
     <Create {...props}>
       <SimpleForm>
@@ -121,7 +96,6 @@ export const HallCreate = (props: any) => {
         <NameInput lang="en" />
         <NumberInput
           source="numberOfRows"
-          label={locale === "en" ? "Number of rows" : "Кол-во рядов"}
           validate={[
             required(),
             minValue(validation.hall.minRowsNumber),
@@ -130,7 +104,6 @@ export const HallCreate = (props: any) => {
         />
         <NumberInput
           source="seatsOnRow"
-          label={locale === "en" ? "Seats on row" : "Мест в ряду"}
           validate={[
             required(),
             minValue(validation.hall.minSeatsOnRowNumber),

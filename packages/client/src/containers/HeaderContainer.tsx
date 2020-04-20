@@ -24,6 +24,9 @@ const mapStateToProps = (state: IState) => {
     lang: state.lang.currentLang,
     films: state.films.data,
     isAuthentificate: isUserAuthentificateSelector(state),
+    isAdminOrManager:
+      state.users.currentUser.status === "admin" ||
+      state.users.currentUser.status === "manager",
   };
 };
 

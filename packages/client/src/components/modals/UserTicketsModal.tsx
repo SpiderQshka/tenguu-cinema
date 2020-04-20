@@ -14,9 +14,7 @@ import {
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { FormattedMessage, FormattedDate, useIntl } from "react-intl";
-import { ITicket } from "interfaces/ITicket";
 import { ISession } from "interfaces/ISession";
-import { IUser } from "interfaces/IUser";
 import { Typography } from "@material-ui/core/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTicketAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";

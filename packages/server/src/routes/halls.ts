@@ -5,6 +5,7 @@ import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { translationValidation } from "./validation/translationValidation";
+import { deleteHall } from "../db/dbServices";
 
 const router: Router = Router();
 
@@ -21,12 +22,12 @@ router.post(
   async (req: Request, res: Response) => {
     const { error: e, code: c } = await translationValidation({
       ru: req.body.ru,
-      en: req.body.en
+      en: req.body.en,
     });
     if (e) return res.status(c).json(e);
     const translation = new models.Translation({
       ru: req.body.ru,
-      en: req.body.en
+      en: req.body.en,
     });
     const newTranslation = await translation.save();
 
@@ -35,13 +36,13 @@ router.post(
 
     const { error, code } = await hallValidation({
       ...req.body,
-      name: newTranslation._id.toHexString()
+      name: newTranslation._id.toHexString(),
     });
     if (error) return res.status(code).json(error);
 
     const hall = new models.Hall({
       ...req.body,
-      name: newTranslation._id.toHexString()
+      name: newTranslation._id.toHexString(),
     });
     const newHall = await hall.save();
 
@@ -71,19 +72,19 @@ router.put(
     const translation = await models.Translation.findById(hall?.name);
     await models.Translation.findByIdAndUpdate(hall?.name, {
       ru: req.body.ru ? req.body.ru : translation?.ru,
-      en: req.body.en ? req.body.en : translation?.en
+      en: req.body.en ? req.body.en : translation?.en,
     });
 
     delete req.body.ru;
     delete req.body.en;
 
     const { error, code } = await hallValidation({
-      ...req.body
+      ...req.body,
     });
     if (error) return res.status(code).json(error);
 
     const updatedHall = await models.Hall.findByIdAndUpdate(req.params.hallId, {
-      ...req.body
+      ...req.body,
     });
     if (!updatedHall) return res.status(404).json("Not found");
 
@@ -99,7 +100,7 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.hallId))
       return res.json("Wrong query format");
 
-    const deletedHall = await models.Hall.findByIdAndDelete(req.params.hallId);
+    const deletedHall = await deleteHall({ _id: req.params.hallId });
 
     return res.json(deletedHall);
   }

@@ -2,7 +2,7 @@ import React from "react";
 import { createHashHistory } from "history";
 import { Admin, Resource } from "react-admin";
 import { Provider } from "react-redux";
-import createAdminStore from "createAdminStore";
+import createAdminStore from "pages/adminpage/createAdminStore";
 import { HallList, HallEdit, HallCreate } from "./lists/HallList";
 import { GenreList, GenreEdit, GenreCreate } from "./lists/GenreList";
 import { FilmList, FilmEdit, FilmCreate } from "./lists/FilmList";

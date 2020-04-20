@@ -7,6 +7,7 @@ import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { requireAdmin } from "../helpers/requireAdmin";
 import { getUsersForClient } from "../db/getDataForClient";
+import { deleteUser } from "../db/dbServices";
 
 const router: Router = Router();
 
@@ -70,7 +71,7 @@ router.post(
       username: req.body.username,
       password: await models.User.hashPassword(req.body.password),
       email: req.body.email,
-      status: req.body.status
+      status: req.body.status,
     });
     const newUser = await user.save();
 
@@ -109,7 +110,7 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.userId))
       return res.json("Wrong query format");
 
-    const deletedUser = await models.User.findByIdAndDelete(req.params.userId);
+    const deletedUser = await deleteUser({ _id: req.params.userId });
 
     return res.json(deletedUser);
   }

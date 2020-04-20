@@ -25,7 +25,7 @@ export const PageError = (props: IPageError) => {
             id="errorpage.message"
             defaultMessage="Whops, something went wrong"
             values={{
-              linebreak: <br />
+              linebreak: <br />,
             }}
           />
         </Typography>
@@ -35,17 +35,22 @@ export const PageError = (props: IPageError) => {
 };
 
 export const PageUIError = (props: IPageUIError) => {
+  console.log(props);
+
   return (
     <section className={styles.pageErrorContainer}>
       <div className={styles.content}>
-        <Typography variant="overline" className={styles.errorUIMessage}>
+        <Typography variant="h2" className={styles.errorUIMainMessage}>
           <FormattedMessage
             id="errorpage.uimessage"
             defaultMessage="Whops, something went wrong"
             values={{
-              linebreak: <br />
+              linebreak: <br />,
             }}
           />
+        </Typography>
+        <Typography variant="overline" className={styles.errorUIMessage}>
+          {props.error.message}
         </Typography>
       </div>
     </section>

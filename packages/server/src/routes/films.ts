@@ -6,6 +6,7 @@ import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { getFilmsForClient } from "../db/getDataForClient";
 import { translationValidation } from "./validation/translationValidation";
+import { deleteFilm } from "../db/dbServices";
 
 const router: Router = Router();
 
@@ -131,7 +132,7 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.filmId))
       return res.json("Wrong query format");
 
-    const deletedFilm = await models.Film.findByIdAndDelete(req.params.filmId);
+    const deletedFilm = await deleteFilm({ _id: req.params.filmId });
 
     return res.json(deletedFilm);
   }

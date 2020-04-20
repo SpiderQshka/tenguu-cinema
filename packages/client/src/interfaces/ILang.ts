@@ -1,5 +1,7 @@
+export type ILangs = "ru" | "en";
+
 export interface ILangPayload {
-  currentLang: "ru" | "en";
+  currentLang: ILangs;
   translations: {
     ru: any;
     en: any;

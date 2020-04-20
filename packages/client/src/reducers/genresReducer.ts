@@ -3,9 +3,9 @@ import {
   FETCH_GENRES_PENDING,
   FETCH_GENRES_SUCCESS,
 } from "actions/genres";
-import { IGenre, IGenresAction } from "interfaces/IGenre";
+import { IGenre, IGenresAction, IGenresPayload } from "interfaces/IGenre";
 
-const initialState = {
+const initialState: IGenresPayload = {
   pending: true,
   data: [] as IGenre[],
   error: null,

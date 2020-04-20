@@ -4,9 +4,9 @@ import {
   FETCH_HALLS_SUCCESS,
 } from "../actions/halls";
 
-import { IHall, IHallAction } from "interfaces/IHall";
+import { IHall, IHallAction, IHallPayload } from "interfaces/IHall";
 
-const initialState = {
+const initialState: IHallPayload = {
   pending: true,
   data: [] as IHall[],
   error: null,

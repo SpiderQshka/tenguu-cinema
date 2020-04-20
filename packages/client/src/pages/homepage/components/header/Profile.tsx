@@ -13,7 +13,7 @@ export function Profile(props: HeaderProps) {
   } = props;
   return (
     <>
-      {userData.id ? (
+      {props.isAuthentificate ? (
         <div className={`${styles["profile-block"]}`} id="profileBlock">
           <div className={`${styles["user-block"]}`} id="userBlock">
             <Typography variant="overline" className={styles["user_name"]}>

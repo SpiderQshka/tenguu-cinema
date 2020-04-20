@@ -8,7 +8,6 @@
     justify-content: center
     background: no-repeat center/cover url("../../static/cinema.jpg")
     .content
-        //  text-align: center
         .errorCode
             color: $accent-color
             margin-top: 40%
@@ -20,11 +19,18 @@
             color: $primary-color
             font-size: $default-font-size
             text-align: right
+        .errorUIMainMessage
+            color: $primary-color
+            margin-top: 40%
+            font-size: $extra-large-font-size
+            text-align: center
         .errorUIMessage
             position: absolute
-            width: 100%
-            left: 0
-            color: $primary-color
+            left: $default-margin
+            color: $accent-color
             font-size: $default-font-size
-            text-align: center
-            top: 45%
+            text-align: left
+            bottom: 0
+            .accentText
+                color: $accent-color
+                text-transform: none

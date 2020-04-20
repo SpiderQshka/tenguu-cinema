@@ -20,7 +20,7 @@ export function NowPlaying(props: NowPlayingProps) {
           />
         }
       />
-      {!props.films.data.length && !props.films.pending ? (
+      {!props.films.pending && !props.films.data.length ? (
         <>
           <FontAwesomeIcon
             icon={faClock}

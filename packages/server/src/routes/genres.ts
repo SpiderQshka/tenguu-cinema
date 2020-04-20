@@ -6,6 +6,7 @@ import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
+import { deleteGenre } from "../db/dbServices";
 
 const router: Router = Router();
 
@@ -22,12 +23,12 @@ router.post(
   async (req: Request, res: Response) => {
     const { error: e, code: c } = await translationValidation({
       ru: req.body.ru,
-      en: req.body.en
+      en: req.body.en,
     });
     if (e) return res.status(c).json(e);
     const translation = new models.Translation({
       ru: req.body.ru,
-      en: req.body.en
+      en: req.body.en,
     });
     const newTranslation = await translation.save();
 
@@ -36,13 +37,13 @@ router.post(
 
     const { error, code } = await genreValidation({
       ...req.body,
-      name: newTranslation._id.toHexString()
+      name: newTranslation._id.toHexString(),
     });
     if (error) return res.status(code).json(error);
 
     const genre = new models.Genre({
       ...req.body,
-      name: newTranslation._id.toHexString()
+      name: newTranslation._id.toHexString(),
     });
     const newGenre = await genre.save();
 
@@ -73,7 +74,7 @@ router.put(
 
     await models.Translation.findByIdAndUpdate(genre?.name, {
       ru: req.body.ru ? req.body.ru : translation?.ru,
-      en: req.body.en ? req.body.en : translation?.en
+      en: req.body.en ? req.body.en : translation?.en,
     });
 
     if (!genre) return res.status(404).json("Not found");
@@ -89,9 +90,7 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.genreId))
       return res.json("Wrong query format");
 
-    const deletedGenre = await models.Genre.findByIdAndDelete(
-      req.params.genreId
-    );
+    const deletedGenre = await deleteGenre({ _id: req.params.genreId });
     if (!deletedGenre) return res.status(404).json("Not found");
 
     return res.json(deletedGenre);

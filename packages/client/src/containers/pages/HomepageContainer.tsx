@@ -1,7 +1,6 @@
 import React from "react";
 import { connect, ConnectedProps } from "react-redux";
 import { IState } from "interfaces/IState";
-import { PageLoader } from "components/loader";
 import ErrorpageContainer from "./ErrorpageContainer";
 import { Homepage } from "pages/homepage";
 import { ErrorBoundary } from "components/errorBoundary";

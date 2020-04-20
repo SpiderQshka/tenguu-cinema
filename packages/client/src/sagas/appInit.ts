@@ -1,4 +1,3 @@
-// Users, page..
 import { put, all } from "redux-saga/effects";
 
 import { fetchCurrentUserRequest } from "actions/users";

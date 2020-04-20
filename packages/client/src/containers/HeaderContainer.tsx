@@ -10,7 +10,10 @@ import {
   openBuyTicketModal,
 } from "actions/modals";
 import { changeLang } from "actions/lang";
-import { currentTicketsSelector } from "selectors";
+import {
+  currentTicketsSelector,
+  isUserAuthentificateSelector,
+} from "selectors";
 import { changeActiveFilmForBuying } from "actions/films";
 
 const mapStateToProps = (state: IState) => {
@@ -20,6 +23,7 @@ const mapStateToProps = (state: IState) => {
     modals: state.modals,
     lang: state.lang.currentLang,
     films: state.films.data,
+    isAuthentificate: isUserAuthentificateSelector(state),
   };
 };
 

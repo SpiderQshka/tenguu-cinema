@@ -6,6 +6,7 @@ import { ISession } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
 import { getSessionsForClient } from "../db/getDataForClient";
+import { deleteSession } from "../db/dbServices";
 
 const router: Router = Router();
 
@@ -29,7 +30,7 @@ router.post(
     if (error) return res.status(code).json(error);
 
     const session = new models.Session({
-      ...req.body
+      ...req.body,
     });
 
     const addedSession = await session.save();
@@ -78,9 +79,7 @@ router.delete(
     if (!doesIdMatchesFormat(req.params.sessionId))
       return res.json("Wrong query format");
 
-    const deletedSession = await models.Session.findByIdAndDelete(
-      req.params.sessionId
-    );
+    const deletedSession = await deleteSession({ _id: req.params.sessionId });
 
     return res.json(deletedSession);
   }

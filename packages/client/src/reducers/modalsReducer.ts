@@ -8,15 +8,16 @@ import {
   CLOSE_USER_TICKETS_MODAL,
   OPEN_USER_TICKETS_MODAL,
   CLOSE_WATCH_TRAILER_MODAL,
-  OPEN_WATCH_TRAILER_MODAL
+  OPEN_WATCH_TRAILER_MODAL,
 } from "actions/modals";
+import { IModalsPayload } from "interfaces/IModal";
 
-const initialState = {
+const initialState: IModalsPayload = {
   isRegModalOpen: false,
   isLoginModalOpen: false,
   isBuyTicketModalOpen: false,
   isUserTicketsModalOpen: false,
-  isWatchTrailerModalOpen: false
+  isWatchTrailerModalOpen: false,
 };
 
 export const modalsReducer = (state = initialState, action: any) => {
@@ -24,52 +25,52 @@ export const modalsReducer = (state = initialState, action: any) => {
     case CLOSE_LOGIN_MODAL:
       return {
         ...state,
-        isLoginModalOpen: false
+        isLoginModalOpen: false,
       };
     case OPEN_LOGIN_MODAL:
       return {
         ...state,
-        isLoginModalOpen: true
+        isLoginModalOpen: true,
       };
     case CLOSE_REG_MODAL:
       return {
         ...state,
-        isRegModalOpen: false
+        isRegModalOpen: false,
       };
     case OPEN_REG_MODAL:
       return {
         ...state,
-        isRegModalOpen: true
+        isRegModalOpen: true,
       };
     case OPEN_BUY_TICKET_MODAL:
       return {
         ...state,
-        isBuyTicketModalOpen: true
+        isBuyTicketModalOpen: true,
       };
     case CLOSE_BUY_TICKET_MODAL:
       return {
         ...state,
-        isBuyTicketModalOpen: false
+        isBuyTicketModalOpen: false,
       };
     case CLOSE_USER_TICKETS_MODAL:
       return {
         ...state,
-        isUserTicketsModalOpen: false
+        isUserTicketsModalOpen: false,
       };
     case OPEN_USER_TICKETS_MODAL:
       return {
         ...state,
-        isUserTicketsModalOpen: true
+        isUserTicketsModalOpen: true,
       };
     case CLOSE_WATCH_TRAILER_MODAL:
       return {
         ...state,
-        isWatchTrailerModalOpen: false
+        isWatchTrailerModalOpen: false,
       };
     case OPEN_WATCH_TRAILER_MODAL:
       return {
         ...state,
-        isWatchTrailerModalOpen: true
+        isWatchTrailerModalOpen: true,
       };
 
     default:

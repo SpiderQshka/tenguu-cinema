@@ -131,8 +131,6 @@ export const BuyTicketModal = (props: BuyTicketModalProps) => {
     props.sessions.data.some(
       (session) => session.film.id === props.currentFilm.id
     );
-  console.log(props);
-
   return (
     <Dialog fullScreen open={props.isBuyTicketModalOpen}>
       <DialogTitle>

@@ -1,6 +1,6 @@
 {
   "errorpage.message": "«Всё! Кина не будет - электричество кончилось..»{linebreak}Обратитесь за помощью в техподдержку",
-  "errorpage.uimessage": "Ой, что-то пошло не так. Попробуйте перезагрузить страницу.",
+  "errorpage.uimessage": "Что-то пошло не так{linebreak}Попробуйте перезагрузить страницу.",
   "homepage.header.menu.admin": "Панель администратора",
   "homepage.header.menu.changeLang": "Изменить язык",
   "homepage.header.menu.logOut": "Выйти",

@@ -35,16 +35,13 @@ export function Carousel(props: ICarouselProps) {
     afterChange: handler,
     responsive: [
       {
-        breakpoint: 1400,
-        settings: {},
-      },
-      {
         breakpoint: 1000,
         settings: { slidesToShow: 2 },
       },
       {
         breakpoint: 800,
         settings: {
+          centerMode: false,
           arrows: false,
           slidesToShow: 1,
         },

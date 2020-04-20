@@ -103,11 +103,10 @@ export function MenuComponent(props: HeaderProps) {
             </Typography>
             <div className={styles["user_photo-block"]}>
               {userData.photo ? (
-                <img
+                <div
                   className={styles.photo}
-                  src={userData.photo}
-                  alt={userData.username}
-                />
+                  style={{ backgroundImage: `url(${userData.photo})` }}
+                ></div>
               ) : (
                 <FontAwesomeIcon
                   icon={faUser}

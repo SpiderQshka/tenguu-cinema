@@ -5,6 +5,7 @@ import { Profile } from "./Profile";
 import styles from "./header.module.sass";
 
 import { HeaderProps } from "containers/HeaderContainer";
+import { IconButton } from "@material-ui/core";
 
 export function Header(props: HeaderProps) {
   return (
@@ -16,6 +17,10 @@ export function Header(props: HeaderProps) {
           {props.users.currentUser && props.users.currentUser.id && (
             <MenuComponent {...props} />
           )}
+          <IconButton
+            className={`${styles.changeLangBtn} ${styles[props.lang]}`}
+            onClick={() => props.changeLang(props.lang === "ru" ? "en" : "ru")}
+          ></IconButton>
         </div>
       </header>
     </section>

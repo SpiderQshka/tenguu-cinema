@@ -20,27 +20,37 @@
                 height: 100%
                 flex-direction: column
                 justify-content: center  !important
+                margin-left: $extra-large-margin
                 button:last-child
                     margin-left: 0 !important
                     margin-top: $default-margin
 
-@media all and (max-width: 400px)
-    .header
-        flex-direction: column
-        align-items: center
-        .logo-block
-            background-color: rgba(0,0,0,0) !important
-        .content-block
-            align-self: stretch
-        .menu-block
-            display: flex
-            width: 100%
-            justify-content: space-between
-            .searchBarContainer
-                order: 1
-            .search-btn
-                order: 0
-            .tabs-btn
-                order: 2
-    .menuItem
-        width: 100vw !important
+@media all and (max-width: 500px)
+    .header-container
+        .header
+            flex-direction: column
+            align-items: center
+            .logo-block
+                background-color: rgba(0,0,0,0) !important
+            .content-block
+                align-self: stretch
+                .unauth
+                    .regAndLogBtns
+                        margin-right: $extra-large-margin
+                .changeLangBtn
+                    position: absolute
+                    margin: 0 !important
+                    top: $extra-large-margin
+                    right: $extra-large-margin
+            .menu-block
+                display: flex
+                width: 100%
+                justify-content: space-between
+                .searchBarContainer
+                    order: 1
+                .search-btn
+                    order: 0
+                .tabs-btn
+                    order: 2
+        .menuItem
+            width: 100vw !important

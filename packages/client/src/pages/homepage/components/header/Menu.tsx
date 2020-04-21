@@ -10,7 +10,6 @@ import {
   TextField,
 } from "@material-ui/core/";
 import { FormattedMessage, useIntl } from "react-intl";
-import { Switch } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -152,24 +151,6 @@ export function MenuComponent(props: HeaderProps) {
                 />
               </Typography>
             </Badge>
-          </MenuItem>,
-          <MenuItem key={4} className={styles.menuItem}>
-            <FormattedMessage
-              id="homepage.header.menu.changeLang"
-              defaultMessage="Change lang"
-            />
-            <Switch
-              checked={props.lang === "ru"}
-              color="primary"
-              onChange={() => {
-                window.localStorage.setItem(
-                  "lang",
-                  props.lang === "ru" ? "en" : "ru"
-                );
-                props.changeLang(props.lang === "ru" ? "en" : "ru");
-              }}
-              id="switchLangBtn"
-            />
           </MenuItem>,
           <MenuItem
             key={5}

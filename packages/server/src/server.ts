@@ -9,7 +9,7 @@ const app: Express = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(
-  "/favicon.ico",
+  "favicon.ico",
   express.static(path.resolve(__dirname, "../../client/build/favicon.ico"))
 );
 app.use(bodyParser.json({ limit: "10mb" }));

@@ -17,7 +17,7 @@ import { HeaderProps } from "containers/HeaderContainer";
 
 export function MenuComponent(props: HeaderProps) {
   const history = useHistory();
-  if (window.location.hash)
+  if (window.location.hash && window.location.hash === "#login")
     window.history.pushState(
       "",
       document.title,
@@ -85,7 +85,7 @@ export function MenuComponent(props: HeaderProps) {
         open={Boolean(ticketsBtn)}
         id="menu"
       >
-        {userData.id && [
+        {props.isAuthentificate && [
           <MenuItem
             key={1}
             className={`${styles.menuItem} ${styles.menuUserBlock}`}

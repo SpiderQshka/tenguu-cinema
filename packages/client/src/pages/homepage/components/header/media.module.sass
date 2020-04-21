@@ -2,9 +2,9 @@
     .profile-block
         display: none
     .menuItem.menuUserBlock
-        display: flex !important
+        display: flex
     .menuItem.menuTicketsBlock
-        display: block !important
+        display: block
     .content-block
         justify-content: end
         flex-grow: 1
@@ -14,16 +14,18 @@
                 flex-grow: 1
 
 @media all and ( max-width: 650px )
-    .content-block
-        .unauth
-            .regAndLogBtns
-                height: 100%
-                flex-direction: column
-                justify-content: center  !important
-                margin-left: $extra-large-margin
-                button:last-child
-                    margin-left: 0 !important
-                    margin-top: $default-margin
+    .header-container
+        .header
+            .content-block
+                .unauth
+                    .regAndLogBtns
+                        height: 100%
+                        flex-direction: column
+                        justify-content: center
+                        margin-left: $large-margin
+                        .loginBtn
+                            margin-left: 0
+                            margin-top: $small-margin
 
 @media all and (max-width: 500px)
     .header-container
@@ -31,7 +33,7 @@
             flex-direction: column
             align-items: center
             .logo-block
-                background-color: rgba(0,0,0,0) !important
+                background-color: rgba(0,0,0,0)
             .content-block
                 align-self: stretch
                 .unauth
@@ -39,18 +41,18 @@
                         margin-right: $extra-large-margin
                 .changeLangBtn
                     position: absolute
-                    margin: 0 !important
+                    margin: 0
                     top: $extra-large-margin
                     right: $extra-large-margin
-            .menu-block
-                display: flex
-                width: 100%
-                justify-content: space-between
-                .searchBarContainer
-                    order: 1
-                .search-btn
-                    order: 0
-                .tabs-btn
-                    order: 2
-        .menuItem
-            width: 100vw !important
+                .menu-block
+                    display: flex
+                    width: 100%
+                    justify-content: space-between
+                    .searchBarContainer
+                        order: 1
+                    .search-btn
+                        order: 0
+                    .tabs-btn
+                        order: 2
+    .menuItem
+        width: 100vw !important

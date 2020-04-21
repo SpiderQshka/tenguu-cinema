@@ -38,7 +38,7 @@ export const Footer = (props: FooterProps) => {
           <div className={styles.line}></div>
           <ul className={styles.menuList}>
             <li className={styles.menuItem}>
-              <Button href="#home">
+              <Button href="#home" className={styles.menuBtn}>
                 <FormattedMessage
                   id="homepage.footer.button.backToTop"
                   defaultMessage="Back to top"
@@ -46,7 +46,7 @@ export const Footer = (props: FooterProps) => {
               </Button>
             </li>
             <li className={styles.menuItem}>
-              <Button href="#now-playing">
+              <Button href="#now-playing" className={styles.menuBtn}>
                 <FormattedMessage
                   id="homepage.footer.button.nowPlaying"
                   defaultMessage="Now playing"
@@ -54,7 +54,7 @@ export const Footer = (props: FooterProps) => {
               </Button>
             </li>
             <li className={styles.menuItem}>
-              <Button href="#coming-soon">
+              <Button href="#coming-soon" className={styles.menuBtn}>
                 <FormattedMessage
                   id="homepage.footer.button.comingSoon"
                   defaultMessage="Coming soon"
@@ -62,7 +62,7 @@ export const Footer = (props: FooterProps) => {
               </Button>
             </li>
             <li className={styles.menuItem}>
-              <Button href="#map">
+              <Button href="#map" className={styles.menuBtn}>
                 <FormattedMessage
                   id="homepage.footer.button.map"
                   defaultMessage="Where are we?"

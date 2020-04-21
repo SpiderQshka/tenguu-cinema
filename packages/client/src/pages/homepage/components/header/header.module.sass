@@ -1,5 +1,4 @@
 @import 'config'
-@import "./media.module"
 
 $logo-icon-font-size: 40px
 $photo-size: 40px
@@ -75,9 +74,9 @@ $photo-size: 40px
                 margin: 0 $extra-large-margin 0 $small-margin
                 background: no-repeat center/cover $secondary-color
             .changeLangBtn.ru
-                background-image: url("../../../../static/ruIcon.png") !important
+                background-image: url("../../../../static/ruIcon.png")
             .changeLangBtn.en
-                background-image: url("../../../../static/enIcon.png") !important
+                background-image: url("../../../../static/enIcon.png")
             .profile-block
                 .user-block, .tickets-block
                     display: inline-block
@@ -133,16 +132,15 @@ $photo-size: 40px
                     button
                         color: $accent-color
                 .menu-btn
-                    color: $primary-color !important
+                    color: $primary-color
+                    transition: .55s
                     opacity: .5
                     &:first-child
                         margin-right: $extra-small-margin
                     &:hover
                         opacity: 1
-                    i
-                        font-size: $large-font-size !important
-.menuUserBlock
-    display: none !important
+.menuItem.menuUserBlock
+    display: none
     align-items: center
     .user_name
         display: inline-block
@@ -166,9 +164,11 @@ $photo-size: 40px
         .photo-placeholder
             font-size: $large-font-size
             color: $primary-color
-.menuTicketsBlock
-    display: none !important
-    padding-top: $default-padding !important
-    padding-bottom: $default-padding !important
+.menuItem.menuTicketsBlock
+    display: none
+    padding-top: $default-padding
+    padding-bottom: $default-padding
     .text
         color: $secondary-color
+
+@import "./media.module"

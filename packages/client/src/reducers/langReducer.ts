@@ -10,6 +10,7 @@ export const langReducer = (state = initialState, action: any) => {
   const payload = action.payload as ILangPayload;
   switch (action.type) {
     case CHANGE_LANG:
+      window.localStorage.setItem("lang", payload.currentLang);
       return {
         ...state,
         currentLang: payload.currentLang,

@@ -14,13 +14,15 @@ export function Header(props: HeaderProps) {
         <Logo />
         <div className={styles["content-block"]}>
           <Profile {...props} />
-          {props.users.currentUser && props.users.currentUser.id && (
-            <MenuComponent {...props} />
+          {props.isAuthentificate && <MenuComponent {...props} />}
+          {!props.users.currentUserPending && (
+            <IconButton
+              className={`${styles.changeLangBtn} ${styles[props.lang]}`}
+              onClick={() =>
+                props.changeLang(props.lang === "ru" ? "en" : "ru")
+              }
+            ></IconButton>
           )}
-          <IconButton
-            className={`${styles.changeLangBtn} ${styles[props.lang]}`}
-            onClick={() => props.changeLang(props.lang === "ru" ? "en" : "ru")}
-          ></IconButton>
         </div>
       </header>
     </section>

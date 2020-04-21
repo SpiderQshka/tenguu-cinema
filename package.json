@@ -1,5 +1,6 @@
 {
   "name": "tenguu-cinema",
+  "main": "packages/server/dist/index.js",
   "version": "1.0.0",
   "license": "MIT",
   "private": true,

@@ -24,7 +24,7 @@
   },
   "scripts": {
     "lint": "eslint --ignore-path .gitignore .",
-    "heroku-postbuild": "yarn workspace @tenguu-cinema/server build",
+    "heroku-postbuild": "yarn workspace @tenguu-cinema/client build && yarn workspace @tenguu-cinema/server build",
     "start": "node packages/server/dist/index.js"
   },
   "husky": {

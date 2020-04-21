@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "watch-ts": "tsc -w",
-    "build": "tsc -p",
+    "build": "tsc",
     "start": "concurrently \"yarn watch-ts\" \"nodemon ./dist/index.js\"",
     "clear": "rm -rf dist",
     "test": "jest --runInBand"

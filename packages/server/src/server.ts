@@ -8,8 +8,12 @@ import bodyParser from "body-parser";
 const app: Express = express();
 
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  "/favicon.ico",
+  express.static(path.resolve(__dirname, "../../client/build/favicon.ico"))
+);
 app.use(bodyParser.json({ limit: "10mb" }));
-app.use("/static", express.static(path.resolve(__dirname, "../uploads")));
+app.use(express.static(path.resolve(__dirname, "../../client/build")));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -21,7 +25,10 @@ app.use("/api/tickets", routes.tickets);
 app.use("/api/halls", routes.halls);
 app.use("/api/sessions", routes.sessions);
 app.use("/api/translations", routes.translations);
-// app.use("/api/email", routes.email);
-app.use("*", routes.notFound);
+app.use("/api/*", routes.notFound);
+app.use(
+  "*",
+  express.static(path.resolve(__dirname, "../../client/build/index.html"))
+);
 
 export { app };

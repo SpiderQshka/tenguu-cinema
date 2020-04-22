@@ -26,7 +26,7 @@ const localeDateMap = {
 } as any;
 
 export const AdminPage = (props: any) => {
-  const currentLanguage = window.localStorage.getItem("lang") || "en";
+  const currentLanguage = window.localStorage.getItem("lang") || "ru";
   const authProvider = {
     logout: () => {
       props.history.push("/");

@@ -51,21 +51,23 @@ export function Slide(props: ISlide) {
               />
             </Typography>
             <div className={styles["buttons"]}>
-              <Button
-                className={`${styles["slide-btn"]} watchTrailerBtn`}
-                startIcon={
-                  <FontAwesomeIcon
-                    icon={faPlay}
-                    className={styles["button-icon"]}
+              {props.film.trailerLink && (
+                <Button
+                  className={`${styles["slide-btn"]} watchTrailerBtn`}
+                  startIcon={
+                    <FontAwesomeIcon
+                      icon={faPlay}
+                      className={styles["button-icon"]}
+                    />
+                  }
+                  onClick={() => watchTrailer(props.film.id)}
+                >
+                  <FormattedMessage
+                    id="homepage.button.watchTrailer"
+                    defaultMessage="Watch trailer"
                   />
-                }
-                onClick={() => watchTrailer(props.film.id)}
-              >
-                <FormattedMessage
-                  id="homepage.button.watchTrailer"
-                  defaultMessage="Watch trailer"
-                />
-              </Button>
+                </Button>
+              )}
               {props.isAuthentificate && (
                 <Button
                   className={`${styles["slide-btn"]} buyTicketBtn`}

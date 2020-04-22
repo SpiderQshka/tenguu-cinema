@@ -16,12 +16,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { SignUpModalProps } from "containers/modals/SignUpModalContainer";
 
-function encodeImageFileAsURL(photo: any, cb: Function) {
-  const reader = new FileReader();
-  reader.readAsDataURL(photo);
-  reader.onloadend = function() {
-    cb(reader.result);
-  };
+async function encodeImageFileAsURL(photo: any) {
+  return photo
+    ? new Promise((res, rej) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(photo);
+        reader.onloadend = function() {
+          if (reader.error) {
+            res(null);
+          }
+          res(reader.result);
+        };
+      })
+    : Promise.resolve(null);
 }
 
 export const SignUpModal = (props: SignUpModalProps) => {
@@ -34,12 +41,11 @@ export const SignUpModal = (props: SignUpModalProps) => {
     formData.forEach((value, key) => {
       object[key] = value;
     });
-    if (object.photo) {
-      encodeImageFileAsURL(object.photo, async (result: any) => {
-        object.photo = result;
-      });
-    }
+
+    object.photo = await encodeImageFileAsURL(object.photo);
+
     const json = JSON.stringify(object);
+
     await props.registerUser(json);
     props.closeRegisterModalRequest();
   };
@@ -113,20 +119,21 @@ export const SignUpModal = (props: SignUpModalProps) => {
               className={styles.input}
             />
           </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="photo">
+          <input
+            accept="image/*"
+            className={`${styles.input} ${styles.photoInput}`}
+            id="photo"
+            type="file"
+            name="photo"
+          />
+          <label htmlFor="photo">
+            <Button component="span" className={styles.photoBtn}>
               <FormattedMessage
-                id="homepage.modal.image"
+                id="homepage.modal.photo"
                 defaultMessage="photo"
               />
-            </InputLabel>
-            <Input
-              id="photo"
-              type="file"
-              name="photo"
-              className={styles.input}
-            />
-          </FormControl>
+            </Button>
+          </label>
         </form>
       </DialogContent>
       <DialogActions>

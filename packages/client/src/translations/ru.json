@@ -46,6 +46,7 @@
   "homepage.modal.submit": "Отправить",
   "homepage.modal.close": "Закрыть",
   "homepage.modal.password": "Пароль",
+  "homepage.modal.photo": "Выберите фото",
   "homepage.modal.signIn.title": "Войти",
   "homepage.modal.signIn.username": "Имя пользователя",
   "homepage.modal.signUp.title": "Зарегистрироваться",

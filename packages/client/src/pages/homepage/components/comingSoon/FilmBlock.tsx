@@ -29,20 +29,16 @@ export const FilmBlock = (props: IFilmBlock) => {
     if (isDescriptionOpen) {
       const descTextContainer = descTextContainerRef.current as any;
       const descText = descTextRef.current as any;
-      descTextContainer.style.height = `${descText.offsetHeight +
-        descText.scrollHeight}px`;
+      descTextContainer.style.height = `${descText.offsetHeight + 10}px`;
     }
   }, [film]);
   const handleDescSizeChange = () => {
     const descTextContainer = descTextContainerRef.current as any;
     const descText = descTextRef.current as any;
     if (isDescriptionOpen) {
-      descTextContainer.style.height = `${
-        descText.offsetHeight > 50 ? 50 : 50
-      }px`;
+      descTextContainer.style.height = `${descriptionSizeWhileIsNotOpen}px`;
     } else {
-      descTextContainer.style.height = `${descText.offsetHeight +
-        descText.scrollHeight}px`;
+      descTextContainer.style.height = `${descText.offsetHeight + 10}px`;
     }
   };
   return (

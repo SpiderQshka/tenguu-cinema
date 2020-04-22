@@ -26,19 +26,22 @@ export function FilmCard(props: IFilmCard) {
       }}
     >
       <div className={`${styles["buttons"]}`}>
-        <Fab
-          className={`${styles["slide-btn"]} watchTrailerBtn`}
-          variant="extended"
-          color="primary"
-          size="large"
-          onClick={() => props.watchTrailer(props.item.id)}
-        >
-          <FontAwesomeIcon icon={faPlay} className={styles["button-icon"]} />
-          <FormattedMessage
-            id="homepage.button.watchTrailer"
-            defaultMessage="Watch trailer"
-          />
-        </Fab>
+        {film.trailerLink && (
+          <Fab
+            className={`${styles["slide-btn"]} watchTrailerBtn`}
+            variant="extended"
+            color="primary"
+            size="large"
+            onClick={() => props.watchTrailer(props.item.id)}
+          >
+            <FontAwesomeIcon icon={faPlay} className={styles["button-icon"]} />
+            <FormattedMessage
+              id="homepage.button.watchTrailer"
+              defaultMessage="Watch trailer"
+            />
+          </Fab>
+        )}
+
         {props.isUserAuthentificate && (
           <Fab
             className={`${styles["slide-btn"]} buyTicketBtn`}

@@ -46,6 +46,7 @@
   "homepage.modal.submit": "Submit",
   "homepage.modal.close": "Close",
   "homepage.modal.password": "Password",
+  "homepage.modal.photo": "Choose the photo",
   "homepage.modal.signIn.title": "Sign In",
   "homepage.modal.signIn.username": "Username",
   "homepage.modal.signUp.title": "Sign Up",

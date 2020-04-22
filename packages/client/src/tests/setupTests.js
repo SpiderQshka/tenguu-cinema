@@ -1,8 +1,5 @@
-// import ru from "translations/ru.json";
-// import en from "translations/en.json";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-// import reactIntl, { IntlProvider } from "react-intl";
 
 Enzyme.configure({ adapter: new Adapter() });
 

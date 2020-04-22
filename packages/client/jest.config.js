@@ -1,4 +1,4 @@
 module.exports = {
   verbose: true,
-  setupFilesAfterEnv: ["<rootDir>src/setupTests.js"]
+  setupFilesAfterEnv: ["<rootDir>src/tests/setupTests.js"],
 };

@@ -5,8 +5,7 @@ import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { ISession } from "../interfaces/interfaces";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
-import { getSessionsForClient } from "../db/getDataForClient";
-import { deleteSession } from "../db/dbServices";
+import { getSessionsForClient, deleteSession } from "../db/dbServices";
 
 const router: Router = Router();
 

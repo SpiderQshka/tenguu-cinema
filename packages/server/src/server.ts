@@ -26,9 +26,5 @@ app.use("/api/halls", routes.halls);
 app.use("/api/sessions", routes.sessions);
 app.use("/api/translations", routes.translations);
 app.use("/api/*", routes.notFound);
-app.use(
-  "*",
-  express.static(path.resolve(__dirname, "../../client/build/index.html"))
-);
 
 export { app };

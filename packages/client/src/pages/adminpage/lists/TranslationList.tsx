@@ -3,7 +3,7 @@ import { List, Datagrid, TextField } from "react-admin";
 
 export const TranslationList = (props: any) => {
   return (
-    <List {...props}>
+    <List {...props} perPage={50}>
       <Datagrid>
         <TextField source="id" />
         <TextField source="ru" />

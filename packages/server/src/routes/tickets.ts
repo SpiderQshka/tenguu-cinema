@@ -6,8 +6,7 @@ import { ITicket } from "../interfaces/interfaces";
 import { TicketStatuses } from "../types/types";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
-import { getTicketsForClient } from "../db/getDataForClient";
-import { deleteTicket } from "../db/dbServices";
+import { getTicketsForClient, deleteTicket } from "../db/dbServices";
 
 const router: Router = Router();
 

@@ -1,8 +1,7 @@
 import request, { Response } from "supertest";
 import { app } from "../server";
 import { DBTESTURL } from "../keys/keys";
-import { connectDb, clearDb, deleteSession } from "../db/dbServices";
-import { setNewSession } from "../db/setRandomTestTables";
+import { connectDb, clearDb } from "../db/dbServices";
 
 beforeAll(async () => {
   await connectDb(DBTESTURL).then(() => console.log("Connected to DB"));
@@ -19,46 +18,5 @@ describe("testing sessions routes", () => {
     const getSessionsRes: Response = await request(app).get("/api/sessions");
     expect(getSessionsRes.status).toBe(200);
     expect(getSessionsRes.body.length).toBe(0);
-  });
-  it("create new session", async () => {
-    const setSessionRes = await setNewSession(app);
-
-    expect(setSessionRes.error.text).toBe(undefined);
-    expect(setSessionRes.status).toBe(200);
-
-    const getSessionsRes: Response = await request(app).get("/api/sessions");
-    expect(getSessionsRes.status).toBe(200);
-    expect(getSessionsRes.body.length).toBe(1);
-  });
-  it("get session by id", async () => {
-    const setSessionRes = await setNewSession(app);
-
-    expect(setSessionRes.error.text).toBe(undefined);
-    expect(setSessionRes.status).toBe(200);
-
-    const getSessionRes: Response = await request(app).get(
-      `/api/sessions/${setSessionRes.body._id}`
-    );
-
-    expect(getSessionRes.error.text).toBe(undefined);
-    expect(getSessionRes.status).toBe(200);
-
-    const getSessionsRes: Response = await request(app).get("/api/sessions");
-    expect(getSessionsRes.status).toBe(200);
-    expect(getSessionsRes.body.length).toBe(1);
-  });
-  it("delete session", async () => {
-    const setSessionRes = await setNewSession(app);
-
-    expect(setSessionRes.error.text).toBe(undefined);
-    expect(setSessionRes.status).toBe(200);
-
-    await deleteSession({ _id: setSessionRes.body._id });
-
-    const getSessionsResAfterDelete: Response = await request(app).get(
-      "/api/sessions"
-    );
-    expect(getSessionsResAfterDelete.status).toBe(200);
-    expect(getSessionsResAfterDelete.body.length).toBe(0);
   });
 });

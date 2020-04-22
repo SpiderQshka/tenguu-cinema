@@ -10,18 +10,18 @@ interface ITicket extends Document {
 }
 
 interface IGenre extends Document {
-  name: string;
+  name: Schema.Types.ObjectId;
 }
 
 interface ISession extends Document {
-  film: string;
+  film: Schema.Types.ObjectId;
   dateTime: string;
   price: number;
-  hall: string;
+  hall: Schema.Types.ObjectId;
 }
 
 interface IFilm extends Document {
-  name: string;
+  name: Schema.Types.ObjectId;
   genres: Schema.Types.ObjectId[];
   duration: number;
   trailerLink: string;
@@ -35,7 +35,7 @@ interface IFilm extends Document {
 }
 
 interface IHall extends Document {
-  name: string;
+  name: Schema.Types.ObjectId;
   numberOfRows: number;
   seatsOnRow: number;
 }

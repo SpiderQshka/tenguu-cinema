@@ -47,7 +47,7 @@ const NameInput = (props: any) => {
 export const HallList = (props: any) => {
   const locale = useLocale();
   return (
-    <List {...props}>
+    <List {...props} perPage={50}>
       <Datagrid>
         <TextField source="id" />
         <ReferenceField source="name" reference="translations">

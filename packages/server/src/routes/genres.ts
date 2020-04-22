@@ -5,12 +5,11 @@ import { translationValidation } from "./validation/translationValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
-import { setTotalCountHeader } from "../helpers/setTotalCountHeader";
 import { deleteGenre } from "../db/dbServices";
 
 const router: Router = Router();
 
-router.get("/", setTotalCountHeader, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   const genres = await models.Genre.find();
 
   res.set("X-Total-Count", `${genres.length}`).json(genres);

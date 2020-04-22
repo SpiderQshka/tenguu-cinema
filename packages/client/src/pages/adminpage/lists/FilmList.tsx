@@ -154,7 +154,7 @@ const Description = ({ record }: any) => {
 
 export const FilmList = (props: any) => {
   return (
-    <List {...props}>
+    <List {...props} perPage={50}>
       <Datagrid>
         <TextField source="id" />
         <FilmName />

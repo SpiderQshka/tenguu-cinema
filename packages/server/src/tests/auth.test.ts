@@ -1,12 +1,13 @@
 import { app } from "../server";
 import { DBTESTURL } from "../keys/keys";
 import { connectDb, clearCollection } from "../db/dbServices";
-import { setNewUser } from "../db/setRandomTestTables";
+// import { setNewUser } from "../db/setRandomTestTables";
 import faker from "faker";
 import request, { Response } from "supertest";
+import addAdmin from "../seed";
 
 beforeAll(async () => {
-  await connectDb(DBTESTURL).then(() => console.log("Connected to DB"));
+  await connectDb(DBTESTURL).then(() => addAdmin());
 });
 afterAll(async () => {
   await clearCollection("users");
@@ -17,19 +18,28 @@ beforeEach(async () => {
 
 describe("testing auth routes", () => {
   it("register new user", async () => {
-    const setUserRes = await setNewUser(app);
+    const setUserRes = await request(app)
+      .post("/api/auth/register")
+      .send({
+        username: faker.name.findName(),
+        password: faker.internet.password(),
+        email: faker.internet.email(),
+      });
 
     expect(setUserRes.error.text).toBe(undefined);
     expect(setUserRes.status).toBe(200);
-
     const getUsersRes: Response = await request(app).get("/api/users");
     expect(getUsersRes.status).toBe(401);
   });
   it("login user", async () => {
     const passwordWithoutHash = faker.internet.password();
-    const setUserRes = await setNewUser(app, { password: passwordWithoutHash });
-
-    console.log(setUserRes.header);
+    const setUserRes = await request(app)
+      .post("/api/auth/register")
+      .send({
+        username: faker.name.findName(),
+        password: passwordWithoutHash,
+        email: faker.internet.email(),
+      });
 
     expect(setUserRes.status).toBe(200);
     expect(setUserRes.error.text).toBe(undefined);
@@ -38,10 +48,10 @@ describe("testing auth routes", () => {
       .post("/api/auth/login")
       .send({
         password: passwordWithoutHash,
-        email: setUserRes.body.email
+        email: setUserRes.body.email,
       });
 
-    expect(loginUserRes.error.text).toBe("Unauthorized");
-    expect(loginUserRes.status).toBe(401);
+    expect(loginUserRes.error.text).toBe(undefined);
+    expect(loginUserRes.status).toBe(200);
   });
 });

@@ -4,9 +4,8 @@ import { filmValidation } from "./validation/filmsValidation";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
-import { getFilmsForClient } from "../db/getDataForClient";
+import { getFilmsForClient, deleteFilm } from "../db/dbServices";
 import { translationValidation } from "./validation/translationValidation";
-import { deleteFilm } from "../db/dbServices";
 
 const router: Router = Router();
 

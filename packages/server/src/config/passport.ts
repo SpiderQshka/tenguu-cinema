@@ -11,7 +11,7 @@ export default passport.use(
   new LocalStrategy(
     {
       usernameField: "email",
-      passwordField: "password"
+      passwordField: "password",
     },
     function(username, password, done) {
       models.User.findOne({ email: username }, function(err, user) {
@@ -19,7 +19,7 @@ export default passport.use(
           return done(err);
         }
         if (!user) {
-          return done(null, false, { message: "Incorrect username." }); // Error User Options
+          return done(null, false, { message: "Incorrect username." });
         }
         if (!user.comparePasswords(password, user.password)) {
           return done(null, false, { message: "Incorrect password." });
@@ -34,7 +34,7 @@ passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJWT.fromHeader("auth-token"),
-      secretOrKey: TOKEN_SECRET
+      secretOrKey: TOKEN_SECRET,
     },
     async (jwtPayload, done: Function): Promise<void> => {
       const user = await models.User.findById(jwtPayload._id);

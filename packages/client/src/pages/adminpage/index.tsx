@@ -18,6 +18,7 @@ import enDateLocale from "date-fns/locale/en-US";
 import ruDateLocale from "date-fns/locale/ru";
 import { messages } from "./config";
 import { config } from "config";
+import { Redirect } from "react-router-dom";
 const history = createHashHistory({ hashType: "noslash" });
 
 const localeDateMap = {
@@ -49,6 +50,7 @@ export const AdminPage = (props: any) => {
         })}
       >
         <Admin
+          catchAll={() => <Redirect to="halls" />}
           theme={config.theme}
           loginPage={false}
           dataProvider={Object.assign(myDataProvider)}

@@ -77,8 +77,6 @@ const fetchJson = async (url: string, options: any) => {
     json = response.json();
   }
   if (status < 200 || status >= 300) {
-    console.log(response);
-
     return Promise.reject(new HttpError(json || statusText, status, json));
   }
   return Promise.resolve({

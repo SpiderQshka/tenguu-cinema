@@ -22,7 +22,7 @@ import { validation } from "../config";
 
 export const UserList = (props: any) => {
   return (
-    <List {...props}>
+    <List {...props} perPage={50}>
       <Datagrid>
         <TextField source="id" />
         <TextField source="status" />

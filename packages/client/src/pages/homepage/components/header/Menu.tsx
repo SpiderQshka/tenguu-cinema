@@ -14,15 +14,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { HeaderProps } from "containers/HeaderContainer";
-
-export function MenuComponent(props: HeaderProps) {
-  const history = useHistory();
-  if (window.location.hash && window.location.hash === "#login")
+const fixHash = () => {
+  if (window.location.hash === "#login")
     window.history.pushState(
       "",
       document.title,
       window.location.pathname + window.location.search
     );
+};
+
+export function MenuComponent(props: HeaderProps) {
+  fixHash();
+  const history = useHistory();
   const [ticketsBtn, setTicketsBtn] = useState(null);
   const [isSearchBarOpen, openSearchBarHandler] = useState(false);
   const intl = useIntl();

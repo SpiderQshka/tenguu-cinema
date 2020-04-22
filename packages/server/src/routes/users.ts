@@ -5,8 +5,7 @@ import { IUser } from "../interfaces/interfaces";
 import { doesIdMatchesFormat } from "../helpers/doesIdMatchesFormat";
 import { authenticate } from "../helpers/authenticate";
 import { requireManagerOrAdmin } from "../helpers/requireManagerOrAdmin";
-import { getUsersForClient } from "../db/getDataForClient";
-import { deleteUser } from "../db/dbServices";
+import { getUsersForClient, deleteUser } from "../db/dbServices";
 
 const router: Router = Router();
 

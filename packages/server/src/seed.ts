@@ -9,11 +9,11 @@ export default async (): Promise<void> => {
       password: await models.User.hashPassword("password"),
       email: "admin@gmail.com",
       status: "admin",
-      photo: ""
+      photo: "",
     });
 
     admin.save();
-    console.log("admin created");
+    console.log("admin was created");
   } else {
     console.log("admin already exists");
   }

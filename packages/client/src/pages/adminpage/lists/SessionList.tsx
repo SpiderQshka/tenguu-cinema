@@ -133,6 +133,8 @@ export const SessionEdit = (props: any) => {
 };
 
 export const SessionCreate = (props: any) => {
+  const locale = useLocale();
+
   return (
     <Create {...props}>
       <SimpleForm>
@@ -142,6 +144,7 @@ export const SessionCreate = (props: any) => {
         <DateTimeInput
           validate={[required()]}
           source="dateTime"
+          label={locale === "ru" ? "Дата & Время" : "Date & Time"}
           options={{
             format: "dd/mm/yyyy, HH:mm:ss",
             ampm: false,

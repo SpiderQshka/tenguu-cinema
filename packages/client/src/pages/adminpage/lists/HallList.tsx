@@ -39,7 +39,7 @@ const NameInput = (props: any) => {
         minLength(validation.hall.minNameSize),
         maxLength(validation.hall.maxNameSize),
       ]}
-      value={data[props.lang]}
+      defaultValue={data[props.lang]}
     />
   );
 };

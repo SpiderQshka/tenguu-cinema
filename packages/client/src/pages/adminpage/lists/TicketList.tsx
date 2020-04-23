@@ -14,6 +14,7 @@ import {
   NumberField,
   required,
   minValue,
+  useQuery,
 } from "react-admin";
 
 export const TicketList = (props: any) => {
@@ -36,6 +37,8 @@ export const TicketList = (props: any) => {
 };
 
 export const TicketEdit = (props: any) => {
+  const optionRenderer = (choice: any) =>
+    `ID: ${choice.film} (${new Date(choice.dateTime).toLocaleDateString()})`;
   return (
     <Edit {...props} undoable={false} redirect="list">
       <SimpleForm>
@@ -44,7 +47,7 @@ export const TicketEdit = (props: any) => {
           validate={[required()]}
           reference="sessions"
         >
-          <SelectInput optionText="id" />
+          <SelectInput optionText={optionRenderer} />
         </ReferenceInput>
         <ReferenceInput validate={[required()]} source="user" reference="users">
           <SelectInput optionText="username" />
@@ -63,6 +66,8 @@ export const TicketEdit = (props: any) => {
 };
 
 export const TicketCreate = (props: any) => {
+  const optionRenderer = (choice: any) =>
+    `ID: ${choice.film} (${new Date(choice.dateTime).toLocaleDateString()})`;
   return (
     <Create {...props}>
       <SimpleForm>
@@ -71,7 +76,7 @@ export const TicketCreate = (props: any) => {
           validate={[required()]}
           reference="sessions"
         >
-          <SelectInput optionText="id" />
+          <SelectInput optionText={optionRenderer} />
         </ReferenceInput>
         <ReferenceInput validate={[required()]} source="user" reference="users">
           <SelectInput optionText="username" />

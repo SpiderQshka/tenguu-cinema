@@ -48,10 +48,12 @@ export function MenuComponent(props: HeaderProps) {
         onChange={(e: ChangeEvent<{}>, value: any) =>
           value && props.buyTicket(value.id)
         }
-        getOptionLabel={(option) => intl.formatMessage({ id: option.name })}
+        getOptionLabel={(option) =>
+          intl.formatMessage({ id: option.name, defaultMessage: "Film" })
+        }
         renderOption={(option) => (
           <Typography variant="overline">
-            {intl.formatMessage({ id: option.name })}
+            {intl.formatMessage({ id: option.name, defaultMessage: "Film" })}
           </Typography>
         )}
         renderInput={(params) => (

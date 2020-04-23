@@ -13,9 +13,16 @@ export const renderFilmCarousel = (params?: any) => {
     films: {} as IFilmPayload,
     buyTicket: jest.fn(),
     watchTrailer: jest.fn(),
+    isAuthentificate: false,
     ...params,
   };
-  const store = mockStore({});
+  const store = mockStore({
+    users: {
+      currentUser: {
+        id: "",
+      },
+    },
+  });
   const enzymeWrapper = mount(
     <Provider store={store}>
       <IntlProvider locale="en">
@@ -42,16 +49,16 @@ describe("Film Carousel", () => {
             name: 1,
             id: 1,
             genres: [
-              { name: 1, id: 1 },
-              { name: 2, id: 1 },
+              { name: 2, id: 2 },
+              { name: 3, id: 3 },
             ],
           },
           {
-            name: 2,
+            name: 4,
             id: 2,
             genres: [
-              { name: 3, id: 3 },
-              { name: 4, id: 4 },
+              { name: 5, id: 4 },
+              { name: 6, id: 5 },
             ],
           },
         ],
@@ -68,8 +75,8 @@ describe("Film Carousel", () => {
             name: 1,
             id: 1,
             genres: [
-              { name: 1, id: 1 },
-              { name: 2, id: 1 },
+              { name: 2, id: 2 },
+              { name: 3, id: 3 },
             ],
           },
         ],
@@ -130,9 +137,10 @@ describe("Film Carousel", () => {
             name: 1,
             id: 1,
             genres: [
-              { name: 1, id: 1 },
-              { name: 2, id: 1 },
+              { name: 2, id: 2 },
+              { name: 3, id: 3 },
             ],
+            trailerLink: "exists",
           },
         ],
       },
@@ -147,14 +155,15 @@ describe("Film Carousel", () => {
   });
   it("Calls buyTicket function after buyTicketBtn click", () => {
     let { enzymeWrapper, props } = renderFilmCarousel({
+      isAuthentificate: true,
       films: {
         data: [
           {
             name: 1,
             id: 1,
             genres: [
-              { name: 1, id: 1 },
-              { name: 2, id: 1 },
+              { name: 2, id: 2 },
+              { name: 3, id: 3 },
             ],
           },
         ],

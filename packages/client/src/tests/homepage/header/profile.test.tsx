@@ -38,19 +38,21 @@ describe("Profile", () => {
     const { enzymeWrapper } = renderProfile();
     expect(enzymeWrapper.children()).toHaveLength(1);
   });
-  it("If props contain 'id' - renders profile", () => {
+  it("If has prop 'isAuthentificate' - renders profile", () => {
     const { enzymeWrapper } = renderProfile({
+      isAuthentificate: true,
       users: { currentUser: { id: "exists" } },
     });
     expect(enzymeWrapper.find("#profileBlock")).toHaveLength(1);
   });
-  it("If props don't contain 'id' - renders unauth block", () => {
+  it("If doesn't have prop 'isAuthentificate' - renders unauth block", () => {
     const { enzymeWrapper } = renderProfile();
     expect(enzymeWrapper.find("#unauthBlock")).toHaveLength(1);
   });
   describe("Authorized profile", () => {
     it("Profile contains userBlock and ticketsBlock", () => {
       const { enzymeWrapper } = renderProfile({
+        isAuthentificate: true,
         users: { currentUser: { id: "exists" } },
       });
       expect(
@@ -62,6 +64,7 @@ describe("Profile", () => {
     });
     it("userBlock contains either user photo or placeholder (if photo isn't provided)", () => {
       let { enzymeWrapper } = renderProfile({
+        isAuthentificate: true,
         users: { currentUser: { id: "exists", photo: "exists" } },
       });
       expect(
@@ -73,6 +76,7 @@ describe("Profile", () => {
       ).toHaveLength(1);
 
       enzymeWrapper = renderProfile({
+        isAuthentificate: true,
         users: { currentUser: { id: "exists", photo: null } },
       }).enzymeWrapper;
 
@@ -86,6 +90,7 @@ describe("Profile", () => {
     });
     it("ticketsBlock containts button with default value", () => {
       let { enzymeWrapper } = renderProfile({
+        isAuthentificate: true,
         users: { currentUser: { id: "exists" } },
       });
       expect(
@@ -98,6 +103,7 @@ describe("Profile", () => {
       ).toBe(0);
 
       enzymeWrapper = renderProfile({
+        isAuthentificate: true,
         users: { currentUser: { id: "exists" } },
         currentUserTickets: [1, 2, 3],
       }).enzymeWrapper;

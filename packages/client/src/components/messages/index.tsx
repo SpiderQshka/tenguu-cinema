@@ -245,14 +245,11 @@ export const Message = (props: MessageProps) => {
           }}
           open={true}
           onClose={() => props.hideMessage()}
-        >
-          <Alert variant="filled" severity="warning">
-            {intl.formatMessage({
-              id: "homepage.messages.sendMessagePending",
-              defaultMessage: "Sending...",
-            })}
-          </Alert>
-        </Snackbar>
+          message={intl.formatMessage({
+            id: "homepage.messages.sendMessagePending",
+            defaultMessage: "Sending...",
+          })}
+        ></Snackbar>
       );
     case "sendMessageSuccess":
       return (

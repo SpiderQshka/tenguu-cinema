@@ -60,7 +60,7 @@ export const FilmBlock = (props: IFilmBlock) => {
               {film.genres.map((genre) => (
                 <li className={styles.genre} key={genre.id}>
                   <Typography variant="overline">
-                    <FormattedMessage id={genre.name} />
+                    <FormattedMessage id={genre.name} defaultMessage="Genre" />
                   </Typography>
                 </li>
               ))}
@@ -68,7 +68,7 @@ export const FilmBlock = (props: IFilmBlock) => {
           )}
 
           <Typography variant="h3" className={styles.filmName}>
-            <FormattedMessage id={film.name} />
+            <FormattedMessage id={film.name} defaultMessage="Film" />
           </Typography>
           <div>
             {film.releaseDate && (
@@ -120,7 +120,10 @@ export const FilmBlock = (props: IFilmBlock) => {
               >
                 {film.description ? (
                   <span ref={descTextRef}>
-                    {intl.formatMessage({ id: film.description })}
+                    {intl.formatMessage({
+                      id: film.description,
+                      defaultMessage: "Description",
+                    })}
                   </span>
                 ) : (
                   <FormattedMessage
@@ -151,8 +154,10 @@ export const FilmBlock = (props: IFilmBlock) => {
               )}
 
               {film.description &&
-                intl.formatMessage({ id: film.description }).length >
-                  descriptionSizeWhileIsNotOpen && (
+                intl.formatMessage({
+                  id: film.description,
+                  defaultMessage: "Description",
+                }).length > descriptionSizeWhileIsNotOpen && (
                   <Fab
                     className={`${styles.filmButton} ${styles.toggleDescriptionBtn}`}
                     variant="extended"

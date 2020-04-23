@@ -45,7 +45,7 @@ export function FilmCarousel(props: FilmCarouselProps) {
             pending={pending}
             buyTicket={buyTicket}
             watchTrailer={props.watchTrailer}
-            isAuthentificate={props.isUserAuthentificate}
+            isAuthentificate={props.isAuthentificate}
           />
         ))
       )}

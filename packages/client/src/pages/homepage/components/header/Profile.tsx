@@ -29,6 +29,7 @@ export function Profile(props: HeaderProps) {
             <div className={styles["user_photo-block"]} id="userPhotoBlock">
               {userData.photo ? (
                 <div
+                  id="userPhoto"
                   className={styles.photo}
                   style={{ backgroundImage: `url(${userData.photo})` }}
                 ></div>

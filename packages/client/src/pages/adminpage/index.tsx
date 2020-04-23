@@ -58,7 +58,8 @@ export const AdminPage = (props: any) => {
           history={history}
           i18nProvider={polyglotI18nProvider(
             () => messages[currentLanguage],
-            currentLanguage
+            currentLanguage,
+            { allowMissing: true }
           )}
         >
           <Resource

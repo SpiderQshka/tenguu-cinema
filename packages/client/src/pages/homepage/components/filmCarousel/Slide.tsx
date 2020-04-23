@@ -91,13 +91,21 @@ export function Slide(props: ISlide) {
             <ul className={styles["slide-ratings"]}>
               {film.ratings.map((rating) => {
                 return (
-                  <li className={styles["rating-element"]} key={rating._id}>
+                  <li
+                    className={styles["rating-element"]}
+                    key={rating.raterName}
+                  >
                     <Typography variant="h2" className={styles["rater-name"]}>
                       {rating.raterName}
                     </Typography>
                     <div className="progressbar-container">
                       <Progressbar
-                        value={rating.ratingValue * 10}
+                        value={
+                          Number.isNaN(rating.ratingValue) ||
+                          !rating.ratingValue
+                            ? 0
+                            : rating.ratingValue * 10
+                        }
                         text={rating.ratingValue + ""}
                       />
                     </div>

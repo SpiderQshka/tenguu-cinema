@@ -5,6 +5,7 @@ import { MenuComponent } from "pages/homepage/components/header/Menu";
 import { mount } from "enzyme";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
+import { IntlProvider } from "react-intl";
 
 const mockStore = configureStore();
 
@@ -33,10 +34,18 @@ export const renderMenu = (params?: any) => {
     },
     ...params,
   } as HeaderProps;
-  const store = mockStore({});
+  const store = mockStore({
+    users: {
+      currentUser: {
+        id: "",
+      },
+    },
+  });
   const enzymeWrapper = mount(
     <Provider store={store}>
-      <MenuComponent {...props} />
+      <IntlProvider locale="en">
+        <MenuComponent {...props} />
+      </IntlProvider>
     </Provider>
   );
   return { enzymeWrapper, props, store };
@@ -108,7 +117,7 @@ describe("Menu", () => {
   });
   it("Menu closes on logoutBtn click", () => {
     let { enzymeWrapper } = renderMenu({
-      users: { currentUser: { id: "exisits" } },
+      isAuthentificate: true,
     });
     enzymeWrapper
       .find("#openMenuBtn")
@@ -125,20 +134,22 @@ describe("Menu", () => {
         .prop("open")
     ).toBe(false);
   });
-  it("Menu shows 'admin panel' tab in case users status is 'admin', otherwise doesn't", () => {
+  it("Menu shows 'admin panel' tab in case users status is 'admin' or 'manager', otherwise doesn't", () => {
     let { enzymeWrapper } = renderMenu({
-      users: { currentUser: { id: "exists", status: "admin" } },
+      isAuthentificate: true,
+      isAdminOrManager: true,
+      // users: { currentUser: { id: "exists", status: "admin" } },
     });
-    expect(enzymeWrapper.find("#adminPanelTab").length).not.toBe(0);
+    expect(enzymeWrapper.find("#adminPanelTab").hostNodes().length).toBe(1);
 
     enzymeWrapper = renderMenu({
-      users: { currentUser: { id: "exists", status: "default" } },
+      isAuthentificate: true,
     }).enzymeWrapper;
     expect(enzymeWrapper.find("#adminPanelTab").length).toBe(0);
   });
-  it("Menu doesn't render any items in case none userId is provided", () => {
+  it("Menu doesn't render any items in case user is not authentificated", () => {
     let { enzymeWrapper } = renderMenu({
-      users: { currentUser: {} },
+      isAuthentificate: false,
     });
     expect(enzymeWrapper.find(".menuItem").length).toBe(0);
   });

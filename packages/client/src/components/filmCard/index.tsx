@@ -42,7 +42,7 @@ export function FilmCard(props: IFilmCard) {
           </Fab>
         )}
 
-        {props.isUserAuthentificate && (
+        {props.isAuthentificate && (
           <Fab
             className={`${styles["slide-btn"]} buyTicketBtn`}
             variant="extended"

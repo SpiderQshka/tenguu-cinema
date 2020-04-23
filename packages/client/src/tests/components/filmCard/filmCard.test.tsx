@@ -62,6 +62,7 @@ describe("Film card", () => {
           { name: 1, id: 1 },
           { name: 2, id: 1 },
         ],
+        trailerLink: "exists",
       },
     });
 
@@ -82,6 +83,7 @@ describe("Film card", () => {
           { name: 2, id: 1 },
         ],
       },
+      isAuthentificate: true,
     });
 
     enzymeWrapper

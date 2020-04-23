@@ -15,7 +15,13 @@ export const render = (params?: any) => {
     toggleDescription: jest.fn(),
     ...params,
   };
-  const store = mockStore({});
+  const store = mockStore({
+    users: {
+      currentUser: {
+        id: "",
+      },
+    },
+  });
   const enzymeWrapper = mount(
     <Provider store={store}>
       <IntlProvider locale="en">
@@ -40,7 +46,7 @@ describe("Film block", () => {
   it("Renders ratings (if provided)", () => {
     let { enzymeWrapper } = render({
       film: {
-        name: "1",
+        name: "2",
         id: "1",
         genres: [],
       },
@@ -49,7 +55,7 @@ describe("Film block", () => {
 
     enzymeWrapper = render({
       film: {
-        name: "1",
+        name: "3",
         id: "1",
         genres: [],
         ratings: [],
@@ -60,7 +66,7 @@ describe("Film block", () => {
   it("Renders genres (if provided)", () => {
     let { enzymeWrapper } = render({
       film: {
-        name: "1",
+        name: "4",
         id: "1",
       },
     });
@@ -68,36 +74,20 @@ describe("Film block", () => {
 
     enzymeWrapper = render({
       film: {
-        name: "1",
+        name: "5",
         id: "1",
         genres: [],
       },
     }).enzymeWrapper;
     expect(enzymeWrapper.find(".genres").hostNodes()).toHaveLength(1);
   });
-  it("Calls toggleFilmDescription after toggleDescriptionBtn click", () => {
+  it("Calls buyTicket function after preOrderBtn click, if user is authentificate", () => {
     let { enzymeWrapper, props } = render({
       film: {
-        name: "1",
-        id: "1",
-        description:
-          "Some description that is longer than descriptionSizeWhileIsNotOpen: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      },
-    });
-    expect(props.toggleDescription.mock.calls.length).toBe(0);
-    enzymeWrapper
-      .find(".toggleDescriptionBtn")
-      .hostNodes()
-      .simulate("click");
-
-    expect(props.toggleDescription.mock.calls.length).toBe(1);
-  });
-  it("Calls buyTicket function after preOrderBtn click", () => {
-    let { enzymeWrapper, props } = render({
-      film: {
-        name: "1",
+        name: "6",
         id: "1",
       },
+      isAuthentificate: true,
     });
 
     enzymeWrapper

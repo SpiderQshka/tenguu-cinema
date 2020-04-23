@@ -14,7 +14,13 @@ export const render = (params?: any) => {
     films: { data: [] as IFilm[], pending: false },
     ...params,
   } as NowPlayingProps;
-  const store = mockStore({});
+  const store = mockStore({
+    users: {
+      currentUser: {
+        id: "",
+      },
+    },
+  });
   const enzymeWrapper = mount(
     <Provider store={store}>
       <IntlProvider locale="en">

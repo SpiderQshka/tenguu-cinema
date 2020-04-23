@@ -29,7 +29,7 @@ export const WatchTrailerModal = (props: WatchTrailerModalProps) => {
         />
         "
       </DialogTitle>
-      <DialogContent dividers>
+      <DialogContent dividers style={{ overflowY: "hidden" }}>
         {props.film && props.film.trailerLink && (
           <iframe
             className={styles.filmTrailer}

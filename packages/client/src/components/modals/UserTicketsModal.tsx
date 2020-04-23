@@ -11,6 +11,7 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
+  Divider,
 } from "@material-ui/core";
 import styles from "./modals.module.sass";
 import { FormattedMessage, FormattedDate, useIntl } from "react-intl";
@@ -52,100 +53,106 @@ export const UserTicketsModal = (props: UserTicketsModalProps) => {
               <CenterLoader />
             ) : (
               props.tickets &&
-              props.tickets.map((ticket) => {
+              props.tickets.map((ticket, i) => {
                 const currentSession = props.sessions.filter(
                   (session: ISession) => ticket.session === session.id
                 )[0];
                 return (
-                  <ListItem>
-                    <ListItemAvatar>
-                      <FontAwesomeIcon
-                        icon={faTicketAlt}
-                        className={styles.ticketIcon}
-                      />
-                    </ListItemAvatar>
-                    <ListItemText
-                      className={styles.userTicket}
-                      primary={
-                        <div className={styles.ticketDataContainer}>
-                          <div className={styles.ticketDataItem}>
-                            <Typography variant="h6">
-                              <FormattedMessage id="homepage.modal.userTicketsModal.film" />
-                              :
-                            </Typography>
-                            <FormattedMessage
-                              id={
-                                currentSession.film
-                                  ? currentSession.film.name
-                                  : ""
-                              }
-                            />
-                          </div>
-                          <div className={styles.ticketDataItem}>
-                            <Typography variant="h6">
-                              <FormattedMessage
-                                id="homepage.modal.userTicketsModal.hall"
-                                defaultMessage="Hall"
-                              />
-                              :
-                            </Typography>
-                            <FormattedMessage
-                              id={
-                                currentSession.hall
-                                  ? currentSession.hall.name
-                                  : ""
-                              }
-                            />
-                          </div>
-                          <div className={styles.ticketDataItem}>
-                            <Typography variant="h6">
-                              <FormattedMessage
-                                id="homepage.modal.userTicketsModal.seat"
-                                defaultMessage="Seat"
-                              />
-                              :
-                            </Typography>
-                            {`${intl.formatMessage({
-                              id: "homepage.modal.userTicketsModal.row",
-                            })} ${ticket.seat.row}, ${intl.formatMessage({
-                              id: "homepage.modal.userTicketsModal.seatNumber",
-                            })} ${ticket.seat.seatNumber}`}
-                          </div>
-                          <div className={styles.ticketDataItem}>
-                            <Typography variant="h6">
-                              <FormattedMessage
-                                id="homepage.modal.userTicketsModal.ticketCost"
-                                defaultMessage="Cost"
-                              />
-                              :
-                            </Typography>
-                            {currentSession.price}$
-                          </div>
-                        </div>
-                      }
-                      secondary={
-                        <FormattedDate
-                          value={new Date(currentSession.dateTime)}
-                          year="numeric"
-                          month="long"
-                          day="2-digit"
-                          hour12={true}
-                        />
-                      }
-                    ></ListItemText>
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        edge="end"
-                        aria-label="delete"
-                        onClick={() => props.deleteTicket(ticket.id)}
-                      >
+                  <>
+                    <ListItem>
+                      <ListItemAvatar>
                         <FontAwesomeIcon
-                          icon={faTrashAlt}
-                          className={styles.deleteTicketIcon}
+                          icon={faTicketAlt}
+                          className={styles.ticketIcon}
                         />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
+                      </ListItemAvatar>
+                      <ListItemText
+                        className={styles.userTicket}
+                        primary={
+                          <div className={styles.ticketDataContainer}>
+                            <div className={styles.ticketDataItem}>
+                              <Typography variant="h6">
+                                <FormattedMessage id="homepage.modal.userTicketsModal.film" />
+                                :
+                              </Typography>
+                              <FormattedMessage
+                                id={
+                                  currentSession.film
+                                    ? currentSession.film.name
+                                    : ""
+                                }
+                              />
+                            </div>
+                            <div className={styles.ticketDataItem}>
+                              <Typography variant="h6">
+                                <FormattedMessage
+                                  id="homepage.modal.userTicketsModal.hall"
+                                  defaultMessage="Hall"
+                                />
+                                :
+                              </Typography>
+                              <FormattedMessage
+                                id={
+                                  currentSession.hall
+                                    ? currentSession.hall.name
+                                    : ""
+                                }
+                              />
+                            </div>
+                            <div className={styles.ticketDataItem}>
+                              <Typography variant="h6">
+                                <FormattedMessage
+                                  id="homepage.modal.userTicketsModal.seat"
+                                  defaultMessage="Seat"
+                                />
+                                :
+                              </Typography>
+                              {`${intl.formatMessage({
+                                id: "homepage.modal.userTicketsModal.row",
+                              })} ${ticket.seat.row}, ${intl.formatMessage({
+                                id:
+                                  "homepage.modal.userTicketsModal.seatNumber",
+                              })} ${ticket.seat.seatNumber}`}
+                            </div>
+                            <div className={styles.ticketDataItem}>
+                              <Typography variant="h6">
+                                <FormattedMessage
+                                  id="homepage.modal.userTicketsModal.ticketCost"
+                                  defaultMessage="Cost"
+                                />
+                                :
+                              </Typography>
+                              {currentSession.price}$
+                            </div>
+                          </div>
+                        }
+                        secondary={
+                          <FormattedDate
+                            value={new Date(currentSession.dateTime)}
+                            year="numeric"
+                            month="long"
+                            day="2-digit"
+                            hour12={true}
+                          />
+                        }
+                      ></ListItemText>
+                      <ListItemSecondaryAction>
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          onClick={() => props.deleteTicket(ticket.id)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faTrashAlt}
+                            className={styles.deleteTicketIcon}
+                          />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                    {props.tickets.length !== i + 1 && (
+                      <Divider component="li" />
+                    )}
+                  </>
                 );
               })
             )}

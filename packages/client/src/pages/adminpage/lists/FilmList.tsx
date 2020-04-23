@@ -165,7 +165,7 @@ export const FilmList = (props: any) => {
         </ArrayField>
         <NumberField source="duration" />
         <UrlField source="trailerLink" />
-        <ImageField source="filmImage" />
+        <ImageField source="filmImage" style={{ width: "300px" }} />
         <ArrayField source="ratings" link={false}>
           <SingleFieldList>
             <ChipField source="ratingValue" />

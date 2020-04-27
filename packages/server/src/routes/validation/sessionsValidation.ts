@@ -18,13 +18,13 @@ export const sessionValidation = async (
           .required(),
         hall: Joi.string()
           .pattern(_IDREGEXP)
-          .required()
+          .required(),
       })
     : Joi.object({
         film: Joi.string().pattern(_IDREGEXP),
         dateTime: Joi.date(),
         price: Joi.number().min(0),
-        hall: Joi.string().pattern(_IDREGEXP)
+        hall: Joi.string().pattern(_IDREGEXP),
       });
 
   const { error = null } = schema.validate(data);
@@ -42,8 +42,17 @@ export const sessionValidation = async (
 
   if (!CurrentSessionHall) return { error: "Hall not found", code: 404 };
 
+  if (
+    new Date(currentSessionFilm.releaseDate).getTime() >
+    new Date(currentSession.dateTime).getTime()
+  )
+    return {
+      error: "Film release date is greater than session date",
+      code: 400,
+    };
+
   const sessionsWithTheSameHall = await models.Session.find({
-    hallId: currentSession.hall
+    hallId: currentSession.hall,
   });
 
   const isTimeForSessionFree = async () => {
@@ -61,8 +70,8 @@ export const sessionValidation = async (
         );
       }
     );
-    return await Promise.all(promises).then(results =>
-      results.every(result => result)
+    return await Promise.all(promises).then((results) =>
+      results.every((result) => result)
     );
   };
 
@@ -71,7 +80,7 @@ export const sessionValidation = async (
   if (!result)
     return {
       error: "Hall is already booked on this time by another session",
-      code: 400
+      code: 400,
     };
 
   return { error: null, code: 200 };

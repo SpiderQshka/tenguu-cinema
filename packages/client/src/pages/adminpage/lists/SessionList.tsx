@@ -90,7 +90,7 @@ const HallName = ({ record }: any) => {
 
 export const SessionList = (props: any) => {
   return (
-    <List {...props} perPage={50}>
+    <List {...props} perPage={50} exporter={false}>
       <Datagrid>
         <TextField source="id" />
         <ReferenceField source="film" reference="films">

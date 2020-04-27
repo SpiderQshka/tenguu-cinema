@@ -43,7 +43,7 @@ const NameInput = (props: any) => {
 export const GenreList = (props: any) => {
   const locale = useLocale();
   return (
-    <List {...props} perPage={50}>
+    <List {...props} perPage={50} exporter={false}>
       <Datagrid>
         <TextField source="id" />
         <ReferenceField source="name" reference="translations" linkType={false}>

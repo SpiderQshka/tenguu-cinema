@@ -14,12 +14,11 @@ import {
   NumberField,
   required,
   minValue,
-  useQuery,
 } from "react-admin";
 
 export const TicketList = (props: any) => {
   return (
-    <List {...props} perPage={50}>
+    <List {...props} perPage={50} exporter={false}>
       <Datagrid>
         <TextField source="id" />
         <ReferenceField source="session" reference="sessions">
